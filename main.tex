@@ -1,0 +1,163 @@
+\documentclass{article}
+
+% Language setting
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% Set page size and margins
+\usepackage[includeheadfoot,a4paper,top=0.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{lastpage}
+\renewcommand\headrulewidth{1pt}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[C]{\Large Efrei\\ \Large Rapport de projet}
+\fancyhead[R]{\includegraphics[width=2cm]{assets/logo-efrei.png}}
+
+\fancyfoot[C]{Version 2.0 Page \thepage/\pageref{LastPage}}
+\setlength{\headheight}{2cm}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[C]{\Large Efrei\\ \Large Rapport de projet}
+    \fancyhead[R]{\includegraphics[width=2cm]{assets/logo-efrei.png}}
+    \fancyfoot[C]{Version 2.0 Page \thepage/\pageref{LastPage}}
+    \renewcommand\headrulewidth{1pt}
+}
+
+
+\title{Rapport de Projet Certifiant}
+\author{Tonio}
+\date{\today}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+
+    \vspace*{1.5cm}
+    \includegraphics[width=4cm]{assets/logo-efrei.png}\\[1.5cm]
+
+    {\Large EFREI Paris\\[0.5cm]}
+    {\large Master 2\\[2cm]}
+
+    {\Huge \bfseries Rapport de Projet Certifiant\\[0.8cm]}
+    {\Large Titre du projet a completer\\[2cm]}
+
+    \begin{tabular}{rl}
+        Auteur : & Tonio \\
+        Promotion : & 2025--2026 \\
+        Encadrant : & A completer \\
+        Entreprise : & A completer \\
+    \end{tabular}
+
+    \vfill
+
+    {\large \today}
+\end{titlepage}
+
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+Presentez ici le contexte general du projet, le besoin metier et l'objectif du
+document.
+
+\section{Contexte et objectifs}
+
+Expliquez l'organisation, le probleme a resoudre, les contraintes et les objectifs
+attendus.
+
+\subsection{Contexte}
+
+Decrivez l'environnement du projet, les parties prenantes et le point de depart.
+
+\subsection{Objectifs}
+
+Listez les objectifs fonctionnels et techniques du projet.
+
+\section{Presentation de la solution}
+
+Exposez la solution retenue, son perimetre et les choix principaux.
+
+\subsection{Architecture}
+
+Detaillez les composants importants, leur role et leurs interactions.
+
+\subsection{Technologies utilisees}
+
+Presentez les outils, langages, frameworks et services utilises.
+
+\section{Realisation}
+
+Decrivez ce qui a ete implemente, la methode de travail adoptee et les etapes
+importantes du projet.
+
+\subsection{Fonctionnalites realisees}
+
+Presentez les fonctionnalites developpees et leur valeur.
+
+\subsection{Difficultes rencontrees}
+
+Expliquez les problemes rencontres et la maniere dont ils ont ete resolus.
+
+\section{Resultats et bilan}
+
+Faites le bilan du projet, les resultats obtenus, les limites actuelles et les
+ameliorations possibles.
+
+\section{Conclusion}
+
+Resumez les apports du projet et ouvrez sur les perspectives futures.
+
+\appendix
+\section{Annexes}
+
+Ajoutez ici les elements complementaires utiles : captures, extraits de code,
+schemas, tableaux ou references.
+
+\end{document}
