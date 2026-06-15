@@ -19,6 +19,8 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -79,14 +81,14 @@
 
     {\Large EFREI Paris\\[0.3cm]}
     {\large Master 2 Data Engineering \& IA\\[0.5cm]}
-    {\large RNCP36739 -- Expert en Ingenierie de Donnees\\[2cm]}
+    {\large RNCP36739 -- Expert en Ingénierie de données\\[2cm]}
 
-    {\Huge \bfseries Rapport ecrit de certification\\[0.8cm]}
+    {\Huge \bfseries Rapport écrit de certification\\[0.8cm]}
     {\Large Epreuve certifiante -- Evaluation des competences\\[0.5cm]}
     {\large Titre du rapport a completer\\[2cm]}
 
     \begin{tabular}{rl}
-        Auteur : & Tonio \\
+        Auteur : & Tremont-Raimi Julien \& Vandeplanque Antoine \\
         Promotion : & 2025--2026 \\
         Encadrant : & A completer \\
         Entreprise : & A completer \\
@@ -107,8 +109,7 @@
 \section*{Remerciements}
 \addcontentsline{toc}{section}{Remerciements}
 
-Remerciez ici les personnes, equipes et encadrants qui ont accompagne votre
-formation et la realisation des projets presentes dans ce rapport.
+Remerciements a completer.
 
 \section{Introduction et note explicative : objectifs}
 
@@ -126,7 +127,7 @@ competences mobilisees dans chaque bloc.
 
 \begin{itemize}
     \item Presenter un fil conducteur coherent entre les projets et les competences.
-    \item Argumenter les choix techniques, methodologiques et organisationnels.
+    \item Argumenter les choix techniques, méthodologiques et organisationnels.
     \item Montrer la progression, la prise de recul et la capacite d'auto-evaluation.
     \item S'appuyer sur des preuves concretes : missions, projets, TP, resultats,
     captures, extraits de code, schemas ou tableaux de bord.
@@ -154,65 +155,286 @@ dans lequel vous avez evolue.
 Precisez vos responsabilites, les equipes avec lesquelles vous avez travaille et
 la nature des projets menes.
 
-\section{Bloc 1 -- Concevoir et developper une architecture de stockage de donnees}
+\newpage
+\section{Bloc 1 -- Concevoir et developper une architecture de stockage de données}
 
-Cette partie doit montrer comment vous avez concu et implemente des solutions
-de stockage de donnees adaptees a des cas d'usage varies.
-
-\subsection{Competences visees}
+\subsection{Compétences visées}
 
 \begin{itemize}
-    \item Concevoir et developper une base de donnees relationnelle en reponse aux
-    besoins d'un client en vue de la mise a disposition de ses donnees structurees,
-    en utilisant les technologies et les langages de requetes adaptes aux
-    developpements envisages.
-    \item Concevoir et developper une base de donnees non-relationnelle en vue de la
-    mise a disposition de donnees semi-structurees et non structurees pour un
+    \item Concevoir et développer une base de données relationnelle en réponse aux
+    besoins d'un client en vue de la mise à disposition de ses données structurées,
+    en utilisant les technologies et les langages de requêtes adaptés aux
+    développements envisagés.
+    \item Concevoir et développer une base de données non-relationnelle en vue de la
+    mise à disposition de données semi-structurées et non structurées pour un
     traitement analytique ou d'intelligence artificielle, en utilisant les
-    technologies et les langages de requetes adaptes.
+    technologies et les langages de requêtes adaptés.
     \item Concevoir et construire un datalake en choisissant les architectures, les
-    indicateurs de performance et les solutions de stockage appropriees afin
-    d'integrer des donnees provenant de systemes d'information varies.
-    \item Creer une API en utilisant les technologies permettant de rendre les donnees
-    accessibles et d'augmenter l'efficacite et la praticite des applications et des
+    indicateurs de performance et les solutions de stockage appropriées afin
+    d'intégrer des données provenant de systèmes d'information variés.
+    \item Créer une API en utilisant les technologies permettant de rendre les données
+    accessibles et d'augmenter l'efficacité et la praticité des applications et des
     services.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Projets / TP associés}
 
 \begin{itemize}
-    \item Relational Databases
-    \item NoSQL Databases
     \item Challenge Datalake 1 Data Integration
-    \item API et Web Services
+    \item Project Cloud
 \end{itemize}
 
 \subsection{Présentation des projets mobilisés}
+\subsubsection{Challenge Datalake}
 
 Pour ce bloc, nous nous appuyons principalement sur le projet \textit{Challenge Datalake}
-réalisé en équipe, dont l'objectif était de construire une plateforme capable de
-cartographier l'offre et la demande de compétences techniques en Europe. L'idée
-était d'agréger des données issues de plusieurs sources hétérogènes afin de les
-centraliser, les normaliser et les rendre exploitables au travers d'une API.
+réalisé en équipe de quatre dans le cadre du cours de Data Engineering et Data
+Integration. L'objectif était de construire une plateforme capable de produire une
+vision consolidée du marché technologique européen en croisant plusieurs signaux :
+popularité des technologies, demande des recruteurs, salaires, expérience
+attendue et évolution temporelle. Le projet ne consistait donc pas seulement à
+stocker des données, mais à mettre en place une chaîne complète capable de capter
+des informations hétérogènes, de les fiabiliser puis de les restituer sous une
+forme exploitable.
 
-Le scénario métier décrit dans le rapport de rendu s'inscrit dans une logique de
-veille sur le marché de l'emploi tech : salaires, stacks techniques, niveau
-d'expérience, popularité des technologies et évolution des besoins. Pour répondre
-à ce besoin, nous avons construit une architecture de type \textit{Medallion}
-(Bronze, Silver, Gold), combinant ingestion multi-source, stockage intermédiaire
-en Parquet, transformation avec PySpark et exposition des données dans une API
-REST Django.
+\paragraph{Problématique métier.}
+L'idée directrice était de répondre à des questions simples en apparence, mais
+complexes d'un point de vue data : quelles technologies montent ou reculent,
+quelles compétences sont les plus demandées, dans quels pays les opportunités sont
+les plus nombreuses, et quelles tendances peut-on observer entre la popularité
+d'une technologie et sa présence dans les offres d'emploi. Pour cela, il fallait
+rapprocher des sources qui n'avaient ni la même granularité, ni le même format,
+ni le même rythme de mise à jour.
 
-Le projet s'appuie sur six sources de données principales : Google Trends,
-StackOverflow Developer Survey, Adzuna Jobs, EuroTech Jobs, GitHub Repositories
-et Jobicy. Cette diversité de sources nous a obligés à traiter à la fois des
-données structurées, semi-structurées et issues de scrapping, ce qui rend ce
-projet particulièrement représentatif des compétences attendues dans le bloc 1.
+\paragraph{Sources de données mobilisées.}
+Le projet reposait sur six sources principales, chacune apportant une lecture
+complémentaire du marché.
+\begin{itemize}
+    \item \textit{Google Trends} fournissait des séries temporelles sur l'intérêt de recherche associé à différentes technologies.
+    \item \textit{GitHub Repositories} permettait de mesurer la vitalité de l'écosystème open source à travers les dépôts, les langages, l'activité et la popularité des projets.
+    \item \textit{StackOverflow Developer Survey} apportait des données d'enquête structurées sur les technologies utilisées, les profils développeurs, les salaires et les pratiques déclarées.
+    \item \textit{Adzuna Jobs API} donnait accès à des offres d'emploi avec informations de salaire, de localisation et d'intitulé de poste.
+    \item \textit{EuroTechJobs} complétait la couverture du marché européen via des offres récupérées par scraping.
+    \item \textit{Jobicy} ajoutait une dimension \textit{remote-first}, utile pour capter les opportunités de travail à distance.
+\end{itemize}
+Cette diversité était un vrai enjeu technique : certaines sources étaient orientées
+séries temporelles, d'autres jeux de données tabulaires annuels, d'autres encore
+des flux d'annonces en JSON ou des pages web à parser. Nous avons donc travaillé à
+la fois avec des API, des fichiers CSV, des structures semi-structurées et des
+données issues de scraping.
+
+\paragraph{Architecture générale du projet.}
+Pour absorber cette hétérogénéité, nous avons conçu une architecture de type
+\textit{Medallion} organisée en trois couches, implémentées dans des dossiers
+techniques distincts du dépôt : \texttt{src/bronze}, \texttt{src/silver} et
+\texttt{src/gold}. À cela s'ajoutait \texttt{src/api} pour l'exposition des
+données et \texttt{src/utils} pour les composants transverses comme la gestion des
+connexions SQL, des chemins, des schémas et de Spark. Le dépôt contient également
+un script principal d'orchestration permettant d'exécuter le pipeline couche par
+couche, ce qui rendait les traitements plus lisibles et plus faciles à rejouer.
+
+\paragraph{Couche Bronze : ingestion et conservation du brut.}
+La couche \textit{Bronze} avait pour rôle de collecter la donnée source sans la
+transformer fortement. Chaque source disposait de son propre script d'import,
+comme \texttt{import\_github\_repos.py}, \texttt{import\_stackoverflow\_survey.py},
+\texttt{import\_eurotechjobs.py} ou \texttt{import\_jobicy.py}. L'idée était de
+respecter au maximum la structure d'origine afin de conserver une trace fidèle des
+données récupérées. Cette étape jouait le rôle de zone d'atterrissage du
+datalake : elle facilitait le debug, la reprise sur incident et le reprocessing,
+car nous pouvions repartir de la donnée brute sans relancer systématiquement les
+collectes externes.
+
+Dans la pratique, la couche Bronze n'était pas un simple dossier de dépôt. Elle
+portait déjà des choix techniques importants : gestion des appels API,
+temporisation pour limiter les erreurs de quota, sérialisation des données,
+horodatage des extractions et sauvegarde dans des chemins standardisés. Sur le
+flux GitHub par exemple, le script d'ingestion interroge l'API par langage ou par
+thématique, calcule un premier score d'activité, puis écrit le résultat dans la
+couche Bronze au format Parquet avec un nom de fichier daté. Cela donne une base
+historisée, exploitable pour des traitements ultérieurs ou pour comparer plusieurs
+runs d'ingestion.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Bronze : sauvegarde d'une collecte GitHub dans la zone brute.}]
+df = pd.DataFrame(repos_data)
+df['created_at'] = pd.to_datetime(df['created_at'])
+df['year'] = df['created_at'].dt.year
+df['month'] = df['created_at'].dt.month
+
+output_path = get_bronze_path('github_repos')
+output_path.mkdir(parents=True, exist_ok=True)
+
+filename = get_timestamped_filename("github_repos")
+full_path = output_path / filename
+
+df.to_parquet(full_path, engine='pyarrow', compression='snappy', index=False)
+\end{lstlisting}
+
+Cet extrait est représentatif de la philosophie Bronze : conserver un export brut
+mais structuré, dans un format de fichier performant et relançable, sans encore
+introduire toute la logique métier de normalisation.
+
+\paragraph{Couche Silver : normalisation et fiabilisation.}
+La couche \textit{Silver} correspondait au moment où la donnée devenait réellement
+travaillable. Les scripts de transformation de cette couche, dédiés chacun à une
+source ou à une famille de données, appliquaient des règles de nettoyage et
+d'harmonisation. Cela incluait le renommage des colonnes, le typage, la
+standardisation des pays et des dates, la préparation des champs de salaire, la
+gestion des valeurs manquantes, la suppression des doublons et la mise en
+cohérence des champs décrivant les technologies. Cette phase avait une importance
+forte, car elle conditionnait la possibilité de comparer ensuite des données qui,
+au départ, n'avaient pas le même vocabulaire ni le même niveau de détail.
+
+La couche Silver jouait aussi un rôle de contrôle qualité. Pour certaines sources,
+les scripts commençaient par relire l'ensemble des fichiers Parquet de la Bronze,
+les concaténer, puis appliquer des traitements de déduplication et de
+normalisation. Sur le flux GitHub, le traitement supprime les doublons sur
+l'identifiant du dépôt, nettoie les noms, recalcule les métriques d'activité,
+attribue un niveau d'activité et produit un score de qualité de donnée. Le résultat
+est ensuite chargé dans MySQL avec une logique d'\textit{upsert}, afin de mettre à
+jour les enregistrements déjà présents sans recréer inutilement toute la table.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Silver : nettoyage, recalcul et préparation des données GitHub.}]
+df = df.drop_duplicates(subset=['id'], keep='last').copy()
+df.loc[:, 'name_cleaned'] = df['name'].str.strip().str.lower()
+df.loc[:, 'technology_normalized'] = df['technology'].str.strip().str.lower()
+
+for field in ['stars_count', 'forks_count', 'watchers_count']:
+    df.loc[:, field] = pd.to_numeric(df[field], errors='coerce').fillna(0)
+
+df = self._recalculate_metrics(df)
+df.loc[:, 'processed_at'] = pd.Timestamp.now()
+df.loc[:, 'data_quality_score'] = self._calculate_quality_score(df)
+\end{lstlisting}
+
+Cette étape est centrale dans un projet de datalake, car c'est elle qui fait
+passer la donnée d'un état \og collecté \fg{} à un état \og exploitable \fg{}.
+Sans cette standardisation intermédiaire, les jointures logiques entre sources et
+les comparaisons analytiques resteraient trop fragiles.
+
+\paragraph{Couche Gold : consolidation et vision analytique.}
+La couche \textit{Gold} était portée par un travail d'unification, notamment via
+le module \texttt{table\_unification.py}. Son objectif n'était plus seulement de
+nettoyer les données, mais de produire des tables de consommation et des vues
+analytiques. C'est à ce niveau que les différentes sources étaient rapprochées
+autour de dimensions communes comme la technologie, le pays, la période ou le
+type d'indicateur. Cette couche constituait la base des restitutions finales, car
+elle proposait une information déjà consolidée, plus simple à interroger pour des
+analyses transverses ou pour une exposition via API.
+
+Techniquement, cette couche se rapprochait d'un entrepôt de données. Le script de
+unification créait d'abord des tables de dimensions pour le calendrier, les pays,
+les technologies, les entreprises et les sources de données, puis des tables de
+faits dédiées à l'activité technologique et aux offres d'emploi détaillées. Cette
+organisation en étoile avait un intérêt clair : fournir un modèle plus lisible
+pour l'analyse croisée, où les sources hétérogènes deviennent des métriques
+comparables autour de dimensions communes.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Gold : création d'une table de faits orientée analyse.}]
+'analysis_tech_activity': """
+    CREATE TABLE IF NOT EXISTS analysis_tech_activity (
+        id_activity BIGINT AUTO_INCREMENT PRIMARY KEY,
+        date_key DATE NOT NULL,
+        id_country INT,
+        id_technology INT,
+        id_source SMALLINT,
+        job_count INT DEFAULT 0,
+        avg_salary_usd DECIMAL(10,2),
+        github_stars INT DEFAULT 0,
+        search_volume INT DEFAULT 0
+    ) ENGINE=InnoDB
+"""
+\end{lstlisting}
+
+Ce type de structure montre bien la différence entre Silver et Gold. En Silver,
+on fiabilise les tables source par source. En Gold, on change de niveau de
+raisonnement : on construit des objets orientés décision, pensés pour l'analyse
+et non plus seulement pour le nettoyage ou la conservation.
+
+\paragraph{Choix de stockage.}
+L'architecture s'appuyait sur une stratégie de stockage mixte. Les données
+collectées et les jeux intermédiaires étaient conservés sous forme de fichiers
+dans les répertoires du datalake, en particulier dans une logique de stockage brut
+et de retraitement, avec des formats comme JSON, CSV ou Parquet selon les sources
+et les traitements. En parallèle, les couches structurées \textit{Silver} et
+\textit{Gold} étaient chargées dans MySQL, avec des bases dédiées. Ce découplage
+est important : le stockage fichier servait la traçabilité, l'archivage et la
+souplesse des pipelines, tandis que MySQL apportait une structure relationnelle
+fiable pour la consultation, les filtres, les recherches et l'exposition des
+données. Nous avons donc combiné deux logiques complémentaires plutôt que de
+choisir un seul mode de stockage.
+
+La structure technique globale du projet peut être résumée par le schéma suivant.
+
+\begin{center}
+    \begin{tikzpicture}[
+        font=\small,
+        >=Latex,
+        box/.style={draw, rounded corners, align=center, minimum width=3.8cm, minimum height=1.2cm},
+        smallbox/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.9cm},
+        flow/.style={->, thick}
+    ]
+        \node[box, fill=green!15] (sources) {\textbf{Sources de données}\\Google Trends, GitHub,\\StackOverflow Survey, Adzuna,\\EuroTechJobs, Jobicy};
+        \node[box, fill=orange!15, below=1.2cm of sources] (bronze) {\textbf{Bronze}\\Collecte brute\\API, fichiers, scraping\\Stockage fichiers / JSON / CSV / Parquet};
+        \node[box, fill=blue!10, below=1.2cm of bronze] (silver) {\textbf{Silver}\\Nettoyage et normalisation\\PySpark / Pandas\\Stockage intermédiaire + MySQL silver};
+        \node[box, fill=yellow!20, below=1.2cm of silver] (gold) {\textbf{Gold}\\Tables consolidées\\indicateurs et vues analytiques\\MySQL gold};
+        \node[box, fill=purple!12, below=1.2cm of gold] (api) {\textbf{API REST}\\Django REST Framework\\filtres, pagination, documentation};
+
+        \draw[flow] (sources) -- (bronze);
+        \draw[flow] (bronze) -- (silver);
+        \draw[flow] (silver) -- (gold);
+        \draw[flow] (gold) -- (api);
+    \end{tikzpicture}
+
+    {\small \textit{Figure 1 : Synthèse de l'architecture technique du projet Challenge Datalake.}}
+\end{center}
+
+\paragraph{Traitements et outils techniques.}
+Sur la partie traitement, nous avons mobilisé principalement Python, PySpark et
+Pandas. Python servait de langage commun pour l'ingestion, l'orchestration et les
+scripts métiers. PySpark intervenait pour traiter des jeux de données plus lourds
+ou pour structurer les transformations dans une logique proche d'un pipeline big
+data. Pandas était utilisé sur certains flux lorsque la volumétrie restait
+raisonnable et qu'un traitement tabulaire classique suffisait. Cette combinaison
+nous a permis d'adapter l'outil au type de source et au volume traité, tout en
+gardant une cohérence d'ensemble dans le projet.
+
+\paragraph{Organisation de l'API.}
+Le dernier volet du projet concernait l'exposition de la donnée. Nous avons
+développé une API REST avec Django et Django REST Framework afin de rendre les
+résultats accessibles à d'autres applications ou à des utilisateurs métiers.
+L'API était organisée en modules métiers par source, par exemple
+\texttt{github\_jobs}, \texttt{stackoverflow\_survey}, \texttt{eurotechjobs},
+\texttt{jobicy\_jobs}, \texttt{trends} et \texttt{adzuna\_jobs}, ainsi qu'un
+module \texttt{analysis} pour les restitutions transverses. Cette structuration
+reprenait la logique du pipeline : chaque source avait sa propre porte d'entrée,
+mais l'API proposait aussi une lecture consolidée du marché.
+
+\paragraph{Fonctionnalités d'exposition.}
+Au-delà de la simple mise à disposition des tables, l'API proposait des fonctions
+de filtre, de tri, de pagination et de documentation automatique via Swagger /
+OpenAPI. Le projet comportait également des éléments d'authentification et de
+gestion des permissions, ce qui montre que l'enjeu n'était pas seulement de sortir
+des données, mais de construire une couche de service exploitable, documentée et
+réutilisable. Dans une logique de démonstration, la collection Postman fournie
+dans le dépôt permettait de tester rapidement les endpoints et de valider les cas
+d'usage principaux.
+
+\paragraph{Valeur du projet dans le rapport.}
+Ce projet est particulièrement intéressant pour ce rapport, car il constitue un
+cas concret d'architecture de données de bout en bout. Il relie des problématiques
+de collecte, de structuration, de stockage, de transformation et de diffusion dans
+une même chaîne technique. En d'autres termes, il ne s'agit pas d'un simple
+exercice d'import de données, mais bien d'une plateforme cohérente où chaque
+couche répond à un rôle précis, depuis la source brute jusqu'au service exposé aux
+consommateurs.
 
 Pour la sous-compétence NoSQL, nous mobilisons en complément un autre projet,
-\textit{project\_cloud}, dans lequel nous avons utilisé Amazon DynamoDB pour concevoir
-une base non relationnelle orientée cas d'usage.
+\textit{project\_cloud}, mais uniquement sur son volet NoSQL. Dans ce cadre, nous
+avons utilisé Amazon DynamoDB pour concevoir une base non relationnelle orientée
+cas d'usage, destinée à stocker rapidement des données semi-structurées issues de
+plusieurs flux urbains sans imposer un schéma relationnel rigide.
 
+\newpage
 \subsection{Justification des compétences du bloc 1}
 
 \subsubsection{Concevoir et développer une base de données relationnelle}
@@ -245,26 +467,52 @@ API.
 \subsubsection{Concevoir et développer une base de données non relationnelle}
 
 Cette sous-compétence est justifiée par un autre projet que nous avons réalisé,
-\textit{project\_cloud}. Dans ce dépôt, nous avons conçu une base de données NoSQL avec
-Amazon DynamoDB afin de stocker des flux de données hétérogènes liés à plusieurs
-domaines métier, notamment les parkings, le trafic et les départs.
+\textit{project\_cloud}. Dans ce dépôt, la partie qui nous intéresse pour le bloc 1
+est la conception de la couche NoSQL avec Amazon DynamoDB. L'objectif n'était pas
+de reproduire un modèle relationnel, mais de stocker efficacement des données
+hétérogènes liées à plusieurs domaines métier de la ville de Paris, notamment les
+parkings, le trafic et les départs de transport.
 
-Le projet montre une approche typiquement non relationnelle : les données sont
-stockées sous forme d'items JSON dénormalisés, enrichis avec des métadonnées
-communes comme le type de donnée, l'horodatage d'ingestion et les coordonnées.
-La modélisation n'est pas pensée autour de jointures relationnelles, mais autour
-des usages applicatifs. Des tables distinctes sont prévues selon les flux métier,
-et un index secondaire global permet de retrouver efficacement les derniers lots
-ingérés.
+Le modèle de données adopté est typiquement orienté document. Chaque enregistrement
+est stocké sous forme d'item JSON dénormalisé, contenant directement les
+informations utiles au cas d'usage. Par exemple, les données de parkings incluent
+dans un même item l'identifiant, le nom, l'adresse, les capacités, les tarifs,
+l'état courant, les coordonnées et l'horodatage d'ingestion ; les données de
+trafic embarquent les propriétés métiers et les coordonnées du segment ; les
+données de départs regroupent l'identifiant du trajet, la gare de départ, la
+destination, le réseau, les horaires et la géolocalisation. Cette organisation est
+adaptée à DynamoDB, car elle évite les jointures et privilégie un accès direct à
+des objets déjà prêts à être consommés.
+
+La modélisation repose sur des tables distinctes par grand flux métier, par exemple
+\texttt{parkings}, \texttt{traffic} et \texttt{departures}. Ce découpage répond à une
+logique d'usage : chaque table correspond à un type de données interrogé par des
+traitements et des endpoints spécifiques. Les items partagent néanmoins certaines
+métadonnées communes, notamment un champ \texttt{type}, un champ
+\texttt{ingestion\_timestamp} et, selon les cas, des informations de localisation.
+Ce choix permet d'unifier les traitements techniques tout en conservant la
+souplesse propre à chaque domaine. Le code montre également l'usage d'écritures en
+lot avec \texttt{batch\_writer()}, ce qui est cohérent avec une logique d'ingestion
+fréquente et de chargement par lots.
+
+Un point important de cette conception est la prise en compte des patrons d'accès.
+Nous n'avons pas modélisé la base autour de relations théoriques entre entités,
+mais autour des requêtes réellement attendues. Les scripts et l'API exploitent un
+index secondaire global de type \textit{GSI} sur les attributs \texttt{type} et
+\texttt{ingestion\_timestamp} afin de retrouver rapidement le dernier lot ingéré
+ou les enregistrements correspondant à une fenêtre d'ingestion précise. Cette
+stratégie est représentative d'une bonne pratique NoSQL : on part des besoins de
+lecture, puis on construit la structure de stockage et les index en conséquence.
 
 Cette conception répond à la compétence visée, car elle montre que nous avons su
 adapter le modèle de stockage à des données semi-structurées et à des besoins
-d'accès rapides, dans une logique orientée exploitation. Le code du projet met en
-évidence les fonctions d'écriture en lot, de lecture et d'agrégation dans
-DynamoDB, ainsi que l'exposition de ces données dans une API serverless. Ce
-projet illustre donc notre capacité à choisir une technologie non relationnelle
-adaptée lorsque la flexibilité du schéma, la dénormalisation et la performance de
-lecture sont prioritaires.
+d'accès rapides, dans une logique orientée exploitation. Le volet NoSQL de
+\textit{project\_cloud} montre concrètement notre capacité à choisir une
+technologie non relationnelle lorsque la flexibilité du schéma, la dénormalisation,
+la montée en charge et la rapidité de lecture priment sur les contraintes d'un
+modèle SQL classique. C'est précisément ce qui était attendu ici : non pas
+simplement utiliser DynamoDB, mais concevoir une base cohérente avec la nature des
+données et les usages applicatifs visés.
 
 \subsubsection{Concevoir et construire un datalake}
 
@@ -335,38 +583,186 @@ l'ensemble, ces réalisations montrent notre capacité à choisir les bons modè
 stockage selon les usages, à organiser les flux de données de bout en bout et à
 mettre les données à disposition de manière exploitable.
 
-\section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}
+\newpage
+\section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}
 
 Cette partie doit montrer votre capacite a concevoir, industrialiser et optimiser
-des pipelines de traitement de donnees a grande echelle.
+des pipelines de traitement de données a grande echelle.
 
 \subsection{Competences visees}
 
 \begin{itemize}
     \item Concevoir, en s'appuyant sur une veille technologique, une architecture
-    distribuee repondant au besoin du client pour traiter les donnees massives en
+    distribuee repondant au besoin du client pour traiter les données massives en
     entreprise en utilisant les technologies de traitement adaptees.
     \item Implementer un systeme distribue en utilisant des technologies de
-    streaming identifiees a partir d'une veille pour traiter des donnees sur une
+    streaming identifiees a partir d'une veille pour traiter des données sur une
     periode precise ou en temps quasi reel.
-    \item Transformer les donnees provenant de differentes sources en prenant en
+    \item Transformer les données provenant de differentes sources en prenant en
     compte leur variete pour faire de l'analytique a l'echelle.
     \item Optimiser la performance des pipelines en utilisant les techniques
-    d'integration et de mise en scene adequates pour le traitement des donnees
+    d'integration et de mise en scene adequates pour le traitement des données
     massives.
     \item Automatiser la creation, les tests, l'integration et le deploiement des
-    pipelines de donnees en utilisant les technologies de containerisation et
+    pipelines de données en utilisant les technologies de containerisation et
     d'ordonnancement pertinentes.
 \end{itemize}
 
 \subsection{Projets / TP associes}
 
 \begin{itemize}
-    \item Data Integration
-    \item Big Data Frameworks
-    \item Functional Data Programming
+    \item Projet Spark (Big Data Frameworks)
     \item DevOps \& MLOps
 \end{itemize}
+
+\subsection{Présentation des projets mobilisés}
+
+\subsubsection{Projet Spark}
+
+Pour le bloc 2, nous retenons en priorité le projet \textit{projet\_spark}, réalisé
+dans le cadre du module Big Data Frameworks. Ce projet consistait à mettre en
+place une chaîne de traitement distribuée avec Apache Spark afin de croiser deux
+types de données hétérogènes : des données de vols aériens et des données météo.
+L'objectif général était de produire une base analytique permettant d'étudier
+l'effet des conditions météorologiques sur les retards de vols, puis de générer
+des indicateurs directement exploitables.
+
+\paragraph{Contexte et objectif fonctionnel.}
+Le cas d'usage retenu reposait sur un scénario d'analyse des performances du
+transport aérien. Nous voulions répondre à des questions concrètes : quelles
+compagnies cumulent les retards les plus importants, dans quelles conditions météo
+les perturbations sont les plus marquées, et comment relier les événements météo à
+des vols programmés à une heure et sur une zone donnée. Le projet s'inscrivait
+donc pleinement dans une logique de traitement de données massives, car il fallait
+intégrer des volumes importants de données de vols, les synchroniser avec des
+séries météo horaires et produire des jeux de données prêts pour l'analyse.
+
+\paragraph{Sources de données et variété des flux.}
+Deux grandes familles de sources étaient mobilisées. La première concernait les
+données de vols, lues depuis des fichiers CSV traités en mode streaming. La
+seconde concernait les données météo historiques récupérées via l'API Open-Meteo
+sur plusieurs points géographiques : aéroports majeurs comme ATL, DEN, LAX et ORD,
+mais aussi points intermédiaires sur certaines routes aériennes. Cette conception
+est intéressante, car elle combine un flux tabulaire volumineux et un flux externe
+API, avec une granularité horaire et géographique différente. Le projet devait donc
+gérer à la fois la volumétrie, la variété des schémas et l'alignement temporel.
+
+\paragraph{Architecture distribuée avec Spark.}
+L'ensemble du projet repose sur Apache Spark en mode distribué, avec un point
+d'entrée explicite vers un cluster standalone via \texttt{spark://localhost:7077}.
+Les scripts d'ingestion, de nettoyage, de streaming, d'agrégation et de machine
+learning utilisent tous une \texttt{SparkSession} configurée avec des ressources
+mémoire et CPU dédiées. Le dépôt est structuré selon une logique \textit{Bronze /
+Silver / Gold}, à laquelle s'ajoutent un entrepôt local pour la couche Silver, un
+metastore Hive et une sortie MariaDB pour la restitution Gold. Cette organisation
+matérialise un pipeline distribué complet, où chaque étape a un rôle technique
+précis.
+
+Le schéma ci-dessous résume l'architecture technique du projet, depuis les deux
+sources d'entrée jusqu'aux sorties analytiques et au volet machine learning.
+
+\begin{center}
+    \includegraphics[width=0.98\textwidth]{assets/architecture.drawio.png}
+
+    {\small \textit{Figure 2 : Vue d'ensemble technique du projet Spark.}}
+\end{center}
+
+\paragraph{Couche Bronze : ingestion batch et streaming.}
+La couche \textit{Bronze} centralise la donnée brute. Elle est alimentée par deux
+logiques complémentaires. D'une part, \texttt{ingest.py} collecte les données météo
+historiques via l'API Open-Meteo, construit un DataFrame Spark et l'écrit en
+Parquet partitionné par année, mois et jour. D'autre part, \texttt{streaming.py}
+met en place une ingestion de vols en quasi temps réel à partir de fichiers CSV,
+avec \texttt{readStream}, sortie Parquet et checkpointing. Cette dualité batch /
+streaming est un point fort du projet : elle montre que la couche d'entrée n'est
+pas figée et peut absorber des modes d'alimentation différents.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Bronze : ingestion streaming des vols vers des fichiers Parquet partitionnés.}]
+flights = spark.readStream.format("csv").schema(schema) \
+    .option("header", True).csv("source")
+
+query = flights_year_month_day.writeStream \
+    .format("parquet") \
+    .partitionBy("Year", "Month", "Day") \
+    .outputMode("append") \
+    .option("path", abspath("bronze/flights")) \
+    .option("checkpointLocation", abspath("bronze/checkpoints/flights")) \
+    .start()
+\end{lstlisting}
+
+Cette implémentation est représentative d'un pipeline Big Data, car elle ajoute un
+mécanisme essentiel de reprise et de fiabilité : le \textit{checkpointing}, qui
+permet de conserver l'état du flux et de limiter les pertes en cas de reprise.
+
+\paragraph{Couche Silver : nettoyage, normalisation et mise en coherence.}
+La couche \textit{Silver} est portée principalement par \texttt{cleaning.py}. Son
+rôle est de transformer les données brutes en jeux de données cohérents et
+comparables. Pour les vols, cela passe par une réduction du périmètre aux aéroports
+pertinents, un retraitement des heures de départ et d'arrivée, ainsi qu'une
+conversion des fuseaux horaires vers un référentiel commun en UTC. Pour la météo,
+le script identifie et supprime les colonnes entièrement nulles, convertit les
+horodatages et prépare les données pour les jointures temporelles. Les résultats
+sont ensuite enregistrés sous forme de tables Spark dans le warehouse Silver.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Silver : normalisation des horaires de vol et conversion en UTC.}]
+df = df.withColumn("OriginTimezone", mapping_expr[col("Origin")])
+df = df.withColumn("DestTimezone", mapping_expr[col("Dest")])
+
+df = df.withColumn(column, to_timestamp(col(column), "yyyy-MM-dd HH:mm"))
+if column in ["CRSDepTime", "DepTime"]:
+    df = df.withColumn(column, to_utc_timestamp(col(column), col("OriginTimezone")))
+elif column in ["CRSArrTime", "ArrTime"]:
+    df = df.withColumn(column, to_utc_timestamp(col(column), col("DestTimezone")))
+\end{lstlisting}
+
+Cette étape est déterminante, car sans normalisation temporelle et sans réduction
+du bruit dans les données météo, les jointures entre vols et conditions météo
+resteraient approximatives ou erronées. La couche Silver est donc le niveau où la
+donnée devient techniquement exploitable à l'échelle.
+
+\paragraph{Couche Gold : jointures analytiques et restitution.}
+La couche \textit{Gold} s'appuie sur un script Spark SQL dédié. Elle repose sur des
+requêtes Spark SQL qui croisent les tables Silver de vols et de météo afin de
+produire des indicateurs d'analyse. Parmi les sorties générées, on trouve par
+exemple le retard moyen par compagnie, les retards les plus importants en cas de
+neige, les retards maximaux par type de météo ou encore le ratio de vols retardés
+par compagnie. Ces résultats sont ensuite exportés vers MariaDB via JDBC, ce qui
+crée une couche de restitution plus facilement consommable par d'autres outils.
+
+\begin{lstlisting}[language=Python,caption={Extrait de la couche Gold : jointure analytique entre vols et conditions météo.}]
+query = """
+    SELECT f.Airline, f.Origin, f.Dest, f.ArrDelayMinutes,
+           w.snowfall, w.wind_speed_10m, w.precipitation, w.weather_code
+    FROM flights as f
+    LEFT JOIN weather as w
+      ON f.Origin = w.location
+     AND f.CRSDepTime_hourly = w.datetimeUTC
+    WHERE w.weather_code IN (71,73,75)
+    ORDER BY f.ArrDelayMinutes DESC
+"""
+df = spark.sql(query)
+\end{lstlisting}
+
+Cette couche Gold est particulièrement intéressante pour la suite du rapport, car
+elle matérialise la finalité métier du pipeline : on ne se contente plus de traiter
+des données, on produit des objets analytiques directement interprétables.
+
+\paragraph{Dimension machine learning.}
+Le projet inclut également un script \texttt{ML.py}, qui prolonge la chaîne de
+traitement par une étape de modélisation avec \texttt{pyspark.ml}. Les données de
+vols et de météo y sont fusionnées, transformées en variables numériques,
+indexées, standardisées puis injectées dans une régression logistique avec
+validation croisée. Cette partie n'est pas le coeur de la démonstration du bloc 2,
+mais elle montre que la chaîne Spark construite est suffisamment robuste pour
+servir ensuite à des traitements avancés sur données préparées.
+
+\paragraph{Intérêt du projet pour le bloc 2.}
+Le \textit{projet\_spark} est un bon support de rédaction pour ce bloc, car il
+montre un pipeline distribué complet : ingestion, streaming, nettoyage,
+normalisation, jointure multi-source, agrégation et restitution. Il illustre bien
+la logique d'industrialisation d'un traitement Big Data, avec séparation des
+couches, choix de formats adaptés comme Parquet, usage du streaming Spark,
+partitionnement temporel et exploitation finale dans une base relationnelle.
 
 \subsection{Analyse attendue}
 
@@ -374,7 +770,8 @@ Mettez en avant la conception des pipelines, le traitement distribue, les choix
 de performance, l'automatisation et la maniere dont vous avez deploie ou
 industrialise les traitements.
 
-\section{Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}
+\newpage
+\section{Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}
 
 Cette partie doit demontrer votre maitrise des services cloud appliques au
 stockage, au traitement, a la securite et a l'optimisation des couts.
@@ -382,16 +779,16 @@ stockage, au traitement, a la securite et a l'optimisation des couts.
 \subsection{Competences visees}
 
 \begin{itemize}
-    \item Mettre en œuvre des solutions de stockage de donnees dans le cloud pour
-    permettre aux entreprises d'explorer leurs donnees en implementant des
+    \item Mettre en œuvre des solutions de stockage de données dans le cloud pour
+    permettre aux entreprises d'explorer leurs données en implementant des
     techniques et strategies adaptees a leur utilisation.
     \item Concevoir et developper des pipelines et des solutions de traitement de
-    donnees dans le cloud en chargeant les donnees, en les transformant et en les
+    données dans le cloud en chargeant les données, en les transformant et en les
     mettant a disposition des utilisateurs.
-    \item Mettre en place une politique de securite des donnees dans le cloud en
+    \item Mettre en place une politique de securite des données dans le cloud en
     developpant une strategie de chiffrement et de gestion des identites et des
     acces, dans le respect des reglements en vigueur.
-    \item Optimiser les solutions de stockage et de traitement des donnees dans le
+    \item Optimiser les solutions de stockage et de traitement des données dans le
     cloud en definissant des indicateurs de performance pour assurer la
     disponibilite des services et optimiser les couts.
 \end{itemize}
@@ -400,26 +797,27 @@ stockage, au traitement, a la securite et a l'optimisation des couts.
 
 \begin{itemize}
     \item Projet Cloud
-    \item Securite des donnees
+    \item Securite des données
 \end{itemize}
 
 \subsection{Analyse attendue}
 
 Detaillez les services cloud mobilises, les mecanismes de securisation, les flux
-de donnees, la supervision, les arbitrages techniques et les optimisations mises
+de données, la supervision, les arbitrages techniques et les optimisations mises
 en place.
 
+\newpage
 \section[Bloc 4 -- Implementer des methodes d'intelligence artificielle]{Bloc 4 -- Implementer des methodes d'intelligence artificielle pour\\ modeliser et predire de nouveaux comportements et usages}
 
-Cette partie doit montrer comment vous avez exploite les donnees pour produire
+Cette partie doit montrer comment vous avez exploite les données pour produire
 de l'analyse, du reporting et des modeles predictifs utiles au metier.
 
 \subsection{Competences visees}
 
 \begin{itemize}
-    \item Extraire des donnees en provenance de systemes d'information varies pour
+    \item Extraire des données en provenance de systemes d'information varies pour
     les exploiter et les analyser en utilisant les outils professionnels courants.
-    \item Preparer les donnees en les transformant et en les nettoyant pour faire
+    \item Preparer les données en les transformant et en les nettoyant pour faire
     l'analyse et le reporting selon les besoins des differents metiers.
     \item Elaborer une communication infographique visuelle en construisant des
     tableaux de bord interactifs afin de communiquer les resultats d'analyse et
@@ -441,10 +839,11 @@ de l'analyse, du reporting et des modeles predictifs utiles au metier.
 
 \subsection{Analyse attendue}
 
-Expliquez la preparation des donnees, les analyses produites, les modeles testes,
+Expliquez la preparation des données, les analyses produites, les modeles testes,
 les metriques utilisees, les resultats obtenus et leur valeur pour l'usage cible.
 
-\section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}
+\newpage
+\section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}
 
 Cette partie doit montrer votre capacite a relier les enjeux techniques aux
 enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
@@ -452,11 +851,11 @@ enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
 \subsection{Competences visees}
 
 \begin{itemize}
-    \item Definir une gouvernance de donnees en mettant en place les politiques et
+    \item Definir une gouvernance de données en mettant en place les politiques et
     les standards afin d'etablir les roles, les responsabilites et la propriete des
-    donnees.
-    \item Mettre en place les bonnes pratiques de gestion de donnees en appliquant
-    les regulations en vigueur pour proteger les donnees et respecter la vie privee
+    données.
+    \item Mettre en place les bonnes pratiques de gestion de données en appliquant
+    les regulations en vigueur pour proteger les données et respecter la vie privee
     dans une logique de transparence.
     \item S'assurer que la qualite de la donnee permet d'atteindre les objectifs
     business en faisant un audit de qualite et en proposant des plans de prevention
@@ -464,9 +863,9 @@ enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
     \item Identifier l'approche strategique pour faire de la donnee un actif central
     ancre dans la culture de l'entreprise et integrer cette approche dans un plan de
     communication diffuse aux personnes concernees.
-    \item Elaborer une strategie de securite afin de proteger les donnees en
+    \item Elaborer une strategie de securite afin de proteger les données en
     utilisant les technologies adequates et en mettant en place une politique
-    d'acces aux donnees.
+    d'acces aux données.
 \end{itemize}
 
 \subsection{Projets / TP associes}
@@ -481,6 +880,7 @@ Mettez en avant les enjeux de gouvernance, de qualite, de securite, de
 conformite et de communication autour de la donnee, en montrant comment vos
 travaux transforment la data en valeur pour l'organisation.
 
+\newpage
 \section{Conclusion}
 
 Concluez en rappelant le fil conducteur du rapport, la progression observee sur

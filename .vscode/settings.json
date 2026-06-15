@@ -1,4 +1,5 @@
 {
   "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.view.pdf.viewer": "tab"
+  "latex-workshop.view.pdf.viewer": "tab",
+  "cSpell.language": "en,fr",
 }
