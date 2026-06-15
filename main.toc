@@ -9,21 +9,27 @@
 \contentsline {section}{\numberline {3}Bloc 1 -- Concevoir et developper une architecture de stockage de donnees}{1}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Competences visees}{1}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Projets / TP associes}{2}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Analyse attendue}{2}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}{2}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Competences visees}{2}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{2}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Analyse attendue}{2}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}{2}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Competences visees}{3}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Projets / TP associes}{3}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Analyse attendue}{3}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{3}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Competences visees}{3}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{3}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Analyse attendue}{3}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}{4}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Competences visees}{4}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Projets / TP associes}{4}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Analyse attendue}{4}{subsection.7.3}%
-\contentsline {section}{\numberline {8}Conclusion}{4}{section.8}%
+\contentsline {subsection}{\numberline {3.3}Présentation des projets mobilisés}{2}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Justification des compétences du bloc 1}{2}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Concevoir et développer une base de données relationnelle}{2}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Concevoir et développer une base de données non relationnelle}{2}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Concevoir et construire un datalake}{3}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}Créer une API pour rendre les données accessibles}{3}{subsubsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.5}Bilan du bloc 1}{3}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Competences visees}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Analyse attendue}{4}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Competences visees}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Projets / TP associes}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Analyse attendue}{5}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{5}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Competences visees}{5}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{5}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Analyse attendue}{5}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}{5}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Competences visees}{5}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Projets / TP associes}{6}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Analyse attendue}{6}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Conclusion}{6}{section.8}%

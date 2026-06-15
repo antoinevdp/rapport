@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1780942166.80729 "main.tex" "main.pdf" "main" 1780942167.11109 0
+["pdflatex"] 1781515335.49732 "main.tex" "main.pdf" "main" 1781515335.8052 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -10,6 +10,8 @@
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm" 1136768653 3584 3169d30142b88a27d4ab0e3468e963a2 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecrm2488.tfm" 1136768653 3584 406ad7b70d9a41f7833f92b6313150c8 ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecti1000.tfm" 1136768653 3072 3bce340d4c075dffe6d4ec732b4c32fe ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1136768653 1536 06717a2b50de47d4087ac0e6cd759455 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb" 1215737283 145408 43d44302ca7d82d487f511f83e309505 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb" 1215737283 140176 d4962f948b4cc0adf4d3dde77a128c95 ""
@@ -18,6 +20,8 @@
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb" 1215737283 138258 6525c253f16cededa14c7fd0da7f67b2 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1215737283 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb" 1215737283 131078 d96015a2fa5c350129e933ca070b2484 ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb" 1215737283 186554 e8f0fa8ca05e038f257a06405232745f ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb" 1215737283 169201 9ebf99020dde51a5086e186761a34e8f ""
   "/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2026/texmf-dist/tex/generic/babel-french/french.ldf" 1755293200 47319 b47cc42e0d211cf69f68d58f695ca90c ""
   "/usr/local/texlive/2026/texmf-dist/tex/generic/babel-french/french3.ldf" 1755293200 58536 c1e02f18528a926fdd58d9a375f97888 ""
@@ -87,10 +91,10 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1780744191 3656645 add160dafb63764d8081349b965c3db8 ""
   "/usr/local/texlive/2026/texmf.cnf" 1780744123.0245 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "assets/logo-efrei.png" 1780936817.36305 5513 0626841073615ca5d88715858a9d63d0 ""
-  "main.aux" 1780942167.07872 4275 143c31e3bdd47160e2a78fed59bd07be "pdflatex"
-  "main.out" 1780942167.07872 6401 358c386536b0c38de7d40c955034fbc8 "pdflatex"
-  "main.tex" 1780942154.98633 13545 60759951e45db7319edf3dbdb94f511c ""
-  "main.toc" 1780942167.07947 2691 e16dd8594be89adc97f4d597b04e3735 "pdflatex"
+  "main.aux" 1781515335.76956 5240 63e5733e5e0d14df6613d0f6d074d837 "pdflatex"
+  "main.out" 1781515335.76956 8294 aa23e367ac364a2749523b1f2499b35d "pdflatex"
+  "main.tex" 1781515325.37624 22502 bb6f37e6bcaf4c3830ce4417d00c9f29 ""
+  "main.toc" 1781515335.76956 3410 f8fcd11fad67635bc8473a89aabc287e "pdflatex"
   (generated)
   "main.aux"
   "main.log"
