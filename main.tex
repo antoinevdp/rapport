@@ -77,11 +77,13 @@
     \vspace*{1.5cm}
     \includegraphics[width=4cm]{assets/logo-efrei.png}\\[1.5cm]
 
-    {\Large EFREI Paris\\[0.5cm]}
-    {\large Master 2\\[2cm]}
+    {\Large EFREI Paris\\[0.3cm]}
+    {\large Master 2 Data Engineering \& IA\\[0.5cm]}
+    {\large RNCP36739 -- Expert en Ingenierie de Donnees\\[2cm]}
 
-    {\Huge \bfseries Rapport de Projet Certifiant\\[0.8cm]}
-    {\Large Titre du projet a completer\\[2cm]}
+    {\Huge \bfseries Rapport ecrit de certification\\[0.8cm]}
+    {\Large Epreuve certifiante -- Evaluation des competences\\[0.5cm]}
+    {\large Titre du rapport a completer\\[2cm]}
 
     \begin{tabular}{rl}
         Auteur : & Tonio \\
@@ -102,62 +104,249 @@
 
 \pagenumbering{arabic}
 
-\section{Introduction}
+\section*{Remerciements}
+\addcontentsline{toc}{section}{Remerciements}
 
-Presentez ici le contexte general du projet, le besoin metier et l'objectif du
-document.
+Remerciez ici les personnes, equipes et encadrants qui ont accompagne votre
+formation et la realisation des projets presentes dans ce rapport.
 
-\section{Contexte et objectifs}
+\section{Introduction et note explicative : objectifs}
 
-Expliquez l'organisation, le probleme a resoudre, les contraintes et les objectifs
-attendus.
+Ce rapport ecrit doit etre un document structure et argumente presentant cinq
+projets realises au cours de la formation. Son objectif est de demontrer
+l'acquisition des competences du titre RNCP36739 a travers les projets, TP et
+travaux menes pendant les deux annees de Master 2 Data Engineering \& IA.
 
-\subsection{Contexte}
+Le travail attendu est un exercice d'analyse et de synthese. Il ne s'agit pas
+seulement de decrire des livrables techniques, mais d'expliquer les besoins,
+les choix effectues, les difficultes rencontrees, les resultats obtenus et les
+competences mobilisees dans chaque bloc.
 
-Decrivez l'environnement du projet, les parties prenantes et le point de depart.
+\subsection{Attendus du rapport}
 
-\subsection{Objectifs}
+\begin{itemize}
+    \item Presenter un fil conducteur coherent entre les projets et les competences.
+    \item Argumenter les choix techniques, methodologiques et organisationnels.
+    \item Montrer la progression, la prise de recul et la capacite d'auto-evaluation.
+    \item S'appuyer sur des preuves concretes : missions, projets, TP, resultats,
+    captures, extraits de code, schemas ou tableaux de bord.
+\end{itemize}
 
-Listez les objectifs fonctionnels et techniques du projet.
+\subsection{Conseil de redaction}
 
-\section{Presentation de la solution}
+Pour chaque bloc, vous pouvez decrire le contexte du projet, votre role, les
+outils utilises, les decisions prises, les resultats et la maniere dont le projet
+demontre l'acquisition des competences attendues.
 
-Exposez la solution retenue, son perimetre et les choix principaux.
+\section{Presentation rapide de l'entreprise et des missions}
 
-\subsection{Architecture}
+Presentez ici l'entreprise, son secteur d'activite, son organisation, ainsi que
+les missions qui vous ont ete confiees pendant l'alternance, le stage ou les
+projets academiques relies au parcours.
 
-Detaillez les composants importants, leur role et leurs interactions.
+\subsection{Entreprise}
 
-\subsection{Technologies utilisees}
+Decrivez l'entreprise, son contexte metier, ses enjeux data et l'environnement
+dans lequel vous avez evolue.
 
-Presentez les outils, langages, frameworks et services utilises.
+\subsection{Missions}
 
-\section{Realisation}
+Precisez vos responsabilites, les equipes avec lesquelles vous avez travaille et
+la nature des projets menes.
 
-Decrivez ce qui a ete implemente, la methode de travail adoptee et les etapes
-importantes du projet.
+\section{Bloc 1 -- Concevoir et developper une architecture de stockage de donnees}
 
-\subsection{Fonctionnalites realisees}
+Cette partie doit montrer comment vous avez concu et implemente des solutions
+de stockage de donnees adaptees a des cas d'usage varies.
 
-Presentez les fonctionnalites developpees et leur valeur.
+\subsection{Competences visees}
 
-\subsection{Difficultes rencontrees}
+\begin{itemize}
+    \item Concevoir et developper une base de donnees relationnelle en reponse aux
+    besoins d'un client en vue de la mise a disposition de ses donnees structurees,
+    en utilisant les technologies et les langages de requetes adaptes aux
+    developpements envisages.
+    \item Concevoir et developper une base de donnees non-relationnelle en vue de la
+    mise a disposition de donnees semi-structurees et non structurees pour un
+    traitement analytique ou d'intelligence artificielle, en utilisant les
+    technologies et les langages de requetes adaptes.
+    \item Concevoir et construire un datalake en choisissant les architectures, les
+    indicateurs de performance et les solutions de stockage appropriees afin
+    d'integrer des donnees provenant de systemes d'information varies.
+    \item Creer une API en utilisant les technologies permettant de rendre les donnees
+    accessibles et d'augmenter l'efficacite et la praticite des applications et des
+    services.
+\end{itemize}
 
-Expliquez les problemes rencontres et la maniere dont ils ont ete resolus.
+\subsection{Projets / TP associes}
 
-\section{Resultats et bilan}
+\begin{itemize}
+    \item Relational Databases
+    \item NoSQL Databases
+    \item Challenge Datalake 1 Data Integration
+    \item API et Web Services
+\end{itemize}
 
-Faites le bilan du projet, les resultats obtenus, les limites actuelles et les
-ameliorations possibles.
+\subsection{Analyse attendue}
+
+Pour chaque projet mobilise dans ce bloc, expliquez le besoin, l'architecture de
+stockage choisie, les technologies utilisees, les choix de modelisation, les
+resultats obtenus et les competences effectivement demontrees.
+
+\section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}
+
+Cette partie doit montrer votre capacite a concevoir, industrialiser et optimiser
+des pipelines de traitement de donnees a grande echelle.
+
+\subsection{Competences visees}
+
+\begin{itemize}
+    \item Concevoir, en s'appuyant sur une veille technologique, une architecture
+    distribuee repondant au besoin du client pour traiter les donnees massives en
+    entreprise en utilisant les technologies de traitement adaptees.
+    \item Implementer un systeme distribue en utilisant des technologies de
+    streaming identifiees a partir d'une veille pour traiter des donnees sur une
+    periode precise ou en temps quasi reel.
+    \item Transformer les donnees provenant de differentes sources en prenant en
+    compte leur variete pour faire de l'analytique a l'echelle.
+    \item Optimiser la performance des pipelines en utilisant les techniques
+    d'integration et de mise en scene adequates pour le traitement des donnees
+    massives.
+    \item Automatiser la creation, les tests, l'integration et le deploiement des
+    pipelines de donnees en utilisant les technologies de containerisation et
+    d'ordonnancement pertinentes.
+\end{itemize}
+
+\subsection{Projets / TP associes}
+
+\begin{itemize}
+    \item Data Integration
+    \item Big Data Frameworks
+    \item Functional Data Programming
+    \item DevOps \& MLOps
+\end{itemize}
+
+\subsection{Analyse attendue}
+
+Mettez en avant la conception des pipelines, le traitement distribue, les choix
+de performance, l'automatisation et la maniere dont vous avez deploie ou
+industrialise les traitements.
+
+\section{Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}
+
+Cette partie doit demontrer votre maitrise des services cloud appliques au
+stockage, au traitement, a la securite et a l'optimisation des couts.
+
+\subsection{Competences visees}
+
+\begin{itemize}
+    \item Mettre en œuvre des solutions de stockage de donnees dans le cloud pour
+    permettre aux entreprises d'explorer leurs donnees en implementant des
+    techniques et strategies adaptees a leur utilisation.
+    \item Concevoir et developper des pipelines et des solutions de traitement de
+    donnees dans le cloud en chargeant les donnees, en les transformant et en les
+    mettant a disposition des utilisateurs.
+    \item Mettre en place une politique de securite des donnees dans le cloud en
+    developpant une strategie de chiffrement et de gestion des identites et des
+    acces, dans le respect des reglements en vigueur.
+    \item Optimiser les solutions de stockage et de traitement des donnees dans le
+    cloud en definissant des indicateurs de performance pour assurer la
+    disponibilite des services et optimiser les couts.
+\end{itemize}
+
+\subsection{Projets / TP associes}
+
+\begin{itemize}
+    \item Projet Cloud
+    \item Securite des donnees
+\end{itemize}
+
+\subsection{Analyse attendue}
+
+Detaillez les services cloud mobilises, les mecanismes de securisation, les flux
+de donnees, la supervision, les arbitrages techniques et les optimisations mises
+en place.
+
+\section[Bloc 4 -- Implementer des methodes d'intelligence artificielle]{Bloc 4 -- Implementer des methodes d'intelligence artificielle pour\\ modeliser et predire de nouveaux comportements et usages}
+
+Cette partie doit montrer comment vous avez exploite les donnees pour produire
+de l'analyse, du reporting et des modeles predictifs utiles au metier.
+
+\subsection{Competences visees}
+
+\begin{itemize}
+    \item Extraire des donnees en provenance de systemes d'information varies pour
+    les exploiter et les analyser en utilisant les outils professionnels courants.
+    \item Preparer les donnees en les transformant et en les nettoyant pour faire
+    l'analyse et le reporting selon les besoins des differents metiers.
+    \item Elaborer une communication infographique visuelle en construisant des
+    tableaux de bord interactifs afin de communiquer les resultats d'analyse et
+    d'assurer l'extraction de connaissances en temps reel.
+    \item Developper un modele predictif pour identifier de nouveaux comportements
+    et usages en implementant des algorithmes d'apprentissage automatique
+    supervises.
+    \item Evaluer la performance d'un modele de machine learning en analysant ses
+    resultats et en les comparant avec d'autres modeles afin d'implementer la
+    solution la plus convenable a un cas d'usage.
+\end{itemize}
+
+\subsection{Projets / TP associes}
+
+\begin{itemize}
+    \item Projet Data Science
+    \item Hackathon
+\end{itemize}
+
+\subsection{Analyse attendue}
+
+Expliquez la preparation des donnees, les analyses produites, les modeles testes,
+les metriques utilisees, les resultats obtenus et leur valeur pour l'usage cible.
+
+\section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}
+
+Cette partie doit montrer votre capacite a relier les enjeux techniques aux
+enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
+
+\subsection{Competences visees}
+
+\begin{itemize}
+    \item Definir une gouvernance de donnees en mettant en place les politiques et
+    les standards afin d'etablir les roles, les responsabilites et la propriete des
+    donnees.
+    \item Mettre en place les bonnes pratiques de gestion de donnees en appliquant
+    les regulations en vigueur pour proteger les donnees et respecter la vie privee
+    dans une logique de transparence.
+    \item S'assurer que la qualite de la donnee permet d'atteindre les objectifs
+    business en faisant un audit de qualite et en proposant des plans de prevention
+    et de remediation en cas de non-qualite.
+    \item Identifier l'approche strategique pour faire de la donnee un actif central
+    ancre dans la culture de l'entreprise et integrer cette approche dans un plan de
+    communication diffuse aux personnes concernees.
+    \item Elaborer une strategie de securite afin de proteger les donnees en
+    utilisant les technologies adequates et en mettant en place une politique
+    d'acces aux donnees.
+\end{itemize}
+
+\subsection{Projets / TP associes}
+
+\begin{itemize}
+    \item Data Management \& gouvernance
+\end{itemize}
+
+\subsection{Analyse attendue}
+
+Mettez en avant les enjeux de gouvernance, de qualite, de securite, de
+conformite et de communication autour de la donnee, en montrant comment vos
+travaux transforment la data en valeur pour l'organisation.
 
 \section{Conclusion}
 
-Resumez les apports du projet et ouvrez sur les perspectives futures.
+Concluez en rappelant le fil conducteur du rapport, la progression observee sur
+les deux annees de formation, les competences acquises et votre capacite a
+argumenter, justifier vos choix et prendre du recul sur vos realisations.
 
-\appendix
-\section{Annexes}
-
-Ajoutez ici les elements complementaires utiles : captures, extraits de code,
-schemas, tableaux ou references.
+Vous pouvez terminer cette conclusion par une ouverture vers la soutenance,
+qui devra s'appuyer sur un support synthetique et pertinent et mettre en valeur
+votre e-portfolio de competences.
 
 \end{document}

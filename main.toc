@@ -1,14 +1,29 @@
 \babel@toc {french}{}\relax 
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
-\contentsline {section}{\numberline {2}Contexte et objectifs}{1}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Contexte}{1}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Objectifs}{1}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Presentation de la solution}{1}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Architecture}{1}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Technologies utilisees}{1}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Realisation}{1}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Fonctionnalites realisees}{1}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Difficultes rencontrees}{1}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Resultats et bilan}{1}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{1}{section.6}%
-\contentsline {section}{\numberline {A}Annexes}{1}{section.A}%
+\contentsline {section}{Remerciements}{1}{Doc-Start}%
+\contentsline {section}{\numberline {1}Introduction et note explicative : objectifs}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Attendus du rapport}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Conseil de redaction}{1}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Presentation rapide de l'entreprise et des missions}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Entreprise}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Missions}{1}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Bloc 1 -- Concevoir et developper une architecture de stockage de donnees}{1}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Competences visees}{1}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Projets / TP associes}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Analyse attendue}{2}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Competences visees}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{2}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Analyse attendue}{2}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}{2}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Competences visees}{3}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Projets / TP associes}{3}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Analyse attendue}{3}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{3}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Competences visees}{3}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{3}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Analyse attendue}{3}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}{4}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Competences visees}{4}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Projets / TP associes}{4}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Analyse attendue}{4}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Conclusion}{4}{section.8}%
