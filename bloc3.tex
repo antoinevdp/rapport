@@ -1,0 +1,810 @@
+\documentclass[11pt]{article}
+
+% ===================== POLICES & LANGUE =====================
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[french]{babel}
+
+% ===================== MISE EN PAGE =========================
+\usepackage[includeheadfoot,a4paper,top=0.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\tolerance=2000
+\emergencystretch=3em
+\hbadness=2500
+
+% ===================== COULEURS =============================
+\definecolor{titleNavy}{RGB}{22,50,92}
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}
+\definecolor{tableRowAlt}{RGB}{238,242,248}
+\definecolor{ruleGray}{RGB}{200,205,212}
+\definecolor{validGreen}{RGB}{36,130,70}
+\definecolor{bronzeColor}{RGB}{180,110,60}
+\definecolor{bronzeBg}{RGB}{255,240,220}
+\definecolor{silverColor}{RGB}{90,100,115}
+\definecolor{silverBg}{RGB}{230,235,242}
+\definecolor{goldColor}{RGB}{160,130,0}
+\definecolor{goldBg}{RGB}{255,252,210}
+\definecolor{cloudColor}{RGB}{30,110,180}
+\definecolor{cloudBg}{RGB}{220,238,255}
+\definecolor{mlColor}{RGB}{80,140,60}
+\definecolor{mlBg}{RGB}{225,245,220}
+
+% ===================== STYLES TIKZ ==========================
+\tikzset{
+  medalbox/.style={
+    rectangle, rounded corners=5pt, very thick,
+    text width=11.5cm, minimum height=1.5cm, align=center,
+    font=\small, inner sep=8pt,
+    drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}
+  },
+  flowbox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=9cm, minimum height=1.2cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  minibox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=5.2cm, minimum height=1.3cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  arrowM/.style={-{Stealth[scale=1.3]}, line width=1.4pt, draw=black!50},
+}
+\newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
+
+% ===================== TITRES ===============================
+\titleformat{\section}
+  {\Large\bfseries\color{titleNavy}}{\thesection}{0.8em}{}[{\vspace{1pt}\color{titleNavy}\titlerule[1.2pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\color{titleNavy}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accentBlue}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% ===================== TABLEAUX =============================
+\arrayrulecolor{ruleGray}
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.35}
+\newcommand{\thead}[1]{\textbf{\textcolor{white}{#1}}}
+\newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
+
+% ---- Figures encadrées avec légende (captures du projet) ----
+\captionsetup{font={small,it}, labelfont={bf,color=titleNavy}, labelsep=endash, justification=centering}
+\newcommand{\figc}[3]{% #1 = fichier (dans figures/), #2 = largeur, #3 = légende
+  \begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}%
+    \fcolorbox{ruleGray}{white}{\includegraphics[width=#2]{figures/#1}}%
+    \caption{#3}
+  \end{figure}}
+
+% ===================== CAPTURE =============================
+\mdfdefinestyle{captureStyle}{
+  linecolor=black!30, linewidth=0.8pt, roundcorner=5pt,
+  backgroundcolor=black!4,
+  innertopmargin=7pt, innerbottommargin=7pt,
+  innerleftmargin=12pt, innerrightmargin=12pt,
+  skipabove=8pt, skipbelow=8pt, nobreak=true,
+}
+\newcommand{\capture}[1]{%
+  \begin{mdframed}[style=captureStyle]
+    \centering\small\textit{\textbf{\textcolor{black!60}{[Capture]}}\quad #1}
+  \end{mdframed}%
+}
+
+% ===================== CODE =================================
+\definecolor{codegreen}{rgb}{0,0.55,0.3}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codeblue}{rgb}{0.1,0.3,0.7}
+\definecolor{backcolour}{RGB}{248,249,251}
+\definecolor{codeframe}{RGB}{30,110,180}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false, breaklines=true, captionpos=b,
+    keepspaces=true, numbers=left, numbersep=8pt,
+    showspaces=false, showstringspaces=false, showtabs=false, tabsize=2,
+    frame=leftline, framerule=2.5pt, rulecolor=\color{codeframe},
+    framexleftmargin=6pt, xleftmargin=10pt,
+    aboveskip=10pt, belowskip=4pt, abovecaptionskip=2pt, belowcaptionskip=6pt,
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Extrait}
+
+\BeforeBeginEnvironment{lstlisting}{\par\needspace{6\baselineskip}\noindent\begin{minipage}{\linewidth}\vspace{2pt}}
+\AfterEndEnvironment{lstlisting}{\vspace{2pt}\end{minipage}\par\medskip}
+\BeforeBeginEnvironment{verbatim}{\par\needspace{4\baselineskip}\noindent\begin{minipage}{\linewidth}\vspace{2pt}}
+\AfterEndEnvironment{verbatim}{\vspace{2pt}\end{minipage}\par\medskip}
+
+% ===================== EN-TÊTE / PIED =======================
+\renewcommand\headrulewidth{1.2pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand{\headrule}{\color{titleNavy}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{\color{ruleGray}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739 --- Bloc 3}}\\ \small\textcolor{black!60}{Cloud --- Stockage \& traitement de données}}
+\fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
+\fancyfoot[L]{\small\textcolor{black!55}{EFREI Lyon}}
+\fancyfoot[C]{\small\textcolor{black!55}{Plateforme cloud temps réel}}
+\fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
+\setlength{\headheight}{2cm}
+
+\begin{document}
+
+% ===================== TITRE ===============================
+\thispagestyle{fancy}
+\begin{center}
+  \vspace*{0.3cm}
+  {\small\textcolor{black!55}{RNCP36739 --- Expert en Ingénierie de Données}}\\[6pt]
+  {\Huge\bfseries\textcolor{titleNavy}{Bloc 3}}\\[6pt]
+  {\large\bfseries Implémenter et optimiser des solutions de stockage}\\[2pt]
+  {\large et de traitement de données sur le cloud}\\[10pt]
+  {\normalsize Projet support : \textbf{project\_cloud} --- plateforme de mobilité lyonnaise en temps réel}\\[4pt]
+  {\small Julien TREMONT-RAIMI \quad\textbullet\quad Antoine VANDEPLANQUE \quad\textbullet\quad Promotion 2024--2026}
+\end{center}
+
+\vspace{4pt}
+{\color{titleNavy}\hrule height 1.5pt}
+\vspace{10pt}
+
+Cette partie démontre l’acquisition des quatre compétences du Bloc 3 du référentiel
+RNCP36739~\cite{rncp} à travers une plateforme \textbf{cloud serverless AWS}. Chaque 
+étape couvre une ou plusieurs sous-compétences du référentiel, synthétisées dans le 
+tableau de validation a la fin du bloc.
+
+
+% ===================== COMPÉTENCES VISÉES ==================
+\section{Compétences visées}
+
+Le référentiel RNCP36739 définit quatre sous-compétences pour le Bloc 3, que ce
+dossier couvre intégralement à travers le \texttt{projet cloud}  Ce bloc porte sur 
+la mise en œuvre de solutions cloud pour le stockage, le traitement et la mise à 
+disposition des données : choix des services managés, conception des flux, sécurisation 
+des accès, optimisation de la performance et de la disponibilité
+
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt, topsep=3pt]
+    \item Mettre en \oe{}uvre des solutions de stockage de données dans le cloud pour
+    permettre aux entreprises d'explorer leurs données en implémentant des
+    techniques et stratégies adaptées à leur utilisation.
+    \item Concevoir et développer des pipelines et des solutions de traitement de
+    données dans le cloud en chargeant les données, en les transformant et en les
+    mettant à disposition des utilisateurs.
+    \item Mettre en place une politique de sécurité des données dans le cloud en
+    développant une stratégie de chiffrement et de gestion des identités et des
+    accès, dans le respect des règlements en vigueur.
+    \item Optimiser les solutions de stockage et de traitement des données dans le
+    cloud en définissant des indicateurs de performance pour assurer la
+    disponibilité des services et optimiser les coûts.
+\end{itemize}
+
+% ===================== CONTEXTE ============================
+\section{Contexte et enjeux}
+
+Le \texttt{projet cloud} est une plateforme de données temps réel lyonnaise. Elle
+agrège en continu trois flux de données ouvertes : les départs ferroviaires et de
+métro en gare de Lyon (SNCF/RATP), l'état des parkings parisiens (disponibilité,
+places, tarifs) et l'état du trafic routier (indice de congestion, segments
+critiques, fluidité par zone). L'objectif est de permettre un suivi opérationnel de
+la mobilité lyonnaise via un tableau de bord Streamlit alimenté par une API
+serverless.
+
+L'enjeu architectural central est double : garantir la latence sur des données en
+temps réel et maîtriser les coûts. Un scan DynamoDB complet pour chaque
+requête API serait fonctionnellement correct, mais son coût de lecture croîtrait
+linéairement avec le volume. La mise en place d'un Global Secondary Index (GSI)
+ramène le coût de chaque requête à O(1), quelle que soit la taille de la table.
+
+\subsection{Positionnement dans l'écosystème AWS}
+
+AWS propose plusieurs alternatives pour chaque composant de l'architecture. Les
+choix retenus sont justifiés par rapport à ces alternatives.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Besoin} & \thead{Choix retenu} & \thead{Alternative} & \thead{Justification} \\
+\hline
+Lac de données & S3 & EFS, EBS & Coût minimal, accès objet universel \\
+\hline
+Base NoSQL & DynamoDB & MongoDB Atlas, ElasticSearch & Managé, serverless, GSI natif \\
+\hline
+Compute API & Lambda & EC2, ECS/Fargate & Pas d'infra à gérer, facturation à l'usage \\
+\hline
+Routage API & API Gateway & ALB, CloudFront & Intégration Lambda native, gestion CORS \\
+\hline
+Dashboard & Streamlit (EC2) & QuickSight, PowerBI & Open source, Python natif \\
+\hline
+Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeable \\
+\hline
+\end{tabularx}\end{center}
+
+% ===================== ARCHITECTURE ========================
+\section{Architecture cloud}
+
+L'architecture suit le motif Medallion (Bronze/Silver/Gold) transposé sur des
+services managés AWS : S3 comme data lake brutes, DynamoDB comme couche
+nettoyée puis agrégée, et une exposition serverless via Lambda et API Gateway.
+
+\needspace{20\baselineskip}
+\begin{center}\fitwidth{%
+\begin{tikzpicture}[node distance=0.85cm]
+
+% Sources
+\node[minibox, fill=black!5, draw=black!30, text width=3cm] (sncf)
+  {\small\textbf{API SNCF/RATP}\\Départs};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of sncf] (park)
+  {\small\textbf{API Parkings}\\Disponibilité};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of park] (traf)
+  {\small\textbf{API Trafic}\\Congestion};
+
+% Bronze S3
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=0.9cm of park] (s3) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad AWS S3 — bucket \texttt{efrei-cloud-project}\\[2pt]
+  \small \texttt{departures|parking|traffic/<timestamp\_ISO>/data.json}
+};
+
+% Silver DynamoDB
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of s3] (ddb) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad DynamoDB — 3 tables temps réel\\[2pt]
+  \small \texttt{parkings} · \texttt{traffic} · \texttt{departures} \quad · \quad GSI : (type, ingestion\_timestamp) \textbf{O(1)}
+};
+
+% Gold DynamoDB agrégats
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of ddb] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad DynamoDB — 10 tables d'agrégats\\[2pt]
+  \small occupancy\_rate · availability · congestion\_index · fluidity · departures\_by\_network …
+};
+
+% API
+\node[flowbox, fill=cloudBg, draw=cloudColor, below=0.8cm of gold, text width=9cm] (api) {
+  \textbf{\textcolor{cloudColor}{Lambda + API Gateway}} — 13 endpoints\\[2pt]
+  \small 3 temps réel (GSI query) · 10 agrégats (scan statique) · Streamlit Dashboard
+};
+
+\draw[arrowM] (sncf.south) -- ++(0,-0.35) -| ([xshift=-2cm]s3.north);
+\draw[arrowM] (park.south) -- (s3.north);
+\draw[arrowM] (traf.south) -- ++(0,-0.35) -| ([xshift=2cm]s3.north);
+\draw[arrowM] (s3) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{process\_s3\_to\_dynamodb.py}} (ddb);
+\draw[arrowM] (ddb) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{agregation\_*.py}} (gold);
+\draw[arrowM] (gold) -- (api);
+
+\end{tikzpicture}}\end{center}
+
+Le schéma technique du projet ci-dessous détaille le flux complet, du calcul
+ordonnancé sur EC2 jusqu'à la visualisation Streamlit.
+
+\figc{fig_architecture_cloud.png}{\linewidth}{Architecture technique du
+\texttt{projet cloud}. Les trois sources open data sont collectées par un pipeline
+ordonnancé sur EC2, stockées en JSON dans S3, nettoyées et indexées dans DynamoDB,
+agrégées dans un rapport quotidien, puis exposées via une fonction Lambda et une API
+Gateway consommée par le dashboard Streamlit.}
+
+% ===================== STOCKAGE S3 =========================
+\section{Stockage S3 --- data lake brutes horodaté}
+
+AWS S3~\cite{s3} constitue la couche Bronze de l'architecture. Chaque ingestion
+produit un objet JSON horodaté dans le préfixe correspondant à la source
+(\texttt{departures/<timestamp\_ISO>/data.json}). Cette organisation préserve
+l'historique complet des snapshots et permet de rejouer n'importe quelle fenêtre
+temporelle sans perte.
+
+\figc{fig_s3_tree.png}{\linewidth}{Organisation du bucket S3
+\texttt{efrei-cloud-project} : un préfixe par source (départs, parking, trafic) et,
+sous chacun, un dossier horodaté par snapshot contenant le fichier \texttt{data.json}.}
+
+\begin{lstlisting}[language=Python, caption=Écriture et lecture S3 (utils\_s3.py)]
+def upload_to_s3(s3, json_data, bucket_name, key):
+    s3.put_object(
+        Bucket=bucket_name,
+        Key=key,
+        Body=json.dumps(json_data, indent=4, cls=DecimalEncoder)
+    )
+
+def get_json_from_s3(s3, bucket, key):
+    response = s3.get_object(Bucket=bucket, Key=key)
+    content  = response["Body"].read().decode("utf-8")
+    return json.loads(content)
+
+def get_s3_object_keys(s3, bucket_name, prefix):
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+    return [obj['Key'] for obj in response.get('Contents', [])]
+\end{lstlisting}
+
+Le \texttt{DecimalEncoder} sérialise les \texttt{Decimal} Python en \texttt{int} ou
+\texttt{float} selon la présence d'une partie décimale --- une nécessité, car
+DynamoDB stocke tous les nombres au format \texttt{Decimal}.
+
+\capture{Console AWS S3 -- bucket \texttt{efrei-cloud-project}, dossier \texttt{departures} : liste des objets JSON horodatés.}
+
+% ===================== DYNAMODB & GSI =====================
+\section{DynamoDB --- modèle d'accès et index secondaire global}
+
+\subsection{Modèle de données}
+
+Chaque item DynamoDB~\cite{dynamodb} dans les trois tables temps réel porte un
+attribut \texttt{type} (valeur constante par table : \texttt{"parkings"},
+\texttt{"traffic"}, \texttt{"departures"}) et un \texttt{ingestion\_timestamp} en
+microsecondes Unix. Ce couple constitue la clé du GSI. L'horodatage est exprimé en
+microsecondes (\texttt{timestamp() * 1\_000\_000}) pour garantir l'unicité sur des
+ingestions rapprochées : un horodatage en secondes provoquerait des collisions si
+deux snapshots arrivaient dans la même seconde.
+
+\begin{lstlisting}[language=Python, caption=Création d'un item avec horodatage microseconde (process\_s3\_to\_dynamodb.py)]
+def create_stations_departures_dict(json_data, ingestion_timestamp_str):
+    results = []
+    for index, departure in enumerate(json_data["departures"]):
+        result = {
+            "gid": index,
+            "trip_id": departure["display_informations"]["trip_short_name"],
+            "ingestion_timestamp": int(
+                datetime.fromisoformat(ingestion_timestamp_str).timestamp()
+                * 1_000_000),           # microsecondes : unicite garantie
+            "departure_datetime": departure["stop_date_time"]["base_departure_date_time"],
+            "departure_station":  departure["stop_point"]["name"],
+            "network":            departure["display_informations"]["network"],
+            "type": "departures",       # PK du GSI : valeur constante par table
+            "long": departure["stop_point"]["coord"]["lon"],
+            "lat":  departure["stop_point"]["coord"]["lat"],
+        }
+        results.append(result)
+    return results
+\end{lstlisting}
+
+\subsection{Global Secondary Index --- requête O(1) sur le dernier snapshot}
+
+L'enjeu de performance est d'accéder au dernier snapshot \textit{sans} scanner toute
+la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serait un
+\texttt{scan} en O(n) sur l'ensemble de l'historique. Avec le GSI
+\texttt{gsi-type-ingestion\_timestamp} (PK : type, SK : ingestion\_timestamp), une
+\texttt{query} avec \texttt{ScanIndexForward=False, Limit=1} retourne
+l'enregistrement le plus récent en O(1).
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
+\hline
+Items lus & Toute la table (N) & Exactement 1 \\
+\hline
+Unités de lecture (RCU) & N & 1 \\
+\hline
+Complexité & O(n) & O(1) \\
+\hline
+Tri & Côté application & Natif (sort key) \\
+\hline
+\end{tabularx}\end{center}
+
+\begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
+def get_last_processed_timestamp(dynamodb, table_name, type_table):
+    table = dynamodb.Table(table_name)
+    try:
+        response = table.query(
+            IndexName='gsi-type-ingestion_timestamp',
+            KeyConditionExpression=Key('type').eq(type_table),
+            ScanIndexForward=False,   # tri SK descendant : le plus grand en tete
+            Limit=1,
+            ProjectionExpression="ingestion_timestamp"
+        )
+        items = response.get('Items', [])
+        return items[0]['ingestion_timestamp'] if items else None
+    except Exception:
+        # Fallback : scan si GSI non disponible (degraded mode)
+        response = table.scan(
+            ProjectionExpression="ingestion_timestamp", Limit=1000)
+        timestamps = [item['ingestion_timestamp'] for item in response['Items']]
+        return max(timestamps) if timestamps else None
+\end{lstlisting}
+
+Le fallback sur \texttt{scan} garantit la disponibilité du service même si le GSI est
+en cours de construction ou temporairement indisponible (mode dégradé). Ce même
+pattern --- query GSI en priorité, scan en secours --- est réutilisé dans le Lambda
+de l'API.
+
+\capture{Console AWS DynamoDB -- table \texttt{parkings}, onglet \textit{Indexes} : configuration du GSI \texttt{gsi-type-ingestion\_timestamp}.}
+
+\subsection{Ingestion incrémentale depuis S3}
+
+Le pipeline S3 $\rightarrow$ DynamoDB ne retraite que les nouveaux objets S3. La
+borne de reprise est le dernier \texttt{ingestion\_timestamp} connu via le GSI ; les
+clés S3 sont filtrées par comparaison ISO de leur horodatage.
+
+\begin{lstlisting}[language=Python, caption=Ingestion incrémentale S3 vers DynamoDB (process\_s3\_to\_dynamodb.py)]
+last_processed_timestamp_str = get_last_processed_timestamp(
+    dynamodb, DYNAMODB_TABLE_NAME, "departures")
+
+keys     = get_s3_object_keys(s3, BUCKET_NAME, s3_folder)
+new_keys = []
+
+if last_processed_timestamp_str:
+    last_dt = datetime.fromtimestamp(
+        float(last_processed_timestamp_str) / 1_000_000)
+    for key in keys:
+        key_dt = datetime.fromisoformat(key.split('/')[1])
+        if key_dt > last_dt:
+            new_keys.append(key)
+else:
+    new_keys = keys    # premiere ingestion : tout traiter
+
+for key in new_keys:
+    response = get_json_from_s3(s3, BUCKET_NAME, key)
+    items    = create_stations_departures_dict(response, key.split('/')[1])
+    batch_put_items_to_dynamodb(dynamodb, DYNAMODB_TABLE_NAME, items)
+\end{lstlisting}
+
+L'idempotence est garantie : à chaque relance, seuls les objets S3 postérieurs au
+dernier horodatage connu sont réingérés, sans duplication des données déjà présentes.
+
+% ===================== AGRÉGATION ==========================
+\section{Traitement cloud --- agrégation analytique}
+
+Un pipeline d'agrégation lit les tables temps réel (Silver) et produit dix tables
+analytiques pré-agrégées dans DynamoDB (Gold). Pour les parkings, l'agrégation se
+fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
+3\_600\_000\_000}), puis calcul des indicateurs métier.
+
+\needspace{12\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
+\hline
+\texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
+\hline
+\texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
+\hline
+\texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
+\hline
+\texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
+\hline
+\texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
+\hline
+\texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
+\hline
+\texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
+\hline
+\texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
+\hline
+\texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
+\hline
+\texttt{aggregation\_departures\_total} & Total des départs sur la période \\
+\hline
+\end{tabularx}\end{center}
+
+Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
+l'ingestion : l'API lit ensuite ces tables d'agrégats (petites et statiques) sans
+recalculer quoi que ce soit à chaque appel.
+
+% ===================== LAMBDA & API ========================
+\section{Mise à disposition --- Lambda et API Gateway}
+
+\subsection{Routage des 13 endpoints serverless}
+
+L'API expose treize endpoints via un Lambda~\cite{lambda} unique routé par chemin :
+trois endpoints temps réel (requête GSI vers le dernier snapshot) et dix endpoints
+d'agrégats (scan de tables statiques).
+
+\begin{lstlisting}[language=Python, caption=Lambda handler -- routage des 13 endpoints (api/main.py)]
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    path     = event.get('path')
+
+    # Endpoints agregats : scan complet (tables fixes, volume faible)
+    aggregation_tables = [
+        "aggregation_overall_occupancy_rate",
+        "aggregation_average_availability_parking",
+        "aggregation_reference_pricing",
+        "aggregation_traffic_congestion_index",
+        "aggregation_departures_by_network",
+        # ... 10 tables au total
+    ]
+    if path.lstrip('/') in aggregation_tables:
+        items = get_all_items(dynamodb, path.lstrip('/'))
+        return {'statusCode': 200,
+                'body': json.dumps(items, default=decimal_serializer)}
+
+    # Endpoints temps reel : requete GSI -> dernier snapshot
+    if path == '/parkings':     table_name, type_value = "parkings",   "parkings"
+    elif path == '/traffic':    table_name, type_value = "traffic",    "traffic"
+    elif path == '/departures': table_name, type_value = "departures", "departures"
+    else:
+        return {'statusCode': 404,
+                'body': json.dumps({'message': f'Not Found {path}'})}
+
+    last_ts = get_last_ingestion_time(dynamodb, table_name, type_value)
+    items   = get_items_by_ingestion_time(dynamodb, table_name, last_ts, type_value)
+    return {'statusCode': 200,
+            'body': json.dumps(items, default=decimal_serializer)}
+\end{lstlisting}
+
+L'architecture serverless (Lambda + API Gateway~\cite{apigateway}) supprime toute
+gestion d'infrastructure : pas de serveur à provisionner, pas de scaling manuel, et
+une facturation à la requête --- optimale pour un flux temps  réel à appels
+intermittents.
+
+\subsection{Cold start et stratégies de mitigation}
+
+Une invocation Lambda comprend deux phases : l'initialisation (\textit{cold start})
+et l'exécution. Le cold start n'a lieu qu'à la première invocation après une période
+d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
+\hline
+Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
+\hline
+Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
+\hline
+\end{tabularx}\end{center}
+
+Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
+Pour une API à très faible latence, trois leviers existent : la \textbf{Provisioned
+Concurrency} (instances maintenues chaudes en permanence), un \textbf{warm-up ping}
+EventBridge, ou un package minimal (boto3 étant fourni par le runtime AWS, le ZIP ne
+contient que le code applicatif ce qui réduit le temps de chargement).
+
+\capture{Console AWS API Gateway -- liste des 13 routes configurées (méthode GET + intégration Lambda).}
+
+% ===================== SÉCURITÉ ============================
+\section{Sécurité et gestion des identités}
+
+\subsection{Principe du moindre privilège (IAM)}
+
+Chaque composant s'exécute sous un rôle IAM dédié n'accordant que les permissions
+strictement nécessaires à sa fonction.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Rôle IAM} & \thead{Permissions} & \thead{Justification} \\
+\hline
+\texttt{lambda-api-role} &
+  \code{dynamodb:GetItem}\newline \code{dynamodb:Query}\newline \code{dynamodb:Scan} &
+  L'API ne fait que lire --- aucune permission d'écriture accordée. \\
+\hline
+\texttt{ingestion-role} &
+  \code{s3:PutObject}\newline \code{dynamodb:PutItem}\newline \code{dynamodb:BatchWriteItem} &
+  L'ingestion écrit S3 et DynamoDB, sans relecture. \\
+\hline
+\texttt{aggregation-role} &
+  \code{dynamodb:Query} (Silver)\newline \code{dynamodb:PutItem} (Gold) &
+  Isolation stricte : lecture Silver, écriture Gold. \\
+\hline
+\end{tabularx}\end{center}
+
+Cette séparation garantit qu'une compromission d'un Lambda d'agrégation ne peut ni
+écrire dans les tables Silver ni lire d'autres tables Gold que les siennes. En
+production, les rôles seraient affinés par préfixe de table via des conditions
+\texttt{IAM StringLike} sur l'ARN.
+
+\subsection{Chiffrement des données}
+
+Le chiffrement en transit est assuré par défaut en HTTPS (TLS 1.2+) sur tous les
+appels boto3. Le chiffrement au repos est natif sur chaque service managé.
+
+\needspace{7\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Mode de chiffrement} & \thead{Implémentation projet} \\
+\hline
+AWS S3 & SSE-S3 (clé gérée AWS) & Chiffrement côté serveur automatique \\
+\hline
+AWS DynamoDB & AES-256 (clé AWS) & Activé par défaut sur toutes les tables \\
+\hline
+API Gateway & TLS 1.2+ obligatoire & Aucun trafic HTTP non chiffré \\
+\hline
+\end{tabularx}\end{center}
+
+Pour des données sensibles (positions GPS, données personnelles de transport), le
+SSE-KMS avec rotation annuelle de clé serait retenu : il permet de révoquer l'accès
+en révoquant la clé, sans supprimer les objets.
+
+\subsection{Automatisation de l'ingestion par EventBridge}
+
+L'ingestion manuelle actuelle serait industrialisée par AWS EventBridge Scheduler :
+un schedule cron déclenche chaque Lambda d'ingestion toutes les 5 minutes.
+
+\begin{lstlisting}[language=bash, caption=EventBridge Scheduler -- déclenchement périodique (AWS CLI)]
+aws scheduler create-schedule \
+  --name "ingest-parkings-every-5min" \
+  --schedule-expression "rate(5 minutes)" \
+  --target '{
+    "Arn": "arn:aws:lambda:eu-west-1:ACCOUNT:function:ingest-parkings",
+    "RoleArn": "arn:aws:iam::ACCOUNT:role/scheduler-invoke-role"
+  }' \
+  --flexible-time-window '{"Mode": "OFF"}'
+\end{lstlisting}
+
+Le rôle \texttt{scheduler-invoke-role} ne dispose que de la permission
+\texttt{lambda:InvokeFunction} sur la fonction ciblée --- nouvelle application du
+moindre privilège.
+
+% ===================== OPTIMISATION COÛTS ==================
+\section{Optimisation des performances et des coûts}
+
+\subsection{Serverless contre serveur permanent}
+
+L'architecture Lambda + API Gateway est coût-efficace pour un flux intermittent. La
+comparaison avec une instance EC2 permanente illustre le gain.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Critère} & \thead{Lambda + API Gateway} & \thead{EC2 t3.small} \\
+\hline
+Facturation & À la requête (0,20 \$/M appels) & À l'heure ($\approx$18 \$/mois) \\
+\hline
+Scaling & Automatique, instantané & Manuel ou auto-scaling (délai) \\
+\hline
+Coût en veille & 0 \$ & 18 \$/mois (actif 24/7) \\
+\hline
+Maintenance OS & Aucune (managé) & Patches, mises à jour, supervision \\
+\hline
+\end{tabularx}\end{center}
+
+Pour le profil du projet (appels toutes les 5 minutes), la facturation Lambda est
+négligeable : $\approx$ 8\,640 invocations/mois, très en dessous du palier gratuit
+AWS (1 million d'invocations/mois).
+
+\subsection{Cycle de vie du stockage S3}
+
+Le bucket accumule des snapshots toutes les 5 minutes ; sans politique de rétention,
+le coût de stockage croît indéfiniment. Une politique de cycle de vie S3 automatise
+l'archivage puis la suppression.
+
+\needspace{7\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Règle} & \thead{Délai} & \thead{Effet} \\
+\hline
+Transition vers S3 Infrequent Access & 30 jours & $-40\,\%$ de coût \\
+\hline
+Transition vers S3 Glacier & 90 jours & $-70\,\%$ (récupération lente) \\
+\hline
+Suppression automatique & 365 jours & Coût nul \\
+\hline
+\end{tabularx}\end{center}
+
+\subsection{Supervision CloudWatch}
+
+CloudWatch collecte automatiquement les métriques de chaque service. Une alarme sur
+\texttt{ThrottledRequests} $>$ 0 déclenche une notification SNS, permettant de réagir
+avant que le throttling n'affecte les utilisateurs.
+
+\needspace{9\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Métrique} & \thead{Seuil d'alerte} \\
+\hline
+Lambda ingestion & \texttt{Errors} & $>$ 0 erreur en 5 min \\
+\hline
+Lambda API & \texttt{Duration} & $>$ 3 secondes \\
+\hline
+DynamoDB & \texttt{ThrottledRequests} & $>$ 0 (critique) \\
+\hline
+API Gateway & \texttt{5XXError} & $>$ 1\,\% du trafic \\
+\hline
+S3 & \texttt{NumberOfObjects} & Croissance anormale \\
+\hline
+\end{tabularx}\end{center}
+
+\capture{Tableau de bord Streamlit -- page Parkings : taux d'occupation global en temps réel et carte des parkings disponibles.}
+
+% ===================== SYNTHÈSE ============================
+\section{Synthèse --- compétences démontrées}
+
+Le \texttt{projet cloud} couvre l'intégralité du périmètre du Bloc 3 à travers une
+architecture serverless AWS complète, du data lake brutes à l'API de
+consommation.
+
+\subsection{Preuves d'acquisition des compétences}
+\label{sec:preuves}
+
+Le tableau suivant récapitule, pour chacune des quatre sous-compétences du Bloc 3, la
+réalisation concrète qui la démontre dans le projet.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
+\hline
+Stockage de données dans le cloud &
+  Lac de données S3 horodaté (Bronze) et base DynamoDB managée (Silver/Gold),
+  avec choix de services justifié face aux alternatives AWS. \\
+\hline
+Pipelines de traitement cloud &
+  Ingestion incrémentale idempotente S3 $\rightarrow$ DynamoDB et pipeline
+  d'agrégation produisant 10 tables analytiques pré-calculées. \\
+\hline
+Sécurité (chiffrement \& IAM) &
+  Rôles IAM au moindre privilège, chiffrement au repos (SSE-S3, AES-256) et en
+  transit (TLS 1.2+), automatisation sécurisée via EventBridge. \\
+\hline
+Optimisation (performance, disponibilité, coûts) &
+  GSI pour un accès O(1), compute serverless facturé à l'usage, cycle de vie S3 et
+  supervision CloudWatch (métriques + alarmes SNS). \\
+\hline
+\end{tabularx}
+\end{center}
+
+% ===================== BIBLIOGRAPHIE =======================
+\begin{thebibliography}{9}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}
+[consulté le 15 juin 2026].
+
+\bibitem{s3}
+Amazon Web Services.
+\textit{Amazon S3 --- Object Storage}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/s3/}
+[consulté le 15 juin 2026].
+
+\bibitem{dynamodb}
+DeCandia G., Hastorun D., Jampani M. \textit{et al.}
+\textit{Dynamo: Amazon's Highly Available Key-value Store}.
+\textit{ACM SIGOPS Operating Systems Review}, vol.~41, n\textdegree{}6,
+pp.~205--220, 2007.
+
+\bibitem{lambda}
+Amazon Web Services.
+\textit{AWS Lambda --- Serverless Compute}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/lambda/}
+[consulté le 15 juin 2026].
+
+\bibitem{apigateway}
+Amazon Web Services.
+\textit{Amazon API Gateway}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/apigateway/}
+[consulté le 15 juin 2026].
+
+\end{thebibliography}
+
+\end{document}
