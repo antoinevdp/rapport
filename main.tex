@@ -20,7 +20,16 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{positioning, arrows.meta}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
+
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{float}
+\usepackage{caption}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -45,6 +54,53 @@
     showtabs=false,                  
     tabsize=2
 }
+
+% ===================== COULEURS =============================
+\definecolor{titleNavy}{RGB}{22,50,92}
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}
+\definecolor{tableRowAlt}{RGB}{238,242,248}
+\definecolor{ruleGray}{RGB}{200,205,212}
+\definecolor{validGreen}{RGB}{36,130,70}
+\definecolor{bronzeColor}{RGB}{180,110,60}
+\definecolor{bronzeBg}{RGB}{255,240,220}
+\definecolor{silverColor}{RGB}{90,100,115}
+\definecolor{silverBg}{RGB}{230,235,242}
+\definecolor{goldColor}{RGB}{160,130,0}
+\definecolor{goldBg}{RGB}{255,252,210}
+\definecolor{cloudColor}{RGB}{30,110,180}
+\definecolor{cloudBg}{RGB}{220,238,255}
+\definecolor{mlColor}{RGB}{80,140,60}
+\definecolor{mlBg}{RGB}{225,245,220}
+
+% ---- Figures encadrées avec légende (captures du projet) ----
+\captionsetup{font={small,it}, labelfont={bf,color=titleNavy}, labelsep=endash, justification=centering}
+\newcommand{\figc}[3]{% #1 = fichier (dans figures/), #2 = largeur, #3 = légende
+  \begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}%
+    \fcolorbox{ruleGray}{white}{\includegraphics[width=#2]{figures/#1}}%
+    \caption{#3}
+  \end{figure}}
+
+
+% ===================== STYLES TIKZ ==========================
+\tikzset{
+  flowbox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=9cm, minimum height=1.2cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  minibox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=5.2cm, minimum height=1.3cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  arrowM/.style={-{Stealth[scale=1.3]}, line width=1.4pt, draw=black!50},
+}
+\newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
+
+
 \lstset{style=mystyle}
 
 \pagestyle{fancy}
@@ -86,10 +142,10 @@
     {\Huge \bfseries Rapport de validations des blocs de compétences\\[0.8cm]}
 
     \begin{tabular}{rl}
-        Auteur : & Tremont-Raimi Julien \& Vandeplanque Antoine \\
-        Promotion : & 2024--2026 \\
-        Encadrant : & A completer \\
-        Entreprise : & A completer \\
+        Auteur :     & Tremont-Raimi Julien \& Vandeplanque Antoine \\
+        Promotion :  & 2024--2026                                   \\
+        Encadrant :  & A completer                                  \\
+        Entreprise : & A completer                                  \\
     \end{tabular}
 
     \vfill
@@ -133,19 +189,19 @@ la nature des projets menes.
 
 \begin{itemize}
     \item Concevoir et développer une base de données relationnelle en réponse aux
-    besoins d'un client en vue de la mise à disposition de ses données structurées,
-    en utilisant les technologies et les langages de requêtes adaptés aux
-    développements envisagés.
+          besoins d'un client en vue de la mise à disposition de ses données structurées,
+          en utilisant les technologies et les langages de requêtes adaptés aux
+          développements envisagés.
     \item Concevoir et développer une base de données non-relationnelle en vue de la
-    mise à disposition de données semi-structurées et non structurées pour un
-    traitement analytique ou d'intelligence artificielle, en utilisant les
-    technologies et les langages de requêtes adaptés.
+          mise à disposition de données semi-structurées et non structurées pour un
+          traitement analytique ou d'intelligence artificielle, en utilisant les
+          technologies et les langages de requêtes adaptés.
     \item Concevoir et construire un datalake en choisissant les architectures, les
-    indicateurs de performance et les solutions de stockage appropriées afin
-    d'intégrer des données provenant de systèmes d'information variés.
+          indicateurs de performance et les solutions de stockage appropriées afin
+          d'intégrer des données provenant de systèmes d'information variés.
     \item Créer une API en utilisant les technologies permettant de rendre les données
-    accessibles et d'augmenter l'efficacité et la praticité des applications et des
-    services.
+          accessibles et d'augmenter l'efficacité et la praticité des applications et des
+          services.
 \end{itemize}
 
 \subsection{Projets / TP associés}
@@ -337,12 +393,12 @@ La structure technique globale du projet peut être résumée par le schéma sui
 
 \begin{center}
     \begin{tikzpicture}[
-        font=\small,
-        >=Latex,
-        box/.style={draw, rounded corners, align=center, minimum width=3.8cm, minimum height=1.2cm},
-        smallbox/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.9cm},
-        flow/.style={->, thick}
-    ]
+            font=\small,
+            >=Latex,
+            box/.style={draw, rounded corners, align=center, minimum width=3.8cm, minimum height=1.2cm},
+            smallbox/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.9cm},
+            flow/.style={->, thick}
+        ]
         \node[box, fill=green!15] (sources) {\textbf{Sources de données}\\Google Trends, GitHub,\\StackOverflow Survey, Adzuna,\\EuroTechJobs, Jobicy};
         \node[box, fill=orange!15, below=1.2cm of sources] (bronze) {\textbf{Bronze}\\Collecte brute\\API, fichiers, scraping\\Stockage fichiers / JSON / CSV / Parquet};
         \node[box, fill=blue!10, below=1.2cm of bronze] (silver) {\textbf{Silver}\\Nettoyage et normalisation\\PySpark / Pandas\\Stockage intermédiaire + MySQL silver};
@@ -488,7 +544,7 @@ données et les usages applicatifs visés.
 
 Le \textit{Challenge Datalake} est la partie la plus représentative de cette
 compétence. L'architecture mise en place repose sur une logique \textit{Bronze /
-Silver / Gold}, explicitement décrite dans le rapport du projet. La couche Bronze
+    Silver / Gold}, explicitement décrite dans le rapport du projet. La couche Bronze
 sert à collecter les données brutes depuis différentes sources externes et à les
 stocker localement au format Parquet. La couche Silver applique les traitements de
 nettoyage, de normalisation et d'enrichissement. Enfin, la couche Gold consolide
@@ -555,27 +611,23 @@ mettre les données à disposition de manière exploitable.
 
 \newpage
 \section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}
-
-Cette partie doit montrer votre capacite a concevoir, industrialiser et optimiser
-des pipelines de traitement de données a grande echelle.
-
-\subsection{Competences visees}
+\subsection{Compétences visées}
 
 \begin{itemize}
     \item Concevoir, en s'appuyant sur une veille technologique, une architecture
-    distribuee repondant au besoin du client pour traiter les données massives en
-    entreprise en utilisant les technologies de traitement adaptees.
-    \item Implementer un systeme distribue en utilisant des technologies de
-    streaming identifiees a partir d'une veille pour traiter des données sur une
-    periode precise ou en temps quasi reel.
-    \item Transformer les données provenant de differentes sources en prenant en
-    compte leur variete pour faire de l'analytique a l'echelle.
+          distribuée répondant au besoin du client pour traiter les données massives en
+          entreprise en utilisant les technologies de traitement adaptées.
+    \item Implementer un système distribué en utilisant des technologies de
+          streaming identifiées à partir d'une veille pour traiter des données sur une
+          période précise ou en temps quasi réel.
+    \item Transformer les données provenant de différentes sources en prenant en
+          compte leur variété pour faire de l'analytique à l'échelle.
     \item Optimiser la performance des pipelines en utilisant les techniques
-    d'integration et de mise en scene adequates pour le traitement des données
-    massives.
-    \item Automatiser la creation, les tests, l'integration et le deploiement des
-    pipelines de données en utilisant les technologies de containerisation et
-    d'ordonnancement pertinentes.
+          d'intégration et de mise en scène adéquates pour le traitement des données
+          massives.
+    \item Automatiser la création, les tests, l'intégration et le déploiement des
+          pipelines de données en utilisant les technologies de containérisation et
+          d'ordonnancement pertinentes.
 \end{itemize}
 
 \subsection{Projets / TP associes}
@@ -591,8 +643,8 @@ des pipelines de traitement de données a grande echelle.
 
 Pour le bloc 2, nous retenons en priorité le projet \textit{projet\_spark}, réalisé
 dans le cadre du module Big Data Frameworks. Ce projet consistait à mettre en
-place une chaîne de traitement distribuée avec Apache Spark afin de croiser deux
-types de données hétérogènes : des données de vols aériens et des données météo.
+place une pipeline de processing de données avec Apache Spark afin de croiser deux
+types de données différentes : des données de vols aériens et des données météorologiques.
 L'objectif général était de produire une base analytique permettant d'étudier
 l'effet des conditions météorologiques sur les retards de vols, puis de générer
 des indicateurs directement exploitables.
@@ -611,19 +663,18 @@ séries météo horaires et produire des jeux de données prêts pour l'analyse.
 Deux grandes familles de sources étaient mobilisées. La première concernait les
 données de vols, lues depuis des fichiers CSV traités en mode streaming. La
 seconde concernait les données météo historiques récupérées via l'API Open-Meteo
-sur plusieurs points géographiques : aéroports majeurs comme ATL, DEN, LAX et ORD,
-mais aussi points intermédiaires sur certaines routes aériennes. Cette conception
-est intéressante, car elle combine un flux tabulaire volumineux et un flux externe
-API, avec une granularité horaire et géographique différente. Le projet devait donc
-gérer à la fois la volumétrie, la variété des schémas et l'alignement temporel.
+sur plusieurs points géographiques : aéroports majeurs comme Atlanta (ATL), Denver
+(DEN), Los Angeles (LAX) et Chicago (ORD), mais aussi points intermédiaires sur certaines 
+routes aériennes. Cette conception est intéressante, car elle combine un flux tabulaire 
+volumineux et un flux externe API, avec une granularité horaire et géographique 
+différente. Le projet devait donc gérer à la fois la volumétrie, la variété des schémas 
+et l'alignement temporel.
 
 \paragraph{Architecture distribuée avec Spark.}
-L'ensemble du projet repose sur Apache Spark en mode distribué, avec un point
-d'entrée explicite vers un cluster standalone via \texttt{spark://localhost:7077}.
-Les scripts d'ingestion, de nettoyage, de streaming, d'agrégation et de machine
-learning utilisent tous une \texttt{SparkSession} configurée avec des ressources
-mémoire et CPU dédiées. Le dépôt est structuré selon une logique \textit{Bronze /
-Silver / Gold}, à laquelle s'ajoutent un entrepôt local pour la couche Silver, un
+L'ensemble du projet repose sur une architecture autour de Spark, nous avons installé
+spark en local sur une machine puissante, le point d'entrée le cluster se fait via \texttt{spark://localhost:7077}. Les scripts d'ingestion, de streaming, de nettoyage, d'agrégation et de machine learning utilisent tous la même \texttt{SparkSession} où nous avons configuré la mémoire et le nombre de coeurs des CPU nécessaires pour le traitement.
+L'architecture distrubué permet . Le dépôt est structuré selon une logique \textit{Bronze /
+    Silver / Gold}, à laquelle s'ajoutent un entrepôt local pour la couche Silver, un
 metastore Hive et une sortie MariaDB pour la restitution Gold. Cette organisation
 matérialise un pipeline distribué complet, où chaque étape a un rôle technique
 précis.
@@ -808,17 +859,17 @@ stockage, au traitement, a la securite et a l'optimisation des couts.
 
 \begin{itemize}
     \item Mettre en œuvre des solutions de stockage de données dans le cloud pour
-    permettre aux entreprises d'explorer leurs données en implementant des
-    techniques et strategies adaptees a leur utilisation.
+          permettre aux entreprises d'explorer leurs données en implementant des
+          techniques et strategies adaptees a leur utilisation.
     \item Concevoir et developper des pipelines et des solutions de traitement de
-    données dans le cloud en chargeant les données, en les transformant et en les
-    mettant a disposition des utilisateurs.
+          données dans le cloud en chargeant les données, en les transformant et en les
+          mettant a disposition des utilisateurs.
     \item Mettre en place une politique de securite des données dans le cloud en
-    developpant une strategie de chiffrement et de gestion des identites et des
-    acces, dans le respect des reglements en vigueur.
+          developpant une strategie de chiffrement et de gestion des identites et des
+          acces, dans le respect des reglements en vigueur.
     \item Optimiser les solutions de stockage et de traitement des données dans le
-    cloud en definissant des indicateurs de performance pour assurer la
-    disponibilite des services et optimiser les couts.
+          cloud en definissant des indicateurs de performance pour assurer la
+          disponibilite des services et optimiser les couts.
 \end{itemize}
 
 \subsection{Projets / TP associes}
@@ -837,38 +888,763 @@ en place.
 \newpage
 \section[Bloc 4 -- Implementer des methodes d'intelligence artificielle]{Bloc 4 -- Implementer des methodes d'intelligence artificielle pour\\ modeliser et predire de nouveaux comportements et usages}
 
-Cette partie doit montrer comment vous avez exploite les données pour produire
-de l'analyse, du reporting et des modeles predictifs utiles au metier.
+Cette partie démontre l'acquisition des cinq compétences du Bloc 4 du référentiel
+RNCP36739~\cite{rncp} à travers un projet complet de \textbf{maintenance prédictive
+    industrielle}. Chaque étape couvre une ou plusieurs sous-compétences du référentiel,
+synthétisées dans le tableau de validation ci-dessous.
 
-\subsection{Competences visees}
+% ===================== COMPÉTENCES VISÉES ==================
+\subsection{Compétences visées}
 
-\begin{itemize}
-    \item Extraire des données en provenance de systemes d'information varies pour
-    les exploiter et les analyser en utilisant les outils professionnels courants.
-    \item Preparer les données en les transformant et en les nettoyant pour faire
-    l'analyse et le reporting selon les besoins des differents metiers.
-    \item Elaborer une communication infographique visuelle en construisant des
-    tableaux de bord interactifs afin de communiquer les resultats d'analyse et
-    d'assurer l'extraction de connaissances en temps reel.
-    \item Developper un modele predictif pour identifier de nouveaux comportements
-    et usages en implementant des algorithmes d'apprentissage automatique
-    supervises.
-    \item Evaluer la performance d'un modele de machine learning en analysant ses
-    resultats et en les comparant avec d'autres modeles afin d'implementer la
-    solution la plus convenable a un cas d'usage.
+Le référentiel RNCP36739 définit cinq sous-compétences pour le Bloc 4, que ce
+dossier couvre intégralement à travers le \texttt{data science project}.
+Ce bloc porte sur l'exploitation des données pour produire des modèles prédictifs
+à valeur métier, du reporting analytique et de la visualisation. Il couvre le cycle
+complet du Machine Learning : préparation des données, construction de pipelines de
+transformation, entraînement comparatif de modèles, évaluation rigoureuse et mise
+en service. Le tableau de preuves d'acquisition présenté en fin de dossier
+(section~\ref{sec:preuves}) récapitule, pour chacune, la réalisation concrète qui
+la démontre.
+
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt, topsep=3pt]
+    \item Extraire des données en provenance de systèmes d'information variés pour
+          les exploiter et les analyser en utilisant les outils professionnels courants.
+    \item Préparer les données en les transformant et en les nettoyant pour faire
+          l'analyse et le reporting selon les besoins des différents métiers.
+    \item Élaborer une communication infographique visuelle en construisant des
+          tableaux de bord interactifs afin de communiquer les résultats d'analyse et
+          d'assurer l'extraction de connaissances en temps réel.
+    \item Développer un modèle prédictif pour identifier de nouveaux comportements
+          et usages en implémentant des algorithmes d'apprentissage automatique supervisés.
+    \item Évaluer la performance d'un modèle de machine learning en analysant ses
+          résultats et en les comparant avec d'autres modèles afin d'implémenter la
+          solution la plus convenable à un cas d'usage.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+% ===================== CONTEXTE ============================
+\subsection{Contexte et enjeux}
 
-\begin{itemize}
-    \item Projet Data Science
-    \item Hackathon
+Le projet \texttt{data science} traite de la \textbf{maintenance
+    prédictive industrielle}. Les machines industrielles sont équipées de capteurs
+(vibrations, température moteur, vitesse de rotation, pression, heures de vie
+résiduelle) qui produisent un flux continu de mesures. À partir de ces signaux,
+nous traitons deux tâches de prédiction au moyen de scikit-learn~\cite{sklearn} :
+
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=3pt]
+    \item \textbf{Classification binaire} --- prédire si une panne surviendra dans
+          les prochaines 24 heures. Cette prédiction déclenche une intervention préventive
+          ciblée avant la défaillance.
+    \item \textbf{Classification multiclasse (5 classes)} --- identifier le type de
+          panne attendu. Cette prédiction oriente le technicien vers la pièce ou le
+          sous-système en cause, réduisant le temps de diagnostic.
 \end{itemize}
 
-\subsection{Analyse attendue}
+L'enjeu industriel est direct et chiffrable. Une fausse alerte mobilise une équipe
+de maintenance pour rien ; un faux négatif laisse passer une panne réelle qui peut
+coûter plusieurs heures d'arrêt de production. Cet arbitrage asymétrique justifie
+le choix de la métrique primaire : le \textbf{F1-score} (moyenne harmonique de la
+précision et du rappel), qui pénalise simultanément les fausses alertes et les
+pannes manquées.
 
-Expliquez la preparation des données, les analyses produites, les modeles testes,
-les metriques utilisees, les resultats obtenus et leur valeur pour l'usage cible.
+% ===================== ARCHITECTURE / CYCLE ML =============
+\subsection{Architecture et cycle de vie du modèle}
+
+L'architecture du projet suit le cycle de vie standard d'un projet ML, de la donnée
+brute jusqu'à la mise en service. Chaque étape est isolée dans un module dédié, ce
+qui garantit la testabilité et la reproductibilité de l'ensemble.
+
+\needspace{20\baselineskip}
+\begin{center}\fitwidth{%
+        \begin{tikzpicture}[node distance=0.8cm]
+
+            \node[flowbox, fill=black!5, draw=black!30, text width=11cm] (csv) {
+                \textbf{Données brutes} --- \texttt{industrial\_machine\_maintenance.csv}\\[2pt]
+                \small vibration\_rms · temperature\_motor · rpm · pressure\_level · rul\_hours · operating\_mode
+            };
+
+            \node[flowbox, fill=silverBg, draw=silverColor, below=0.7cm of csv, text width=11cm] (prep) {
+                \textbf{\textcolor{silverColor}{Préparation}} \quad \texttt{preprocessing.py}\\[2pt]
+                \small ColumnTransformer (imputation + normalisation + encodage) · split stratifié 80/20
+            };
+
+            \node[flowbox, fill=cloudBg, draw=cloudColor, below=0.7cm of prep, text width=11cm] (train) {
+                \textbf{\textcolor{cloudColor}{Entraînement comparatif}} \quad \texttt{train.py}\\[2pt]
+                \small 4 modèles candidats par tâche · sélection automatique du meilleur · permutation importance
+            };
+
+            \node[flowbox, fill=mlBg, draw=mlColor, below=0.7cm of train, text width=11cm] (art) {
+                \textbf{\textcolor{mlColor}{Évaluation \& artefacts}} \quad \texttt{evaluate.py}\\[2pt]
+                \small \texttt{best\_model.joblib} · \texttt{model\_comparison.csv} · \texttt{feature\_importance.csv}
+            };
+
+            \node[minibox, fill=goldBg, draw=goldColor, below left=0.9cm and 1.5cm of art, text width=4.6cm] (api) {
+                \textbf{\textcolor{goldColor!70!black}{Serving --- FastAPI}}\\[2pt]
+                \small \texttt{api/routes.py}\\ predict + health
+            };
+            \node[minibox, fill=goldBg, draw=goldColor, below right=0.9cm and 1.5cm of art, text width=4.6cm] (dash) {
+                \textbf{\textcolor{goldColor!70!black}{Dashboard --- Streamlit}}\\[2pt]
+                \small \texttt{dashboard/app.py}\\ EDA · benchmark · prédiction
+            };
+
+            \draw[arrowM] (csv) -- (prep);
+            \draw[arrowM] (prep) -- (train);
+            \draw[arrowM] (train) -- (art);
+            \draw[arrowM] (art.south) -- ++(0,-0.4) -| (api.north);
+            \draw[arrowM] (art.south) -- ++(0,-0.4) -| (dash.north);
+
+        \end{tikzpicture}}\end{center}
+
+Ce découpage modulaire est un choix d'ingénierie : la préparation, l'entraînement,
+l'évaluation et le serving sont indépendants. On peut réentraîner les modèles sans
+toucher à l'API, ou faire évoluer le tableau de bord sans réentraîner. Il est
+impératif de séparer les responsabilités pour que le projet ML puisse être maintenu.
+
+% ===================== ANALYSE DU DOMAINE ==================
+\subsection{Analyse exploratoire et compréhension métier}
+
+La maintenance industrielle suit historiquement deux modèles. La maintenance
+\textit{corrective} répare après la panne : elle maximise l'usure utile des pièces
+mais expose à des arrêts non planifiés et coûteux. La maintenance \textit{préventive
+    planifiée} révise à intervalle fixe : elle est sûre mais remplace des pièces encore
+fonctionnelles, gaspillant de la valeur.
+
+La maintenance \textit{prédictive} vise un troisième modèle, supérieur aux deux
+précédents : intervenir au bon moment, ni trop tôt ni trop tard, en se fondant sur
+l'état réel de la machine mesuré par les capteurs. C'est précisément l'objet des
+deux tâches de prédiction du projet.
+
+\needspace{8\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Stratégie}    & \thead{Pré-requis} & \thead{Coût d'une panne} & \thead{Coût de maintenance}      \\
+        \hline
+        Corrective           & Aucun              & Élevé (arrêt non prévu)  & Faible (minimal)                 \\
+        \hline
+        Préventive planifiée & Calendrier         & Faible                   & Élevé (pièces saines remplacées) \\
+        \hline
+        \textbf{Prédictive}  & Capteurs + ML      & Quasi-nul                & Optimisé (juste à temps)         \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+L'indicateur \texttt{rul\_hours} (\textit{Remaining Useful Life}, durée de vie
+résiduelle) est au cœur du problème : il estime le temps restant avant la prochaine
+défaillance. Comme le confirmera l'analyse d'importance des variables, cet indicateur
+domine la prédiction --- un résultat cohérent avec l'intuition métier.
+
+\subsubsection{Exploration des données}
+
+Le jeu de données  regroupe 24\,042 mesures de capteurs. L'analyse exploratoire
+(EDA) précède la modélisation : elle révèle le fort déséquilibre des cibles
+et la séparation des distributions decapteurs selon le statut de panne, deux
+observations qui orientent les choix méthodologiques.
+
+\figc{fig_distribution_cibles.png}{0.95\linewidth}{Distribution des deux cibles. La
+    classe positive \texttt{failure\_within\_24h=1} ne représente que 14,8\,\% des
+    observations, et la cible \texttt{failure\_type} est dominée par la classe
+    \texttt{none} (85\,\%). Ce déséquilibre impose le F1-score et la PR-AUC comme
+    métriques, ainsi qu'un split stratifié.}
+
+Les boîtes à moustaches confirment que les variables dominantes séparent nettement
+les machines saines des machines à risque : sur les machines en panne, la température
+moyenne passe de 49 à 63\,°C et la durée de vie résiduelle chute de 30,6 à 11,8\,h.
+
+\figc{fig_boxplots.png}{0.95\linewidth}{Distribution des variables clés selon le
+    statut de panne. La séparation nette des médianes (température, vibration, RUL)
+    justifie leur pouvoir prédictif observé plus loin.}
+
+\figc{fig_heatmap.png}{0.62\linewidth}{Carte de chaleur des corrélations. La
+    température moteur ($+0{,}39$), la vibration ($+0{,}26$) et la durée de vie
+    résiduelle ($-0{,}25$) sont les plus corrélées à la cible binaire.}
+
+% ===================== PRÉPARATION =========================
+\subsection{Préparation des données et pipeline de transformation}
+
+\subsubsection{Variables explicatives et cibles}
+
+Le jeu de données contient six variables explicatives (cinq numériques, une catégorielle)
+et deux cibles alternatives, une par tâche de prédiction.
+
+\needspace{10\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Variable}              & \thead{Type}      & \thead{Description}                      \\
+        \hline
+        \texttt{rul\_hours}           & Numérique         & Heures de vie résiduelle estimée         \\
+        \hline
+        \texttt{temperature\_motor}   & Numérique         & Température moteur (°C)                  \\
+        \hline
+        \texttt{rpm}                  & Numérique         & Vitesse de rotation (tours/min)          \\
+        \hline
+        \texttt{vibration\_rms}       & Numérique         & Amplitude vibratoire RMS                 \\
+        \hline
+        \texttt{pressure\_level}      & Numérique         & Niveau de pression                       \\
+        \hline
+        \texttt{operating\_mode}      & Catégoriel        & Mode de fonctionnement                   \\
+        \hline\hline
+        \texttt{failure\_within\_24h} & Cible binaire     & Une panne surviendra-t-elle sous 24\,h ? \\
+        \hline
+        \texttt{failure\_type}        & Cible multiclasse & Type de panne (5 classes)                \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\subsubsection{Le pipeline de transformation : ColumnTransformer}
+
+Les variables numériques et la variable catégorielle exigent des traitements
+distincts. Le \texttt{ColumnTransformer} de scikit-learn applique deux sous-pipelines
+en parallèle, puis concatène leurs sorties en une matrice de features homogène
+prête pour l'estimateur. Le schéma ci-dessous illustre ce flux.
+
+\needspace{24\baselineskip}
+\begin{center}\fitwidth{%
+        \begin{tikzpicture}[node distance=1cm]
+
+            % Entrée
+            \node[flowbox, fill=black!5, draw=black!30, text width=10.5cm] (input) {
+                \textbf{Features en entrée} --- 6 colonnes\\[2pt]
+                \small vibration\_rms · temperature\_motor · rpm · pressure\_level · rul\_hours · operating\_mode
+            };
+
+            % Deux branches
+            \node[minibox, fill=silverBg, draw=silverColor, below=1.6cm of input, xshift=-3.3cm, text width=5.5cm] (num) {
+                \textbf{\textcolor{silverColor}{Branche numérique}} --- 5 colonnes\\[3pt]
+                \small \texttt{SimpleImputer(median)}\\[1pt] + \texttt{StandardScaler}
+            };
+            \node[minibox, fill=goldBg, draw=goldColor, below=1.6cm of input, xshift=3.3cm, text width=5.5cm] (cat) {
+                \textbf{\textcolor{goldColor!70!black}{Branche catégorielle}} --- 1 colonne\\[3pt]
+                \small \texttt{SimpleImputer(most\_frequent)}\\[1pt] + \texttt{OneHotEncoder(ignore)}
+            };
+
+            % Conteneur ColumnTransformer
+            \node[draw=accentBlue, very thick, rounded corners, fit=(num)(cat), inner sep=12pt,
+                label={[text=accentBlue, font=\bfseries]north:ColumnTransformer}] (ct) {};
+
+            % Fusion
+            \node[flowbox, fill=cloudBg, draw=cloudColor, below=1.5cm of ct, text width=9cm] (trans) {
+                \textbf{\textcolor{cloudColor}{Matrice de features transformée}}\\[2pt]
+                \small vecteur numérique homogène (numériques standardisées + catégorielles encodées)
+            };
+
+            \node[minibox, fill=mlBg, draw=mlColor, below=0.9cm of trans, text width=6cm] (est) {
+                \textbf{\textcolor{mlColor}{Estimateur}}\\[2pt]
+                \small ex. \texttt{HistGradientBoostingClassifier}
+            };
+
+            \node[below=0.7cm of est, font=\ttfamily\small, text=titleNavy] (pred) {predict() \quad·\quad predict\_proba()};
+
+            % Flèches
+            \draw[arrowM] (input.south) -- ++(0,-0.45) -| (num.north);
+            \draw[arrowM] (input.south) -- ++(0,-0.45) -| (cat.north);
+            \draw[arrowM] (num.south) -- ++(0,-0.5) -| ([xshift=-2.2cm]trans.north);
+            \draw[arrowM] (cat.south) -- ++(0,-0.5) -| ([xshift=2.2cm]trans.north);
+            \draw[arrowM] (trans) -- (est);
+            \draw[arrowM] (est) -- (pred);
+
+        \end{tikzpicture}}\end{center}
+
+\begin{lstlisting}[language=Python, caption=Pipeline de préparation -- ColumnTransformer et split stratifié (preprocessing.py)]
+def build_preprocessor() -> ColumnTransformer:
+    numeric_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+    ])
+    categorical_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("encoder", OneHotEncoder(handle_unknown="ignore")),
+    ])
+    return ColumnTransformer(transformers=[
+        ("numeric",     numeric_pipeline,     NUMERIC_COLUMNS),
+        ("categorical", categorical_pipeline, CATEGORICAL_COLUMNS),
+    ])
+
+def make_train_test_split(features, target, test_size=0.2):
+    validate_stratified_split_capacity(target, test_size)
+    return train_test_split(
+        features, target,
+        test_size=test_size, random_state=RANDOM_STATE,
+        stratify=target,   # garantit la representation de toutes les classes
+    )
+\end{lstlisting}
+
+Chaque choix de transformation répond à une contrainte du domaine. L'imputation par
+la \textbf{médiane} pour les variables numériques est robuste aux valeurs aberrantes
+fréquentes sur des capteurs. L'option \texttt{handle\_unknown="ignore"} de
+l'encodeur prévient toute erreur à l'inférence si un mode opératoire inconnu apparaît
+en production : la ligne est encodée par un vecteur nul plutôt que de provoquer une
+exception. Enfin, la \textbf{stratification} du split garantit que chaque classe ---
+y compris les pannes rares --- est représentée dans le jeu de test avec la même
+proportion qu'à l'entraînement, condition d'une évaluation statistiquement valide.
+
+La taille du jeu de test est par ailleurs calculée dynamiquement par
+\texttt{test\_size = max(0.2,\,n\_classes / n\_rows)}. Ce garde-fou empêche qu'une
+division 80/20 sur un jeu restreint produise un jeu de test trop petit pour contenir
+au moins un exemple de chaque classe.
+
+% ===================== ENTRAÎNEMENT ========================
+\subsection{Entraînement comparatif et sélection du modèle}
+
+\subsubsection{Architecture du benchmark}
+
+Le principe directeur est l'\textbf{étanchéité} entre l'entraînement et l'évaluation.
+Le préprocesseur et le modèle sont encapsulés dans un unique \texttt{Pipeline}
+scikit-learn : le \texttt{StandardScaler} et les imputeurs sont ajustés uniquement
+sur les données d'entraînement, jamais sur le jeu de test. Cette discipline élimine
+toute fuite de données (\textit{data leakage}) qui gonflerait artificiellement les
+scores.
+
+\begin{lstlisting}[language=Python, caption=Boucle de benchmark et sélection automatique (train.py)]
+for model_name, estimator in candidate_models.items():
+    pipeline = Pipeline(steps=[
+        ("preprocessor", build_preprocessor()),
+        ("model",        estimator),
+    ])
+    pipeline.fit(x_train, y_train)
+    predicted_labels        = pipeline.predict(x_test)
+    predicted_probabilities = pipeline.predict_proba(x_test)
+
+    evaluation_rows.append(evaluate_classifier(
+        task_name=task_name, model_name=model_name,
+        true_values=y_test,
+        predicted_labels=predicted_labels,
+        predicted_probabilities=predicted_probabilities,
+    ))
+
+comparison    = compare_results(task_name=task_name, results=evaluation_rows)
+best_row      = select_best_model(comparison)   # tri sur la metrique primaire
+best_pipeline = trained_pipelines[best_row["model_name"]]
+save_model(best_pipeline, model_path)           # serialisation joblib
+\end{lstlisting}
+
+La sélection du meilleur modèle est entièrement automatisée : les résultats sont
+triés sur la métrique primaire (F1 en binaire, weighted\_F1 en multiclasse) et le
+vainqueur est sérialisé en \texttt{joblib} pour la mise en service. Aucune
+intervention manuelle n'intervient dans le choix final, ce qui rend la démarche
+reproductible.
+
+\subsubsection{Modèles candidats}
+
+Quatre familles de modèles sont mises en concurrence pour chaque tâche, couvrant un
+spectre volontairement large : un modèle linéaire (Logistic Regression), deux
+modèles d'ensemble (Random Forest, gradient boosting) et un réseau de neurones
+(Multilayer Perceptron).
+
+\begin{lstlisting}[language=Python, caption=Modèles candidats par tâche (models.py)]
+# Tache binaire (failure_within_24h)
+{
+  "logistic_regression": LogisticRegression(max_iter=1000, random_state=42),
+  "random_forest":       RandomForestClassifier(
+                             n_estimators=300, random_state=42,
+                             class_weight="balanced"),  # compense le desequilibre
+  "gradient_boosting":   HistGradientBoostingClassifier(random_state=42),
+  "mlp_classifier":      MLPClassifier(
+                             hidden_layer_sizes=(64, 32),
+                             max_iter=300, random_state=42),
+}
+\end{lstlisting}
+
+L'option \texttt{class\_weight="balanced"} de la Random Forest compense le
+déséquilibre de classes inhérent aux données de maintenance --- les pannes sont
+rares par définition. Le \texttt{HistGradientBoostingClassifier} gère nativement les
+valeurs manquantes, sans imputation préalable, ce qui en fait un candidat robuste
+même lorsqu'un capteur perd des mesures.
+
+\subsubsection{Le modèle vainqueur : HistGradientBoostingClassifier}
+
+Le \texttt{HistGradientBoostingClassifier} est l'implémentation scikit-learn du
+gradient boosting (approche popularisée par LightGBM). Il se
+distingue par deux optimisations déterminantes :
+
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt, topsep=3pt]
+    \item \textbf{Discrétisation par histogrammes.} Plutôt que de tester tous les
+          seuils de division possibles, l'algorithme regroupe chaque variable en 256
+          intervalles (bins) et ne teste que ces 256 valeurs. La complexité d'entraînement
+          chute de $O(n \times d)$ à $O(256 \times d)$, où $n$ est le nombre d'exemples et
+          $d$ le nombre de variables.
+    \item \textbf{Gestion native des valeurs manquantes.} L'algorithme apprend, pour
+          chaque division, si une valeur manquante doit suivre la branche gauche ou droite.
+          Cette propriété est directement utile face à des capteurs pouvant perdre des
+          mesures (panne capteur, coupure réseau).
+\end{enumerate}
+
+\needspace{8\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Caractéristique}    & \thead{HistGradientBoosting}           & \thead{RandomForest}               \\
+        \hline
+        Valeurs manquantes         & Nativement gérées                      & Imputation requise                 \\
+        \hline
+        Complexité d'entraînement  & $O(256 \times d \times \text{arbres})$ & $O(n \log n \times \text{arbres})$ \\
+        \hline
+        Risque de surapprentissage & Modéré (régularisation $\ell_2$)       & Faible (bagging)                   \\
+        \hline
+        Interprétabilité           & Faible (boîte noire)                   & Moyenne (importance native)        \\
+        \hline
+        Gestion du déséquilibre    & Bonne (\texttt{class\_weight})         & Très bonne (\texttt{balanced})     \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+Comme le montreront les résultats, aucun algorithme n'est universellement supérieur :
+le Gradient Boosting l'emporte sur la tâche binaire, tandis que la Random Forest
+domine la tâche multiclasse déséquilibrée. Le benchmark systématique est donc
+indispensable pour choisir le bon modèle par cas d'usage.
+
+% ===================== RÉSULTATS ===========================
+\subsection{Résultats et évaluation}
+
+\subsubsection{Tâche 1 --- Classification binaire \texttt{failure\_within\_24h}}
+
+\needspace{10\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|c|c|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Modèle}             & \thead{F1}      & \thead{Précision} & \thead{Rappel} & \thead{ROC-AUC} & \thead{PR-AUC}  \\
+        \hline
+        \textbf{gradient boosting} & \textbf{0,9775} & 0,9789            & 0,9761         & \textbf{0,9991} & \textbf{0,9956} \\
+        \hline
+        random forest              & 0,9752          & 0,9857            & 0,9649         & 0,9995          & 0,9976          \\
+        \hline
+        mlp classifier             & 0,9337          & 0,9697            & 0,9003         & 0,9974          & 0,9877          \\
+        \hline
+        logistic regression        & 0,7224          & 0,8456            & 0,6306         & 0,9485          & 0,8273          \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+Le \texttt{Gradient Boosting} remporte le benchmark sur la métrique
+primaire F1 (0,9775), avec le meilleur équilibre précision/rappel. La Random Forest
+obtient une précision et une ROC-AUC légèrement supérieures, mais son rappel plus
+faible (0,9649) --- donc davantage de pannes manquées --- pénalise son F1. La
+Logistic Regression confirme la nature non linéaire du problème : son rappel de
+0,6306 signifie qu'elle manque près de 37\,\% des pannes réelles, ce qui la rend
+inutilisable pour ce cas d'usage critique.
+
+\figc{fig_comparaison_binaire.png}{0.95\linewidth}{Comparaison visuelle des quatre
+    modèles sur la tâche binaire (F1, précision, rappel, ROC-AUC, PR-AUC). Les deux
+    modèles d'ensemble dominent ; la régression logistique décroche nettement sur le
+    rappel et la PR-AUC.}
+
+\subsubsection{Tâche 2 --- Classification multiclasse \texttt{failure\_type} (5 classes)}
+
+\needspace{8\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Modèle}           & \thead{weighted\_F1} & \thead{macro\_F1} & \thead{Classes} \\
+        \hline
+        \textbf{random\_forest}  & \textbf{0,9782}      & 0,8955            & 5               \\
+        \hline
+        hist\_gradient\_boosting & 0,9753               & 0,8829            & 5               \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+Sur la tâche multiclasse, la Random Forest prend la tête (weighted\_F1 = 0,9782).
+Le macro\_F1 de 0,8955 --- moyenne non pondérée par la taille des classes --- indique
+que les classes minoritaires restent globalement bien gérées. L'écart entre
+weighted\_F1 (0,9782) et macro\_F1 (0,8955) révèle néanmoins que certaines classes
+rares sont prédites avec moins de fiabilité : c'est l'axe d'amélioration principal,
+détaillé en section~\ref{sec:axes}.
+
+\subsubsection{Interprétabilité --- importance des variables}
+
+L'interprétabilité est essentielle pour qu'un modèle soit accepté en production par
+les équipes métier. Nous calculons l'\textbf{importance par permutation} sur le jeu de
+test : pour chaque variable, on mesure la chute du F1 lorsque ses valeurs sont
+mélangées aléatoirement. Plus la chute est forte, plus la variable est prédictive.
+
+\needspace{9\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Variable}            & \thead{Importance (permutation)} \\
+        \hline
+        \texttt{rul\_hours}         & \textbf{0,4954}                  \\
+        \hline
+        \texttt{temperature\_motor} & 0,2899                           \\
+        \hline
+        \texttt{rpm}                & 0,2772                           \\
+        \hline
+        \texttt{vibration\_rms}     & 0,1165                           \\
+        \hline
+        \texttt{pressure\_level}    & 0,0471                           \\
+        \hline
+        \texttt{operating\_mode}    & 0,0174                           \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+La variable \texttt{rul\_hours} domine très nettement (0,495) : elle est le signal le
+plus prédictif d'une panne imminente, ce qui valide l'intuition métier. La
+température moteur (0,290) et la vitesse de rotation (0,277) sont les deux facteurs
+physiques complémentaires. À l'inverse, le mode opératoire est quasi nul (0,017) : il
+n'apporte pas d'information prédictive significative sur ce jeu de données. Ce
+classement est directement exploitable : il indique aux équipes quelles grandeurs
+instrumenter en priorité.
+
+\begin{lstlisting}[language=Python, caption=Calcul de L'importance par permutation (train.py)]
+importance_result = permutation_importance(
+    estimator=best_pipeline,
+    X=x_test, y=y_test,
+    n_repeats=10,           # robustesse statistique de l'estimation
+    random_state=RANDOM_STATE,
+    scoring="f1_weighted",
+)
+importance_frame = pd.DataFrame({
+    "feature":         x_test.columns,
+    "importance_mean": importance_result.importances_mean,
+    "importance_std":  importance_result.importances_std,
+}).sort_values(by="importance_mean", ascending=False)
+\end{lstlisting}
+
+\figc{fig_importance_binaire.png}{0.85\linewidth}{Importance des variables par
+    permutation (tâche binaire). La durée de vie résiduelle \texttt{rul\_hours} explique
+    à elle seule près de la moitié de la performance du modèle.}
+
+\subsubsection{Analyse des erreurs --- matrice de confusion}
+
+Au-delà des scores agrégés, l'analyse de la matrice de confusion
+éclaire le comportement réel du modèle face aux deux types d'erreurs.
+
+\needspace{8\baselineskip}
+\begin{center}
+    \begin{tabular}{|l|>{\centering\arraybackslash}p{3.9cm}|>{\centering\arraybackslash}p{3.9cm}|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{}                     & \thead{Prédit : panne}                   & \thead{Prédit : pas de panne}        \\
+        \hline
+        \textbf{Réel : panne}        & VP (vrais positifs)                      & FN (faux négatifs --- risque métier) \\
+        \hline
+        \textbf{Réel : pas de panne} & FP (faux positifs --- coût mobilisation) & VN (vrais négatifs)                  \\
+        \hline
+    \end{tabular}
+\end{center}
+
+En maintenance industrielle, les deux erreurs n'ont pas le même coût : un faux négatif
+(panne manquée) peut entraîner un arrêt de production, tandis qu'un faux positif
+(fausse alerte) ne mobilise qu'une équipe pour une vérification inutile. Le modèle
+retenu affiche un rappel de 0,9761 (97,6\,\% des pannes réelles détectées) pour une
+précision de 0,9789 : l'équilibre penche légèrement en faveur du rappel, ce qui est
+exactement le comportement souhaité pour ce cas d'usage.
+
+\figc{fig_confusion_binaire.png}{0.62\linewidth}{Matrice de confusion de la tâche
+    binaire (modèle \texttt{gradient\_boosting}). Sur le jeu de test, seuls 17 faux
+    négatifs et 15 faux positifs subsistent face à 4\,082 vrais négatifs et 695 vrais
+    positifs.}
+
+Sur la tâche multiclasse, la matrice de confusion révèle que la classe majoritaire
+\texttt{none} est presque parfaitement identifiée, tandis que les confusions
+résiduelles se concentrent entre types de pannes rares (\texttt{electrical},
+\texttt{hydraulic}) --- ce qui explique l'écart entre weighted\_F1 et macro\_F1.
+
+\figc{fig_confusion_multiclasse.png}{0.7\linewidth}{Matrice de confusion de la tâche
+    multiclasse (modèle \texttt{random\_forest}, 5 classes). La diagonale dominante
+    confirme la qualité globale ; les erreurs se concentrent sur les classes minoritaires.}
+
+% ===================== MISE EN SERVICE =====================
+\subsection{Mise en service et communication des résultats}
+
+\subsubsection{API de prédiction --- FastAPI}
+
+Les modèles sérialisés sont exposés via une API REST construite avec FastAPI~\cite{fastapi}.
+Chaque tâche dispose de son endpoint de prédiction, et un endpoint de supervision
+expose l'état de chargement des artefacts.
+
+\begin{lstlisting}[language=Python, caption=Endpoints de prédiction et supervision (api/routes.py)]
+@router.post("/predict/failure-within-24h",
+             response_model=FailureWithin24hPredictionResponse)
+def predict_binary(payload: FailureWithin24hPredictionRequest):
+    return predict_failure_within_24h(payload.model_dump())
+
+@router.post("/predict/failure-type",
+             response_model=FailureTypePredictionResponse)
+def predict_multiclass(payload: FailureTypePredictionRequest):
+    return predict_failure_type(payload.model_dump())
+
+@router.get("/health", response_model=HealthResponse)
+def health() -> HealthResponse:
+    available_tasks = []
+    for task_name in config.TASK_CONFIGS:
+        try:
+            load_task_bundle(task_name)
+        except TaskArtifactError:
+            continue
+        available_tasks.append(task_name)
+    status = "ok" if len(available_tasks) == len(config.TASK_CONFIGS) else "degraded"
+    return HealthResponse(status=status, available_tasks=available_tasks)
+\end{lstlisting}
+
+L'endpoint \texttt{/health} renvoie \texttt{"ok"} uniquement si les deux artefacts
+(binaire et multiclasse) sont chargés ; sinon \texttt{"degraded"}. Ce mécanisme
+permet un monitoring en production. La validation des entrées est assurée par Pydantic v2
+via les schémas \texttt{FailureWithin24hPredictionRequest} et
+\texttt{FailureTypePredictionRequest}, cohérents avec les six variables déclarées
+dans \texttt{config.py}.
+
+\subsubsection{Tableau de bord interactif --- Streamlit}
+
+Le tableau de bord Streamlit~\cite{streamlit} (\texttt{dashboard/app.py}) répond
+directement à la sous-compétence de \og{}communication infographique visuelle\fg{}.
+Il s'organise en trois pages complémentaires :
+
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=3pt]
+    \item \textbf{Page exploration (EDA)} : distributions des variables capteurs
+          (histogrammes, boîtes à moustaches), corrélations entre variables (carte de
+          chaleur), répartition des classes cibles. Elle permet à un expert métier de
+          comprendre les données sans écrire de code.
+    \item \textbf{Page benchmark} : tableau comparatif des modèles (F1, précision,
+          rappel, ROC-AUC), graphique des importances de variables, sélection interactive
+          du modèle visualisé.
+    \item \textbf{Page prédiction} : formulaire de saisie des six variables capteurs,
+          appel en temps réel à l'API FastAPI, affichage de la prédiction et de la
+          probabilité associée.
+\end{itemize}
+
+La page de prédiction ne ré-embarque pas le modèle : elle consomme l'API. Ainsi,
+tout déploiement d'un nouveau modèle est immédiatement reflété dans le tableau de
+bord sans le redémarrer --- une conséquence directe de l'architecture découplée.
+
+\figc{fig_dashboard.png}{\linewidth}{Tableau de bord Streamlit. À gauche :
+    informations du modèle servi et comparaison des modèles. À droite : formulaire de
+    saisie des six variables capteurs et réponse JSON de l'API (probabilité, label,
+    top-3 des variables influentes).}
+
+\subsubsection{Qualité logicielle et reproductibilité}
+
+L'ensemble du pipeline est couvert par des tests automatisés \texttt{pytest}, module
+par module, garantissant que chaque étape est validée indépendamment. Cette couverture
+est la condition de la reproductibilité des résultats annoncés.
+
+\needspace{9\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Module testé}                   & \thead{Périmètre de validation}                        \\
+        \hline
+        \texttt{test\_data.py}                 & Chargement du dataset, séparation features/cible       \\
+        \hline
+        \texttt{test\_preprocessing.py}        & Pipeline ColumnTransformer, split stratifié            \\
+        \hline
+        \texttt{test\_prediction\_pipeline.py} & Pipeline complet entraînement $\rightarrow$ prédiction \\
+        \hline
+        \texttt{test\_evaluate.py}             & Métriques binaires et multiclasses                     \\
+        \hline
+        \texttt{test\_explainability.py}       & Permutation importance                                 \\
+        \hline
+        \texttt{test\_api.py}                  & Endpoints FastAPI (health, predict)                    \\
+        \hline
+        \texttt{test\_dashboard\_helpers.py}   & Fonctions de visualisation Streamlit                   \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+La configuration des tâches est par ailleurs centralisée dans un unique dictionnaire
+\texttt{TASK\_CONFIGS} (\texttt{config.py}), source de vérité partagée par les modules
+d'entraînement, d'évaluation et de serving. Ajouter une nouvelle tâche se résume à y
+ajouter une entrée : aucun chemin n'est codé en dur dans les modules métier.
+
+% ===================== ROBUSTESSE ==========================
+\subsection{Robustesse, limites et axes d'amélioration}
+\label{sec:axes}
+
+\subsubsection{Validation : split stratifié et perspective k-fold}
+
+La version actuelle repose sur un split stratifié 80/20, choisi pour son rapport
+coût/robustesse : huit entraînements complets (quatre modèles $\times$ deux tâches)
+restent rapides. Une validation croisée \textit{k-fold} (k=5) fournirait une
+estimation plus robuste de la variance, au prix d'un temps de calcul multiplié par
+cinq.
+
+\needspace{8\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Méthode}       & \thead{Avantage}                        & \thead{Inconvénient}               \\
+        \hline
+        Split 80/20 stratifié & Rapide, simple à implémenter            & Variance selon la graine aléatoire \\
+        \hline
+        k-fold (k=5)          & Estimation robuste (k résultats)        & 5$\times$ le temps de calcul       \\
+        \hline
+        Stratified k-fold     & Robustesse + représentation des classes & Même coût que k-fold               \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\subsubsection{Limites de l'interprétabilité par permutation}
+
+L'importance par permutation reste une méthode globale qui présente deux limites. D'une
+part, en présence de variables corrélées (par exemple \texttt{rul\_hours} et
+\texttt{temperature\_motor}), permuter l'une laisse l'information accessible via
+l'autre, sous-estimant l'importance des deux. D'autre part, son coût croît avec le
+produit du nombre de variables par \texttt{n\_repeats}. Une approche complémentaire
+serait SHAP (\textit{SHapley Additive exPlanations}), qui fournit une interprétabilité
+\textbf{locale}, instance par instance, en plus de la vue globale.
+
+\subsubsection{Axes d'amélioration}
+
+L'écart entre macro\_F1 (0,8955) et weighted\_F1 (0,9782) sur la tâche multiclasse
+indique que les classes de pannes rares sont sous-représentées. Deux leviers sont
+identifiés : un suréchantillonnage \textbf{SMOTE} (génération d'exemples synthétiques
+pour les classes minoritaires par interpolation) et un ajustement des poids de classe
+à l'entraînement multiclasse. Enfin, l'ajout d'un réentraînement périodique piloté par
+une détection de dérive (\textit{drift detection}) permettrait au modèle de s'adapter
+à l'évolution du comportement des machines en production.
+
+% ===================== SYNTHÈSE ============================
+\subsection{Synthèse --- compétences démontrées}
+
+Le \texttt{projet data science} couvre l'intégralité du périmètre du Bloc 4,
+de la donnée brute à la mise en service, en démontrant chacune des cinq
+sous-compétences du référentiel.
+
+\subsubsection{Preuves d'acquisition des compétences}
+\label{sec:preuves}
+
+Le tableau suivant récapitule, pour chacune des cinq sous-compétences du Bloc 4, la
+réalisation concrète qui la démontre dans le projet et le résultat mesurable obtenu.
+
+\needspace{14\baselineskip}
+\begin{center}
+    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableHeader}
+        \thead{Compétence visée}                                   & \thead{Réalisation et preuve dans le projet} \\
+        \hline
+        Extraire des données de systèmes variés                    &
+        Chargement et exploration d'un jeu de données de capteurs industriels
+        (\texttt{data.py}, 6 variables, 2 cibles) avec séparation features/cible contrôlée.                       \\
+        \hline
+        Préparer et nettoyer les données                           &
+        Pipeline \texttt{ColumnTransformer} : imputation médiane + standardisation
+        (numériques), imputation modale + encodage one-hot (catégoriel), split
+        stratifié 80/20.                                                                                          \\
+        \hline
+        Communication infographique (tableaux de bord interactifs) &
+        Tableau de bord \textbf{Streamlit} à trois pages : exploration (EDA),
+        comparaison des modèles, prédiction en temps réel via l'API.                                              \\
+        \hline
+        Développer un modèle prédictif supervisé                   &
+        Deux tâches (classification binaire et multiclasse à 5 classes), quatre
+        modèles candidats par tâche, sélection automatisée du meilleur.                                           \\
+        \hline
+        Évaluer et comparer les performances                       &
+        Benchmark sur F1, précision, rappel, ROC-AUC, PR-AUC ; meilleur F1
+        = \textbf{0,9775} (binaire) et weighted\_F1 = \textbf{0,9782} (multiclasse).                              \\
+        \hline
+    \end{tabularx}
+\end{center}
 
 \newpage
 \section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}
@@ -880,20 +1656,20 @@ enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
 
 \begin{itemize}
     \item Definir une gouvernance de données en mettant en place les politiques et
-    les standards afin d'etablir les roles, les responsabilites et la propriete des
-    données.
+          les standards afin d'etablir les roles, les responsabilites et la propriete des
+          données.
     \item Mettre en place les bonnes pratiques de gestion de données en appliquant
-    les regulations en vigueur pour proteger les données et respecter la vie privee
-    dans une logique de transparence.
+          les regulations en vigueur pour proteger les données et respecter la vie privee
+          dans une logique de transparence.
     \item S'assurer que la qualite de la donnee permet d'atteindre les objectifs
-    business en faisant un audit de qualite et en proposant des plans de prevention
-    et de remediation en cas de non-qualite.
+          business en faisant un audit de qualite et en proposant des plans de prevention
+          et de remediation en cas de non-qualite.
     \item Identifier l'approche strategique pour faire de la donnee un actif central
-    ancre dans la culture de l'entreprise et integrer cette approche dans un plan de
-    communication diffuse aux personnes concernees.
+          ancre dans la culture de l'entreprise et integrer cette approche dans un plan de
+          communication diffuse aux personnes concernees.
     \item Elaborer une strategie de securite afin de proteger les données en
-    utilisant les technologies adequates et en mettant en place une politique
-    d'acces aux données.
+          utilisant les technologies adequates et en mettant en place une politique
+          d'acces aux données.
 \end{itemize}
 
 \subsection{Projets / TP associes}
