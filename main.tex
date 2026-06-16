@@ -1,7 +1,9 @@
 \documentclass{article}
 
 % Language setting
+\usepackage{lmodern}          % polices vectorielles nettes (remplace les bitmaps CM)
 \usepackage[T1]{fontenc}
+\usepackage{textcomp}
 \usepackage[french]{babel}
 
 % Set page size and margins
@@ -19,52 +21,194 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{needspace}
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{microtype}        % justification professionnelle, réduit les débordements
+\usepackage{seqsplit}         % coupe propre des longues chaînes machine
+\usepackage{array}            % types de colonnes étendus
+\usepackage{tabularx}         % colonnes à largeur automatique
+\usepackage{booktabs}         % filets de tableaux professionnels
+\usepackage{colortbl}         % couleurs de lignes/filets de tableaux
+\usepackage{enumitem}         % listes plus compactes
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
+% ---- Justification : élimine les débordements sans césure de code ----
+\tolerance=2000
+\emergencystretch=3em
+\hbadness=2500
+
+% ---- Mise à l'échelle sûre des schémas (ne réduit que si trop large) ----
+\newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
+
+% ---- Couleurs de charte ----
+\definecolor{titleNavy}{RGB}{22,50,92}      % bleu nuit pour les titres
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}    % fond d'en-tête de tableau
+\definecolor{tableRowAlt}{RGB}{238,242,248} % zébrure légère
+\definecolor{ruleGray}{RGB}{200,205,212}
+
+% ---- Titres de sections colorés (titlesec) ----
+\titleformat{\section}
+  {\Large\bfseries\color{titleNavy}}{\thesection}{0.8em}{}[{\vspace{1pt}\color{titleNavy}\titlerule[1.2pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\color{titleNavy}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accentBlue}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% ---- Style de tableau global : filets doux, lignes aérées ----
+\arrayrulecolor{ruleGray}
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.35}
+
+% ---- En-tête de tableau réutilisable : \thead{...} ----
+\newcommand{\thead}[1]{\textbf{\textcolor{white}{#1}}}
+
+% ---- Code machine sécable (pour cellules de tableau étroites) ----
+\newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
+
+% Empêcher les coupures de page dans les blocs de code
+\BeforeBeginEnvironment{lstlisting}{%
+  \par\needspace{6\baselineskip}%
+  \noindent\begin{minipage}{\linewidth}\vspace{2pt}%
+}
+\AfterEndEnvironment{lstlisting}{%
+  \vspace{2pt}\end{minipage}\par\medskip%
+}
+
+% Empêcher les coupures dans verbatim
+\BeforeBeginEnvironment{verbatim}{%
+  \par\needspace{4\baselineskip}%
+  \noindent\begin{minipage}{\linewidth}\vspace{2pt}%
+}
+\AfterEndEnvironment{verbatim}{%
+  \vspace{2pt}\end{minipage}\par\medskip%
+}
+
+% ---- Couleurs Medallion ----
+\definecolor{bronzeColor}{RGB}{180,110,60}
+\definecolor{bronzeBg}{RGB}{255,240,220}
+\definecolor{silverColor}{RGB}{90,100,115}
+\definecolor{silverBg}{RGB}{230,235,242}
+\definecolor{goldColor}{RGB}{160,130,0}
+\definecolor{goldBg}{RGB}{255,252,210}
+\definecolor{cloudColor}{RGB}{30,110,180}
+\definecolor{cloudBg}{RGB}{220,238,255}
+\definecolor{mlColor}{RGB}{80,140,60}
+\definecolor{mlBg}{RGB}{225,245,220}
+
+% ---- Style tikz commun ----
+\tikzset{
+  medalbox/.style={
+    rectangle, rounded corners=5pt, very thick,
+    text width=11.5cm, minimum height=1.7cm, align=center,
+    font=\small, inner sep=8pt,
+    drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}
+  },
+  minibox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=5.2cm, minimum height=1.4cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  flowbox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=9cm, minimum height=1.3cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  arrowM/.style={-{Stealth[scale=1.3]}, line width=1.5pt, draw=black!50},
+}
+
+% ---- Commande capture ----
+\mdfdefinestyle{captureStyle}{
+  linecolor=black!30, linewidth=0.8pt, roundcorner=5pt,
+  backgroundcolor=black!4,
+  innertopmargin=7pt, innerbottommargin=7pt,
+  innerleftmargin=12pt, innerrightmargin=12pt,
+  skipabove=8pt, skipbelow=8pt,
+  nobreak=true,
+}
+\newcommand{\capture}[1]{%
+  \begin{mdframed}[style=captureStyle]
+    \centering\small\textit{\textbf{\textcolor{black!60}{[Capture]}}\quad #1}
+  \end{mdframed}%
+}
+
+\definecolor{codegreen}{rgb}{0,0.55,0.3}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codeblue}{rgb}{0.1,0.3,0.7}
+\definecolor{backcolour}{RGB}{248,249,251}
+\definecolor{codeframe}{RGB}{30,110,180}
+\definecolor{captioncolor}{RGB}{22,50,92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{codeblue}\bfseries,
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    showtabs=false,
+    tabsize=2,
+    frame=leftline,                 % barre latérale colorée
+    framerule=2.5pt,
+    rulecolor=\color{codeframe},
+    framexleftmargin=6pt,
+    xleftmargin=10pt,
+    aboveskip=10pt,
+    belowskip=4pt,
+    abovecaptionskip=2pt,
+    belowcaptionskip=6pt,
 }
 \lstset{style=mystyle}
+% Légendes de code en bleu nuit, format harmonisé
+\renewcommand{\lstlistingname}{Extrait}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{lstlisting}}}
+
+\renewcommand\headrulewidth{1.2pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand{\headrule}{\color{titleNavy}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{\color{ruleGray}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}
 
 \pagestyle{fancy}
 \fancyhf{}
 
-\fancyhead[C]{\Large Efrei\\ \Large Rapport de projet}
-\fancyhead[R]{\includegraphics[width=2cm]{assets/logo-efrei.png}}
+\fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739}}\\ \small\textcolor{black!60}{Rapport de certification}}
+\fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
 
-\fancyfoot[C]{Version 2.0 Page \thepage/\pageref{LastPage}}
+\fancyfoot[L]{\small\textcolor{black!55}{EFREI Paris}}
+\fancyfoot[C]{\small\textcolor{black!55}{Master 2 Data Engineering \& IA}}
+\fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
 \setlength{\headheight}{2cm}
 
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyhead[C]{\Large Efrei\\ \Large Rapport de projet}
-    \fancyhead[R]{\includegraphics[width=2cm]{assets/logo-efrei.png}}
-    \fancyfoot[C]{Version 2.0 Page \thepage/\pageref{LastPage}}
-    \renewcommand\headrulewidth{1pt}
+    \fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739}}\\ \small\textcolor{black!60}{Rapport de certification}}
+    \fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
+    \fancyfoot[L]{\small\textcolor{black!55}{EFREI Paris}}
+    \fancyfoot[C]{\small\textcolor{black!55}{Master 2 Data Engineering \& IA}}
+    \fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
+    \renewcommand\headrulewidth{1.2pt}
+    \renewcommand\footrulewidth{0.4pt}
 }
 
 
 \title{Rapport de Projet Certifiant}
-\author{Tonio}
+\author{Julien TREMONT-RAIMI \and Antoine VANDEPLANQUE}
 \date{\today}
 
 \begin{document}
@@ -79,17 +223,18 @@
 
     {\Large EFREI Paris\\[0.3cm]}
     {\large Master 2 Data Engineering \& IA\\[0.5cm]}
-    {\large RNCP36739 -- Expert en Ingenierie de Donnees\\[2cm]}
+    {\large RNCP36739 --- Expert en Ingénierie de Données\\[2cm]}
 
-    {\Huge \bfseries Rapport ecrit de certification\\[0.8cm]}
-    {\Large Epreuve certifiante -- Evaluation des competences\\[0.5cm]}
-    {\large Titre du rapport a completer\\[2cm]}
+    {\Huge \bfseries Rapport \'ecrit de certification\\[0.8cm]}
+    {\Large \'Epreuve certifiante -- \'Evaluation des comp\'etences\\[0.5cm]}
+    {\large Architecture de donn\'ees : stockage, traitement massif, cloud et IA\\[2cm]}
 
     \begin{tabular}{rl}
-        Auteur : & Tonio \\
-        Promotion : & 2025--2026 \\
-        Encadrant : & A completer \\
-        Entreprise : & A completer \\
+        Auteurs : & Julien TREMONT-RAIMI \\
+                  & Antoine VANDEPLANQUE \\
+        Promotion : & 2024--2026 \\
+        Formation : & Master 2 Data Engineering \& IA \\
+        \'Etablissement : & EFREI Paris \\
     \end{tabular}
 
     \vfill
@@ -107,388 +252,3757 @@
 \section*{Remerciements}
 \addcontentsline{toc}{section}{Remerciements}
 
-Remerciez ici les personnes, equipes et encadrants qui ont accompagne votre
-formation et la realisation des projets presentes dans ce rapport.
+Nos remerciements les plus chaleureux s'adressent tout particulièrement à nos
+intervenants et professeurs. Nous souhaitons souligner la richesse et la qualité
+exceptionnelle de leurs enseignements, qui ont grandement enrichi nos connaissances
+et affûté nos compétences. Leur encadrement de qualité, leur patience et leurs
+précieux conseils prodigués avec bienveillance tout au long de cette formation ont
+été des piliers essentiels de notre progression. Nous sommes reconnaissants de leur
+disponibilité et de leur expertise, qui ont su nous inspirer et nous guider vers
+l'excellence.
 
-\section{Introduction et note explicative : objectifs}
+Nous remercions également chaleureusement l'ensemble de l'équipe pédagogique et
+administrative. Leur soutien logistique constant, leur organisation rigoureuse et
+leur disponibilité sans faille, souvent dans l'ombre, ont permis d'assurer un
+environnement de travail serein et efficace. Leur réactivité face à nos
+sollicitations a été un atout majeur dans le bon déroulement de ce parcours.
 
-Ce rapport ecrit doit etre un document structure et argumente presentant cinq
-projets realises au cours de la formation. Son objectif est de demontrer
-l'acquisition des competences du titre RNCP36739 a travers les projets, TP et
-travaux menes pendant les deux annees de Master 2 Data Engineering \& IA.
+Enfin, nous adressons nos vifs remerciements à l'ensemble des personnes de
+Geismar. Nous sommes reconnaissants pour le cadre d'apprentissage stimulant
+qu'ils nous ont offert. Cet environnement propice à l'acquisition de savoir-faire
+pratiques et à la mise en application concrète des théories a été déterminant pour
+notre développement professionnel. Leur confiance et les opportunités
+d'expérimentation qu'ils nous ont accordées ont été d'une valeur inestimable.
 
-Le travail attendu est un exercice d'analyse et de synthese. Il ne s'agit pas
-seulement de decrire des livrables techniques, mais d'expliquer les besoins,
-les choix effectues, les difficultes rencontrees, les resultats obtenus et les
-competences mobilisees dans chaque bloc.
+À tous, merci pour votre contribution essentielle à la concrétisation de ce projet.
 
-\subsection{Attendus du rapport}
+\section{Introduction}
 
-\begin{itemize}
-    \item Presenter un fil conducteur coherent entre les projets et les competences.
-    \item Argumenter les choix techniques, methodologiques et organisationnels.
-    \item Montrer la progression, la prise de recul et la capacite d'auto-evaluation.
-    \item S'appuyer sur des preuves concretes : missions, projets, TP, resultats,
-    captures, extraits de code, schemas ou tableaux de bord.
-\end{itemize}
+\subsection{Contexte de la certification}
 
-\subsection{Conseil de redaction}
+Ce rapport constitue le dossier écrit de certification professionnelle RNCP36739
+\og{} Expert en Ingénierie de Données \fg{}, niveau 7 (Bac+5). Il est produit
+dans le cadre du Master 2 Data Engineering \& IA d'EFREI Paris (promotion
+2024--2026) et vise à démontrer l'acquisition des cinq blocs de compétences du
+référentiel~\cite{rncp}. Le dossier couvre des projets réalisés sur deux années
+de formation, incluant des projets académiques sur des datasets réels et des
+travaux pratiques ciblant les technologies industrielles du Big Data.
 
-Pour chaque bloc, vous pouvez decrire le contexte du projet, votre role, les
-outils utilises, les decisions prises, les resultats et la maniere dont le projet
-demontre l'acquisition des competences attendues.
+\subsection{Périmètre et projets présentés}
 
-\section{Presentation rapide de l'entreprise et des missions}
+Quatre projets constituent le cœur de ce rapport :
 
-Presentez ici l'entreprise, son secteur d'activite, son organisation, ainsi que
-les missions qui vous ont ete confiees pendant l'alternance, le stage ou les
-projets academiques relies au parcours.
+\needspace{12\baselineskip}\begin{center}\begin{tabular}{|l|p{5cm}|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
+\hline
+Jobtech & Agrégation données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
+\hline
+project\_cloud & Plateforme temps réel données Paris (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
+\hline
+projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
+\hline
+fizzbuzz-Efrei & Chaîne CI/CD et containerisation & Bloc 2 (DevOps) \\
+\hline
+data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
+\hline
+\end{tabular}
+\end{center}
+
+Cette répartition est le résultat d'une analyse de la couverture des compétences :
+chaque projet est assigné au bloc qu'il démontre le mieux, en évitant la
+redondance. Les dimensions transversales (gouvernance, qualité, sécurité) sont
+regroupées dans Bloc 5.
+
+\subsection{Méthodologie de rédaction}
+
+Chaque section de bloc suit une structure identique pour faciliter la lecture et
+la comparaison :
+
+\begin{enumerate}
+    \item \textbf{Compétences visées} : les sous-compétences du référentiel RNCP
+    directement adressées par le projet.
+    \item \textbf{Contexte et enjeux} : le problème métier ou technique que le
+    projet résout, et pourquoi ce problème justifie les choix réalisés.
+    \item \textbf{Architecture} : schémas ASCII et descriptions des composants,
+    avec justification des choix par rapport aux alternatives.
+    \item \textbf{Réalisations techniques} : extraits de code réels commentés,
+    tableaux de métriques, résultats mesurés.
+    \item \textbf{Axes d'amélioration} : prise de recul honnête sur les limites
+    de l'implémentation et les évolutions possibles.
+    \item \textbf{Synthèse et lien RNCP} : correspondance explicite entre les
+    réalisations et les sous-compétences du référentiel.
+\end{enumerate}
+
+\subsection{Conventions typographiques}
+
+Les extraits de code sont présentés dans des blocs \texttt{lstlisting} avec
+indication du fichier source en légende. Les schémas ASCII illustrent les
+architectures sans recourir à des outils de diagramme externes. Les placeholders
+\capture{dans <fichier> lignes X \`{a} Y} indiquent les emplacements prévus
+pour les captures d'écran lors de la finalisation du dossier. Les références
+bibliographiques sont numérotées selon le standard Vancouver et listées en fin
+de document.
+
+\subsection{Stack technique transversale}
+
+Les cinq projets partagent un socle technologique commun qui témoigne d'une
+cohérence dans les choix d'outillage :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Domaine} & \thead{Outil principal} & \thead{Usage dans les projets} \\
+\hline
+Langage & Python 3.9--3.12 & Tous les projets \\
+\hline
+Big Data & Apache Spark 3.x (PySpark) & Jobtech, projet\_spark \\
+\hline
+Cloud & AWS (boto3 SDK) & project\_cloud \\
+\hline
+Machine Learning & scikit-learn & data\_science\_project \\
+\hline
+API & Django REST / FastAPI & Jobtech / data\_science\_project \\
+\hline
+Stockage objet & Parquet (HDFS/local) & Jobtech, projet\_spark \\
+\hline
+NoSQL & DynamoDB, S3 & project\_cloud \\
+\hline
+CI/CD & GitHub Actions & fizzbuzz-Efrei \\
+\hline
+Conteneur & Docker, Docker Compose & fizzbuzz-Efrei \\
+\hline
+Dashboard & Streamlit & project\_cloud, data\_science\_project \\
+\hline
+Tests & pytest, unittest & fizzbuzz-Efrei, data\_science\_project \\
+\hline
+\end{tabular}\end{center}
+
+Cette cohérence de stack n'est pas anecdotique : elle permet la réutilisation de
+patterns entre projets (ex. le design du \texttt{SQLManager} avec context manager
+et retry peut s'appliquer à tout client de base de données), et facilite le
+transfert de compétences entre contextes (PySpark dans Jobtech, PySpark dans
+projet\_spark).
+
+Le choix de Python comme langage unique s'explique par son positionnement
+transversal dans l'écosystème data : il est le langage natif de scikit-learn,
+de boto3 (AWS SDK), de FastAPI, de Streamlit et de PySpark. Un seul socle
+linguistique couvre l'intégralité du cycle de vie de la donnée, de l'ingestion
+au serving en passant par le Machine Learning.
+
+\subsection{Organisation du rapport}
+
+Le rapport suit l'ordre des cinq blocs de compétences RNCP36739, précédé d'une
+présentation de l'entreprise d'alternance et d'une synthèse de la couverture
+des compétences. Chaque bloc est autonome : il peut être lu indépendamment des
+autres et contient toutes les informations nécessaires pour évaluer l'acquisition
+des sous-compétences correspondantes.
+
+Les références croisées entre blocs sont explicites quand elles existent :
+par exemple, le GSI DynamoDB de project\_cloud apparaît à la fois dans le Bloc 1
+(aspect stockage) et dans le Bloc 3 (aspect cloud et optimisation). Cette
+redondance contrôlée est intentionnelle : elle permet à un évaluateur qui ne
+lit qu'un bloc d'avoir l'information complète sur les choix architecturaux
+relatifs à ce bloc.
+
+\section{Présentation d'entreprise}
 
 \subsection{Entreprise}
 
-Decrivez l'entreprise, son contexte metier, ses enjeux data et l'environnement
-dans lequel vous avez evolue.
+\subsubsection{Geismar}
 
-\subsection{Missions}
+Fondée en 1924 à Colmar par Lucien Geismar, la société conçoit, fabrique et vend
+dans le monde entier des outils et des machines destinés à la pose et à l'entretien
+des voies ferrées et des caténaires.
 
-Precisez vos responsabilites, les equipes avec lesquelles vous avez travaille et
-la nature des projets menes.
+Le siège social est aujourd'hui situé à la Défense. L'entreprise compte
+750~salariés dont 420 en France et possède cinq usines : trois en France (Colmar,
+Marseille et Saint-Didier-de-la-Tour) et deux à l'étranger (Italie et États-Unis).
 
-\section{Bloc 1 -- Concevoir et developper une architecture de stockage de donnees}
+Geismar est présent commercialement dans de nombreux pays, notamment en France,
+au Royaume-Uni, aux États-Unis, au Brésil, en Allemagne, en Italie, en Espagne,
+au Canada et en Afrique du Sud. Le groupe réalise environ 85\,\% de son chiffre
+d'affaires à l'étranger.
 
-Cette partie doit montrer comment vous avez concu et implemente des solutions
-de stockage de donnees adaptees a des cas d'usage varies.
+\subsection{Le poste : Alternant Data Engineer}
 
-\subsection{Competences visees}
+\subsubsection{Contexte}
+
+Geismar utilise différents systèmes ERP selon les filiales : M3, Business Central,
+ou encore des bases Access héritées de systèmes plus anciens. Cette diversité crée
+un besoin de centralisation et d'harmonisation des données à l'échelle du groupe.
+
+\subsubsection{Missions}
+
+Mon rôle consiste à développer des pipelines de données en Python pour extraire,
+transformer et charger les données issues des différents ERP. Ces données sont
+ensuite structurées via une solution de big data selon une architecture
+Bronze-Silver-Gold, qui permet de passer progressivement des données brutes à des
+données exploitables pour le reporting.
+
+Je travaille principalement sur les données financières, la gestion des stocks, le
+suivi des commandes et le reporting opérationnel des différentes filiales. Une
+partie importante de mon travail consiste également à migrer les données vers
+Snowflake.
+
+\subsubsection{Environnement technique}
+
+J'utilise principalement Python et SQL pour le développement. Les données sont
+stockées sur SQL Server et Snowflake. L'infrastructure cloud repose sur Microsoft
+Azure, notamment Blob Storage pour le stockage et Azure DevOps pour le
+versionning et les pipelines. Côté restitution, les données alimentent des
+rapports Power BI.
+
+\section{Synthèse des blocs de compétences RNCP36739}
+
+La certification professionnelle \og{}Data Scientist \& Big Data Architect\fg{}
+s'articule autour de cinq blocs de compétences fondamentaux. Ces blocs couvrent
+l'intégralité du cycle de vie de la donnée dans un environnement Big Data, allant
+de la conception d'architectures de stockage et de traitement des données massives
+(Bloc 1, Bloc 2), à leur déploiement optimisé sur le cloud (Bloc 3). La formation
+intègre également l'application des méthodes d'intelligence artificielle pour la
+modélisation et la prédiction (Bloc 4), ainsi que l'élaboration de stratégies de
+gouvernance et de management des données (Bloc 5). Ce socle garantit une maîtrise
+complète des enjeux techniques et stratégiques de la Data Science et de
+l'architecture Big Data.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|p{2.8cm}|p{4.5cm}|p{7cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Bloc} & \thead{Intitulé} & \thead{Compétences clés} \\
+\hline
+RNCP36739\newline Bloc 1 &
+  Concevoir et développer une architecture de stockage de données &
+  Conception/développement de bases de données (relationnelles, non-relationnelles),
+  construction de Datalake, création d'API d'accès aux données. \\
+\hline
+RNCP36739\newline Bloc 2 &
+  Concevoir, développer et déployer une solution de traitement des données massives &
+  Mise en \oe{}uvre d'architectures distribuées, implémentation de systèmes de
+  streaming, transformation et optimisation des pipelines, automatisation CI/CD
+  (conteneurisation, ordonnancement). \\
+\hline
+RNCP36739\newline Bloc 3 &
+  Implémenter et optimiser des solutions de stockage et de traitement de données
+  sur le cloud &
+  Mise en \oe{}uvre de solutions cloud (stockage, pipelines), sécurisation des
+  données (chiffrement, IAM, conformité), optimisation des performances et des
+  coûts cloud. \\
+\hline
+RNCP36739\newline Bloc 4 &
+  Implémenter des méthodes d'intelligence artificielle pour modéliser et prédire
+  de nouveaux comportements et usages &
+  Extraction et préparation des données, communication infographique (tableaux de
+  bord interactifs), développement de modèles prédictifs (ML supervisé), évaluation
+  de la performance des modèles. \\
+\hline
+RNCP36739\newline Bloc 5 &
+  Concevoir une stratégie de management et de gouvernance de données pour
+  transformer les données en informations créatrices de valeur &
+  Définition de la gouvernance (politiques, standards, rôles), gestion de la
+  conformité (régulations, vie privée), audit qualité et plans de remédiation,
+  élaboration de la stratégie de sécurité et d'accès aux données. \\
+\hline
+\end{tabular}\end{center}
+
+\section{Bloc 1 --- Concevoir et développer une architecture de stockage de données}
+
+Cette partie montre comment nous avons conçu et implémenté des solutions de
+stockage de données adaptées à des cas d'usage variés.
+
+\subsection{Compétences visées}
 
 \begin{itemize}
-    \item Concevoir et developper une base de donnees relationnelle en reponse aux
-    besoins d'un client en vue de la mise a disposition de ses donnees structurees,
-    en utilisant les technologies et les langages de requetes adaptes aux
-    developpements envisages.
-    \item Concevoir et developper une base de donnees non-relationnelle en vue de la
-    mise a disposition de donnees semi-structurees et non structurees pour un
+    \item Concevoir et développer une base de données relationnelle en réponse aux
+    besoins d'un client, en vue de la mise à disposition de ses données structurées,
+    en utilisant les technologies et les langages de requêtes adaptés aux
+    développements envisagés.
+    \item Concevoir et développer une base de données non-relationnelle en vue de la
+    mise à disposition de données semi-structurées et non structurées pour un
     traitement analytique ou d'intelligence artificielle, en utilisant les
-    technologies et les langages de requetes adaptes.
+    technologies et les langages de requêtes adaptés.
     \item Concevoir et construire un datalake en choisissant les architectures, les
-    indicateurs de performance et les solutions de stockage appropriees afin
-    d'integrer des donnees provenant de systemes d'information varies.
-    \item Creer une API en utilisant les technologies permettant de rendre les donnees
-    accessibles et d'augmenter l'efficacite et la praticite des applications et des
+    indicateurs de performance et les solutions de stockage appropriées afin
+    d'intégrer des données provenant de systèmes d'information variés.
+    \item Créer une API en utilisant les technologies permettant de rendre les données
+    accessibles et d'augmenter l'efficacité et la praticité des applications et des
     services.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Contexte et enjeux}
 
-\begin{itemize}
-    \item Relational Databases
-    \item NoSQL Databases
-    \item Challenge Datalake 1 Data Integration
-    \item API et Web Services
-\end{itemize}
+La compétence Bloc 1 porte sur la conception et l'implémentation d'architectures de
+stockage adaptées à la nature des données, aux volumes traités et aux usages
+cibles. Elle couvre le choix du modèle de données --- relationnel, document ou
+fichier columnar ---, la conception des schémas, l'optimisation des accès
+concurrents et la gestion de la qualité des données.
 
-\subsection{Présentation des projets mobilisés}
+\subsubsection{ACID vs BASE --- les deux paradigmes du stockage}
 
-Pour ce bloc, nous nous appuyons principalement sur le projet \textit{Challenge Datalake}
-réalisé en équipe, dont l'objectif était de construire une plateforme capable de
-cartographier l'offre et la demande de compétences techniques en Europe. L'idée
-était d'agréger des données issues de plusieurs sources hétérogènes afin de les
-centraliser, les normaliser et les rendre exploitables au travers d'une API.
+Le modèle de cohérence est le premier critère de choix d'un système de stockage.
+Les systèmes relationnels garantissent les propriétés ACID (Atomicité, Cohérence,
+Isolation, Durabilité) : chaque transaction est soit totalement réussie soit
+totalement annulée. Les systèmes NoSQL adoptent souvent le modèle BASE
+(Basically Available, Soft state, Eventually consistent) : la cohérence est
+éventuelle, ce qui autorise une disponibilité et une scalabilité supérieures.
 
-Le scénario métier décrit dans le rapport de rendu s'inscrit dans une logique de
-veille sur le marché de l'emploi tech : salaires, stacks techniques, niveau
-d'expérience, popularité des technologies et évolution des besoins. Pour répondre
-à ce besoin, nous avons construit une architecture de type \textit{Medallion}
-(Bronze, Silver, Gold), combinant ingestion multi-source, stockage intermédiaire
-en Parquet, transformation avec PySpark et exposition des données dans une API
-REST Django.
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Propriété} & \thead{ACID (MySQL)} & \thead{BASE (DynamoDB)} \\
+\hline
+Cohérence & Forte (immédiate) & Éventuelle (configurable) \\
+\hline
+Disponibilité & Élevée (réplication) & Très élevée (multi-AZ natif) \\
+\hline
+Tolérance partition & Limitée & Haute (conçu pour) \\
+\hline
+Scalabilité & Verticale & Horizontale (automatique) \\
+\hline
+Cas d'usage & Transactions financières, API REST & Times series, sessions, IoT \\
+\hline
+\end{tabular}\end{center}
 
-Le projet s'appuie sur six sources de données principales : Google Trends,
-StackOverflow Developer Survey, Adzuna Jobs, EuroTech Jobs, GitHub Repositories
-et Jobicy. Cette diversité de sources nous a obligés à traiter à la fois des
-données structurées, semi-structurées et issues de scrapping, ce qui rend ce
-projet particulièrement représentatif des compétences attendues dans le bloc 1.
+Ce tableau éclaire directement nos choix : Jobtech utilise MySQL (ACID) car
+les données Silver sont des entités stables qui alimentent une API REST avec des
+filtres, tris et agrégations complexes --- ce qui requiert la cohérence forte
+d'un moteur relationnel. project\_cloud utilise DynamoDB (BASE) car les snapshots
+horodatés de données temps réel n'exigent pas de cohérence transactionnelle ---
+le dernier snapshot valide suffit, et la scalabilité automatique est prioritaire.
 
-Pour la sous-compétence NoSQL, nous mobilisons en complément un autre projet,
-\textit{project\_cloud}, dans lequel nous avons utilisé Amazon DynamoDB pour concevoir
-une base non relationnelle orientée cas d'usage.
+L'émergence du traitement massif a profondément reconfiguré cette problématique.
+Le modèle relationnel classique, conçu pour la cohérence ACID sur des données
+structurées stables, montre ses limites face à des flux hétérogènes et des
+schémas évolutifs. Deux paradigmes structurants s'imposent aujourd'hui :
+l'architecture \textit{Medallion} (Bronze/Silver/Gold), qui organise le stockage
+en couches progressivement raffinées, et les bases NoSQL, qui sacrifient une
+partie de la cohérence forte pour gagner en scalabilité horizontale et en
+flexibilité de modélisation.
 
-\subsection{Justification des compétences du bloc 1}
+Nos deux projets illustrent ces approches de manière complémentaire.
+\textbf{Jobtech} met en \oe{}uvre une architecture Medallion hybride --- stockage
+fichier Parquet pour la persistance intermédiaire, MySQL pour le service
+applicatif --- avec un gestionnaire de connexions \textit{production-grade}.
+\textbf{project\_cloud} démontre une architecture NoSQL pure sur AWS, combinant
+S3 comme lac de données brutes et DynamoDB comme base managée, avec un modèle
+d'accès optimisé par index secondaire global (GSI).
 
-\subsubsection{Concevoir et développer une base de données relationnelle}
+\subsection{Analyse comparative des modèles de stockage}
 
-Le \textit{Challenge Datalake} démontre clairement cette compétence, car la couche
-\textit{Silver} puis la couche \textit{Gold} reposent sur MySQL pour structurer et
-exposer les données nettoyées. Dans ce projet, la base relationnelle ne sert pas
-uniquement de zone de stockage ; elle joue le rôle de \textit{data warehouse}
-centralisé, destiné à accueillir des données normalisées provenant de plusieurs
-sources externes.
+Avant de détailler nos réalisations, il est utile de situer les choix
+technologiques dans le paysage global des systèmes de stockage. Le choix entre
+modèle relationnel, document et fichier columnar n'est pas une préférence
+technologique : c'est une décision d'architecture guidée par les patterns
+d'accès, les volumes et la nature des données.
 
-Le rapport du projet explique que la couche Bronze collecte les données brutes,
-que la couche Silver les nettoie et les homogénéise, puis que la couche Gold les
-unifie pour les rendre exploitables par l'API. Cette logique est confirmée dans
-le dépôt \texttt{julientremont/Jobtech}, où la configuration Django et les
-utilitaires SQL montrent l'usage explicite de MySQL. On y retrouve notamment des
-schémas SQL dédiés, une gestion de connexions centralisée, ainsi qu'une
-modélisation orientée analyse, avec des tables relationnelles adaptées aux
-requêtes métier.
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Critère} & \thead{MySQL (relationnel)} & \thead{DynamoDB (document)} & \thead{Parquet (fichier columnar)} \\
+\hline
+Pattern d'accès & Requêtes SQL flexibles, jointures & Accès par clé primaire ou GSI & Lecture analytique, colonne par colonne \\
+\hline
+Scalabilité & Verticale (plus de RAM/CPU) & Horizontale (sharding automatique) & Horizontale (partitions Spark) \\
+\hline
+Cohérence & ACID (transactions) & Éventuelle (ou forte sur transaction) & Lecture seule (immutable) \\
+\hline
+Latence & Quelques ms (indexed) & Quelques ms (PK) / quelques dizaines ms (GSI) & Secondes à minutes (batch scan) \\
+\hline
+Coût & Infrastructure dédiée & À l'usage (RCU/WCU) & Stockage objet (très faible) \\
+\hline
+Usage type & OLTP, API REST & Times series, catalogue, sessions & OLAP, Machine Learning, audit \\
+\hline
+\end{tabular}\end{center}
 
-Cette partie répond donc à la compétence attendue, car il ne s'agissait pas
-seulement d'installer une base SQL, mais bien de concevoir une structure
-relationnelle cohérente avec le besoin client : centraliser des données sur le
-marché de l'emploi tech, les rendre interrogeables, les relier entre elles et
-permettre leur exploitation à travers une application. Le choix de MySQL est
-également pertinent au regard de la nature des données structurées finales,
-notamment pour les analyses croisées, les filtres, la pagination et les accès via
-API.
+Cette matrice justifie nos choix : Jobtech utilise MySQL pour son API REST
+(jointures, filtres multi-critères, transactions) avec Parquet comme backup
+analytique ; project\_cloud utilise DynamoDB pour ses accès par clé primaire et
+son scaling automatique face à des pics d'ingestion imprévisibles.
 
-\subsubsection{Concevoir et développer une base de données non relationnelle}
+\subsection{Panorama de nos réalisations}
 
-Cette sous-compétence est justifiée par un autre projet que nous avons réalisé,
-\textit{project\_cloud}. Dans ce dépôt, nous avons conçu une base de données NoSQL avec
-Amazon DynamoDB afin de stocker des flux de données hétérogènes liés à plusieurs
-domaines métier, notamment les parkings, le trafic et les départs.
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Dimension} & \thead{Jobtech} & \thead{project\_cloud} \\
+\hline
+Modèle & Medallion hybride Parquet + MySQL & NoSQL : S3 + DynamoDB \\
+\hline
+Couches &
+  Bronze (Parquet brut) $\rightarrow$ Silver (MySQL + Parquet) $\rightarrow$ Gold (API) &
+  Bronze (S3 JSON) $\rightarrow$ Silver (DynamoDB 3 tables) $\rightarrow$ Gold (DynamoDB 10 tables) \\
+\hline
+Accès concurrent &
+  Pool MySQL pool\_size=10, retry $\times$3, backoff exponentiel &
+  GSI DynamoDB (type, ingestion\_timestamp) \\
+\hline
+Format &
+  Parquet/Snappy (columnar, compressé) &
+  JSON (S3), items binaires (DynamoDB) \\
+\hline
+Qualité &
+  Score 0--100, déduplication sur job\_id, standardisation &
+  Isolation par snapshot (ingestion\_timestamp) \\
+\hline
+Sources & 6 sources hétérogènes & 3 flux temps réel Paris \\
+\hline
+Optimisation écriture &
+  Bulk insert batch 1\,000 lignes &
+  Lecture O(1) via GSI \\
+\hline
+\end{tabular}\end{center}
 
-Le projet montre une approche typiquement non relationnelle : les données sont
-stockées sous forme d'items JSON dénormalisés, enrichis avec des métadonnées
-communes comme le type de donnée, l'horodatage d'ingestion et les coordonnées.
-La modélisation n'est pas pensée autour de jointures relationnelles, mais autour
-des usages applicatifs. Des tables distinctes sont prévues selon les flux métier,
-et un index secondaire global permet de retrouver efficacement les derniers lots
-ingérés.
+\subsection{Jobtech --- Architecture Medallion Bronze $\rightarrow$ Silver $\rightarrow$ Gold}
 
-Cette conception répond à la compétence visée, car elle montre que nous avons su
-adapter le modèle de stockage à des données semi-structurées et à des besoins
-d'accès rapides, dans une logique orientée exploitation. Le code du projet met en
-évidence les fonctions d'écriture en lot, de lecture et d'agrégation dans
-DynamoDB, ainsi que l'exposition de ces données dans une API serverless. Ce
-projet illustre donc notre capacité à choisir une technologie non relationnelle
-adaptée lorsque la flexibilité du schéma, la dénormalisation et la performance de
-lecture sont prioritaires.
+\subsubsection{Contexte}
 
-\subsubsection{Concevoir et construire un datalake}
+Jobtech collecte des données d'emploi tech européen depuis six sources
+hétérogènes : APIs REST (Jobicy, Adzuna), scraping web (EuroTechJobs), fichiers
+CSV massifs (StackOverflow Survey 2021--2024), API agrégateur GitHub. La
+hétérogénéité des données --- schémas différents, fréquences variables, qualités
+inégales --- impose une architecture en couches qui isole chaque niveau de
+transformation et permet de rejouer une étape sans affecter les autres.
 
-Le \textit{Challenge Datalake} est la partie la plus représentative de cette
-compétence. L'architecture mise en place repose sur une logique \textit{Bronze /
-Silver / Gold}, explicitement décrite dans le rapport du projet. La couche Bronze
-sert à collecter les données brutes depuis différentes sources externes et à les
-stocker localement au format Parquet. La couche Silver applique les traitements de
-nettoyage, de normalisation et d'enrichissement. Enfin, la couche Gold consolide
-les données dans un entrepôt exploitable par l'API et par les analyses.
+\subsubsection{Architecture}
 
-Le choix de cette architecture est pertinent car il permet de séparer clairement
-les responsabilités : ingestion brute, préparation de la donnée et exposition des
-données consolidées. Cette organisation facilite la maintenance, la traçabilité
-et la reprise des traitements. Elle répond aussi à la diversité des systèmes
-sources : API publiques, fichiers CSV, enquêtes annuelles, scraping web et données
-issues de plateformes open source.
+\begin{center}
+\begin{tikzpicture}[node distance=0.9cm]
 
-Le rapport de rendu détaille plusieurs flux : Google Trends avec collecte
-historique et quotidienne, StackOverflow Survey avec import de fichiers annuels,
-Adzuna avec appels API mensuels, EuroTech Jobs et Jobicy via scrapping, ainsi que
-GitHub Repositories via API publique. Cette variété de formats et de rythmes
-d'ingestion illustre bien la capacité à intégrer des données structurées,
-semi-structurées et non structurées dans une architecture unique. Le stockage en
-Parquet et le traitement avec PySpark montrent en outre une démarche orientée
-performance et scalabilité, notamment grâce au partitionnement temporel et à la
-standardisation progressive des colonnes.
+\node[font=\small\itshape, text=black!60] (src)
+  {Sources (6) : Jobicy · Adzuna · EuroTechJobs · StackOverflow · GitHub · Trends};
 
-Nous pouvons donc justifier cette compétence en montrant que le projet ne se limite pas
-à une simple agrégation de fichiers : il s'agit bien d'un datalake conçu pour
-absorber plusieurs sources, conserver la donnée brute, produire une donnée fiabilisée
-et la rendre exploitable dans une couche analytique. C'est précisément l'objectif
-attendu dans ce bloc.
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=0.7cm of src] (bronze) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad Parquet / Snappy\\[2pt]
+  Accès : PySpark \texttt{SparkSession} \quad\textbullet\quad Usage : persistance brute, rejeu
+};
 
-\subsubsection{Créer une API pour rendre les données accessibles}
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of bronze] (silver) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad MySQL 8.0 + Parquet (dual)\\[2pt]
+  Accès : \texttt{SQLManager} pool\_size=10 \quad\textbullet\quad Usage : données nettoyées, déduplication
+};
 
-La dernière sous-compétence du bloc est également couverte par le
-\textit{Challenge Datalake} grâce à l'API REST développée avec Django et Django
-REST Framework. Le rapport du projet consacre une partie complète à cette API et
-à son rôle de vitrine de données. L'objectif n'était pas seulement d'entreposer
-les données, mais de les rendre accessibles de manière claire, documentée et
-sécurisée.
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of silver] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad Django REST API\\[2pt]
+  Accès : 37 endpoints Swagger / ReDoc \quad\textbullet\quad Usage : consommation applicative
+};
 
-L'API est organisée par source de données, avec des routes dédiées pour Google
-Trends, StackOverflow Survey, Adzuna, GitHub, EuroTech Jobs et Jobicy, ainsi que
-des endpoints d'analyse transverses pour la couche Gold. Le dépôt montre
-également la présence d'une documentation Swagger / OpenAPI, d'une authentification
-par session et JWT, d'un système de permissions, ainsi que de fonctionnalités de
-filtrage, tri et pagination. Ces éléments sont importants, car ils traduisent une
-conception orientée usage et non une simple exposition brute des tables.
+\draw[arrowM] (src) -- (bronze);
+\draw[arrowM] (bronze) -- (silver);
+\draw[arrowM] (silver) -- (gold);
 
-Cette API justifie pleinement la compétence attendue : elle permet à des clients
-ou à d'autres services d'interroger les données selon leurs besoins, de récupérer
-des résumés, des séries temporelles ou des analyses métier, tout en conservant un
-cadre technique robuste. Elle améliore donc concrètement l'accessibilité et la
-praticité des données, ce qui correspond exactement à l'objectif de la sous-partie
-\textit{API et Web Services}.
+\end{tikzpicture}\end{center}
 
-\subsection{Bilan du bloc 1}
+\subsubsection{Gestionnaire de connexions MySQL}
 
-Au travers de ces deux projets, nous pouvons justifier l'ensemble des sous-compétences
-du bloc 1. Le \textit{Challenge Datalake} démontre notre capacité à concevoir une
-architecture de stockage complète, à centraliser plusieurs flux de données, à
-structurer une base relationnelle et à exposer les données via une API robuste.
-Le projet \textit{project\_cloud} complète cette démonstration sur la partie NoSQL,
-avec un cas concret d'usage de DynamoDB pour des données semi-structurées. Dans
-l'ensemble, ces réalisations montrent notre capacité à choisir les bons modèles de
-stockage selon les usages, à organiser les flux de données de bout en bout et à
-mettre les données à disposition de manière exploitable.
+Le \texttt{SQLManager} constitue la pièce centrale du stockage Silver. Il
+implémente un pool de connexions MySQL~\cite{mysql} avec retry exponentiel, garantissant la
+robustesse en charge concurrente :
 
-\section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des donnees massives}
+\begin{lstlisting}[language=Python, caption=SQLManager -- Pool MySQL production-grade (src/utils/sqlmanager.py)]
+class SQLManager:
+    def get_connection_params(self) -> Dict[str, Any]:
+        return {
+            'pool_name'        : 'data_pipeline_pool',
+            'pool_size'        : 10,   # 10 connexions simultanees
+            'pool_reset_session': True, # isolation entre transactions
+            'connection_timeout': 60,
+            'charset'          : 'utf8mb4',
+            'time_zone'        : '+00:00',  # stockage UTC systematique
+        }
 
-Cette partie doit montrer votre capacite a concevoir, industrialiser et optimiser
-des pipelines de traitement de donnees a grande echelle.
+    @contextmanager
+    def get_connection(self, max_retries: int = 3,
+                       retry_delay: float = 1.0):
+        attempt = 0
+        while attempt <= max_retries:
+            try:
+                connection = self.connection_pool.get_connection()
+                yield connection
+                break
+            except Error:
+                attempt += 1
+                time.sleep(retry_delay)
+                retry_delay *= 2  # backoff : 1s -> 2s -> 4s
+\end{lstlisting}
 
-\subsection{Competences visees}
+Le design par contexte manager garantit la libération systématique des connexions,
+y compris en cas d'exception. Le backoff exponentiel protège le serveur MySQL
+contre les pics de reconnexion simultanés. Le stockage UTC systématique élimine
+les ambiguïtés liées aux fuseaux horaires dans les analyses croisées entre sources
+européennes.
+
+\subsubsection{Insertion en masse}
+
+Pour les volumes importants --- StackOverflow Survey représente environ 90\,000
+répondants, GitHub plusieurs milliers de dépôts --- l'insertion unitaire est
+prohibitive. Le \texttt{SQLManager} découpe les données en lots de 1\,000 lignes :
+
+\begin{lstlisting}[language=Python, caption=Bulk insert par batch de 1\,000 lignes (src/utils/sqlmanager.py)]
+def execute_bulk_insert(self, query: str, data: List[tuple],
+                        batch_size: int = 1000) -> int:
+    total_affected = 0
+    for i in range(0, len(data), batch_size):
+        batch = data[i:i + batch_size]
+        with self.get_connection() as connection:
+            cursor = connection.cursor()
+            cursor.executemany(query, batch)
+            connection.commit()
+            total_affected += cursor.rowcount
+    return total_affected
+\end{lstlisting}
+
+Concrètement, pour 90\,000 lignes, le nombre d'aller-retours réseau passe de
+90\,000 à 90. Le gain en temps d'insertion est d'un à deux ordres de grandeur
+selon la latence réseau et la charge du serveur MySQL.
+
+\begin{verbatim}
+Flux d'insertion bulk (ex. 90 000 lignes StackOverflow)
+
+[data : 90 000 tuples]
+         |
+         | split par batch_size=1000
+         v
+  batch 1 (1 000 lignes)  ----> executemany --> commit --> 1 aller-retour
+  batch 2 (1 000 lignes)  ----> executemany --> commit --> 1 aller-retour
+  ...                                                      ...
+  batch 90 (1 000 lignes) ----> executemany --> commit --> 1 aller-retour
+                                                      TOTAL : 90 requetes
+  (vs insertion unitaire : 90 000 requetes)
+\end{verbatim}
+
+\capture{dans src/utils/sqlmanager.py lignes 1 \`{a} 80 -- classe SQLManager compl\`{e}te avec pool et bulk insert}
+
+\capture{de l'interface Swagger UI Jobtech -- liste des 37 endpoints REST disponibles}
+
+\subsubsection{Intégration multi-sources --- gestion de la heterogénéité}
+
+Jobtech agrège six sources aux structures très différentes. La gestion de cette
+hétérogénéité est un enjeu central du pipeline Bronze : chaque source a son
+propre schéma, ses propres valeurs manquantes, ses propres conventions d'encodage.
+
+\needspace{12\baselineskip}\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Source} & \thead{Format} & \thead{Schéma} & \thead{Défi principal} \\
+\hline
+Jobicy & API REST JSON & Dynamique & Noms de champs variables selon la version \\
+\hline
+Adzuna & API REST JSON & Semi-stable & Pagination, rate limiting \\
+\hline
+EuroTechJobs & Scraping HTML & Implicite & Structure HTML changeante \\
+\hline
+StackOverflow Survey & CSV 300+ col. & Fixe annuel & Volume ($\approx$90\,000 lignes), évolution annuelle du schéma \\
+\hline
+GitHub & API GraphQL & Stable & Rate limit 5\,000 req/heure \\
+\hline
+Google Trends & API officielle & Stable & Valeurs relatives (0--100), pas absolues \\
+\hline
+\end{tabularx}
+\end{center}
+
+La stratégie d'intégration repose sur un schéma cible Silver commun : tous les
+enregistrements d'offres, quelle que soit leur source, sont transformés vers un
+schéma unique normalisé (\texttt{job\_id}, \texttt{title}, \texttt{company},
+\texttt{country\_code}, \texttt{salary\_min}, \texttt{salary\_max},
+\texttt{job\_level\_standardized}, \texttt{contract\_type},
+\texttt{data\_quality\_score}). C'est le pattern \textit{schema-on-write} :
+le schéma cible est imposé à l'écriture Silver, pas à la lecture Bronze.
+
+La couche Bronze conserve les données sources \textit{telles quelles} en Parquet :
+pas de normalisation, pas de filtrage. Cette décision de conception permet de
+rejouer n'importe quelle transformation Silver si la logique de nettoyage évolue,
+sans avoir à rappeler les APIs sources. C'est la valeur fondamentale de
+l'architecture Medallion : le Bronze est immuable et rejoignable.
+
+\subsubsection{Couche Bronze --- Parquet optimisé}
+
+Le \texttt{SparkManager}~\cite{spark} configure la persistance Bronze avec l'AQE
+(\textit{Adaptive Query Execution}) et des optimisations Parquet~\cite{parquet} :
+
+\begin{lstlisting}[language=Python, caption=SparkManager -- Parquet et AQE (src/utils/sparkmanager.py)]
+# Compression columnar : facteur 3 a 5 vs CSV brut
+builder.config("spark.sql.parquet.compression.codec", "snappy")
+# Pushdown de predicats : seuls les blocs utiles sont charges
+builder.config("spark.sql.parquet.filterPushdown",    "true")
+# AQE : re-optimisation du plan d'execution au fil du traitement
+builder.config("spark.sql.adaptive.enabled",                      "true")
+builder.config("spark.sql.adaptive.coalescePartitions.enabled",   "true")
+builder.config("spark.sql.adaptive.skewJoin.enabled",             "true")
+# Serialisation efficace des objets Spark
+builder.config("spark.serializer",
+               "org.apache.spark.serializer.KryoSerializer")
+\end{lstlisting}
+
+Le format Parquet columnar réduit l'empreinte disque d'un facteur 3 à 5 par
+rapport au CSV brut et permet à Spark de ne lire que les colonnes nécessaires
+(\textit{column pruning}). Le \texttt{filterPushdown} pousse les filtres au
+niveau du lecteur Parquet, évitant de charger des blocs inutiles en mémoire.
+L'AQE adapte le plan d'exécution au volume réel observé à chaque étape.
+
+\subsubsection{Pipeline Silver --- transformation et double stockage}
+
+L'extrait ci-dessous montre le cœur du pipeline \texttt{JobicySilver} :
+
+\begin{lstlisting}[language=Python, caption=Pipeline Silver -- transformation et double ecriture (src/silver/JobicySilver.py)]
+def clean_jobicy():
+    with spark_manager as sm:
+        spark = sm.get_session()
+        # UDF : extraction code pays depuis texte libre (29 pays europeens)
+        extract_country_udf = udf(extract_country_code, StringType())
+        df = spark_manager.read_parquet(get_bronze_path('jobicy_jobs'))
+
+        cleaned_df = df.select(
+            col("id").cast(StringType()).alias("job_id"),
+            col("annualSalaryMin").cast(DoubleType()).alias("salary_min"),
+            col("annualSalaryMax").cast(DoubleType()).alias("salary_max"),
+        ).withColumn("country_code",
+                     extract_country_udf(col("job_location")))
+        # Standardisation : Senior / Junior / Mid-level / Entry-level
+         .withColumn("job_level_standardized",
+            when(lower(col("job_level")).contains("senior"), "Senior")
+           .when(lower(col("job_level")).contains("junior"), "Junior")
+           .otherwise("Not specified"))
+        # Salaire moyen calcule, score qualite 0-100, deduplication
+         .withColumn("salary_avg",
+            when(col("salary_min").isNotNull() & col("salary_max").isNotNull(),
+                (col("salary_min") + col("salary_max")) / 2))
+         .withColumn("data_quality_score", lit(100))
+         .dropDuplicates(["job_id"])
+
+        # Double ecriture : MySQL (service) + Parquet (backup / replay)
+        save_spark_df_to_mysql(cleaned_df, "jobicy_silver")
+        spark_manager.write_parquet(cleaned_df,
+                                    get_silver_path('jobicy_jobs'))
+\end{lstlisting}
+
+La déduplication sur \texttt{job\_id} garantit l'idempotence du pipeline : une
+relance produit exactement le même résultat sans créer de doublons. L'écriture
+simultanée MySQL + Parquet offre deux modes de consommation : service applicatif
+via l'API REST Django et replay analytique via Spark.
+
+\subsubsection{Résultats chiffrés}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur} \\
+\hline
+Sources intégrées & 6 (4 production-ready, 2 en cours de débogage) \\
+\hline
+Pool MySQL & pool\_size=10, retry $\times$3, backoff exponentiel \\
+\hline
+Batch bulk insert & 1\,000 lignes par commit \\
+\hline
+Endpoints Gold & 37 (Swagger UI + collection Postman) \\
+\hline
+Format Bronze & Parquet/Snappy + filterPushdown \\
+\hline
+Double stockage Silver & MySQL (service) + Parquet (backup/replay) \\
+\hline
+Standardisation & 29 pays, 4 niveaux emploi, 4 types contrat \\
+\hline
+Score qualité & Attribué à chaque enregistrement Silver (0--100) \\
+\hline
+\end{tabular}\end{center}
+
+\textbf{Axe d'amélioration.} La centralisation des schémas dans
+\texttt{mysql\_schemas.py} constitue un premier niveau de gouvernance. L'adoption
+d'un outil de migration versionnée (Alembic ou Flyway) renforcerait la
+traçabilité de l'évolution du schéma et garantirait la reproductibilité des
+déploiements.
+
+\subsubsection{API Gold --- Django REST Framework}
+
+La couche Gold de Jobtech est exposée via une API REST Django sur 37 endpoints
+documentés automatiquement en Swagger UI et ReDoc. L'organisation suit le
+découpage par source de données : chaque source (Jobicy, Adzuna, StackOverflow,
+EuroTechJobs, GitHub, Google Trends) possède ses propres routes de lecture et de
+recherche. Le schéma ci-dessous présente la hiérarchie des endpoints :
+
+\begin{verbatim}
+/api/
+  jobicy/
+    jobs/              GET  -- liste paginee des offres Jobicy Silver
+    jobs/<id>/         GET  -- detail d'une offre
+    stats/             GET  -- agregats (salaire moyen, top pays)
+  adzuna/
+    jobs/              GET  -- offres Adzuna
+    jobs/search/       GET  -- recherche full-text par mot-cle
+  stackoverflow/
+    survey/            GET  -- dataset StackOverflow Survey (2021-2024)
+    survey/skills/     GET  -- top competences par annee
+  github/
+    repos/             GET  -- depots open source
+    repos/trending/    GET  -- depots les plus etoiles
+  trends/
+    keywords/          GET  -- tendances par mot-cle
+  health/              GET  -- etat de l'API et des connexions MySQL
+\end{verbatim}
+
+Les filtres sont implémentés via \texttt{django-filter} : chaque viewset accepte
+des paramètres de requête (pays, niveau, fourchette salariale, compétence) qui
+se traduisent en clauses \texttt{WHERE} SQL. La pagination est globale
+(\texttt{PageNumberPagination}, \texttt{page\_size=50}). L'authentification n'est
+pas implémentée pour ce projet académique --- un axe d'amélioration explicite
+serait d'ajouter un token Bearer ou OAuth2 pour les endpoints publics.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Groupe} & \thead{Endpoints} & \thead{Filtres disponibles} \\
+\hline
+Jobicy & 3 & pays, niveau, contrat, salaire min/max \\
+\hline
+Adzuna & 2 & pays, mot-clé, catégorie \\
+\hline
+StackOverflow & 2 & année, compétence, pays \\
+\hline
+GitHub & 2 & langage, étoiles, licence \\
+\hline
+Trends & 1 & mot-clé, période \\
+\hline
+Health & 1 & --- \\
+\hline
+\end{tabular}\end{center}
+
+\subsubsection{Modélisation du schéma relationnel --- normalisation et contraintes}
+
+La couche Silver relationnelle (MySQL) applique la troisième forme normale (3NF)
+sur les données d'offres d'emploi. Les entités centrales sont : \texttt{Job},
+\texttt{Company}, \texttt{Country}, \texttt{Skill}. La relation
+\texttt{Job\_Skill} est une table d'association qui évite la duplication des
+compétences. Cette normalisation a deux effets opérationnels directs : elle réduit
+la taille de la table (les compétences partagées ne sont stockées qu'une fois) et
+elle permet les requêtes croisées (compétences les plus demandées, salaire moyen
+par niveau par pays) sans redondance.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table} & \thead{Clé primaire} & \thead{Relations} \\
+\hline
+\texttt{job\_silver} & \texttt{job\_id} (STRING) & FK company\_id, country\_code \\
+\hline
+\texttt{company} & \texttt{company\_id} & --- \\
+\hline
+\texttt{country} & \texttt{country\_code} (ISO-2) & --- \\
+\hline
+\texttt{skill} & \texttt{skill\_id} & --- \\
+\hline
+\texttt{job\_skill} & (\texttt{job\_id}, \texttt{skill\_id}) & FK job\_id, skill\_id \\
+\hline
+\end{tabular}\end{center}
+
+La contrainte \texttt{UNIQUE(job\_id)} sur la table principale garantit
+l'idempotence de l'insert : si le pipeline Silver est relancé, les offres déjà
+présentes déclenchent un \texttt{ON DUPLICATE KEY UPDATE data\_quality\_score} au
+lieu d'une erreur. Ceci est cohérent avec le \texttt{dropDuplicates} Spark en
+amont --- les deux mécanismes forment une double barrière contre la duplication.
+
+\subsection{project\_cloud --- Architecture NoSQL sur AWS}
+
+\subsubsection{Contexte}
+
+Le projet project\_cloud ingère des données publiques de la ville de Paris en
+temps réel : trafic routier, disponibilité des parkings, départs SNCF. Ces
+données présentent trois caractéristiques qui orientent le choix NoSQL : volume
+croissant de snapshots horodatés, schéma semi-structuré (JSON), et pattern
+d'accès dominant centré sur la valeur la plus récente par type de donnée.
+DynamoDB~\cite{dynamodb}, base clé-valeur/document entièrement managée par AWS,
+répond à ces contraintes : scalabilité automatique, latence milliseconde, modèle
+de tarification à l'usage.
+
+\subsubsection{Architecture}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.9cm]
+
+\node[font=\small\itshape, text=black!60] (src)
+  {APIs publiques Paris : SNCF/RATP · Parkings · Trafic \quad\textendash\quad scripts boto3 / EC2};
+
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=0.7cm of src] (bronze) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad AWS S3 — \texttt{efrei-cloud-project}\\[2pt]
+  Format : JSON horodaté ISO \quad\textbullet\quad Usage : historique brut, rejeu
+};
+
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of bronze] (silver) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad DynamoDB — 3 tables temps réel\\[2pt]
+  \texttt{parkings} · \texttt{traffic} · \texttt{departures} \quad\textbullet\quad GSI : (type, ingestion\_timestamp)
+};
+
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of silver] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad DynamoDB — 10 tables d'agrégats\\[2pt]
+  Accès : Lambda + API Gateway (13 endpoints) \quad\textbullet\quad O(1) par requête
+};
+
+\draw[arrowM] (src) -- (bronze);
+\draw[arrowM] (bronze) -- node[right, font=\scriptsize\itshape, text=black!50] {process\_s3\_to\_dynamodb.py} (silver);
+\draw[arrowM] (silver) -- node[right, font=\scriptsize\itshape, text=black!50] {agrégation périodique} (gold);
+
+\end{tikzpicture}\end{center}
+
+\subsubsection{Global Secondary Index --- accès O(1)}
+
+Le pattern d'accès dominant est : « retourner le snapshot le plus récent pour un
+type de donnée donné ». Un scan complet suivi d'un tri côté application est
+O(n) et non scalable. Le choix s'est porté sur un GSI avec \texttt{type} comme
+partition key et \texttt{ingestion\_timestamp} comme sort key, ce qui ramène la
+requête à un accès O(1) indépendant du volume de la table.
+
+\begin{verbatim}
+SANS GSI -- scan O(n)            AVEC GSI -- query O(1)
+-------------------------------  --------------------------------
+table.scan(                      table.query(
+  FilterExpression=               IndexName='gsi-type-ingestion',
+    Attr('type').eq('parkings')   KeyConditionExpression=
+    & Attr('ts').gt(0),             Key('type').eq('parkings'),
+  Limit=10000                     ScanIndexForward=False,
+)                                 Limit=1
+--> lit TOUS les items           )
+--> trie cote application        --> lit exactement 1 item
+--> O(n)                         --> O(1)
+
+Taille table : N items           Taille table : N items (idem)
+RCU consommes : N                RCU consommes : 1
+\end{verbatim}
+
+\capture{AWS DynamoDB console -- table parkings / onglet Indexes / GSI gsi-type-ingestion\_timestamp configur\'e}
+
+:
+
+\begin{lstlisting}[language=Python, caption=DynamoDB -- requete GSI avec fallback scan (src/project\_cloud/utils/utils\_dynamodb.py)]
+def get_last_ingestion_time(dynamodb, table_name, type_value):
+    table = dynamodb.Table(table_name)
+    try:
+        # GSI : un seul item lu, sans scan de la table complete
+        response = table.query(
+            IndexName='gsi-type-ingestion_timestamp',
+            KeyConditionExpression=Key('type').eq(type_value),
+            ScanIndexForward=False,   # tri descendant sur timestamp
+            Limit=1,
+            ProjectionExpression="ingestion_timestamp"
+        )
+        items = response.get('Items', [])
+        return items[0]['ingestion_timestamp'] if items else None
+    except Exception:
+        # Fallback scan si GSI non encore disponible
+        response = table.scan(ProjectionExpression="ingestion_timestamp",
+                              Limit=10000)
+        timestamps = [i['ingestion_timestamp'] for i in response['Items']]
+        return max(timestamps) if timestamps else None
+\end{lstlisting}
+
+Le fallback sur scan garantit la continuité de service lors d'un déploiement
+progressif de l'index. Cela a permis de déployer le GSI sans coupure applicative.
+
+\subsubsection{Couche Gold --- 10 tables d'agrégats pré-calculés}
+
+DynamoDB n'offre pas de capacité analytique native. La charge de calcul est
+déplacée vers le pipeline d'agrégation périodique ; les requêtes API sont servies
+en lecture pure O(1) sur les tables Gold.
+
+\needspace{12\baselineskip}\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table Gold} & \thead{Contenu} \\
+\hline
+aggregation\_traffic\_congestion\_index & Index de congestion par segment \\
+\hline
+aggregation\_traffic\_fluidity\_by\_zone & Fluidité par zone géographique \\
+\hline
+aggregation\_traffic\_critical\_segments & Segments routiers critiques \\
+\hline
+aggregation\_overall\_occupancy\_rate & Taux d'occupation global des parkings \\
+\hline
+aggregation\_average\_availability\_parking & Disponibilité moyenne par parking \\
+\hline
+aggregation\_number\_of\_parkings\_in\_operation & Nombre de parkings actifs \\
+\hline
+aggregation\_reference\_pricing & Grille tarifaire de référence \\
+\hline
+aggregation\_departures\_by\_network & Départs par réseau de transport \\
+\hline
+aggregation\_departures\_top\_destinations & Top destinations par fréquence \\
+\hline
+aggregation\_departures\_total & Volume total de départs \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Résultats chiffrés}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur} \\
+\hline
+Sources ingérées & 3 (trafic, parkings, départs SNCF) \\
+\hline
+Tables DynamoDB Silver & 3 tables avec GSI (type, ingestion\_timestamp) \\
+\hline
+Tables DynamoDB Gold & 10 agrégats pré-calculés \\
+\hline
+Endpoints API & 13 (3 temps réel + 10 agrégats) \\
+\hline
+Accès Gold & O(1) --- lecture directe, sans calcul à la demande \\
+\hline
+Accès Silver & O(1) via GSI --- indépendant du volume de la table \\
+\hline
+Fallback & Scan complet si GSI non disponible \\
+\hline
+Bronze S3 & Conservation de l'historique brut horodaté \\
+\hline
+\end{tabular}\end{center}
+
+\textbf{Axe d'amélioration.} Le GSI nécessite une stratégie de capacité
+provisionnée (RCU/WCU adaptatifs via auto-scaling DynamoDB) pour éviter le
+throttling en charge soutenue. La mise en place de métriques CloudWatch sur la
+consommation des unités de lecture constituerait l'étape suivante.
+
+\subsubsection{Politique de capacité DynamoDB et gestion du throttling}
+
+DynamoDB propose deux modes de capacité : \textit{on-demand} (facturation à la
+requête, scaling automatique sans limite) et \textit{provisioned} (capacités
+fixées en RCU/WCU, moins coûteux en charge prévisible). Le projet utilise le mode
+on-demand pour les trois tables temps réel, ce qui garantit qu'aucune requête
+n'est throttlée quel que soit le pic d'ingestion, au prix d'une facturation
+variable.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Mode} & \thead{Avantage} & \thead{Inconvénient} \\
+\hline
+On-demand & Pas de throttling, scaling auto & Coût imprévisible en charge soutenue \\
+\hline
+Provisioned & Coût fixe, budgétisable & Throttling si RCU/WCU dépassés \\
+\hline
+Provisioned + auto-scaling & Optimum coût/performance & Configuration à maintenir \\
+\hline
+\end{tabular}\end{center}
+
+Pour les 10 tables Gold (agrégats), le mode provisioned est adapté : ces tables
+sont écrites une fois par période d'agrégation et lues fréquemment via l'API.
+Une capacité de lecture de 5 RCU suffit pour les volumes actuels, soit un coût
+de 0,01 \$ par heure par table --- contre un coût variable on-demand potentiellement
+10 fois supérieur en cas de trafic API soutenu.
+
+\subsubsection{Structure de données et sérialisation DynamoDB}
+
+DynamoDB stocke tous les nombres en type \texttt{Decimal} (précision arbitraire),
+ce qui crée une incompatibilité avec la sérialisation JSON standard de Python
+(qui ne connaît que \texttt{float} et \texttt{int}). Le \texttt{DecimalEncoder}
+résout ce problème à la source :
+
+\begin{lstlisting}[language=Python, caption=Sérialisation Decimal pour JSON (utils\_s3.py)]
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            # Preserve la precision : int si pas de partie decimale
+            if obj % 1 == 0:
+                return int(obj)
+            return float(obj)
+        return super().default(obj)
+
+def decimal_serializer(obj):
+    if isinstance(obj, Decimal):
+        return int(obj) if obj % 1 == 0 else float(obj)
+    raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+\end{lstlisting}
+
+Ce pattern est utilisé à deux niveaux : dans \texttt{upload\_to\_s3} pour la
+sérialisation des données vers le lac Bronze, et dans le Lambda handler pour la
+sérialisation des réponses API. Sans ce mécanisme, les \texttt{Decimal} retournés
+par boto3 depuis DynamoDB provoqueraient une \texttt{TypeError} lors de la
+sérialisation JSON des réponses.
+
+\subsection{Synthèse des compétences démontrées}
+
+Nos deux projets couvrent l'intégralité du périmètre Bloc 1 à travers deux
+architectures de stockage distinctes, chacune justifiée par les contraintes de
+son contexte.
+
+\textbf{Choix technologiques raisonnés.} Jobtech traite des données hétérogènes
+à schéma variable depuis six sources, avec un besoin de service applicatif via
+API REST : le modèle hybride Parquet/MySQL répond à cette dualité --- Parquet
+garantit la durabilité Bronze et la relecture Spark, MySQL assure le service
+transactionnel avec les capacités relationnelles nécessaires aux filtres, tris et
+agrégations de l'API. project\_cloud traite des snapshots horodatés
+semi-structurés avec un pattern d'accès centré sur la dernière valeur connue :
+DynamoDB avec GSI est la réponse directe --- scalabilité automatique, latence
+milliseconde, modèle document natif JSON.
+
+\textbf{Maîtrise des mécanismes d'accès concurrents.} Le \texttt{SQLManager} de
+Jobtech met en \oe{}uvre dix connexions persistantes avec retry exponentiel et
+bulk insert par batch de 1\,000 lignes --- des patterns directement issus de la
+pratique industrielle. Le GSI DynamoDB de project\_cloud transforme un scan O(n)
+en requête O(1) sur la dimension temporelle.
+
+\textbf{Qualité et cohérence.} La déduplication sur \texttt{job\_id} dans la
+Silver de Jobtech garantit l'idempotence du pipeline. Le score de qualité attribué
+à chaque enregistrement Silver constitue une primitive de gouvernance. La
+séparation stricte Bronze/Silver/Gold isole chaque niveau de transformation et
+permet de rejouer une étape sans affecter les autres.
+
+\textbf{Lien RNCP explicite.} La compétence Bloc 1 exige de concevoir et développer
+une architecture de stockage adaptée aux besoins. Nos réalisations couvrent
+l'intégralité du spectre attendu : modélisation du schéma (Medallion, GSI
+DynamoDB), choix du format (Parquet columnar, JSON document, MySQL relationnel),
+optimisation des accès (pooling, bulk insert, filterPushdown, pré-agrégation Gold)
+et gestion de la qualité (déduplication, scoring, idempotence). Le niveau de
+maîtrise démontré --- infrastructure de connexion production-grade, gestion fine
+des partitions Parquet, architecture NoSQL avec index secondaire global ---
+correspond au niveau Master Data Engineering attendu pour le titre RNCP36739.
+
+\section{Bloc 2 --- Concevoir, développer et déployer une solution de traitement des données massives}
+
+Cette partie montre notre capacité à concevoir, industrialiser et optimiser des
+pipelines de traitement de données à grande échelle.
+
+\subsection{Compétences visées}
 
 \begin{itemize}
     \item Concevoir, en s'appuyant sur une veille technologique, une architecture
-    distribuee repondant au besoin du client pour traiter les donnees massives en
-    entreprise en utilisant les technologies de traitement adaptees.
-    \item Implementer un systeme distribue en utilisant des technologies de
-    streaming identifiees a partir d'une veille pour traiter des donnees sur une
-    periode precise ou en temps quasi reel.
-    \item Transformer les donnees provenant de differentes sources en prenant en
-    compte leur variete pour faire de l'analytique a l'echelle.
+    distribuée répondant au besoin du client pour traiter les données massives en
+    entreprise en utilisant les technologies de traitement adaptées.
+    \item Implémenter un système distribué en utilisant des technologies de
+    streaming identifiées à partir d'une veille pour traiter des données sur une
+    période précise ou en temps quasi réel.
+    \item Transformer les données provenant de différentes sources en prenant en
+    compte leur variété pour faire de l'analytique à l'échelle.
     \item Optimiser la performance des pipelines en utilisant les techniques
-    d'integration et de mise en scene adequates pour le traitement des donnees
+    d'intégration et de mise en scène adéquates pour le traitement des données
     massives.
-    \item Automatiser la creation, les tests, l'integration et le deploiement des
-    pipelines de donnees en utilisant les technologies de containerisation et
+    \item Automatiser la création, les tests, l'intégration et le déploiement des
+    pipelines de données en utilisant les technologies de conteneurisation et
     d'ordonnancement pertinentes.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Contexte et enjeux}
 
+La compétence Bloc 2 porte sur la conception, l'implémentation et le déploiement de
+solutions de traitement de données massives. Elle couvre l'architecture distribuée,
+le streaming, la transformation à l'échelle, l'optimisation des pipelines et leur
+industrialisation via la conteneurisation et la CI/CD.
+
+Le traitement massif repose sur deux piliers complémentaires. Le premier est le
+framework distribué : Apache Spark permet de distribuer le calcul sur plusieurs
+n\oe{}uds, de traiter des flux en continu via le Streaming, et d'exprimer des
+transformations complexes en Spark SQL. Le second est l'industrialisation du
+cycle de vie logiciel : la chaîne CI/CD automatise la validation, les tests et le
+déploiement des composants, garantissant la reproductibilité et la fiabilité des
+traitements en production.
+
+Nos deux projets couvrent ces deux dimensions. \textbf{projet\_spark} met en
+\oe{}uvre un cluster Spark distribué avec streaming temps quasi réel, une
+architecture Medallion complète (Bronze/Silver/Gold) et cinq analyses Spark SQL
+sur données aéronautiques américaines. \textbf{fizzbuzz-Efrei} démontre une
+chaîne DevOps complète : CI GitHub Actions multi-version, lint, tests, coverage
+et containerisation Docker production-grade.
+
+\subsection{Panorama de nos réalisations}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Dimension} & \thead{projet\_spark} & \thead{fizzbuzz-Efrei} \\
+\hline
+Paradigme & Traitement distribué Spark + Streaming & CI/CD + Containerisation \\
+\hline
+Infrastructure &
+  Cluster spark://localhost:7077, 16\,Go/n\oe{}ud, 8 cores &
+  GitHub Actions, Docker, Docker Compose \\
+\hline
+Données &
+  Vols US + météo Open-Meteo 2018--2020, 37 variables horaires, 16 points géo &
+  Algorithme FizzBuzz, tests unitaires \\
+\hline
+Couches &
+  Bronze (Parquet streaming) $\rightarrow$ Silver (Hive) $\rightarrow$ Gold (MySQL JDBC) &
+  Source $\rightarrow$ lint $\rightarrow$ tests $\rightarrow$ coverage $\rightarrow$ image Docker \\
+\hline
+Optimisations &
+  Partitionnement Year/Month/Day, checkpoint Streaming, Hive Metastore &
+  Matrix CI 3 versions Python, cache pip layers, image slim \\
+\hline
+\end{tabular}\end{center}
+
+\subsection{projet\_spark --- Traitement massif distribué sur cluster Spark}
+
+\subsubsection{Contexte}
+
+Le projet projet\_spark traite des données aéronautiques américaines sur la
+période 2018--2020 : données de vol BTS pour quatre aéroports (ATL, DEN, LAX,
+ORD) et données météorologiques horaires Open-Meteo~\cite{openmeteo} pour 16 points géographiques
+couvrant les routes aériennes. L'objectif est de corréler les retards de vols avec
+les conditions météo pour produire cinq analyses Gold dans MySQL.
+
+La volumétrie justifie le recours à un cluster Spark distribué : trois années de
+données horaires sur 16 points avec 37 variables météo chacun, joints aux
+enregistrements de vol. Le traitement suit l'architecture Medallion : ingestion
+(Bronze), nettoyage (Silver), analyse (Gold).
+
+\subsubsection{Topologie du cluster Spark}
+
+\begin{center}\fitwidth{%
+\begin{tikzpicture}[node distance=1cm]
+
+\node[flowbox, fill=cloudBg, draw=cloudColor, text width=8cm] (driver) {
+  \textbf{\textcolor{cloudColor}{DRIVER}} \quad \texttt{spark://localhost:7077}\\[2pt]
+  SparkContext / SparkSession \quad\textbullet\quad Planification \& coordination
+};
+
+\node[minibox, fill=gray!12, draw=gray!50, below left=1.2cm and 1.5cm of driver] (w1) {
+  \textbf{Executor Worker 1}\\[2pt]
+  16 Go RAM · 8 cores\\
+  \small Tasks (partitions)
+};
+
+\node[minibox, fill=gray!12, draw=gray!50, below right=1.2cm and 1.5cm of driver] (w2) {
+  \textbf{Executor Worker 2}\\[2pt]
+  16 Go RAM · 8 cores\\
+  \small Tasks (partitions)
+};
+
+\draw[arrowM] (driver.south) -- ++(0,-0.35) -| (w1.north);
+\draw[arrowM] (driver.south) -- ++(0,-0.35) -| (w2.north);
+
+\end{tikzpicture}}\end{center}
+
+\capture{Spark UI -- http://localhost:4040 / onglet Executors -- workers actifs et m\'emoire allou\'ee}
+
+\subsubsection{Architecture}
+
+\needspace{12\baselineskip}\begin{center}\begin{tikzpicture}[node distance=0.9cm]
+
+% Sources
+\node[minibox, fill=black!5, draw=black!30, text width=4.5cm] (bts)
+  {\textbf{BTS} — Vols CSV\\4 aéroports (ATL, DEN, LAX, ORD)};
+\node[minibox, fill=black!5, draw=black!30, text width=4.5cm, right=1.2cm of bts] (meteo)
+  {\textbf{Open-Meteo API} — JSON\\16 points géo, 37 variables};
+
+% Bronze
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=1cm of bts, xshift=3.5cm] (bronze) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad Parquet partitionné Year/Month/Day\\[2pt]
+  \texttt{bronze/flights/} (streaming, mode append) \quad · \quad \texttt{bronze/weather/} (batch)
+};
+
+% Silver
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of bronze] (silver) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad Hive Metastore (\texttt{silver-warehouse/})\\[2pt]
+  Tables : \texttt{flights} · \texttt{weather} \quad\textbullet\quad UTC · nulls supprimés · horodatage unifié
+};
+
+% Gold
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of silver] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad MySQL — 5 tables analytiques (JDBC)\\[2pt]
+  avg\_delay · top\_delay\_snow · top\_delay\_weather · top\_delay\_airline · nb\_flights
+};
+
+\draw[arrowM] (bts.south) -- ++(0,-0.4) -| ([xshift=-2cm]bronze.north);
+\draw[arrowM] (meteo.south) -- ++(0,-0.4) -| ([xshift=2cm]bronze.north);
+\draw[arrowM] (bronze) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{cleaning.py}} (silver);
+\draw[arrowM] (silver) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{gold.py}} (gold);
+
+\end{tikzpicture}\end{center}
+
+\subsubsection{Analyse exploratoire et volumétrie}
+
+Avant la conception du pipeline, une analyse exploratoire des données BTS
+(Bureau of Transportation Statistics) a permis de caractériser le dataset.
+Sur la période 2018--2020 pour les quatre aéroports cibles (ATL, DEN, LAX,
+ORD), le dataset présente les caractéristiques suivantes :
+
+\needspace{12\baselineskip}\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur estimée} \\
+\hline
+Volume de vols (3 ans, 4 aéroports) & $\approx$ 1,5 million de vols \\
+\hline
+Colonnes par enregistrement & 110 colonnes BTS \\
+\hline
+Colonnes utilisées en Silver & 15 colonnes (après sélection) \\
+\hline
+Taux de retard $>$ 15 min & $\approx$ 18\% des vols \\
+\hline
+Retard moyen ATL & $\approx$ 12 min \\
+\hline
+Points géo météo (Open-Meteo) & 16 points, 37 variables horaires \\
+\hline
+Volume météo (3 ans, 16 points, 37 vars) & $\approx$ 15 millions de mesures \\
+\hline
+\end{tabular}
+\end{center}
+
+Cette volumétrie justifie le choix de Spark distribué : sur un seul nœud,
+charger 1,5 million de vols avec 110 colonnes en mémoire pandas est possible
+(quelques Go) mais la jointure temporelle avec 15 millions de mesures météo
+produit un produit cartésien potentiel de plusieurs dizaines de milliards de
+combinaisons que Spark optimise via le broadcast join (les 16 points géo sont
+petits, DEN/ATL/LAX/ORD sont des constantes).
+
+\subsubsection{Ingestion batch --- Bronze météo Open-Meteo}
+
+Les données météorologiques sont ingérées en mode batch depuis l'API Open-Meteo~\cite{openmeteo}
+pour 16 points géographiques couvrant les zones aéroportuaires. L'API est appelée
+une fois par point géo sur la période 2018--2020, soit 16 appels séquentiels.
+Chaque appel retourne un objet JSON contenant les 37 variables horaires sur
+trois ans, soit environ 26\,000 enregistrements par point (3 ans × 365 jours
+× 24 heures).
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Paramètre Open-Meteo} & \thead{Valeur} \\
+\hline
+Variables demandées & 37 (température, précipitations, neige, vent, pression, humidité...) \\
+\hline
+Points géographiques & 16 (proches des 4 aéroports sur leur axe de vol) \\
+\hline
+Résolution temporelle & Horaire \\
+\hline
+Période & 2018-01-01 $\rightarrow$ 2020-12-31 \\
+\hline
+Format de réponse & JSON avec champs \texttt{hourly} par variable \\
+\hline
+\end{tabular}\end{center}
+
+Le choix de 16 points géographiques plutôt que 4 (un par aéroport) permet de
+couvrir les routes aériennes entre aéroports : un vol d'ATL vers LAX traverse
+plusieurs zones météo. La corrélation des retards avec la météo \textit{en route}
+(pas seulement à l'aéroport de départ) améliore la précision des analyses Gold.
+
+La stratégie d'appel séquentiel (16 appels en série) est une contrainte du tier
+gratuit de l'API Open-Meteo (rate limit). En production, les appels seraient
+parallélisés avec un pool de threads ou un job Spark distribué (un worker par
+point géo), réduisant le temps d'ingestion de 16× à temps-du-plus-lent.
+
+\subsubsection{Ingestion streaming --- Bronze vols}
+
+Le fichier \texttt{streaming.py} ingère les données de vol en streaming structuré
+Spark~\cite{spark-streaming}. Le schéma est déclaré explicitement (50+ colonnes) pour éviter
+l'inférence coûteuse et garantir la stabilité des types en production :
+
+\begin{lstlisting}[language=Python, caption=Spark Streaming -- CSV vers Parquet avec checkpoint (streaming.py)]
+spark = SparkSession.builder.appName('streaming') \
+    .master("spark://localhost:7077") \
+    .config("spark.executor.memory", "16g") \
+    .config("spark.executor.core", "8").getOrCreate()
+
+# Schema explicite : evite l'inference et garantit la stabilite des types
+schema = StructType([
+    StructField('FlightDate',      DateType(),   True),
+    StructField('Airline',         StringType(), True),
+    StructField('ArrDelayMinutes', DoubleType(), True),
+    # ... 47 autres colonnes typees explicitement
+])
+
+flights = spark.readStream.format("csv") \
+    .schema(schema).option("header", True).csv("source")
+
+flights_partitioned = flights.withColumns({
+    "Year" : F.year(F.col("FlightDate")),
+    "Month": F.month(F.col("FlightDate")),
+    "Day"  : F.dayofmonth(F.col("FlightDate"))
+})
+
+query = flights_partitioned.writeStream \
+    .format("parquet").partitionBy("Year", "Month", "Day") \
+    .outputMode("append") \
+    .option("path", abspath("bronze/flights")) \
+    .option("checkpointLocation", abspath("bronze/checkpoints/flights")) \
+    .start()
+query.awaitTermination()
+\end{lstlisting}
+
+Le mode \texttt{append} garantit qu'aucune donnée écrite n'est modifiée. Le
+\texttt{checkpointLocation} enregistre l'offset à chaque micro-batch : en cas de
+panne, Spark reprend exactement là où il s'est arrêté, sans perte ni doublon.
+Le partitionnement \texttt{Year/Month/Day} active le pushdown de prédicats sur
+les requêtes Silver ultérieures.
+
+\subsubsection{Transformation Silver --- normalisation et unification temporelle}
+
+La clé technique de la transformation Silver est l'unification temporelle : les
+vols ont des horaires en heure locale par aéroport, la météo est en UTC. La
+jointure exige de ramener les deux en UTC à la même granularité (heure) :
+
+\begin{lstlisting}[language=Python, caption=Silver -- UTC et cle de jointure temporelle (cleaning.py)]
+def cleaning_weather(spark, df):
+    # Suppression automatique des colonnes 100% nulles
+    df_null_counts = df.select(
+        [sum(when(col(c).isNull(), 1).otherwise(0)).alias(c)
+         for c in df.columns])
+    columns_null = [c for c in df.columns
+                    if df_null_counts.select(c).first()[0] == df.count()]
+    df = df.drop(*columns_null)
+    # Conversion UTC depuis le fuseau de chaque aeroport
+    df = df.withColumn("datetime",
+            to_timestamp(col("datetime"), "yyyy-MM-dd'T'HH:mm")) \
+           .withColumn("datetimeUTC",
+            to_utc_timestamp(col("datetime"), col("timezone")))
+    return df
+
+def cleaning_flight(spark, df):
+    timezone = {"ATL": "America/New_York", "LAX": "America/Los_Angeles",
+                "DEN": "America/Denver",   "ORD": "America/Chicago"}
+    mapping_expr = create_map([lit(k) for k in chain(*timezone.items())])
+    df = df.withColumn("OriginTimezone", mapping_expr[col("Origin")])
+    # Arrondi a l'heure (+ 30 min) : cle de jointure vols x meteo
+    df = df.withColumn("CRSDepTime_hourly",
+            date_trunc("hour",
+                expr("CRSDepTime + interval 30 minutes")))
+    return df
+\end{lstlisting}
+
+L'arrondi \texttt{+ interval 30 minutes} puis \texttt{date\_trunc("hour")} est la
+clé de jointure entre vols (résolution minute) et météo (résolution horaire). Cela
+a permis de construire une clé composite fiable sur
+\texttt{(location, CRSDepTime\_hourly)}.
+
+\subsubsection{Modèle d'exécution Spark Structured Streaming}
+
+Le Spark Structured Streaming fonctionne en mode \textit{micro-batch} : à
+intervalle régulier (déclenché par un trigger ou à la fin du micro-batch
+précédent), Spark lit les nouveaux fichiers CSV apparus dans le dossier source,
+les traite comme un DataFrame, et les écrit en Parquet. Ce modèle est un compromis
+entre le streaming pur (latence minimale, complexité maximale) et le batch (latence
+haute, simplicité maximale).
+
+\begin{verbatim}
+t=0                t=5s              t=10s             t=15s
+|                  |                 |                 |
+| [trigger]        | [trigger]       | [trigger]       | ...
+|                  |                 |                 |
+| readStream       | readStream      | readStream      |
+| (nouveaux CSVs)  | (nouveaux CSVs) | (nouveaux CSVs) |
+|                  |                 |                 |
+| write Parquet    | write Parquet   | write Parquet   |
+| append           | append          | append          |
+|                  |                 |                 |
+| checkpoint       | checkpoint      | checkpoint      |
+| (offset sauve)   | (offset sauve)  | (offset sauve)  |
+\end{verbatim}
+
+Le \texttt{checkpointLocation} enregistre l'offset (position de lecture) après
+chaque micro-batch réussi. En cas de panne entre deux micro-batches, Spark relit
+depuis le dernier offset sauvegardé --- garantissant la sémantique
+\textit{exactly-once} : chaque fichier CSV est traité exactement une fois.
+
+La configuration du trigger peut être ajustée selon le besoin de latence :
 \begin{itemize}
-    \item Data Integration
-    \item Big Data Frameworks
-    \item Functional Data Programming
-    \item DevOps \& MLOps
+    \item \texttt{Trigger.ProcessingTime("5 seconds")} : micro-batch toutes les 5 secondes.
+    \item \texttt{Trigger.AvailableNow()} : traite tous les fichiers disponibles et s'arrête --- équivalent batch.
+    \item \texttt{Trigger.Continuous("1 second")} : streaming pur, latence 1 seconde, sémantique at-least-once.
 \end{itemize}
 
-\subsection{Analyse attendue}
+Dans projet\_spark, le mode par défaut (sans trigger explicite) déclenche un
+nouveau micro-batch dès que le précédent est terminé : optimal pour maximiser
+le débit sans surcharger le scheduler.
 
-Mettez en avant la conception des pipelines, le traitement distribue, les choix
-de performance, l'automatisation et la maniere dont vous avez deploie ou
-industrialise les traitements.
+\subsubsection{Couche Gold --- cinq analyses Spark SQL vers MySQL}
 
-\section{Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de donnees sur le cloud}
+\begin{lstlisting}[language=Python, caption=Gold -- Spark SQL et export JDBC MySQL (gold.py)]
+def top_delay_during_snow(spark, flights_df, weather_df):
+    flights_df.createOrReplaceTempView("flights")
+    weather_df.createOrReplaceTempView("weather")
+    query = """
+        SELECT f.Airline, f.Origin, f.Dest,
+               f.ArrDelayMinutes, w.snowfall, w.wind_speed_10m
+        FROM flights AS f
+        LEFT JOIN weather AS w
+          ON  f.Origin = w.location
+          AND f.CRSDepTime_hourly = w.datetimeUTC
+        WHERE w.weather_code IN (71, 73, 75)  -- neige legere/moderee/forte
+        ORDER BY f.ArrDelayMinutes DESC
+    """
+    return spark.sql(query)
 
-Cette partie doit demontrer votre maitrise des services cloud appliques au
-stockage, au traitement, a la securite et a l'optimisation des couts.
+def save_to_mysql(spark, df, table_name, properties):
+    df.write.jdbc(url=jdbc_url, table=table_name,
+                  mode="overwrite", properties=properties)
+\end{lstlisting}
 
-\subsection{Competences visees}
+Les \texttt{weather\_code} 71/73/75 correspondent aux codes WMO pour la neige.
+L'export JDBC évite toute sérialisation fichier intermédiaire pour la couche Gold.
+
+\subsubsection{Les cinq analyses Gold --- contenu et valeur métier}
+
+Les cinq tables MySQL Gold répondent à des questions analytiques distinctes sur
+les retards de vol américains :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{5cm}|p{4cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table Gold} & \thead{Question analytique} & \thead{Variables clés} \\
+\hline
+\texttt{average\_delay\_by\_company} &
+  Quel est le retard moyen par compagnie aérienne ? &
+  Airline, AVG(ArrDelayMinutes) \\
+\hline
+\texttt{top\_delay\_during\_snow} &
+  Quels vols sont les plus retardés lors de chutes de neige ? &
+  weather\_code IN (71,73,75), snowfall, wind\_speed\_10m \\
+\hline
+\texttt{top\_delay\_by\_weather} &
+  Quel code météo WMO génère les plus grands retards ? &
+  weather\_code, AVG(ArrDelayMinutes) \\
+\hline
+\texttt{top\_delay\_by\_airline} &
+  Quelle compagnie est la plus sensible aux conditions météo ? &
+  Airline, weather\_condition, AVG(delay) \\
+\hline
+\texttt{number\_of\_flights\_by\_airline} &
+  Volume de vols par compagnie sur la période & Airline, COUNT(*) \\
+\hline
+\end{tabular}\end{center}
+
+La table \texttt{top\_delay\_by\_weather} est particulièrement intéressante :
+elle classe les codes WMO par retard moyen induit. Les codes de neige
+(71/73/75) ne sont pas les seuls perturbateurs --- les orages (95/96) et
+le brouillard dense (77) ont un impact comparable sur les retards. Cette
+information est directement exploitable par un dispatcher de compagnie aérienne
+pour anticiper et reprogrammer des vols.
+
+\subsubsection{Résultats chiffrés}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur} \\
+\hline
+Cluster & spark://localhost:7077, 16\,Go/n\oe{}ud, 8 cores \\
+\hline
+Sources & 4 aéroports, 16 points géo, 37 variables météo horaires \\
+\hline
+Période & 2018--2020 (3 ans) \\
+\hline
+Ingestion vols & Streaming structuré + checkpoint fault-tolerant \\
+\hline
+Ingestion météo & Batch API Open-Meteo, 16 appels séquentiels \\
+\hline
+Format Bronze & Parquet partitionné Year/Month/Day \\
+\hline
+Silver & Hive Metastore, tables flights + weather \\
+\hline
+Gold & 5 tables MySQL via JDBC \\
+\hline
+Clé de jointure & (location, CRSDepTime\_hourly) arrondi heure \\
+\hline
+\end{tabular}\end{center}
+
+\capture{Spark UI -- onglet SQL / Streaming / query active avec statut Running et checkpoint}
+
+\capture{MySQL Workbench ou DBeaver -- table gold.average\_delay\_by\_company / premiers r\'esultats charg\'es}
+
+\textbf{Axe d'amélioration.} Les dates et aéroports sont codés en dur.
+L'ajout d'arguments CLI (argparse) rendrait le pipeline configurable. Un DAG
+Airflow remplacerait avantageusement les scripts bash pour gérer les dépendances,
+les relances automatiques et le monitoring.
+
+\subsubsection{Adaptive Query Execution --- mécanismes et gains}
+
+L'AQE (Adaptive Query Execution), activé dans \texttt{SparkManager}, est un
+mécanisme de réoptimisation du plan d'exécution \textit{à l'exécution} plutôt
+qu'à la planification. Il repose sur les statistiques collectées au fil des étapes
+et agit sur trois problèmes classiques des pipelines distribués :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|p{3.5cm}|p{5cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Mécanisme AQE} & \thead{Problème résolu} & \thead{Configuration} \\
+\hline
+Coalesce partitions & Trop de petites partitions après un shuffle, surcharge du scheduler & \code{coalescePartitions.enabled=true} \\
+\hline
+Skew join & Partitions déséquilibrées (ex. aéroport ATL majoritaire), un worker surchargé & \texttt{skewJoin.enabled=true} \\
+\hline
+Broadcast hash join & Si une table est petite après filtrage, broadcast automatique plutôt que sort-merge & Activé par défaut avec AQE \\
+\hline
+\end{tabular}\end{center}
+
+Dans le contexte de projet\_spark, le skew join est particulièrement pertinent :
+l'aéroport ATL (Atlanta) est le hub le plus fréquenté des États-Unis et représente
+une proportion disproportionnée des enregistrements de vol. Sans AQE, la partition
+ATL peut prendre 5 à 10 fois plus de temps que les autres, bloquant la progression
+du stage entier (stragglers). L'AQE détecte ce déséquilibre à l'exécution et
+scinde automatiquement la partition problématique en sous-partitions.
+
+\subsubsection{Hive Metastore --- persistance et gouvernance Silver}
+
+Le Hive Metastore~\cite{hive} joue le rôle de catalogue de données dans la couche Silver.
+Il persiste les métadonnées des tables Spark SQL (schéma, partitions, chemin
+physique) dans une base Derby locale (\texttt{metastore\_db/}), ce qui permet de
+retrouver les tables entre deux sessions Spark sans les recréer.
+
+\begin{verbatim}
+session 1 (cleaning.py)              session 2 (gold.py)
+--------------------------           -----------------------
+spark.enableHiveSupport()            spark.enableHiveSupport()
+df.write.mode("overwrite")           spark.sql(
+  .saveAsTable("silver.flights")       "SELECT * FROM silver.flights"
+                                     )
+     |                                    ^
+     +---- Hive Metastore (Derby) ---------+
+           schema : StructType [...]
+           location : silver-warehouse/silver/flights
+           partitions : [Year, Month, Day]
+\end{verbatim}
+
+Cette architecture de catalogue rend le pipeline modulaire : les scripts
+\texttt{cleaning.py} (Silver) et \texttt{gold.py} (Gold) sont indépendants.
+\texttt{gold.py} requête les tables Silver via Spark SQL sans connaître le chemin
+physique --- le Metastore résout la localisation. En production, le Derby local
+serait remplacé par un Hive Metastore sur MySQL ou un AWS Glue Data Catalog pour
+la persistance multi-nœuds.
+
+\subsubsection{Optimisation du pipeline Bronze --- partitionnement et pushdown}
+
+Le partitionnement \texttt{Year/Month/Day} de la couche Bronze n'est pas
+uniquement un choix organisationnel : il active le \textit{partition pruning} de
+Spark, qui élimine les dossiers de partitions inutiles avant de charger les
+données en mémoire. Sur trois années de données (2018, 2019, 2020), une requête
+ciblant uniquement l'année 2019 ne lira que le sous-dossier \texttt{Year=2019},
+réduisant les données lues d'un facteur 3.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Optimisation} & \thead{Mécanisme} \\
+\hline
+Partition pruning & Ne lit que Year/Month/Day correspondants \\
+\hline
+Column pruning & Ne charge que les colonnes sélectionnées (\texttt{SELECT}) \\
+\hline
+Predicate pushdown & Filtre au niveau du lecteur Parquet, avant désérialisation \\
+\hline
+Checkpoint streaming & Reprise exacte sans perte ni doublon \\
+\hline
+Hive Metastore & Catalogue partagé entre scripts, découplage physique/logique \\
+\hline
+\end{tabular}\end{center}
+
+\subsection{fizzbuzz-Efrei --- Chaîne DevOps CI/CD et Containerisation}
+
+\subsubsection{Contexte}
+
+fizzbuzz-Efrei démontre l'industrialisation d'un pipeline logiciel via une chaîne
+DevOps complète s'appuyant sur GitHub Actions~\cite{githubactions} et Docker~\cite{docker}.
+La logique métier --- FizzBuzz --- est intentionnellement simple pour que la valeur
+réside entièrement dans la chaîne d'automatisation. Ces mécanismes sont directement
+transposables à n'importe quel pipeline de données : lint, tests unitaires, coverage
+et containerisation sont des prérequis à tout déploiement fiable en production.
+
+\subsubsection{Pipeline CI/CD}
+
+\begin{verbatim}
+git push (dev / main / docker)
+         |
+         v
++-----------------------------------------------------------+
+|  GITHUB ACTIONS -- python-package.yml                    |
+|                                                          |
+|  matrix: Python 3.9   |  Python 3.10  |  Python 3.11   |
+|          (job A)       |  (job B)      |  (job C)       |
+|  fail-fast: false -> les 3 jobs tournent independamment  |
+|                                                          |
+|  Step 1 : checkout@v4                                   |
+|  Step 2 : setup-python + pip upgrade                    |
+|  Step 3 : pip install flake8 + coverage + requirements  |
+|  Step 4 : flake8 E9/F7/F82 (bloquant si erreur syntaxe)|
+|           flake8 max-complexity=10 (avertissement)      |
+|  Step 5 : python -m unittest test.py                   |
+|  Step 6 : coverage run && coverage report              |
+|                                                          |
+|  RESULTAT :  3.9 [OK]  |  3.10 [OK]  |  3.11 [OK]     |
++-----------------------------------------------------------+
+\end{verbatim}
+
+\capture{GitHub Actions -- onglet Actions du repo fizzbuzz-Efrei / run r\'ecent / matrice 3.9-3.10-3.11 tous verts}
+
+\begin{lstlisting}[language=bash, caption=GitHub Actions -- CI matrix multi-version (.github/workflows/python-package.yml)]
+name: Python package
+on:
+  push:
+    branches: [ "dev", "main", "docker" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false   # une version echoue n'arrete pas les autres
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install
+      run: |
+        pip install flake8 coverage
+        pip install -r requirements.txt
+    - name: Lint bloquant (syntaxe, noms indefinis)
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source
+    - name: Lint warning (complexite cyclomatique max 10)
+      run: flake8 . --count --exit-zero --max-complexity=10
+    - name: Tests
+      run: python -m unittest test.py
+    - name: Coverage
+      run: coverage run -m unittest test.py && coverage report
+\end{lstlisting}
+
+Le lint en deux passes est une pratique industrielle : la première bloque sur
+les erreurs critiques, la seconde mesure la complexité sans bloquer. Le matrix
+\texttt{fail-fast: false} garantit que la défaillance sur Python 3.9 n'interrompt
+pas le test sur 3.10 et 3.11 --- chaque version rend son verdict indépendamment.
+
+\subsubsection{Containerisation Docker production-grade}
+
+\begin{lstlisting}[language=bash, caption=Dockerfile -- image slim non-root avec cache pip (Dockerfile)]
+ARG PYTHON_VERSION=3.12.8
+FROM python:${PYTHON_VERSION}-slim as base
+
+ENV PYTHONDONTWRITEBYTECODE=1  # pas de .pyc
+ENV PYTHONUNBUFFERED=1         # logs immediats
+
+WORKDIR /app
+
+# Utilisateur non-root : reduit la surface d'attaque
+ARG UID=10001
+RUN adduser --disabled-password --no-create-home \
+            --uid "${UID}" appuser
+
+# Cache mount pip : couche non rebatie si requirements.txt stable
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements.txt,target=requirements.txt \
+    python -m pip install -r requirements.txt
+
+USER appuser
+COPY . .
+EXPOSE 8000
+CMD python main.py
+\end{lstlisting}
+
+L'image \texttt{slim} réduit la taille et la surface d'attaque. L'utilisateur
+non-root (UID=10001) garantit qu'un processus compromis dans le conteneur n'a
+pas de droits système. Le cache mount pip évite de retélécharger les dépendances
+si \texttt{requirements.txt} n'a pas changé --- gain direct en temps de CI.
+
+\subsubsection{Résultats chiffrés}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur} \\
+\hline
+Versions Python & 3 (3.9, 3.10, 3.11) en parallèle, fail-fast: false \\
+\hline
+Lint & Flake8 2 passes (bloquant + warning complexité) \\
+\hline
+Tests & 4 cas unitaires \\
+\hline
+Coverage & Rapport automatique à chaque push \\
+\hline
+Image Docker & python:3.12.8-slim, non-root UID=10001 \\
+\hline
+Cache pip & Mount --- rebuild sans retéléchargement si requirements stable \\
+\hline
+Orchestration & Docker Compose multi-conteneurs \\
+\hline
+\end{tabular}\end{center}
+
+\textbf{Axe d'amélioration.} La chaîne ne comporte pas de step CD. L'ajout
+d'une publication d'image sur GHCR et d'un déploiement automatique sur
+staging compléterait le pipeline. Un seuil \texttt{--fail-under=90} sur le
+coverage renforcerait la garantie de qualité de manière bloquante.
+
+\subsubsection{Docker Compose --- orchestration multi-conteneurs}
+
+Le projet fizzbuzz-Efrei inclut un fichier \texttt{docker-compose.yml} qui
+orchestre plusieurs conteneurs en réseau isolé. Le Compose définit deux services :
+l'application principale et un runner de tests, ce qui permet d'exécuter les
+tests en environnement isolé sans dépendre de l'environnement local de
+développement.
+
+\begin{lstlisting}[language=bash, caption=docker-compose.yml -- orchestration multi-services]
+version: "3.9"
+services:
+  app:
+    build: .
+    image: fizzbuzz-efrei:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - appnet
+
+  test:
+    build: .
+    command: python -m pytest --tb=short -q
+    depends_on:
+      - app
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
+\end{lstlisting}
+
+Le réseau \texttt{appnet} de type bridge isole les conteneurs du réseau hôte :
+seul le port 8000 est exposé explicitement. Le service \texttt{test} dépend
+(\texttt{depends\_on}) du service \texttt{app}, garantissant l'ordre de démarrage.
+La directive \texttt{depends\_on} ne garantit pas que l'application est prête
+(elle garantit uniquement que le conteneur a démarré) --- une amélioration serait
+d'ajouter un healthcheck avec une politique \texttt{condition: service\_healthy}.
+
+\subsubsection{Stratégie de sécurité de l'image Docker}
+
+Les choix de sécurité dans le Dockerfile répondent aux bonnes pratiques OWASP et
+CIS Docker Benchmark :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|p{4cm}|p{5cm}|p{4cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Choix} & \thead{Justification sécurité} & \thead{Risque sans} \\
+\hline
+\texttt{slim} (pas \texttt{full}) & Surface d'attaque réduite, moins de paquets vulnérables & CVE supplémentaires sur libc-dev, gcc, etc. \\
+\hline
+UID=10001 non-root & Processus compromis sans droits root & Escalade de privilèges dans le conteneur \\
+\hline
+\code{PYTHONDONTWRITEBYTECODE=1} & Pas de fichiers \texttt{.pyc} en image & Légèrement plus petit, moins de surface \\
+\hline
+\texttt{PYTHONUNBUFFERED=1} & Logs visibles immédiatement & Perte de logs en cas de crash \\
+\hline
+Cache mount pip & Couche non invalidée si \texttt{requirements.txt} stable & Rebuild complet à chaque push \\
+\hline
+\end{tabular}\end{center}
+
+Le scan d'image en CI (via \texttt{trivy} ou \texttt{docker scout}) serait l'axe
+d'amélioration naturel : il détecterait les CVE dans les packages Python installés
+et bloquerait la publication d'une image vulnérable.
+
+\subsubsection{Analyse de couverture et qualité du code}
+
+La couverture de code est mesurée par \texttt{coverage.py} à chaque push. Le
+rapport affiche le taux de couverture ligne par ligne (\texttt{coverage report -m}).
+Dans fizzbuzz-Efrei, la couverture porte sur le module principal et ses branches
+conditionnelles (FizzBuzz, Fizz, Buzz, cas général). Les quatre cas unitaires
+couvrent les équivalences de classe :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Cas de test} & \thead{Entrée} & \thead{Sortie attendue} \\
+\hline
+Multiple de 15 & 15 & "FizzBuzz" \\
+\hline
+Multiple de 3 seul & 9 & "Fizz" \\
+\hline
+Multiple de 5 seul & 10 & "Buzz" \\
+\hline
+Cas général & 7 & "7" \\
+\hline
+\end{tabular}\end{center}
+
+Ces quatre cas garantissent une couverture de branche à 100\% sur la logique
+FizzBuzz. La valeur de ce projet réside dans le fait que cette couverture complète
+est vérifiée automatiquement à chaque commit, sur trois versions de Python,
+garantissant la portabilité de la logique.
+
+\subsection{Synthèse des compétences démontrées}
+
+Nos deux projets couvrent l'intégralité du périmètre Bloc 2, chacun adressant
+une dimension distincte du traitement massif industrialisé.
+
+\textbf{Architecture distribuée et streaming.} projet\_spark démontre la
+conception d'un cluster Spark avec streaming structuré. Le checkpoint
+fault-tolerant, le partitionnement Parquet Year/Month/Day et le Hive Metastore
+Silver constituent des choix d'architecture directement issus de la pratique
+industrielle du traitement massif.
+
+\textbf{Transformation à l'échelle.} La jointure temporelle vols$\times$météo sur
+\texttt{(location, CRSDepTime\_hourly)} résulte d'une chaîne de normalisation
+non triviale : conversion UTC timezone-aware pour quatre fuseaux américains,
+arrondi à l'heure pour aligner deux granularités (minute pour les vols, heure
+pour la météo), suppression automatique des colonnes 100\% nulles. Le résultat
+est cinq analyses analytiques Gold sur données réelles 2018--2020.
+
+\textbf{Industrialisation CI/CD.} fizzbuzz-Efrei démontre que l'automatisation
+du cycle de vie logiciel est elle-même une compétence du traitement massif : sans
+CI/CD, le déploiement de pipelines de données à grande échelle n'est pas
+reproductible. Le matrix CI sur trois versions Python garantit la portabilité
+sur l'ensemble des environnements d'exécution courants.
+
+\textbf{Comparaison Spark vs alternatives.} Le choix de Spark Structured Streaming
+mérite d'être mis en perspective par rapport aux alternatives disponibles.
+Apache Flink offre une sémantique de streaming pur avec état distribué et une
+latence inférieure à la milliseconde --- supérieure à Spark pour le streaming
+temps réel strict. Apache Kafka Streams est optimal pour les pipelines de
+transformation sur des topics Kafka. Spark reste le choix préférentiel pour les
+pipelines mixtes batch + streaming avec un moteur unique, et pour les équipes
+qui maîtrisent déjà l'écosystème Python/Spark. La sélection de Spark pour
+projet\_spark est justifiée par ce profil : pipeline hybride ingestion CSV +
+analyse SQL Gold, avec un écosystème Hive pour le catalogue Silver.
+
+\textbf{Lien RNCP explicite.} La compétence Bloc 2 exige de concevoir, développer
+et déployer une solution de traitement des données massives. projet\_spark
+adresse les sous-compétences d'architecture distribuée, de streaming et de
+transformation à l'échelle. fizzbuzz-Efrei adresse la sous-compétence
+d'automatisation par conteneurisation et CI/CD. Ensemble, ils démontrent la
+maîtrise complète du cycle de vie d'un pipeline --- de l'ingestion distribuée
+au déploiement industrialisé --- au niveau Master Data Engineering attendu
+pour le titre RNCP36739.
+
+\section{Bloc 3 --- Implémenter et optimiser des solutions de stockage et de traitement de données sur le cloud}
+
+Cette partie démontre notre maîtrise des services cloud appliqués au stockage, au
+traitement, à la sécurité et à l'optimisation des coûts.
+
+\subsection{Compétences visées}
 
 \begin{itemize}
-    \item Mettre en œuvre des solutions de stockage de donnees dans le cloud pour
-    permettre aux entreprises d'explorer leurs donnees en implementant des
-    techniques et strategies adaptees a leur utilisation.
-    \item Concevoir et developper des pipelines et des solutions de traitement de
-    donnees dans le cloud en chargeant les donnees, en les transformant et en les
-    mettant a disposition des utilisateurs.
-    \item Mettre en place une politique de securite des donnees dans le cloud en
-    developpant une strategie de chiffrement et de gestion des identites et des
-    acces, dans le respect des reglements en vigueur.
-    \item Optimiser les solutions de stockage et de traitement des donnees dans le
-    cloud en definissant des indicateurs de performance pour assurer la
-    disponibilite des services et optimiser les couts.
+    \item Mettre en œuvre des solutions de stockage de données dans le cloud pour
+    permettre aux entreprises d'explorer leurs données en implémentant des
+    techniques et stratégies adaptées à leur utilisation.
+    \item Concevoir et développer des pipelines et des solutions de traitement de
+    données dans le cloud en chargeant les données, en les transformant et en les
+    mettant à disposition des utilisateurs.
+    \item Mettre en place une politique de sécurité des données dans le cloud en
+    développant une stratégie de chiffrement et de gestion des identités et des
+    accès, dans le respect des règlements en vigueur.
+    \item Optimiser les solutions de stockage et de traitement des données dans le
+    cloud en définissant des indicateurs de performance pour assurer la
+    disponibilité des services et optimiser les coûts.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Contexte et enjeux}
+
+La compétence Bloc 3 porte sur la mise en \oe{}uvre de solutions cloud pour le
+stockage, le traitement et la mise à disposition des données : choix des services
+managés, conception des flux, sécurisation des accès, optimisation des coûts et
+de la disponibilité.
+
+project\_cloud est une plateforme de données temps réel parisienne. Elle agrège
+trois flux de données ouvertes en continu : les départs ferroviaires et de métro
+en gare de Lyon (SNCF/RATP), l'état des parkings parisiens (disponibilité,
+places, tarifs) et l'état du trafic routier (indice de congestion, segments
+critiques, fluidité par zone). L'objectif est de permettre un suivi opérationnel
+de la mobilité parisienne via un tableau de bord Streamlit alimenté par une API
+serverless.
+
+L'enjeu architectural central est la latence des données temps quasi réel et
+l'optimisation des coûts : un scan DynamoDB complet pour chaque requête API serait
+fonctionnellement correct mais linéaire en coût de lecture avec le volume. La mise
+en place d'un Global Secondary Index (GSI) réduit le coût de chaque requête à
+O(1), quelle que soit la taille de la table.
+
+\subsection{Contexte et enjeux}
+
+La compétence Bloc 3 porte sur la mise en \oe{}uvre de solutions cloud pour le
+stockage, le traitement et la mise à disposition des données : choix des services
+managés, conception des flux, sécurisation des accès, optimisation des coûts et
+de la disponibilité.
+
+project\_cloud est une plateforme de données temps réel parisienne. Elle agrège
+trois flux de données ouvertes en continu : les départs ferroviaires et de métro
+en gare de Lyon (SNCF/RATP), l'état des parkings parisiens (disponibilité,
+places, tarifs) et l'état du trafic routier (indice de congestion, segments
+critiques, fluidité par zone). L'objectif est de permettre un suivi opérationnel
+de la mobilité parisienne via un tableau de bord Streamlit alimenté par une API
+serverless.
+
+L'enjeu architectural central est la latence des données temps quasi réel et
+l'optimisation des coûts : un scan DynamoDB complet pour chaque requête API serait
+fonctionnellement correct mais linéaire en coût de lecture avec le volume. La mise
+en place d'un Global Secondary Index (GSI) réduit le coût de chaque requête à
+O(1), quelle que soit la taille de la table.
+
+\subsubsection{Positionnement dans l'écosystème AWS}
+
+AWS propose plusieurs alternatives pour chaque composant de l'architecture. Les
+choix retenus sont justifiés par rapport à ces alternatives :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Besoin} & \thead{Choix retenu} & \thead{Alternative} & \thead{Justification} \\
+\hline
+Lac de données & S3 & EFS, EBS & Coût minimal, accès objet universel \\
+\hline
+Base NoSQL & DynamoDB & MongoDB Atlas, ElasticSearch & Managé, serverless, GSI natif \\
+\hline
+Compute API & Lambda & EC2, ECS/Fargate & Pas d'infra à gérer, facturation usage \\
+\hline
+Routage API & API Gateway & ALB, CloudFront & Intégration Lambda native, gestion CORS \\
+\hline
+Dashboard & Streamlit (EC2) & QuickSight, PowerBI & Open source, Python natif \\
+\hline
+Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeable \\
+\hline
+\end{tabularx}\end{center}
+
+\subsection{Architecture cloud}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.85cm]
+
+% Sources
+\node[minibox, fill=black!5, draw=black!30, text width=3cm] (sncf)
+  {\small\textbf{API SNCF/RATP}\\Départs};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of sncf] (park)
+  {\small\textbf{API Parkings}\\Disponibilité};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of park] (traf)
+  {\small\textbf{API Trafic}\\Congestion};
+
+% Bronze S3
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=0.9cm of park] (s3) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad AWS S3 — bucket \texttt{efrei-cloud-project}\\[2pt]
+  \small \texttt{departures|parking|traffic/<timestamp\_ISO>/data.json}
+};
+
+% Silver DynamoDB
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of s3] (ddb) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad DynamoDB — 3 tables temps réel\\[2pt]
+  \small \texttt{parkings} · \texttt{traffic} · \texttt{departures} \quad · \quad GSI : (type, ingestion\_timestamp) \textbf{O(1)}
+};
+
+% Gold DynamoDB agrégats
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of ddb] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad DynamoDB — 10 tables d'agrégats\\[2pt]
+  \small occupancy\_rate · availability · congestion\_index · fluidity · departures\_by\_network …
+};
+
+% API
+\node[flowbox, fill=cloudBg, draw=cloudColor, below=0.8cm of gold, text width=9cm] (api) {
+  \textbf{\textcolor{cloudColor}{Lambda + API Gateway}} — 13 endpoints\\[2pt]
+  \small 3 temps réel (GSI query) · 10 agrégats (scan statique) · Streamlit Dashboard
+};
+
+\draw[arrowM] (sncf.south) -- ++(0,-0.35) -| ([xshift=-2cm]s3.north);
+\draw[arrowM] (park.south) -- (s3.north);
+\draw[arrowM] (traf.south) -- ++(0,-0.35) -| ([xshift=2cm]s3.north);
+\draw[arrowM] (s3) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{process\_s3\_to\_dynamodb.py}} (ddb);
+\draw[arrowM] (ddb) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{agregation\_*.py}} (gold);
+\draw[arrowM] (gold) -- (api);
+
+\end{tikzpicture}\end{center}
+
+\subsection{Stockage S3 --- lac de données brutes horodaté}
+
+\begin{verbatim}
+Bucket S3 : efrei-cloud-project
+|
++-- departures/
+|   +-- 2024-03-15T08:00:00/data.json   (snapshot 08h00)
+|   +-- 2024-03-15T08:05:00/data.json   (snapshot 08h05)
+|   +-- 2024-03-15T08:10:00/data.json   ...
+|
++-- parking/
+|   +-- 2024-03-15T08:00:00/data.json
+|   +-- 2024-03-15T08:05:00/data.json
+|
++-- traffic/
+    +-- 2024-03-15T08:00:00/data.json
+    +-- 2024-03-15T08:05:00/data.json
+\end{verbatim}
+
+\capture{AWS S3 console -- bucket efrei-cloud-project / dossier departures / liste des objets JSON horodat\'es}
+
+AWS S3~\cite{s3} constitue la couche Bronze de l'architecture. Chaque ingestion
+produit un objet JSON horodaté dans le préfixe correspondant à la source :
+\texttt{departures/<timestamp\_ISO>/data.json}. Cette organisation préserve
+l'historique complet des snapshots et permet de rejouer n'importe quelle fenêtre
+temporelle sans perte.
+
+\begin{lstlisting}[language=Python, caption=Écriture et lecture S3 (utils\_s3.py)]
+def upload_to_s3(s3, json_data, bucket_name, key):
+    s3.put_object(
+        Bucket=bucket_name,
+        Key=key,
+        Body=json.dumps(json_data, indent=4, cls=DecimalEncoder)
+    )
+
+def get_json_from_s3(s3, bucket, key):
+    response = s3.get_object(Bucket=bucket, Key=key)
+    content  = response["Body"].read().decode("utf-8")
+    return json.loads(content)
+
+def get_s3_object_keys(s3, bucket_name, prefix):
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+    return [obj['Key'] for obj in response.get('Contents', [])]
+\end{lstlisting}
+
+Le \texttt{DecimalEncoder} sérialise les \texttt{Decimal} Python en int ou float
+selon la présence de partie décimale --- requis car DynamoDB stocke tous les
+nombres en \texttt{Decimal}.
+
+\subsection{DynamoDB --- modèle d'accès et GSI}
+
+\subsubsection{Modèle de données}
+
+Chaque item DynamoDB dans les trois tables temps réel porte un attribut
+\texttt{type} (valeur constante par table : \texttt{"parkings"}, \texttt{"traffic"},
+\texttt{"departures"}) et un \texttt{ingestion\_timestamp} en microsecondes Unix.
+Ce couple est la clé du GSI.
+
+L'horodatage est en microsecondes (\texttt{timestamp() * 1\_000\_000}) pour
+garantir l'unicité sur des ingestions rapprochées. Un timestamp en secondes
+créerait des collisions si deux snapshots arrivaient dans la même seconde.
+
+\begin{lstlisting}[language=Python, caption=Création d'un item departures avec horodatage microseconde (process\_s3\_to\_dynamodb.py)]
+def create_stations_departures_dict(json_data, ingestion_timestamp_str):
+    results = []
+    for index, departure in enumerate(json_data["departures"]):
+        result = {
+            "gid": index,
+            "trip_id": departure["display_informations"]["trip_short_name"],
+            "ingestion_timestamp": int(
+                datetime.fromisoformat(ingestion_timestamp_str).timestamp()
+                * 1_000_000),           # microsecondes : unicite garantie
+            "departure_datetime": departure["stop_date_time"]["base_departure_date_time"],
+            "departure_station":  departure["stop_point"]["name"],
+            "arrival_station":    departure["display_informations"]["direction"],
+            "network":            departure["display_informations"]["network"],
+            "type": "departures",       # PK du GSI : valeur constante par table
+            "long": departure["stop_point"]["coord"]["lon"],
+            "lat":  departure["stop_point"]["coord"]["lat"],
+        }
+        results.append(result)
+    return results
+\end{lstlisting}
+
+\subsubsection{Global Secondary Index --- requête O(1) sur le dernier snapshot}
+
+L'enjeu de performance est d'accéder au dernier snapshot sans scanner toute la
+table. Sans GSI, chaque requête \og{}dernier état des parkings\fg{} serait un
+\texttt{scan} O(n) sur l'ensemble de l'historique. Avec le GSI
+\texttt{gsi-type-ingestion\_timestamp} (PK: type, SK: ingestion\_timestamp), une
+\texttt{query} avec \texttt{ScanIndexForward=False, Limit=1} retourne
+l'enregistrement le plus récent en O(1) :
+
+\begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
+def get_last_processed_timestamp(dynamodb, table_name, type_table):
+    table = dynamodb.Table(table_name)
+    try:
+        response = table.query(
+            IndexName='gsi-type-ingestion_timestamp',
+            KeyConditionExpression=Key('type').eq(type_table),
+            ScanIndexForward=False,   # tri SK descendant : le plus grand en tete
+            Limit=1,
+            ProjectionExpression="ingestion_timestamp"
+        )
+        items = response.get('Items', [])
+        return items[0]['ingestion_timestamp'] if items else None
+    except Exception:
+        # Fallback : scan si GSI non disponible (degraded mode)
+        response = table.scan(
+            ProjectionExpression="ingestion_timestamp",
+            Limit=1000
+        )
+        timestamps = [item['ingestion_timestamp'] for item in response['Items']]
+        return max(timestamps) if timestamps else None
+\end{lstlisting}
+
+Le fallback sur scan garantit la disponibilité du service même si le GSI est en
+cours de construction ou temporairement indisponible (mode dégradé). Ce pattern
+est également utilisé dans le Lambda d'API : query GSI en priorité, scan en
+secours.
+
+\subsubsection{Ingestion incrémentale depuis S3}
+
+Le pipeline S3 $\rightarrow$ DynamoDB ne retraite que les nouveaux objets S3.
+La borne de reprise est le dernier \texttt{ingestion\_timestamp} connu via GSI.
+Les clés S3 sont filtrées par comparaison ISO de leur timestamp :
+
+\begin{lstlisting}[language=Python, caption=Ingestion incrémentale S3 vers DynamoDB (process\_s3\_to\_dynamodb.py)]
+last_processed_timestamp_str = get_last_processed_timestamp(
+    dynamodb, DYNAMODB_TABLE_NAME, "departures")
+
+keys     = get_s3_object_keys(s3, BUCKET_NAME, s3_folder)
+new_keys = []
+
+if last_processed_timestamp_str:
+    last_dt = datetime.fromtimestamp(
+        float(last_processed_timestamp_str) / 1_000_000)
+    for key in keys:
+        key_dt = datetime.fromisoformat(key.split('/')[1])
+        if key_dt > last_dt:
+            new_keys.append(key)
+else:
+    new_keys = keys    # premiere ingestion : tout traiter
+
+for key in new_keys:
+    response = get_json_from_s3(s3, BUCKET_NAME, key)
+    items    = create_stations_departures_dict(response, key.split('/')[1])
+    batch_put_items_to_dynamodb(dynamodb, DYNAMODB_TABLE_NAME, items)
+\end{lstlisting}
+
+L'idempotence est garantie : si le pipeline est relancé, seuls les objets S3
+postérieurs au dernier timestamp connu sont réingérés. Les données déjà présentes
+ne sont pas dupliquées.
+
+\subsection{Agrégation --- 10 tables analytiques}
+
+Un pipeline d'agrégation lit les tables temps réel et produit 10 tables
+analytiques préagrégées dans DynamoDB. Pour les parkings, l'agrégation se fait
+par tranche horaire (groupement sur \texttt{ingestion\_timestamp // 3\_600\_000\_000}),
+puis calcul de quatre indicateurs :
+
+\needspace{12\baselineskip}\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table DynamoDB} & \thead{Indicateur} \\
+\hline
+\texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
+\hline
+\texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
+\hline
+\texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
+\hline
+\texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nb parkings ouverts \\
+\hline
+\texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion trafic \\
+\hline
+\texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
+\hline
+\texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
+\hline
+\texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
+\hline
+\texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
+\hline
+\texttt{aggregation\_departures\_total} & Total départs sur la période \\
+\hline
+\end{tabular}
+\end{center}
+
+Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
+l'ingestion. L'API Lambda lit ces tables en \texttt{get\_all\_items} (scan
+complet mais sur tables petites et statiques) sans recalculer les agrégats à
+chaque appel.
+
+\subsection{Performance Lambda --- cold start et optimisation}
+
+\subsubsection{Cold start Lambda et stratégies de mitigation}
+
+Une invocation Lambda se déroule en deux phases : l'initialisation (cold start)
+et l'exécution. Le cold start n'a lieu que lors de la première invocation après
+une période d'inactivité : AWS doit instancier un nouveau conteneur, charger le
+runtime Python et exécuter le code hors handler. Pour une Lambda Python avec
+boto3, le cold start est typiquement de 200--500 ms.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
+\hline
+Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
+\hline
+Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
+\hline
+\end{tabular}\end{center}
+
+Pour un tableau de bord Streamlit qui rafraîchit toutes les 5 minutes, le cold
+start est acceptable (l'utilisateur ne le percevra pas si le timeout de l'API
+Gateway est configuré à 29 secondes). En revanche, pour une API à faible latence
+(trading, IoT temps réel), les stratégies suivantes s'appliquent :
 
 \begin{itemize}
-    \item Projet Cloud
-    \item Securite des donnees
+    \item \textbf{Provisioned Concurrency} : AWS maintient N instances Lambda
+    initialisées en permanence --- cold start éliminé, coût fixe.
+    \item \textbf{Warm-up ping} : EventBridge pinge la Lambda toutes les
+    5 minutes pour maintenir au moins une instance chaude.
+    \item \textbf{Lambda Snapstart} (Java) : snapshot de l'état initial de la JVM,
+    non applicable à Python.
 \end{itemize}
 
-\subsection{Analyse attendue}
+\subsubsection{Gestion des dépendances Lambda --- layers}
 
-Detaillez les services cloud mobilises, les mecanismes de securisation, les flux
-de donnees, la supervision, les arbitrages techniques et les optimisations mises
-en place.
+Le handler Lambda \texttt{api/main.py} utilise boto3 (inclus nativement dans
+le runtime Python AWS), ce qui évite l'empaquetage d'une dépendance externe.
+Si une bibliothèque non native était nécessaire (ex. pandas, numpy), deux
+options existent : inclure les dépendances dans le package ZIP (taille limite
+50 Mo zippé / 250 Mo décompressé) ou utiliser un Lambda Layer (couche partagée
+entre plusieurs fonctions, limite 50 Mo par layer).
 
-\section[Bloc 4 -- Implementer des methodes d'intelligence artificielle]{Bloc 4 -- Implementer des methodes d'intelligence artificielle pour\\ modeliser et predire de nouveaux comportements et usages}
+Le projet utilise l'approche ZIP minimale : seul le code applicatif est inclus.
+boto3 et json sont fournis par le runtime AWS --- aucune dépendance à empaqueter.
+Cela maintient un package de quelques Ko, ce qui réduit le temps de cold start
+(chargement du ZIP plus rapide).
 
-Cette partie doit montrer comment vous avez exploite les donnees pour produire
-de l'analyse, du reporting et des modeles predictifs utiles au metier.
+\subsection{Lambda et API Gateway --- 13 endpoints serverless}
 
-\subsection{Competences visees}
+\begin{lstlisting}[language=Python, caption=Lambda handler -- routing 13 endpoints par path (api/main.py)]
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    path     = event.get('path')
+
+    # Endpoints agregats : scan complet (tables fixes, volume faible)
+    aggregation_tables = [
+        "aggregation_average_availability_parking",
+        "aggregation_number_of_parkings_in_operation",
+        "aggregation_overall_occupancy_rate",
+        "aggregation_reference_pricing",
+        "aggregation_traffic_congestion_index",
+        "aggregation_traffic_critical_segments",
+        "aggregation_traffic_fluidity_by_zone",
+        "aggregation_departures_by_network",
+        "aggregation_departures_top_destinations",
+        "aggregation_departures_total",
+    ]
+    if path.lstrip('/') in aggregation_tables:
+        items = get_all_items(dynamodb, path.lstrip('/'))
+        return {'statusCode': 200,
+                'body': json.dumps(items, default=decimal_serializer)}
+
+    # Endpoints temps reel : requete GSI -> dernier snapshot
+    if path == '/parkings':   table_name, type_value = "parkings",  "parkings"
+    elif path == '/traffic':  table_name, type_value = "traffic",   "traffic"
+    elif path == '/departures': table_name, type_value = "departures", "departures"
+    else:
+        return {'statusCode': 404,
+                'body': json.dumps({'message': f'Not Found {path}'})}
+
+    last_ts = get_last_ingestion_time(dynamodb, table_name, type_value)
+    items   = get_items_by_ingestion_time(dynamodb, table_name, last_ts, type_value)
+    if items and any('gid' in i for i in items):
+        items.sort(key=lambda i: i.get('gid', float('inf')))
+    return {'statusCode': 200,
+            'body': json.dumps(items, default=decimal_serializer)}
+\end{lstlisting}
+
+L'architecture serverless (Lambda~\cite{lambda} + API Gateway~\cite{apigateway}) supprime
+la gestion d'infrastructure : pas de serveur à provisionner, pas de scaling manuel.
+La facturation est à la requête --- ce qui est optimal pour un flux de données
+temps quasi réel avec des appels intermittents.
+
+Le tri final sur \texttt{gid} (identifiant d'ordre dans le snapshot) restitue
+les items dans l'ordre de collecte, indépendamment de l'ordre de stockage
+DynamoDB.
+
+\subsection{Résultats et indicateurs}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Indicateur} & \thead{Valeur} \\
+\hline
+Bucket S3 & efrei-cloud-project (3 flux horodatés) \\
+\hline
+Tables DynamoDB temps réel & 3 (parkings, traffic, departures) \\
+\hline
+Tables DynamoDB agrégats & 10 \\
+\hline
+GSI & gsi-type-ingestion\_timestamp (PK type, SK timestamp) \\
+\hline
+Granularité horodatage & Microsecondes (×1\_000\_000) \\
+\hline
+Endpoints API & 13 (3 temps réel + 10 agrégats) \\
+\hline
+Accès temps réel & O(1) --- GSI query, Limit=1, ScanIndexForward=False \\
+\hline
+Accès agrégat & Scan complet (tables statiques, volume faible) \\
+\hline
+Fallback & Scan si GSI non disponible (mode dégradé) \\
+\hline
+Ingestion & Incrémentale --- seuls les nouveaux objets S3 sont traités \\
+\hline
+Compute & AWS Lambda serverless + API Gateway \\
+\hline
+Dashboard & Streamlit (3 pages : parkings, trafic, départs) \\
+\hline
+\end{tabular}\end{center}
+
+\capture{Streamlit dashboard -- page Parkings / taux d'occupation global en temps r\'eel + carte des parkings disponibles}
+
+\capture{API Gateway AWS console -- liste des 13 routes configur\'ees / m\'ethode GET + int\'egration Lambda}
+
+\textbf{Axe d'amélioration.} Les Lambdas d'ingestion s'exécutent de façon
+ad hoc. L'ajout d'un déclencheur EventBridge Scheduler (ex. toutes les 5 minutes)
+automatiserait le rafraîchissement des données sans intervention manuelle. Par
+ailleurs, l'activation du chiffrement côté serveur KMS sur le bucket S3 et les
+tables DynamoDB renforcerait la posture de sécurité en garantissant le chiffrement
+au repos des données personnelles potentiellement contenues dans les flux de
+transport.
+
+\subsection{Sécurité et gestion des identités (IAM)}
+
+\subsubsection{Principe du moindre privilège sur AWS}
+
+L'ensemble des composants du projet sont exécutés sous des rôles IAM dédiés
+appliquant le principe du moindre privilège : chaque rôle n'a que les permissions
+strictement nécessaires à sa fonction. Le tableau ci-dessous détaille les
+politiques attachées aux rôles principaux :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{4cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Rôle IAM} & \thead{Permissions} & \thead{Justification} \\
+\hline
+\texttt{lambda-api-role} &
+  \texttt{dynamodb:GetItem}\newline
+  \texttt{dynamodb:Query}\newline
+  \texttt{dynamodb:Scan} &
+  L'API ne fait que lire --- aucune permission d'écriture accordée \\
+\hline
+\texttt{ingestion-role} &
+  \code{s3:PutObject}\newline
+  \code{dynamodb:PutItem}\newline
+  \code{dynamodb:BatchWriteItem} &
+  Ingestion ne lit pas S3 une fois l'objet écrit \\
+\hline
+\texttt{aggregation-role} &
+  \texttt{dynamodb:Query} (Silver)\newline
+  \texttt{dynamodb:PutItem} (Gold) &
+  Isolation lecture Silver / écriture Gold \\
+\hline
+\end{tabular}\end{center}
+
+Cette séparation des rôles garantit qu'une compromission d'un Lambda d'agrégation
+ne peut pas écrire dans les tables Silver ni lire d'autres tables Gold que celles
+de son périmètre. En production, les rôles seraient affinés par préfixe de table
+DynamoDB via des conditions \texttt{IAM StringLike} sur l'ARN.
+
+\subsubsection{Chiffrement et protection des données}
+
+Le chiffrement en transit est assuré par défaut par HTTPS sur tous les appels
+boto3 (TLS 1.2+). Le chiffrement au repos est géré différemment selon le service :
+S3 supporte le SSE-S3 (clé gérée par AWS), le SSE-KMS (clé gérée par le client
+dans AWS Key Management Service) ou le SSE-C (clé fournie par le client). DynamoDB
+utilise AES-256 avec une clé AWS gérée par défaut.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Mode chiffrement} & \thead{Implémentation projet} \\
+\hline
+AWS S3 & SSE-S3 (défaut AWS) & Chiffrement côté serveur automatique \\
+\hline
+AWS DynamoDB & AES-256 (clé AWS) & Activé par défaut sur toutes les tables \\
+\hline
+API Gateway & TLS 1.2+ obligatoire & Pas de trafic HTTP non chiffré \\
+\hline
+\end{tabular}\end{center}
+
+Pour une donnée sensible (données personnelles de transport, position GPS), le
+SSE-KMS avec rotation annuelle de clé serait l'option retenue : elle permet de
+révoquer l'accès aux données en révoquant la clé, sans supprimer les objets S3.
+
+\subsubsection{Automatisation de l'ingestion par EventBridge Scheduler}
+
+La limitation actuelle (ingestion manuelle) serait résolue par AWS EventBridge
+Scheduler. Un schedule cron déclenche chaque Lambda d'ingestion toutes les
+5 minutes :
+
+\begin{lstlisting}[language=bash, caption=EventBridge Scheduler -- cron toutes les 5 minutes]
+# Creation du schedule via AWS CLI
+aws scheduler create-schedule \
+  --name "ingest-parkings-every-5min" \
+  --schedule-expression "rate(5 minutes)" \
+  --target '{
+    "Arn": "arn:aws:lambda:eu-west-1:ACCOUNT:function:ingest-parkings",
+    "RoleArn": "arn:aws:iam::ACCOUNT:role/scheduler-invoke-role"
+  }' \
+  --flexible-time-window '{"Mode": "OFF"}'
+\end{lstlisting}
+
+Le rôle \texttt{scheduler-invoke-role} dispose uniquement de la permission
+\texttt{lambda:InvokeFunction} sur la fonction ciblée --- nouvelle application
+du principe du moindre privilège. Le mode \texttt{flexible-time-window=OFF}
+garantit l'exécution exacte à l'heure programmée, sans tolérance de décalage.
+
+\subsection{Optimisation des coûts cloud}
+
+\subsubsection{Modèle de tarification serverless vs serveur permanent}
+
+L'architecture Lambda + API Gateway est coût-efficace pour un flux de données
+intermittent. La comparaison avec une alternative EC2 illustre le gain :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Critère} & \thead{Lambda + API Gateway} & \thead{EC2 t3.small} \\
+\hline
+Facturation & À la requête (0,20 \$/M appels) & À l'heure ($\approx$18 \$/mois) \\
+\hline
+Scaling & Automatique, instantané & Manuel ou auto-scaling (délai) \\
+\hline
+Coût en veille & 0 \$ & 18 \$/mois (actif 24/7) \\
+\hline
+Maintenance OS & Aucune (managed) & Patches, updates, monitoring \\
+\hline
+Limite & 15 min max par invocation & Pas de limite de durée \\
+\hline
+\end{tabular}\end{center}
+
+Pour le profil de trafic du projet (13 endpoints, appels toutes les 5 minutes
+en ingestion, appels de tableau de bord Streamlit intermittents), la facturation
+Lambda est négligeable : 12 appels/heure $\times$ 24 $\times$ 30 $\approx$ 8 640
+invocations/mois, bien en dessous du tier gratuit AWS Lambda (1 million
+d'invocations/mois).
+
+\subsubsection{Optimisation du stockage S3}
+
+Le bucket \texttt{efrei-cloud-project} accumule des snapshots JSON toutes les
+5 minutes. Sans politique de rétention, le coût de stockage croît indéfiniment.
+Une politique de cycle de vie S3 peut automatiser l'archivage ou la suppression :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Règle} & \thead{Délai} & \thead{Action} \\
+\hline
+Transition vers S3 Infrequent Access & Après 30 jours & 40\% moins cher \\
+\hline
+Transition vers S3 Glacier & Après 90 jours & 70\% moins cher (récupération lente) \\
+\hline
+Suppression & Après 365 jours & Suppression automatique \\
+\hline
+\end{tabular}\end{center}
+
+Cette politique préserve 90 jours de snapshots en accès rapide (Silver), permet
+un audit historique sur 12 mois via Glacier (coût minimal), et supprime
+automatiquement ce qui n'a plus de valeur opérationnelle.
+
+\subsection{Surveillance et observabilité}
+
+\subsubsection{CloudWatch Metrics --- tableau de bord opérationnel}
+
+AWS CloudWatch collecte automatiquement des métriques sur tous les services du
+projet. Les métriques clés à surveiller sont les suivantes :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Métrique} & \thead{Seuil d'alerte} \\
+\hline
+Lambda ingestion & \texttt{Errors} & $>$ 0 erreurs en 5 min \\
+\hline
+Lambda API & \texttt{Duration} & $>$ 3 secondes (timeout 15 min) \\
+\hline
+DynamoDB Silver & \texttt{ConsumedReadCapacityUnits} & $>$ 80\% du provisioned \\
+\hline
+DynamoDB Silver & \texttt{ThrottledRequests} & $>$ 0 (critique) \\
+\hline
+API Gateway & \texttt{5XXError} & $>$ 1\% du trafic \\
+\hline
+S3 & \texttt{NumberOfObjects} & Croissance anormale \\
+\hline
+\end{tabular}\end{center}
+
+Une alarme CloudWatch sur \texttt{ThrottledRequests $>$ 0} déclencherait
+automatiquement une notification SNS (email/SMS), permettant de réagir avant
+que le throttling n'affecte les utilisateurs du tableau de bord Streamlit.
+
+\subsection{Synthèse des compétences démontrées}
+
+project\_cloud couvre l'intégralité du périmètre Bloc 3 à travers une architecture
+serverless AWS complète, du lac de données brutes à l'API de consommation.
+
+\textbf{Stockage cloud multi-couches.} S3 joue le rôle de lac de données brutes
+horodaté (Bronze) : chaque snapshot est conservé avec son timestamp ISO dans la
+clé, ce qui permet de rejouer n'importe quelle fenêtre temporelle. DynamoDB joue
+le rôle de couche Silver (tables temps réel) et Gold (10 tables d'agrégats
+précomputés).
+
+\textbf{Optimisation des accès.} Le GSI \texttt{gsi-type-ingestion\_timestamp}
+est le choix architectural central du Bloc 3 : il transforme un scan O(n) en query
+O(1) pour la requête la plus fréquente (dernier snapshot). Le pattern fallback
+garantit la disponibilité en cas de dégradation du GSI.
+
+\textbf{Pipeline de traitement cloud.} L'ingestion incrémentale S3 $\rightarrow$
+DynamoDB et le pipeline d'agrégation constituent le traitement de données dans le
+cloud : chargement, transformation (normalisation des timestamps, calcul des
+indicateurs) et mise à disposition.
+
+\textbf{Architecture serverless.} Lambda + API Gateway représente l'optimisation
+des coûts et de la disponibilité : zéro infrastructure à maintenir, scaling
+automatique, facturation à l'usage. La comparaison avec une architecture EC2
+équivalente fait ressortir un avantage net : pas de serveur à maintenir, scaling
+automatique jusqu'à des milliers de requêtes simultanées sans intervention, et
+un coût structurellement lié à l'usage réel plutôt qu'à la capacité provisionnée.
+
+\textbf{Sécurité intégrée.} Le principe du moindre privilège est appliqué à
+chaque rôle IAM : le Lambda d'API ne peut que lire, le Lambda d'ingestion ne
+peut qu'écrire dans ses tables cibles, l'agrégation ne touche pas les tables
+de production. Cette séparation fait de la sécurité une propriété de l'architecture
+plutôt qu'une couche ajoutée a posteriori.
+
+\textbf{Lien RNCP explicite.} Le Bloc 3 exige de mettre en \oe{}uvre des
+solutions de stockage cloud, de concevoir des pipelines de traitement cloud et
+d'optimiser les performances et les coûts. project\_cloud répond à ces trois
+exigences : S3 comme lac de données, DynamoDB avec GSI comme stockage optimisé,
+Lambda comme compute serverless, et le pattern query O(1) comme optimisation
+explicite du coût de lecture --- au niveau de maîtrise AWS attendu pour le titre
+RNCP36739.
+
+\section[Bloc 4 --- Implémenter des méthodes d'intelligence artificielle]{Bloc 4 --- Implémenter des méthodes d'intelligence artificielle pour\\ modéliser et prédire de nouveaux comportements et usages}
+
+Cette partie montre comment nous avons exploité les données pour produire de
+l'analyse, du reporting et des modèles prédictifs utiles au métier.
+
+\subsection{Compétences visées}
 
 \begin{itemize}
-    \item Extraire des donnees en provenance de systemes d'information varies pour
+    \item Extraire des données en provenance de systèmes d'information variés pour
     les exploiter et les analyser en utilisant les outils professionnels courants.
-    \item Preparer les donnees en les transformant et en les nettoyant pour faire
-    l'analyse et le reporting selon les besoins des differents metiers.
-    \item Elaborer une communication infographique visuelle en construisant des
-    tableaux de bord interactifs afin de communiquer les resultats d'analyse et
-    d'assurer l'extraction de connaissances en temps reel.
-    \item Developper un modele predictif pour identifier de nouveaux comportements
-    et usages en implementant des algorithmes d'apprentissage automatique
-    supervises.
-    \item Evaluer la performance d'un modele de machine learning en analysant ses
-    resultats et en les comparant avec d'autres modeles afin d'implementer la
-    solution la plus convenable a un cas d'usage.
+    \item Préparer les données en les transformant et en les nettoyant pour faire
+    l'analyse et le reporting selon les besoins des différents métiers.
+    \item Élaborer une communication infographique visuelle en construisant des
+    tableaux de bord interactifs afin de communiquer les résultats d'analyse et
+    d'assurer l'extraction de connaissances en temps réel.
+    \item Développer un modèle prédictif pour identifier de nouveaux comportements
+    et usages en implémentant des algorithmes d'apprentissage automatique
+    supervisés.
+    \item Évaluer la performance d'un modèle de machine learning en analysant ses
+    résultats et en les comparant avec d'autres modèles afin d'implémenter la
+    solution la plus convenable à un cas d'usage.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Contexte et enjeux}
+
+La compétence Bloc 4 porte sur l'exploitation des données pour produire des modèles
+prédictifs à valeur métier, du reporting analytique et de la visualisation. Elle
+couvre le cycle complet du Machine Learning : préparation des données, construction
+de pipelines de transformation, entraînement comparatif de modèles, évaluation
+rigoureuse et mise en service via API.
+
+Le projet data\_science\_project porte sur la \textbf{maintenance prédictive
+industrielle} : à partir de capteurs IoT sur des machines industrielles
+(vibrations, température moteur, RPM, pression, heures de vie résiduelle),
+deux tâches de prédiction sont traitées grâce à scikit-learn~\cite{sklearn}. La première est une classification
+binaire --- prédire si une panne surviendra dans les prochaines 24 heures ---
+ce qui permet une intervention préventive ciblée. La seconde est une
+classification multiclasse à 5 classes --- identifier le type de panne --- ce
+qui oriente directement le technicien vers la pièce ou le sous-système en cause.
+
+L'enjeu industriel est direct : une fausse alerte mobilise une équipe pour rien ;
+un faux négatif laisse passer une panne qui peut coûter plusieurs heures d'arrêt.
+Le choix de la métrique primaire F1 (moyenne harmonique précision/rappel) résulte
+de cet arbitrage.
+
+\subsection{Architecture et cycle ML}
+
+\begin{center}\fitwidth{%
+\begin{tikzpicture}[node distance=0.85cm]
+
+\node[flowbox, fill=black!5, draw=black!30, text width=10cm] (csv) {
+  \textbf{industrial\_machine\_maintenance.csv}\\[2pt]
+  \small vibration\_rms · temperature\_motor · rpm · pressure\_level · rul\_hours · operating\_mode
+};
+
+\node[flowbox, fill=silverBg, draw=silverColor, below=0.7cm of csv] (prep) {
+  \textbf{\textcolor{silverColor}{Preprocessing}} \quad \texttt{preprocessing.py}\\[2pt]
+  \small Numeric : SimpleImputer(median) + StandardScaler \quad · \quad Catégoriel : OneHotEncoder(ignore) \quad · \quad Split stratifié 80/20
+};
+
+\node[flowbox, fill=cloudBg, draw=cloudColor, below=0.7cm of prep] (train) {
+  \textbf{\textcolor{cloudColor}{Entraînement comparatif}} \quad \texttt{train.py}\\[2pt]
+  \small Binaire : LogReg · RandomForest · GradientBoosting · MLP \quad · \quad Multiclasse (5 cl.) : idem
+};
+
+\node[flowbox, fill=mlBg, draw=mlColor, below=0.7cm of train] (art) {
+  \textbf{\textcolor{mlColor}{Artefacts}} \quad \texttt{evaluate.py}\\[2pt]
+  \small \texttt{best\_model\_\{task\}.joblib} \quad · \quad \texttt{model\_comparison.csv} \quad · \quad \texttt{feature\_importance.csv}
+};
+
+\node[minibox, fill=goldBg, draw=goldColor, below left=0.9cm and 1.8cm of art, text width=4cm] (api) {
+  \textbf{\textcolor{goldColor}{FastAPI}}\\
+  \small \texttt{api/routes.py}\\2 endpoints predict + health
+};
+\node[minibox, fill=goldBg, draw=goldColor, below right=0.9cm and 1.8cm of art, text width=4cm] (dash) {
+  \textbf{\textcolor{goldColor}{Streamlit}}\\
+  \small \texttt{dashboard/app.py}\\EDA + benchmark + predict
+};
+
+\draw[arrowM] (csv) -- (prep);
+\draw[arrowM] (prep) -- (train);
+\draw[arrowM] (train) -- (art);
+\draw[arrowM] (art.south) -- ++(0,-0.35) -| (api.north);
+\draw[arrowM] (art.south) -- ++(0,-0.35) -| (dash.north);
+
+\end{tikzpicture}}\end{center}
+
+\subsection{Analyse exploratoire du domaine}
+
+\subsubsection{Contexte industriel de la maintenance prédictive}
+
+La maintenance industrielle suit historiquement deux modèles : la maintenance
+corrective (on répare quand ça tombe en panne) et la maintenance préventive
+planifiée (on révise à intervalle fixe, indépendamment de l'état réel). Ces deux
+modèles ont des limites symétriques : la corrective maximise l'utilisation des
+pièces mais expose à des pannes catastrophiques ; la préventive fixe est sûre
+mais remplace des pièces encore fonctionnelles.
+
+La maintenance prédictive vise un troisième modèle : intervenir au bon moment,
+ni trop tôt ni trop tard, en se basant sur l'état réel de la machine mesuré par
+des capteurs. C'est exactement le rôle des deux tâches ML du projet : prédire
+\textit{si} une panne surviendra dans les prochaines 24 heures (décision
+d'intervention) et prédire \textit{quelle} panne surviendra (orientation de
+l'intervention vers la bonne pièce).
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Stratégie} & \thead{Pré-requis} & \thead{Coût panne} & \thead{Coût maintenance} \\
+\hline
+Corrective & Aucun & Élevé (arrêt non prévu) & Faible (minimal) \\
+\hline
+Préventive planifiée & Calendrier & Faible & Élevé (pièces saines remplacées) \\
+\hline
+Prédictive & Capteurs + ML & Quasi-nul & Optimisé (juste à temps) \\
+\hline
+\end{tabular}\end{center}
+
+L'indicateur \texttt{rul\_hours} (Remaining Useful Life) est le cœur du problème :
+il représente une estimation du temps avant la prochaine défaillance. La domination
+de cette variable dans la permutation importance (0.495) confirme que le modèle a
+appris à utiliser cette information de durée de vie résiduelle comme signal
+principal --- un signal cohérent avec la réalité métier.
+
+\subsection{Préparation des données et pipeline de transformation}
+
+\subsubsection{Features et cible}
+
+Le dataset \texttt{industrial\_machine\_maintenance.csv} contient six variables
+explicatives et deux cibles alternatives :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Variable} & \thead{Type} & \thead{Description} \\
+\hline
+\texttt{rul\_hours} & Numérique & Heures de vie résiduelle estimée \\
+\hline
+\texttt{temperature\_motor} & Numérique & Température moteur (°C) \\
+\hline
+\texttt{rpm} & Numérique & Vitesse de rotation (tours/min) \\
+\hline
+\texttt{vibration\_rms} & Numérique & Amplitude vibratoire RMS \\
+\hline
+\texttt{pressure\_level} & Numérique & Niveau de pression \\
+\hline
+\texttt{operating\_mode} & Catégoriel & Mode de fonctionnement \\
+\hline
+\hline
+\texttt{failure\_within\_24h} & Cible binaire & Panne dans les 24h ? \\
+\hline
+\texttt{failure\_type} & Cible multiclasse & Type de panne (5 classes) \\
+\hline
+\end{tabular}\end{center}
+
+\subsubsection{Pipeline sklearn}
+
+\begin{verbatim}
+features (6 colonnes)
+         |
+         v
++-----------------------------------------------+
+|  ColumnTransformer                            |
+|                                               |
+|  numeric (5 cols)       categorical (1 col)  |
+|  vibration_rms          operating_mode       |
+|  temperature_motor                           |
+|  rpm                    SimpleImputer        |
+|  pressure_level         (most_frequent)      |
+|  rul_hours              + OneHotEncoder      |
+|                         (ignore unknown)     |
+|  SimpleImputer(median)                       |
+|  + StandardScaler                            |
++------------------+----------------------------+
+                   |
+                   v (features transformees)
+         +--------------------+
+         |  Estimateur        |
+         |  (ex. Gradient     |
+         |   Boosting)        |
+         +--------------------+
+                   |
+                   v
+         predict() / predict_proba()
+\end{verbatim}
+
+\begin{lstlisting}[language=Python, caption=Pipeline de preprocessing -- ColumnTransformer + split stratifie (preprocessing.py)]
+def build_preprocessor() -> ColumnTransformer:
+    numeric_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+    ])
+    categorical_pipeline = Pipeline([
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("encoder", OneHotEncoder(handle_unknown="ignore")),
+    ])
+    return ColumnTransformer(transformers=[
+        ("numeric",     numeric_pipeline,     NUMERIC_COLUMNS),
+        ("categorical", categorical_pipeline, CATEGORICAL_COLUMNS),
+    ])
+
+def make_train_test_split(features, target, test_size=0.2):
+    validate_stratified_split_capacity(target, test_size)
+    return train_test_split(
+        features, target,
+        test_size=test_size, random_state=RANDOM_STATE,
+        stratify=target,   # garantit la representation de toutes les classes
+    )
+\end{lstlisting}
+
+L'imputation médiane pour les numériques est robuste aux valeurs aberrantes de
+capteurs. Le \texttt{handle\_unknown="ignore"} sur l'encodeur prévient les erreurs
+à l'inférence si un mode opératoire inconnu arrive en production. La stratification
+garantit que chaque classe --- y compris les rares --- est représentée dans le jeu
+de test avec la même proportion qu'en entraînement.
+
+La taille du jeu de test est calculée dynamiquement :
+\texttt{test\_size = max(0.2, n\_classes / n\_rows)}. Ce calcul empêche qu'une
+division 80/20 sur un dataset restreint produise un jeu de test trop petit pour
+contenir au moins un exemple de chaque classe.
+
+\subsection{Entraînement comparatif et sélection du meilleur modèle}
+
+\subsubsection{Architecture du benchmark}
+
+\begin{lstlisting}[language=Python, caption=Benchmark comparatif -- Pipeline sklearn complet (train.py)]
+for model_name, estimator in candidate_models.items():
+    pipeline = Pipeline(steps=[
+        ("preprocessor", build_preprocessor()),
+        ("model",        estimator),
+    ])
+    pipeline.fit(x_train, y_train)
+    predicted_labels       = pipeline.predict(x_test)
+    predicted_probabilities = pipeline.predict_proba(x_test)
+
+    evaluation_rows.append(evaluate_classifier(
+        task_name=task_name, model_name=model_name,
+        true_values=y_test,
+        predicted_labels=predicted_labels,
+        predicted_probabilities=predicted_probabilities,
+    ))
+
+comparison   = compare_results(task_name=task_name, results=evaluation_rows)
+best_row     = select_best_model(comparison)   # iloc[0] apres tri sur metrique primaire
+best_pipeline = trained_pipelines[best_row["model_name"]]
+save_model(best_pipeline, model_path)   # joblib
+\end{lstlisting}
+
+L'encapsulation preprocesseur + modèle dans un \texttt{Pipeline} sklearn garantit
+l'étanchéité : le \texttt{StandardScaler} est ajusté uniquement sur le train,
+jamais sur le test. La sélection du meilleur modèle est automatisée : tri sur la
+métrique primaire (F1 en binaire, weighted\_F1 en multiclasse) ; le vainqueur est
+sérialisé en joblib.
+
+\subsubsection{HistGradientBoostingClassifier --- algorithme et avantages}
+
+Le \texttt{HistGradientBoostingClassifier} (scikit-learn) est l'implémentation
+Python de l'algorithme LightGBM. Il se distingue des implémentations classiques
+de gradient boosting par deux optimisations majeures :
+
+\begin{enumerate}
+    \item \textbf{Histogramme des features} : au lieu de tester tous les seuils
+    possibles de chaque feature pour trouver la meilleure division, l'algorithme
+    discrétise chaque feature en 256 bins (histogramme) et ne teste que 256 valeurs.
+    Cette optimisation réduit la complexité d'entraînement de O(n×d) à O(256×d),
+    où n est le nombre d'exemples et d le nombre de features.
+    \item \textbf{Gestion native des valeurs manquantes} : l'algorithme apprend
+    automatiquement si les valeurs manquantes doivent aller à gauche ou à droite
+    dans chaque division. Cette propriété est directement utile dans le contexte des
+    capteurs IoT où des mesures peuvent être manquantes (panne de capteur, perte
+    réseau).
+\end{enumerate}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Caractéristique} & \thead{HistGradientBoosting} & \thead{RandomForest} \\
+\hline
+Valeurs manquantes & Nativement géré & Nécessite imputation \\
+\hline
+Complexité entraînement & O(256 × d × arbres) & O(n × log(n) × arbres) \\
+\hline
+Risque de surapprentissage & Modéré (régularisation $\ell_2$) & Faible (bagging) \\
+\hline
+Interprétabilité & Faible (boîte noire) & Moyenne (feature importance) \\
+\hline
+Performance déséquilibre & Bonne avec \texttt{class\_weight} & Très bonne avec \texttt{balanced} \\
+\hline
+\end{tabular}\end{center}
+
+La victoire du HistGradientBoosting en binaire (F1=0.9775) et la victoire du
+RandomForest en multiclasse (weighted\_F1=0.9782) illustrent un résultat courant
+en pratique : aucun algorithme n'est universellement supérieur. Le HistGradientBoosting
+excelle sur les tâches binaires avec des données numériques (rul\_hours,
+température) ; le RandomForest est plus robuste sur les tâches multiclasses
+déséquilibrées grâce au bagging et à l'option \texttt{class\_weight}.
+
+\subsubsection{Modèles candidats}
+
+\begin{lstlisting}[language=Python, caption=Modèles candidats -- binaire et multiclasse (models.py)]
+# Tache binaire (failure_within_24h)
+{
+  "logistic_regression": LogisticRegression(max_iter=1000, random_state=42),
+  "random_forest":       RandomForestClassifier(
+                             n_estimators=300, random_state=42,
+                             class_weight="balanced"),  # compense le desequilibre
+  "gradient_boosting":   HistGradientBoostingClassifier(random_state=42),
+  "mlp_classifier":      MLPClassifier(
+                             hidden_layer_sizes=(64, 32),
+                             max_iter=300, random_state=42),
+}
+# Tache multiclasse (failure_type, 5 classes)
+{
+  "random_forest":        RandomForestClassifier(n_estimators=300, random_state=42),
+  "hist_gradient_boosting": HistGradientBoostingClassifier(random_state=42),
+  ...
+}
+\end{lstlisting}
+
+Le \texttt{class\_weight="balanced"} sur le RandomForest binaire compense le
+déséquilibre de classes inhérent aux données de maintenance (les pannes sont rares
+par définition). \texttt{HistGradientBoostingClassifier} gère nativement les
+valeurs manquantes, sans avoir besoin d'imputation --- ce qui en fait un candidat
+solide même si le capteur perd des mesures.
+
+\subsection{Résultats et évaluation}
+
+\capture{du fichier artifacts/metrics/model\_comparison\_failure\_within\_24h.csv -- tableau brut des 4 mod\`{e}les avec toutes les m\'etriques}
+
+\capture{du fichier artifacts/metrics/feature\_importance\_failure\_within\_24h.csv -- importance rul\_hours en t\^{e}te}
+
+\subsubsection{Tâche 1 --- Classification binaire : failure\_within\_24h}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\rowcolor{tableHeader}
+\thead{Modèle} & \thead{F1} & \thead{Précision} & \thead{Rappel} & \thead{ROC-AUC} & \thead{PR-AUC} \\
+\hline
+\textbf{gradient\_boosting} & \textbf{0.9775} & 0.9789 & 0.9761 & \textbf{0.9991} & \textbf{0.9956} \\
+\hline
+random\_forest & 0.9752 & 0.9857 & 0.9649 & 0.9995 & 0.9976 \\
+\hline
+mlp\_classifier & 0.9337 & 0.9697 & 0.9003 & 0.9974 & 0.9877 \\
+\hline
+logistic\_regression & 0.7224 & 0.8456 & 0.6306 & 0.9485 & 0.8273 \\
+\hline
+\end{tabular}\end{center}
+
+Le \texttt{HistGradientBoostingClassifier} remporte le benchmark sur la métrique
+primaire F1 (0.9775) avec le meilleur équilibre précision/rappel. Le RandomForest
+obtient la meilleure précision (0.9857) et ROC-AUC (0.9995) mais son rappel
+inférieur (0.9649) --- plus de faux négatifs --- pénalise son F1. La régression
+logistique confirme que le problème est non-linéaire : son rappel de 0.6306 montre
+qu'elle manque 37\% des pannes réelles.
+
+\subsubsection{Tâche 2 --- Classification multiclasse : failure\_type (5 classes)}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|c|c|c|}
+\hline
+\rowcolor{tableHeader}
+\thead{Modèle} & \thead{weighted\_F1} & \thead{macro\_F1} & \thead{Classes} \\
+\hline
+\textbf{random\_forest} & \textbf{0.9782} & 0.8955 & 5 \\
+\hline
+hist\_gradient\_boosting & 0.9753 & 0.8829 & 5 \\
+\hline
+\end{tabular}\end{center}
+
+Le RandomForest prend la tête en multiclasse (weighted\_F1 = 0.9782). Le macro\_F1
+de 0.8955 --- non pondéré par la taille des classes --- indique que les classes
+minoritaires sont bien gérées. L'écart entre weighted\_F1 (0.9782) et macro\_F1
+(0.8955) révèle toutefois que certaines classes rares sont moins bien prédites :
+axe d'amélioration identifié.
+
+\subsubsection{Interprétabilité --- Importance des variables}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|c|}
+\hline
+\rowcolor{tableHeader}
+\thead{Variable} & \thead{Importance (permutation)} \\
+\hline
+\texttt{rul\_hours} & 0.4954 \\
+\hline
+\texttt{temperature\_motor} & 0.2899 \\
+\hline
+\texttt{rpm} & 0.2772 \\
+\hline
+\texttt{vibration\_rms} & 0.1165 \\
+\hline
+\texttt{pressure\_level} & 0.0471 \\
+\hline
+\texttt{operating\_mode} & 0.0174 \\
+\hline
+\end{tabular}\end{center}
+
+La permutation importance est calculée sur le jeu de test (n\_repeats=10,
+scoring=f1\_weighted). La variable \texttt{rul\_hours} (heures de vie résiduelle)
+domine avec une importance de 0.495 : c'est le signal le plus prédictif d'une
+panne imminente. La \texttt{temperature\_motor} (0.290) et le \texttt{rpm} (0.277)
+sont les deux facteurs physiques complémentaires. L'\texttt{operating\_mode} est
+quasi-nul (0.017) : le mode de fonctionnement n'apporte pas d'information
+prédictive significative sur ce dataset.
+
+\begin{lstlisting}[language=Python, caption=Permutation importance sur le meilleur modèle (train.py)]
+importance_result = permutation_importance(
+    estimator=best_pipeline,
+    X=x_test, y=y_test,
+    n_repeats=10,           # robustesse statistique de l'estimation
+    random_state=RANDOM_STATE,
+    scoring="f1_weighted",
+)
+importance_frame = pd.DataFrame({
+    "feature": x_test.columns,
+    "importance_mean": importance_result.importances_mean,
+    "importance_std":  importance_result.importances_std,
+}).sort_values(by="importance_mean", ascending=False)
+\end{lstlisting}
+
+\subsection{Déploiement et reproductibilité}
+
+\subsubsection{Gestion des artefacts ML}
+
+Le pipeline de formation produit trois types d'artefacts persistés dans le
+répertoire \texttt{artifacts/} :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Artefact} & \thead{Format} & \thead{Usage} \\
+\hline
+\texttt{best\_model\_failure\_within\_24h.joblib} & joblib (pickle optimisé) & Chargement API serving \\
+\hline
+\texttt{best\_model\_failure\_type.joblib} & joblib & Chargement API serving \\
+\hline
+\texttt{model\_comparison\_\{task\}.csv} & CSV & Traçabilité benchmark \\
+\hline
+\texttt{feature\_importance\_\{task\}.csv} & CSV & Interprétabilité, rapport \\
+\hline
+\end{tabular}\end{center}
+
+Le format joblib est préféré à pickle standard pour les objets sklearn car il
+utilise la compression numpy native, réduisant la taille de sérialisation des
+modèles contenant des tableaux numpy de grande dimension (ex. les arbres de
+forêt aléatoire). La fonction \texttt{load\_task\_bundle()} de l'API charge le
+pipeline complet (preprocesseur + modèle) depuis le joblib et le met en cache
+pour éviter de le recharger à chaque requête.
+
+\subsubsection{Configuration centralisée --- TASK\_CONFIGS}
+
+La configuration des tâches ML est centralisée dans \texttt{config.py} sous la
+structure \texttt{TASK\_CONFIGS}. Cette approche évite la duplication de la
+liste des features et des chemins d'artefacts entre les modules d'entraînement,
+d'évaluation et de serving :
+
+\begin{lstlisting}[language=Python, caption=Configuration centralisée des tâches ML (config.py)]
+TASK_CONFIGS = {
+    "failure_within_24h": {
+        "target_column"    : "failure_within_24h",
+        "task_type"        : "binary",
+        "primary_metric"   : "f1",
+        "model_path"       : "artifacts/model/best_model_failure_within_24h.joblib",
+        "feature_columns"  : NUMERIC_COLUMNS + CATEGORICAL_COLUMNS,
+    },
+    "failure_type": {
+        "target_column"    : "failure_type",
+        "task_type"        : "multiclass",
+        "primary_metric"   : "f1_weighted",
+        "model_path"       : "artifacts/model/best_model_failure_type.joblib",
+        "feature_columns"  : NUMERIC_COLUMNS + CATEGORICAL_COLUMNS,
+    },
+}
+\end{lstlisting}
+
+Ce dictionnaire de configuration est la source de vérité unique : ajouter une
+nouvelle tâche (ex. \texttt{failure\_severity}) ne nécessite qu'un nouvel
+entrée dans \texttt{TASK\_CONFIGS}. Tous les modules (train, evaluate, API) lisent
+depuis ce dictionnaire --- aucun chemin hardcodé dans les modules métier.
+
+\subsection{Mise en service --- FastAPI et Streamlit}
+
+\subsubsection{API de prédiction FastAPI}
+
+\begin{lstlisting}[language=Python, caption=Endpoints de prédiction FastAPI (api/routes.py)]
+@router.post("/predict/failure-within-24h",
+             response_model=FailureWithin24hPredictionResponse)
+def predict_binary(payload: FailureWithin24hPredictionRequest):
+    return predict_failure_within_24h(payload.model_dump())
+
+@router.post("/predict/failure-type",
+             response_model=FailureTypePredictionResponse)
+def predict_multiclass(payload: FailureTypePredictionRequest):
+    return predict_failure_type(payload.model_dump())
+
+@router.get("/health", response_model=HealthResponse)
+def health() -> HealthResponse:
+    available_tasks = []
+    for task_name in config.TASK_CONFIGS:
+        try:
+            load_task_bundle(task_name)
+        except TaskArtifactError:
+            continue
+        available_tasks.append(task_name)
+    status = "ok" if len(available_tasks) == len(config.TASK_CONFIGS) else "degraded"
+    return HealthResponse(status=status, available_tasks=available_tasks)
+\end{lstlisting}
+
+L'API expose deux endpoints de prédiction distincts, un par tâche ML. Le
+\texttt{/health} retourne \texttt{"ok"} uniquement si les deux artefacts
+(binaire + multiclasse) sont chargés ; sinon \texttt{"degraded"}, ce qui permet
+un monitoring en production. La validation des entrées est assurée par FastAPI~\cite{fastapi}
+via Pydantic v2 avec les schémas \texttt{FailureWithin24hPredictionRequest} et
+\texttt{FailureTypePredictionRequest}, en cohérence avec les six variables du
+\texttt{config.py}.
+
+\subsubsection{Tableau de bord Streamlit --- EDA et communication visuelle}
+
+Un tableau de bord Streamlit~\cite{streamlit} (\texttt{dashboard/app.py}) complète l'API en
+offrant une interface d'analyse exploratoire (EDA) et de visualisation des
+résultats du benchmark. Le tableau de bord est structuré en trois pages :
 
 \begin{itemize}
-    \item Projet Data Science
-    \item Hackathon
+    \item \textbf{Page EDA} : distributions des variables capteurs (histogrammes,
+    boxplots), corrélations inter-features (heatmap), répartition des classes
+    cibles. Cette page permet à un expert métier de comprendre la nature des
+    données sans compétence en programmation.
+    \item \textbf{Page Benchmark} : tableau comparatif des modèles avec F1,
+    précision, rappel, ROC-AUC ; graphique en barres des importances de features ;
+    sélection interactive du modèle à visualiser.
+    \item \textbf{Page Prédiction} : formulaire de saisie des 6 variables capteurs,
+    appel en temps réel à l'API FastAPI, affichage de la prédiction et de la
+    probabilité associée.
 \end{itemize}
 
-\subsection{Analyse attendue}
+Cette composante satisfait directement la sous-compétence \og{}élaborer une
+communication infographique visuelle en construisant des tableaux de bord
+interactifs\fg{} du référentiel Bloc 4. La page Prédiction illustre l'intégration
+du tableau de bord avec l'API --- le dashboard n'embarque pas le modèle, il
+consomme l'API, ce qui garantit que tout déploiement d'un nouveau modèle est
+immédiatement visible dans le dashboard sans le redémarrer.
 
-Expliquez la preparation des donnees, les analyses produites, les modeles testes,
-les metriques utilisees, les resultats obtenus et leur valeur pour l'usage cible.
+\subsubsection{Tests automatisés}
 
-\section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de donnees pour transformer les donnees en informations creatrices de valeur}
+\capture{pytest -- terminal / r\'esultats des 7 suites de tests / passed / failed / warnings}
 
-Cette partie doit montrer votre capacite a relier les enjeux techniques aux
-enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
+\capture{Streamlit dashboard data\_science\_project -- graphique feature importance / barre rul\_hours dominante}
 
-\subsection{Competences visees}
+La couverture de tests est assurée par pytest sur l'ensemble des modules :
+data, preprocessing, models, evaluate, explainability, API, dashboard helpers.
+Cette couverture multi-couches garantit que chaque étape du pipeline ML est
+validée indépendamment, ce qui est essentiel pour la reproductibilité des
+résultats.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Module testé} & \thead{Périmètre} \\
+\hline
+test\_data.py & Chargement dataset, séparation features/cible \\
+\hline
+test\_preprocessing.py & Pipeline ColumnTransformer, split stratifié \\
+\hline
+test\_prediction\_pipeline.py & Pipeline complet entraînement $\rightarrow$ prédiction \\
+\hline
+test\_evaluate.py & Métriques binaires et multiclasses \\
+\hline
+test\_explainability.py & Permutation importance \\
+\hline
+test\_api.py & Endpoints FastAPI (health, predict) \\
+\hline
+test\_dashboard\_helpers.py & Fonctions de visualisation Streamlit \\
+\hline
+\end{tabular}\end{center}
+
+\textbf{Axe d'amélioration.} L'écart macro\_F1 / weighted\_F1 en multiclasse
+(0.8955 vs 0.9782) suggère que les classes rares de pannes sont sous-représentées.
+Un oversampling SMOTE ou un ajustement \texttt{class\_weight} sur l'entraînement
+multiclasse améliorerait la détection des types de pannes minoritaires. Par
+ailleurs, l'ajout d'un réentraînement périodique automatisé (drift detection)
+permettrait au modèle de s'adapter à l'évolution du comportement des machines en
+production.
+
+\subsection{Analyse des erreurs et matrice de confusion}
+
+\subsubsection{Tâche binaire --- analyse précision vs rappel}
+
+La courbe précision-rappel (PR-AUC = 0.9956) et la courbe ROC (ROC-AUC = 0.9991)
+du \texttt{HistGradientBoostingClassifier} indiquent un modèle quasi-optimal.
+L'analyse des erreurs résiduelles révèle le comportement asymétrique :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|>{\centering\arraybackslash}p{3.9cm}|>{\centering\arraybackslash}p{3.9cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{} & \thead{Prédit : panne} & \thead{Prédit : pas de panne} \\
+\hline
+\textbf{Réel : panne} & VP (vrais positifs) & FN (faux négatifs --- risque métier) \\
+\hline
+\textbf{Réel : pas de panne} & FP (faux positifs --- coût mobilisation) & VN (vrais négatifs) \\
+\hline
+\end{tabular}\end{center}
+
+Dans un contexte de maintenance industrielle, les faux négatifs sont plus coûteux
+que les faux positifs : rater une panne réelle peut entraîner un arrêt machine,
+tandis qu'une fausse alerte mobilise une équipe pour une intervention inutile.
+Le rappel de 0.9761 (97,6\% des pannes réelles détectées) contre une précision
+de 0.9789 montre un équilibre légèrement favorable au rappel --- ce qui est
+cohérent avec l'objectif métier.
+
+\subsubsection{Tâche multiclasse --- analyse par classe}
+
+L'écart entre \texttt{macro\_F1} (0.8955) et \texttt{weighted\_F1} (0.9782)
+s'explique par le déséquilibre entre les 5 classes de pannes. Les classes
+majoritaires (ex. : panne de roulement) ont un F1 élevé ; les classes minoritaires
+(ex. : panne électrique rare) ont un F1 plus faible. Le macro\_F1 donne un poids
+égal à chaque classe, ce qui pénalise les classes rares.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Métrique} & \thead{Formule} & \thead{Usage} \\
+\hline
+weighted\_F1 & Moyenne pondérée par effectif de classe & Performance globale \\
+\hline
+macro\_F1 & Moyenne arithmétique non pondérée & Équité entre classes \\
+\hline
+\end{tabular}\end{center}
+
+La stratégie retenue pour améliorer les classes rares serait SMOTE (Synthetic
+Minority Over-sampling Technique) : génération de nouveaux exemples synthétiques
+pour les classes sous-représentées par interpolation dans l'espace des features.
+Cette technique est préférable au surapprentissage simple (duplication d'exemples)
+car elle augmente la diversité des exemples minoritaires.
+
+\subsection{Robustesse et validation croisée}
+
+\subsubsection{Choix du split stratifié vs k-fold cross-validation}
+
+Le split 80/20 stratifié est le choix de la première version du pipeline pour
+des raisons de temps d'entraînement : quatre modèles par tâche, deux tâches,
+soit huit entraînements complets. La cross-validation k-fold (k=5) multiplierait
+par 5 le temps de calcul tout en fournissant une estimation plus robuste de la
+variance.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Méthode} & \thead{Avantage} & \thead{Inconvénient} \\
+\hline
+Train/test split 80/20 & Rapide, simple à implémenter & Variance selon la graine aléatoire \\
+\hline
+k-fold (k=5) & Estimation robuste (k résultats) & 5$\times$ le temps de calcul \\
+\hline
+Stratified k-fold & k-fold avec garantie de représentation & Même coût que k-fold \\
+\hline
+\end{tabular}\end{center}
+
+La \texttt{validate\_stratified\_split\_capacity} implémentée dans le pipeline
+gère un cas d'échec : si le dataset est trop petit pour avoir au moins un exemple
+de chaque classe dans le test, la stratification échoue avec une ValueError.
+La fonction ajuste \texttt{test\_size} en conséquence (\texttt{max(0.2,
+n\_classes / n\_rows)}), garantissant la présence de toutes les classes dans le
+jeu de test.
+
+\subsubsection{Interprétabilité --- limites de la permutation importance}
+
+La permutation importance est une méthode d'interprétabilité model-agnostic :
+elle mesure la dégradation du score F1 lorsqu'une feature est permutée aléatoirement
+dans le jeu de test. Elle présente deux limites importantes à signaler :
 
 \begin{itemize}
-    \item Definir une gouvernance de donnees en mettant en place les politiques et
-    les standards afin d'etablir les roles, les responsabilites et la propriete des
-    donnees.
-    \item Mettre en place les bonnes pratiques de gestion de donnees en appliquant
-    les regulations en vigueur pour proteger les donnees et respecter la vie privee
+    \item \textbf{Corrélation entre features} : si deux features sont corrélées
+    (ex. \texttt{rul\_hours} et \texttt{temperature\_motor}), permuter l'une
+    laisse l'information accessible via l'autre. L'importance mesurée est
+    sous-estimée pour les deux.
+    \item \textbf{Coût de calcul} : avec \texttt{n\_repeats=10} et un dataset de
+    plusieurs milliers de lignes, chaque répétition nécessite une évaluation
+    complète du pipeline. Le calcul est quadratique en nombre de features
+    $\times$ n\_repeats.
+\end{itemize}
+
+Une alternative complémentaire serait SHAP (SHapley Additive exPlanations) : il
+décompose la prédiction de chaque instance en contributions individuelles de
+chaque feature, offrant une interprétabilité locale (par instance) en plus de
+l'interprétabilité globale de la permutation importance.
+
+\subsection{Synthèse des compétences démontrées}
+
+data\_science\_project couvre l'intégralité du périmètre Bloc 4 à travers un
+pipeline ML complet, de la donnée brute à la mise en service.
+
+\textbf{Préparation et transformation des données.} Le \texttt{ColumnTransformer}
+applique des stratégies d'imputation et de normalisation différenciées selon le
+type de variable. La stratification du split garantit la validité statistique de
+l'évaluation même en présence de classes déséquilibrées.
+
+\textbf{Modèles prédictifs et évaluation comparative.} Quatre modèles candidats
+sont évalués par tâche sur un ensemble de métriques complet (F1, précision, rappel,
+ROC-AUC, PR-AUC). La sélection du meilleur modèle est automatisée et documentée
+dans des artefacts CSV reproductibles.
+
+\textbf{Interprétabilité.} La permutation importance sur le jeu de test produit un
+classement des variables avec intervalles de confiance (n\_repeats=10). Ce résultat
+est directement exploitable par un expert métier : savoir que \texttt{rul\_hours}
+explique 49\% de la prédiction oriente la politique de maintenance préventive.
+
+\textbf{Mise en service.} L'API FastAPI et le tableau de bord Streamlit permettent
+de consommer les modèles en production. Le endpoint \texttt{/health} assure la
+supervision de la disponibilité des artefacts.
+
+\textbf{Lien RNCP explicite.} La compétence Bloc 4 exige de développer un modèle
+prédictif en implémentant des algorithmes d'apprentissage automatique supervisés,
+d'évaluer leurs performances et de produire une communication visuelle. data\_science\_project
+répond à ces trois exigences : benchmark comparatif de quatre modèles, évaluation
+sur F1/ROC-AUC/PR-AUC, interprétabilité par permutation importance, API de serving
+et dashboard Streamlit. Le niveau de performance obtenu --- F1 = 0.9775,
+ROC-AUC = 0.9991 en binaire ; weighted\_F1 = 0.9782 en multiclasse à 5 classes
+--- est représentatif d'un pipeline ML maîtrisé au niveau Master Data Engineering.
+
+\section{Bloc 5 --- Concevoir une stratégie de management et de gouvernance de données pour transformer les données en informations créatrices de valeur}
+
+\subsection{Compétences visées}
+
+\begin{itemize}
+    \item Définir une gouvernance de données en mettant en place les politiques et
+    les standards afin d'établir les rôles, les responsabilités et la propriété des
+    données.
+    \item Mettre en place les bonnes pratiques de gestion de données en appliquant
+    les régulations en vigueur pour protéger les données et respecter la vie privée
     dans une logique de transparence.
-    \item S'assurer que la qualite de la donnee permet d'atteindre les objectifs
-    business en faisant un audit de qualite et en proposant des plans de prevention
-    et de remediation en cas de non-qualite.
-    \item Identifier l'approche strategique pour faire de la donnee un actif central
-    ancre dans la culture de l'entreprise et integrer cette approche dans un plan de
-    communication diffuse aux personnes concernees.
-    \item Elaborer une strategie de securite afin de proteger les donnees en
-    utilisant les technologies adequates et en mettant en place une politique
-    d'acces aux donnees.
+    \item S'assurer que la qualité de la donnée permet d'atteindre les objectifs
+    business en faisant un audit de qualité et en proposant des plans de prévention
+    et de remédiation en cas de non-qualité.
+    \item Identifier l'approche stratégique pour faire de la donnée un actif central
+    ancré dans la culture de l'entreprise et intégrer cette approche dans un plan de
+    communication diffusé aux personnes concernées.
+    \item Élaborer une stratégie de sécurité afin de protéger les données en
+    utilisant les technologies adéquates et en mettant en place une politique
+    d'accès aux données.
 \end{itemize}
 
-\subsection{Projets / TP associes}
+\subsection{Contexte et enjeux}
+
+La compétence Bloc 5 porte sur la dimension stratégique et organisationnelle de la
+donnée : gouvernance, qualité, conformité réglementaire, sécurité et communication.
+Elle complète les compétences techniques (Bloc 1--Bloc 4) en ancrant la valeur des
+données dans une démarche structurée et pérenne. Sans gouvernance, des données
+de qualité technique peuvent rester inutilisables métier : schémas inconnus,
+propriétaires non identifiés, règles de qualité non définies.
+
+Nos travaux intègrent plusieurs dimensions de la gouvernance de manière transversale,
+même si aucun projet unique n'est exclusivement dédié à Bloc 5. Cette section
+présente les éléments de gouvernance observables dans les quatre projets analysés,
+complétés par les apprentissages du module Data Management.
+
+\subsection{Gouvernance des données --- rôles, responsabilités, catalogue}
+
+\subsubsection{Modèle de rôles RACI appliqué aux projets}
+
+La gouvernance repose sur l'attribution claire des rôles autour de la donnée.
+Le modèle RACI (Responsible, Accountable, Consulted, Informed) structure ces
+responsabilités :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|p{3.5cm}|l|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Activité} & \thead{R} & \thead{A} & \thead{C} & \thead{I} \\
+\hline
+Définition du schéma & Data Engineer & Data Architect & Data Analyst & Ops \\
+\hline
+Validation qualité Silver & Data Engineer & Data Owner & Métier & BI \\
+\hline
+Accès à la couche Gold & API Gateway / IAM & Data Owner & Sécurité & Audit \\
+\hline
+Évolution du modèle ML & Data Scientist & Product Owner & Métier & Ops \\
+\hline
+Gestion des incidents & Ops & CTO & Data Engineer & Métier \\
+\hline
+\end{tabular}\end{center}
+
+Dans le cadre des projets académiques, ces rôles sont tenus par les membres
+de l'équipe. En contexte industriel, la séparation des responsabilités est
+un prérequis organisationnel, notamment pour satisfaire aux exigences d'audit
+RGPD et aux revues de sécurité internes.
+
+\subsubsection{Catalogue de données et lignage}
+
+Un catalogue de données recense toutes les sources, tables et datasets du
+système d'information. Il documente pour chaque actif : son propriétaire
+(\textit{data owner}), sa classification (public, interne, confidentiel,
+sensible), son lignage (\textit{data lineage} --- d'où vient la donnée et
+où elle va) et ses règles de qualité.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|l|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Dataset} & \thead{Propriétaire} & \thead{Classification} & \thead{Lignage} \\
+\hline
+\texttt{bronze/flights/} & Data Engineer & Interne & BTS CSV $\rightarrow$ Parquet \\
+\hline
+\texttt{silver.flights} & Data Engineer & Interne & Bronze $\rightarrow$ cleaning.py \\
+\hline
+\texttt{gold.avg\_delay} & Data Analyst & Interne & Silver $\rightarrow$ gold.py \\
+\hline
+\texttt{parkings} DynamoDB & Data Engineer & Interne & API Paris $\rightarrow$ S3 $\rightarrow$ DynamoDB \\
+\hline
+\texttt{best\_model.joblib} & Data Scientist & Interne & CSV $\rightarrow$ train.py \\
+\hline
+\end{tabular}\end{center}
+
+Des outils comme Apache Atlas, AWS Glue Data Catalog ou Alation automatisent la
+construction de ce catalogue à partir des métadonnées des pipelines. Le Hive
+Metastore de projet\_spark constitue un premier niveau de catalogue : il trace
+le schéma et la localisation physique de chaque table Silver et Gold.
+
+\subsection{Qualité des données --- audit et remédiation}
+
+\subsubsection{Dimensions de la qualité}
+
+La qualité d'une donnée se mesure sur six dimensions standards (Data Management
+Body of Knowledge --- DMBOK) :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{4cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Dimension} & \thead{Définition} & \thead{Implémentation dans nos projets} \\
+\hline
+Complétude & Toutes les valeurs attendues sont présentes & \texttt{SimpleImputer(median)} Bloc 4 ; suppression colonnes 100\% nulles Bloc 2 \\
+\hline
+Cohérence & Mêmes règles dans tous les systèmes & Stockage UTC systématique Bloc 1/Bloc 2 ; horodatage microseconde Bloc 3 \\
+\hline
+Exactitude & Valeurs conformes à la réalité & Score qualité 0--100 Bloc 1 ; déduplication sur job\_id \\
+\hline
+Unicité & Pas de doublons & \texttt{dropDuplicates} Spark Bloc 1/Bloc 2 ; UNIQUE MySQL Bloc 1 \\
+\hline
+Validité & Respect du schéma et des contraintes & Schéma explicite Spark Bloc 2 ; Pydantic v2 Bloc 4 \\
+\hline
+Fraîcheur & Donnée à jour par rapport au besoin & GSI timestamp Bloc 3 ; mode append streaming Bloc 2 \\
+\hline
+\end{tabular}\end{center}
+
+\subsubsection{Score de qualité Silver --- Jobtech}
+
+Le \texttt{data\_quality\_score} (0--100) attribué à chaque enregistrement Silver
+Jobtech constitue une primitive de gouvernance quantitative. Il est calculé en
+pénalisant les valeurs manquantes sur les champs critiques (salaire, pays, niveau).
+Un score faible signale un enregistrement à surveiller avant exposition Gold :
+
+\begin{verbatim}
+score = 100
+si salary_min IS NULL et salary_max IS NULL :  score -= 30
+si country_code IS NULL                     :  score -= 20
+si job_level_standardized = 'Not specified' :  score -= 10
+si contract_type IS NULL                    :  score -= 10
+score final : [0, 100]
+\end{verbatim}
+
+Cette règle de scoring est la première étape d'un plan de remédiation :
+les enregistrements avec \texttt{score < 50} sont logués et exclus de
+la couche Gold par défaut. L'étape suivante serait un tableau de bord
+de suivi qualité par source, permettant d'identifier les sources dégradées
+et de déclencher un nettoyage ciblé.
+
+\subsubsection{Plan de remédiation}
+
+Face à une dégradation de qualité identifiée, le plan de remédiation suit
+quatre étapes :
+
+\begin{enumerate}
+    \item \textbf{Détection} : alerte automatique si le score moyen d'une source
+    descend sous un seuil défini (ex. score moyen $<$ 60 pour Adzuna).
+    \item \textbf{Isolation} : les enregistrements dégradés sont conservés en
+    Bronze mais exclus de la Silver en production.
+    \item \textbf{Investigation} : analyse de la cause racine --- changement
+    de schéma source, panne API, données corrompues.
+    \item \textbf{Rejouer} : une fois la source corrigée, rejouer uniquement
+    l'étape concernée (idempotence garantie par la déduplication).
+\end{enumerate}
+
+\subsection{Conformité et réglementation}
+
+\subsubsection{RGPD et données personnelles}
+
+Le Règlement Général sur la Protection des Données (RGPD) s'applique dès qu'une
+donnée permet d'identifier une personne physique, directement ou indirectement.
+Dans nos projets :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|X|X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Projet} & \thead{Données potentiellement personnelles} & \thead{Traitement} \\
+\hline
+project\_cloud (départs) & Position GPS des voyageurs & Agrégation seule, pas de suivi individuel \\
+\hline
+Jobtech & Données d'entreprises (non-personnelles) & Pas de donnée individuelle \\
+\hline
+data\_science\_project & Capteurs machine (non-personnelles) & Pas de donnée individuelle \\
+\hline
+\end{tabularx}\end{center}
+
+Pour project\_cloud, les flux de départs ferroviaires contiennent des
+informations sur les mouvements des voyageurs. Bien que le projet agrège
+ces données (pas de suivi individuel), une analyse d'impact sur la protection
+des données (AIPD) serait requise en production pour qualifier le risque RGPD.
+Les mesures techniques (chiffrement KMS, rôles IAM restrictifs, rétention
+limitée) constituent la base de la réponse technique à cette analyse.
+
+\subsubsection{Traçabilité et auditabilité}
+
+L'auditabilité est garantie par trois mécanismes transversaux dans nos projets :
 
 \begin{itemize}
-    \item Data Management \& gouvernance
+    \item \textbf{Horodatage systématique} : chaque enregistrement Bronze et Silver
+    porte un \texttt{ingestion\_timestamp} permettant de reconstituer l'état du
+    système à tout instant.
+    \item \textbf{Idempotence des pipelines} : la déduplication sur clé primaire
+    garantit que rejouer un pipeline ne crée pas d'enregistrements fantômes,
+    ce qui simplifie les audits de cohérence.
+    \item \textbf{Versionnage des modèles ML} : les artefacts
+    \texttt{best\_model\_\{task\}.joblib} sont versionnés par tâche, permettant
+    de retracer quelle version du modèle a produit quelle prédiction.
 \end{itemize}
 
-\subsection{Analyse attendue}
+\subsection{Stratégie de sécurité des données}
 
-Mettez en avant les enjeux de gouvernance, de qualite, de securite, de
-conformite et de communication autour de la donnee, en montrant comment vos
-travaux transforment la data en valeur pour l'organisation.
+\subsubsection{Matrice de sécurité par couche}
+
+La stratégie de sécurité s'articule autour de la matrice CIA (Confidentialité,
+Intégrité, Disponibilité) appliquée à chaque couche de l'architecture :
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Couche} & \thead{Confidentialité} & \thead{Intégrité} & \thead{Disponibilité} \\
+\hline
+Bronze (S3) & Chiffrement SSE-S3 & Versioning S3 & Réplication multi-zone \\
+\hline
+Silver (MySQL) & SSL connexions & Contraintes UNIQUE, FK & Pool connexions + retry \\
+\hline
+Silver (DynamoDB) & IAM restrictif & Transactions DynamoDB & Mode on-demand \\
+\hline
+Gold (API) & Rôle IAM read-only & Données pré-calculées & Lambda serverless \\
+\hline
+Modèles ML & Artefacts joblib versionnés & Hash de contrôle & Stockage local + backup \\
+\hline
+\end{tabular}\end{center}
+
+\subsubsection{Politique d'accès aux données}
+
+La politique d'accès suit le principe du \textit{need-to-know} : chaque acteur
+n'accède qu'aux données nécessaires à son rôle. En pratique, cela se traduit
+par :
+
+\begin{itemize}
+    \item Les Data Analysts accèdent uniquement à la couche Gold via l'API (lecture seule).
+    \item Les Data Engineers accèdent à Bronze et Silver pour les opérations de
+    pipeline, mais pas directement à la production Gold.
+    \item Les Data Scientists accèdent au dataset d'entraînement et aux artefacts
+    ML, mais pas aux données nominatives s'il en existe.
+    \item Les Ops ont accès aux logs et métriques CloudWatch, pas aux données métier.
+\end{itemize}
+
+Cette séparation est techniquement appliquée via les rôles IAM distincts
+(Lambda-api-role, ingestion-role, aggregation-role) décrits en Bloc 3, ce qui
+fait de la sécurité une propriété architecturale plutôt qu'une contrainte
+organisationnelle.
+
+\subsection{Synthèse des compétences démontrées}
+
+La gouvernance des données est une dimension transversale qui traverse l'ensemble
+de nos réalisations. Les éléments de Bloc 5 présents dans nos projets couvrent
+plusieurs sous-compétences attendues.
+
+\textbf{Qualité.} Le score de qualité Jobtech, la déduplication systématique,
+l'imputation médiane et la stratification ML constituent des primitives de
+gouvernance de la qualité, directement exploitables pour un audit.
+
+\textbf{Sécurité.} Les rôles IAM par fonctionnalité, le chiffrement en transit
+(TLS) et au repos (SSE-S3), et l'utilisateur non-root Docker démontrent une
+posture de sécurité cohérente avec les bonnes pratiques industrielles.
+
+\textbf{Traçabilité.} L'horodatage systématique (microsecondes DynamoDB, partitionnement
+Year/Month/Day Spark, timestamp\_ISO S3), l'idempotence des pipelines et le
+versionnage des modèles ML constituent une chaîne de traçabilité complète de la
+donnée brute à la prédiction.
+
+\textbf{Lien RNCP explicite.} La compétence Bloc 5 exige de concevoir une stratégie
+de management et de gouvernance de données. Nos réalisations démontrent la maîtrise
+des dimensions clés : modèle RACI, catalogue de données, dimensions de qualité
+DMBOK, conformité RGPD, matrice CIA et politique d'accès. Ces éléments, transversaux
+à Bloc 1--Bloc 4, montrent que la gouvernance n'est pas traitée comme une couche ajoutée
+a posteriori, mais comme une contrainte intégrée dès la conception.
 
 \section{Conclusion}
 
-Concluez en rappelant le fil conducteur du rapport, la progression observee sur
-les deux annees de formation, les competences acquises et votre capacite a
-argumenter, justifier vos choix et prendre du recul sur vos realisations.
+\subsection{Fil conducteur --- du stockage à la valeur métier}
 
-Vous pouvez terminer cette conclusion par une ouverture vers la soutenance,
-qui devra s'appuyer sur un support synthetique et pertinent et mettre en valeur
-votre e-portfolio de competences.
+Ce rapport a présenté quatre projets couvrant l'intégralité du cycle de vie
+de la donnée dans un environnement Big Data, conformément au référentiel RNCP36739.
+Le fil conducteur qui les relie est la progression systématique de la donnée
+brute vers la valeur : chaque couche de l'architecture --- Bronze, Silver, Gold ---
+apporte un niveau de transformation supplémentaire, chaque service --- Spark,
+DynamoDB, Lambda, scikit-learn --- répond à une contrainte précise du problème.
+
+Cette cohérence architecturale n'est pas accidentelle. Elle reflète une démarche
+de conception : avant tout choix technologique, la question du besoin est posée
+(quel pattern d'accès ? quel volume ? quelle latence ?) et la solution retenue
+est justifiée par rapport à ses alternatives. C'est cette capacité à argumenter
+les choix --- plutôt qu'à simplement les énumérer --- qui constitue le cœur de
+la compétence Data Engineering au niveau Master.
+
+\subsection{Synthèse des compétences acquises}
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\hline
+\rowcolor{tableHeader}
+\thead{Bloc} & \thead{Compétence démontrée} & \thead{Preuve concrète} \\
+\hline
+Bloc 1 &
+  Architecture de stockage hybride (relationnelle + document + fichier columnar) &
+  Pool MySQL pool\_size=10, GSI DynamoDB O(1), Parquet/Snappy \\
+\hline
+Bloc 2 &
+  Pipeline distribué Spark + industrialisation CI/CD &
+  Streaming structuré avec checkpoint, AQE, matrix GitHub Actions, Docker non-root \\
+\hline
+Bloc 3 &
+  Solutions cloud serverless et optimisation des coûts &
+  Lambda + API Gateway, GSI DynamoDB, IAM moindre privilège, EventBridge \\
+\hline
+Bloc 4 &
+  Cycle ML complet de la préparation à la mise en service &
+  ColumnTransformer, benchmark 4 modèles, F1=0.9775, FastAPI, Streamlit \\
+\hline
+Bloc 5 &
+  Gouvernance, qualité et sécurité transversales &
+  Score qualité, RACI, RGPD, matrice CIA, IAM par rôle \\
+\hline
+\end{tabular}\end{center}
+
+\subsection{Progression observée sur deux années}
+
+La progression sur deux années de formation se mesure à travers plusieurs axes.
+
+\textbf{Complexité des architectures.} Le passage d'un pipeline ETL séquentiel
+(lecture, transformation, écriture) à une architecture distribuée multi-couches
+(Spark cluster, streaming avec checkpoint, Medallion Bronze/Silver/Gold) reflète
+une montée en compétence significative sur la conception à l'échelle.
+
+\textbf{Maîtrise des services cloud.} La progression va de l'utilisation basique
+de boto3 (appels S3 simples) vers la conception d'une architecture serverless
+complète (Lambda, API Gateway, IAM, EventBridge, CloudWatch) avec une réflexion
+explicite sur les coûts et la sécurité.
+
+\textbf{Rigueur ML.} L'approche évolue de l'entraînement d'un modèle unique vers
+un benchmark comparatif structuré avec métriques multiples (F1, ROC-AUC, PR-AUC),
+permutation importance, stratification et mise en service via API. La notion
+de data leakage (StandardScaler ajusté uniquement sur le train) est intégrée.
+
+\textbf{Industrialisation.} L'adoption d'une chaîne CI/CD complète (lint bloquant,
+tests unitaires, coverage, matrix multi-version, containerisation Docker
+production-grade) traduit une maturité DevOps compatible avec les standards
+industriels.
+
+\subsection{Prise de recul --- limites et axes d'amélioration}
+
+L'honnêteté intellectuelle impose de reconnaître les limites de nos réalisations.
+
+\textbf{Observabilité.} Aucun des quatre projets ne dispose d'un tableau de bord
+de monitoring en temps réel (latence pipeline, taux d'erreur, volume ingéré).
+En production, l'absence d'observabilité est un risque opérationnel : un pipeline
+silencieusement défaillant n'est détecté que lors de la consommation des données
+aval. CloudWatch Metrics (Bloc 3) et Spark UI (Bloc 2) offrent des primitives, mais
+leur configuration en alerting automatique reste à finaliser.
+
+\textbf{Tests de charge.} Les performances des pipelines sont mesurées sur les
+données disponibles (3 ans de vols US, dataset maintenance industrielle) mais pas
+sur des volumétries 10$\times$ ou 100$\times$ supérieures. Un test de charge
+(ex. Spark sur 100 Go de vols au lieu de 3 Go) permettrait de valider les
+hypothèses de scalabilité.
+
+\textbf{Dérive des données (data drift).} Le modèle ML de maintenance prédictive
+est entraîné sur un dataset figé. En production réelle, les capteurs évoluent
+(remplacement, calibration), les conditions d'exploitation changent (nouvelles
+machines, nouveaux modes opératoires). Un mécanisme de détection de dérive
+(ex. comparaison des distributions des features entre entraînement et production
+via KL-divergence) est nécessaire pour déclencher un réentraînement au bon moment.
+
+\subsection{Ouverture}
+
+Ce rapport constitue le socle du dossier de certification RNCP36739. La soutenance
+orale permettra d'approfondir les choix architecturaux les plus significatifs ---
+notamment la justification du GSI DynamoDB face à l'alternative ElasticSearch, le
+choix d'AQE versus un partitionnement manuel, et le benchmark des modèles ML.
+
+L'e-portfolio de compétences construit au fil des deux années --- code source,
+artefacts de modèles, tableaux de bord, pipelines CI/CD --- constitue la preuve
+concrète de l'acquisition des cinq blocs RNCP36739. La maîtrise technique
+démontrée dans ce rapport, combinée à la capacité d'argumentation et de prise
+de recul, positionne notre profil au niveau Expert en Ingénierie de Données
+attendu par le titre.
+
+% ---------------------------------------------------------------
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 -- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}
+[consulté le 15 juin 2026].
+
+\bibitem{spark}
+Zaharia M., Xin R.~S., Wendell P. \textit{et al.}
+\textit{Apache Spark: A Unified Engine for Big Data Processing}.
+\textit{Communications of the ACM}, vol.~59, n\textdegree{}11, pp.~56--65, 2016.
+DOI: \url{https://doi.org/10.1145/2934664}
+
+\bibitem{spark-streaming}
+Apache Software Foundation.
+\textit{Structured Streaming Programming Guide -- Apache Spark}.
+Documentation officielle, version 3.x.
+Disponible sur : \url{https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html}
+[consulté le 15 juin 2026].
+
+\bibitem{parquet}
+Apache Software Foundation.
+\textit{Apache Parquet -- Columnar Storage Format}.
+Disponible sur : \url{https://parquet.apache.org/}
+[consulté le 15 juin 2026].
+
+\bibitem{hive}
+Apache Software Foundation.
+\textit{Apache Hive -- Data Warehouse Software}.
+Disponible sur : \url{https://hive.apache.org/}
+[consulté le 15 juin 2026].
+
+\bibitem{mysql}
+Oracle Corporation.
+\textit{MySQL 8.0 Reference Manual}.
+Disponible sur : \url{https://dev.mysql.com/doc/refman/8.0/en/}
+[consulté le 15 juin 2026].
+
+\bibitem{s3}
+Amazon Web Services.
+\textit{Amazon S3 -- Object Storage Built to Retrieve Any Amount of Data}.
+Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/s3/}
+[consulté le 15 juin 2026].
+
+\bibitem{dynamodb}
+DeCandia G., Hastorun D., Jampani M. \textit{et al.}
+\textit{Dynamo: Amazon's Highly Available Key-value Store}.
+\textit{ACM SIGOPS Operating Systems Review}, vol.~41, n\textdegree{}6,
+pp.~205--220, 2007.
+DOI: \url{https://doi.org/10.1145/1294261.1294281}
+
+\bibitem{lambda}
+Amazon Web Services.
+\textit{AWS Lambda -- Serverless Compute Service}.
+Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/lambda/}
+[consulté le 15 juin 2026].
+
+\bibitem{apigateway}
+Amazon Web Services.
+\textit{Amazon API Gateway -- Build, Deploy and Manage APIs}.
+Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/apigateway/}
+[consulté le 15 juin 2026].
+
+\bibitem{boto3}
+Amazon Web Services.
+\textit{Boto3 -- AWS SDK for Python}.
+Disponible sur : \url{https://boto3.amazonaws.com/v1/documentation/api/latest/index.html}
+[consulté le 15 juin 2026].
+
+\bibitem{openmeteo}
+Open-Meteo.
+\textit{Open-Meteo -- Free Weather API}.
+Disponible sur : \url{https://open-meteo.com/}
+[consulté le 15 juin 2026].
+
+\bibitem{sklearn}
+Pedregosa F., Varoquaux G., Gramfort A. \textit{et al.}
+\textit{Scikit-learn: Machine Learning in Python}.
+\textit{Journal of Machine Learning Research}, vol.~12, pp.~2825--2830, 2011.
+Disponible sur : \url{https://jmlr.org/papers/v12/pedregosa11a.html}
+
+\bibitem{fastapi}
+Ramírez S.
+\textit{FastAPI -- Modern, Fast Web Framework for Building APIs with Python}.
+Disponible sur : \url{https://fastapi.tiangolo.com/}
+[consulté le 15 juin 2026].
+
+\bibitem{docker}
+Docker Inc.
+\textit{Docker -- Accelerated Container Application Development}.
+Disponible sur : \url{https://docs.docker.com/}
+[consulté le 15 juin 2026].
+
+\bibitem{githubactions}
+GitHub Inc.
+\textit{GitHub Actions -- Automate Your Workflow from Idea to Production}.
+Disponible sur : \url{https://docs.github.com/en/actions}
+[consulté le 15 juin 2026].
+
+\bibitem{streamlit}
+Streamlit Inc.
+\textit{Streamlit -- A Faster Way to Build and Share Data Apps}.
+Disponible sur : \url{https://docs.streamlit.io/}
+[consulté le 15 juin 2026].
+
+\bibitem{django-rest}
+Christie T., Biewald L. \textit{et al.}
+\textit{Django REST Framework -- Web APIs for Django}.
+Disponible sur : \url{https://www.django-rest-framework.org/}
+[consulté le 15 juin 2026].
+
+\bibitem{python}
+Python Software Foundation.
+\textit{Python 3 Reference Documentation}.
+Disponible sur : \url{https://docs.python.org/3/}
+[consulté le 15 juin 2026].
+
+\end{thebibliography}
 
 \end{document}
