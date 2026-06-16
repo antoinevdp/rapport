@@ -281,6 +281,10 @@ INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
@@ -334,6 +338,15 @@ INPUT ./assets/architecture.drawio.png
 INPUT ./assets/architecture.drawio.png
 INPUT ./assets/architecture.drawio.png
 INPUT ./assets/architecture.drawio.png
+INPUT ./assets/spark_streaming_ui.png
+INPUT ./assets/spark_streaming_ui.png
+INPUT ./assets/spark_streaming_ui.png
+INPUT ./assets/spark_streaming_ui.png
+INPUT ./assets/spark_streaming_ui.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
+INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png
 INPUT ./assets/logo-efrei.png

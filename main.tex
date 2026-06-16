@@ -83,13 +83,11 @@
     {\large Master 2 Data Engineering \& IA\\[0.5cm]}
     {\large RNCP36739 -- Expert en Ingénierie de données\\[2cm]}
 
-    {\Huge \bfseries Rapport écrit de certification\\[0.8cm]}
-    {\Large Epreuve certifiante -- Evaluation des competences\\[0.5cm]}
-    {\large Titre du rapport a completer\\[2cm]}
+    {\Huge \bfseries Rapport de validations des blocs de compétences\\[0.8cm]}
 
     \begin{tabular}{rl}
         Auteur : & Tremont-Raimi Julien \& Vandeplanque Antoine \\
-        Promotion : & 2025--2026 \\
+        Promotion : & 2024--2026 \\
         Encadrant : & A completer \\
         Entreprise : & A completer \\
     \end{tabular}
@@ -111,34 +109,7 @@
 
 Remerciements a completer.
 
-\section{Introduction et note explicative : objectifs}
-
-Ce rapport ecrit doit etre un document structure et argumente presentant cinq
-projets realises au cours de la formation. Son objectif est de demontrer
-l'acquisition des competences du titre RNCP36739 a travers les projets, TP et
-travaux menes pendant les deux annees de Master 2 Data Engineering \& IA.
-
-Le travail attendu est un exercice d'analyse et de synthese. Il ne s'agit pas
-seulement de decrire des livrables techniques, mais d'expliquer les besoins,
-les choix effectues, les difficultes rencontrees, les resultats obtenus et les
-competences mobilisees dans chaque bloc.
-
-\subsection{Attendus du rapport}
-
-\begin{itemize}
-    \item Presenter un fil conducteur coherent entre les projets et les competences.
-    \item Argumenter les choix techniques, méthodologiques et organisationnels.
-    \item Montrer la progression, la prise de recul et la capacite d'auto-evaluation.
-    \item S'appuyer sur des preuves concretes : missions, projets, TP, resultats,
-    captures, extraits de code, schemas ou tableaux de bord.
-\end{itemize}
-
-\subsection{Conseil de redaction}
-
-Pour chaque bloc, vous pouvez decrire le contexte du projet, votre role, les
-outils utilises, les decisions prises, les resultats et la maniere dont le projet
-demontre l'acquisition des competences attendues.
-
+\newpage
 \section{Presentation rapide de l'entreprise et des missions}
 
 Presentez ici l'entreprise, son secteur d'activite, son organisation, ainsi que
@@ -188,8 +159,7 @@ la nature des projets menes.
 \subsubsection{Challenge Datalake}
 
 Pour ce bloc, nous nous appuyons principalement sur le projet \textit{Challenge Datalake}
-réalisé en équipe de quatre dans le cadre du cours de Data Engineering et Data
-Integration. L'objectif était de construire une plateforme capable de produire une
+réalisé en équipe. L'objectif était de construire une plateforme capable de produire une
 vision consolidée du marché technologique européen en croisant plusieurs signaux :
 popularité des technologies, demande des recruteurs, salaires, expérience
 attendue et évolution temporelle. Le projet ne consistait donc pas seulement à
@@ -668,14 +638,35 @@ sources d'entrée jusqu'aux sorties analytiques et au volet machine learning.
 \end{center}
 
 \paragraph{Couche Bronze : ingestion batch et streaming.}
-La couche \textit{Bronze} centralise la donnée brute. Elle est alimentée par deux
-logiques complémentaires. D'une part, \texttt{ingest.py} collecte les données météo
-historiques via l'API Open-Meteo, construit un DataFrame Spark et l'écrit en
-Parquet partitionné par année, mois et jour. D'autre part, \texttt{streaming.py}
-met en place une ingestion de vols en quasi temps réel à partir de fichiers CSV,
-avec \texttt{readStream}, sortie Parquet et checkpointing. Cette dualité batch /
-streaming est un point fort du projet : elle montre que la couche d'entrée n'est
-pas figée et peut absorber des modes d'alimentation différents.
+La couche \textit{Bronze} centralise la donnée brute et correspond au point d'entrée
+technique du pipeline distribué. Elle reçoit des flux de natures différentes sans
+chercher à les harmoniser immédiatement, ce qui permet de conserver une trace fidèle
+des données réellement collectées. Dans notre projet, cette couche est alimentée par
+deux mécanismes distincts. Le premier est un traitement batch, porté par
+\texttt{ingest.py}, qui interroge l'API Open-Meteo pour récupérer des historiques
+météo sur plusieurs localisations puis construit un DataFrame Spark avant de
+persister les résultats en Parquet. Le second est un traitement streaming, porté par
+\texttt{streaming.py}, qui lit les données de vols depuis des fichiers CSV déposés
+dans un répertoire source et les intègre progressivement via \texttt{readStream}.
+
+Ce choix technique est important, car il montre que la couche Bronze n'est pas
+seulement un espace de dépôt passif. Elle constitue une zone d'atterrissage capable
+d'absorber à la fois des extractions historiques et un flux incrémental. Le format
+Parquet a été retenu pour cette couche brute car il reste compact, colonne par
+colonne, tout en étant immédiatement exploitable par Spark pour des lectures
+sélectives. Le partitionnement des vols par \texttt{Year}, \texttt{Month} et
+\texttt{Day} améliore également les performances des traitements aval, puisqu'il
+permet de limiter les scans à une période donnée au lieu de relire l'ensemble du
+jeu de données.
+
+La Bronze matérialise aussi les premières garanties de robustesse du pipeline. Dans
+le cas du streaming, le \textit{checkpointing} conserve l'état du flux et l'avancement
+des micro-batches, ce qui permet une reprise plus fiable après interruption sans
+retraiter arbitrairement tous les fichiers déjà vus. Cette approche est essentielle
+dans un contexte Big Data, car elle sépare clairement la collecte de la logique
+d'analyse. En cas d'erreur dans les transformations futures, nous pouvons rejouer les
+traitements Silver et Gold à partir d'une donnée brute déjà stockée, sans devoir
+réinterroger l'API météo ni reconstruire manuellement les entrées de vols.
 
 \begin{lstlisting}[language=Python,caption={Extrait de la couche Bronze : ingestion streaming des vols vers des fichiers Parquet partitionnés.}]
 flights = spark.readStream.format("csv").schema(schema) \
@@ -694,15 +685,39 @@ Cette implémentation est représentative d'un pipeline Big Data, car elle ajout
 mécanisme essentiel de reprise et de fiabilité : le \textit{checkpointing}, qui
 permet de conserver l'état du flux et de limiter les pertes en cas de reprise.
 
+\begin{center}
+    \includegraphics[width=0.98\textwidth]{assets/spark_streaming_ui.png}
+
+    {\small \textit{Figure 3 : Capture d'écran de l'interface Spark Streaming.}}
+\end{center}
+
 \paragraph{Couche Silver : nettoyage, normalisation et mise en coherence.}
-La couche \textit{Silver} est portée principalement par \texttt{cleaning.py}. Son
-rôle est de transformer les données brutes en jeux de données cohérents et
-comparables. Pour les vols, cela passe par une réduction du périmètre aux aéroports
-pertinents, un retraitement des heures de départ et d'arrivée, ainsi qu'une
-conversion des fuseaux horaires vers un référentiel commun en UTC. Pour la météo,
-le script identifie et supprime les colonnes entièrement nulles, convertit les
-horodatages et prépare les données pour les jointures temporelles. Les résultats
-sont ensuite enregistrés sous forme de tables Spark dans le warehouse Silver.
+La couche \textit{Silver} est portée principalement par \texttt{cleaning.py}. C'est
+à ce niveau que la donnée brute devient techniquement exploitable pour des jointures
+et des calculs analytiques. Le rôle de cette couche n'est plus de simplement stocker
+les entrées telles qu'elles arrivent, mais d'appliquer un cadre de qualité commun
+aux deux flux. Pour les vols, cela commence par un recentrage du périmètre sur les
+aéroports et les colonnes réellement utiles à l'étude. Cette réduction du bruit est
+importante dans Spark, car elle diminue le volume de données manipulées dans les
+étapes suivantes et évite de transporter des attributs sans valeur pour l'analyse.
+
+Le travail principal de cette couche porte ensuite sur la normalisation temporelle.
+Les heures de départ et d'arrivée sont d'abord converties en \texttt{timestamp}, puis
+recalculées dans un référentiel commun en UTC à partir des fuseaux horaires des
+aéroports d'origine et de destination. Cette étape est décisive : sans elle, un vol
+et une observation météo pourraient être rapprochés alors qu'ils ne correspondent
+pas au même instant réel. Le projet résout donc une difficulté classique des données
+massives hétérogènes : rendre comparables des événements issus de systèmes qui n'ont
+pas la même représentation du temps.
+
+La partie météo suit la même logique de fiabilisation. Les colonnes entièrement
+nulles sont supprimées, les dates sont homogénéisées et les observations sont
+préparées pour une granularité horaire cohérente avec les heures de départ des vols.
+Une fois ces traitements effectués, les jeux de données sont enregistrés dans le
+warehouse Silver sous forme de tables Spark. Cette persistance intermédiaire est
+utile techniquement, car elle isole une version nettoyée et réutilisable de la
+donnée : les étapes Gold peuvent alors se concentrer sur les jointures et les
+agrégations sans avoir à répéter les opérations de préparation.
 
 \begin{lstlisting}[language=Python,caption={Extrait de la couche Silver : normalisation des horaires de vol et conversion en UTC.}]
 df = df.withColumn("OriginTimezone", mapping_expr[col("Origin")])
@@ -721,13 +736,33 @@ resteraient approximatives ou erronées. La couche Silver est donc le niveau où
 donnée devient techniquement exploitable à l'échelle.
 
 \paragraph{Couche Gold : jointures analytiques et restitution.}
-La couche \textit{Gold} s'appuie sur un script Spark SQL dédié. Elle repose sur des
-requêtes Spark SQL qui croisent les tables Silver de vols et de météo afin de
-produire des indicateurs d'analyse. Parmi les sorties générées, on trouve par
-exemple le retard moyen par compagnie, les retards les plus importants en cas de
-neige, les retards maximaux par type de météo ou encore le ratio de vols retardés
-par compagnie. Ces résultats sont ensuite exportés vers MariaDB via JDBC, ce qui
-crée une couche de restitution plus facilement consommable par d'autres outils.
+La couche \textit{Gold} s'appuie sur un script Spark SQL dédié. Elle correspond au
+moment où l'on quitte une logique de préparation technique pour entrer dans une
+logique de restitution analytique. Les tables Silver de vols et de météo y sont
+croisées à l'aide de requêtes Spark SQL construites pour rapprocher deux dimensions
+majeures du projet : la localisation et le temps. Concrètement, la jointure repose
+sur l'aéroport d'origine du vol et sur une clé horaire dérivée de l'heure de départ,
+ce qui permet d'associer à chaque vol les conditions météo les plus pertinentes au
+moment où il est censé décoller.
+
+Ce choix de modélisation est central pour la qualité des résultats. Une jointure
+approximative sur la seule date ou sur une zone géographique trop large aurait
+produit des indicateurs peu fiables. En imposant une granularité horaire et une
+correspondance par localisation, le pipeline transforme deux flux indépendants en un
+jeu d'analyse cohérent. La couche Gold peut alors produire des objets directement
+consommables : retard moyen par compagnie, impact de la neige ou des précipitations,
+vols les plus affectés par certaines conditions météo, ou encore ratios de retards
+par transporteur.
+
+Sur le plan technique, Spark SQL apporte ici deux avantages. D'une part, il permet
+d'exprimer clairement les jointures et les agrégations dans une forme déclarative,
+plus lisible pour un traitement analytique complexe. D'autre part, il bénéficie de
+l'exécution distribuée de Spark pour calculer ces indicateurs sur des volumes plus
+importants qu'un traitement local classique. Les résultats finaux sont ensuite
+exportés vers MariaDB via JDBC. Cette sortie relationnelle joue le rôle de couche de
+service : elle facilite la consultation des tables Gold par d'autres outils,
+éventuellement un dashboard, un outil BI ou un composant applicatif, sans imposer à
+chaque consommateur de relancer la logique Spark complète.
 
 \begin{lstlisting}[language=Python,caption={Extrait de la couche Gold : jointure analytique entre vols et conditions météo.}]
 query = """
@@ -744,8 +779,9 @@ df = spark.sql(query)
 \end{lstlisting}
 
 Cette couche Gold est particulièrement intéressante pour la suite du rapport, car
-elle matérialise la finalité métier du pipeline : on ne se contente plus de traiter
-des données, on produit des objets analytiques directement interprétables.
+elle matérialise la finalité du pipeline distribué : on ne se contente plus de
+préparer des données techniquement correctes, on produit des sorties analytiques
+directement interrogeables et prêtes à être consommées par une couche de restitution.
 
 \paragraph{Dimension machine learning.}
 Le projet inclut également un script \texttt{ML.py}, qui prolonge la chaîne de
@@ -755,14 +791,6 @@ indexées, standardisées puis injectées dans une régression logistique avec
 validation croisée. Cette partie n'est pas le coeur de la démonstration du bloc 2,
 mais elle montre que la chaîne Spark construite est suffisamment robuste pour
 servir ensuite à des traitements avancés sur données préparées.
-
-\paragraph{Intérêt du projet pour le bloc 2.}
-Le \textit{projet\_spark} est un bon support de rédaction pour ce bloc, car il
-montre un pipeline distribué complet : ingestion, streaming, nettoyage,
-normalisation, jointure multi-source, agrégation et restitution. Il illustre bien
-la logique d'industrialisation d'un traitement Big Data, avec séparation des
-couches, choix de formats adaptés comme Parquet, usage du streaming Spark,
-partitionnement temporel et exploitation finale dans une base relationnelle.
 
 \subsection{Analyse attendue}
 

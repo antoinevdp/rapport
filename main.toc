@@ -1,57 +1,53 @@
 \babel@toc {french}{}\relax 
 \contentsline {section}{Remerciements}{1}{Doc-Start}%
-\contentsline {section}{\numberline {1}Introduction et note explicative : objectifs}{1}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Attendus du rapport}{1}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Conseil de redaction}{1}{subsection.1.2}%
-\contentsline {section}{\numberline {2}Presentation rapide de l'entreprise et des missions}{1}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Entreprise}{1}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Missions}{1}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Bloc 1 -- Concevoir et developper une architecture de stockage de données}{2}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Compétences visées}{2}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Projets / TP associés}{2}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Présentation des projets mobilisés}{2}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Challenge Datalake}{2}{subsubsection.3.3.1}%
-\contentsline {paragraph}{Problématique métier.}{2}{paragraph*.1}%
-\contentsline {paragraph}{Sources de données mobilisées.}{2}{paragraph*.2}%
-\contentsline {paragraph}{Architecture générale du projet.}{3}{paragraph*.3}%
-\contentsline {paragraph}{Couche Bronze : ingestion et conservation du brut.}{3}{paragraph*.4}%
-\contentsline {paragraph}{Couche Silver : normalisation et fiabilisation.}{3}{paragraph*.5}%
-\contentsline {paragraph}{Couche Gold : consolidation et vision analytique.}{4}{paragraph*.6}%
-\contentsline {paragraph}{Choix de stockage.}{4}{paragraph*.7}%
-\contentsline {paragraph}{Traitements et outils techniques.}{5}{paragraph*.8}%
-\contentsline {paragraph}{Organisation de l'API.}{5}{paragraph*.9}%
-\contentsline {paragraph}{Fonctionnalités d'exposition.}{5}{paragraph*.10}%
-\contentsline {paragraph}{Valeur du projet dans le rapport.}{5}{paragraph*.11}%
-\contentsline {subsection}{\numberline {3.4}Justification des compétences du bloc 1}{7}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Concevoir et développer une base de données relationnelle}{7}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Concevoir et développer une base de données non relationnelle}{7}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}Concevoir et construire un datalake}{8}{subsubsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {3.4.4}Créer une API pour rendre les données accessibles}{8}{subsubsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.5}Bilan du bloc 1}{8}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}{9}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Competences visees}{9}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{9}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Présentation des projets mobilisés}{9}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Projet Spark}{9}{subsubsection.4.3.1}%
-\contentsline {paragraph}{Contexte et objectif fonctionnel.}{9}{paragraph*.12}%
-\contentsline {paragraph}{Sources de données et variété des flux.}{9}{paragraph*.13}%
-\contentsline {paragraph}{Architecture distribuée avec Spark.}{9}{paragraph*.14}%
-\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{10}{paragraph*.15}%
-\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{10}{paragraph*.16}%
-\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{10}{paragraph*.17}%
-\contentsline {paragraph}{Dimension machine learning.}{11}{paragraph*.18}%
-\contentsline {paragraph}{Intérêt du projet pour le bloc 2.}{11}{paragraph*.19}%
-\contentsline {subsection}{\numberline {4.4}Analyse attendue}{11}{subsection.4.4}%
-\contentsline {section}{\numberline {5}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{12}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Competences visees}{12}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Projets / TP associes}{12}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Analyse attendue}{12}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{13}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Competences visees}{13}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{13}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Analyse attendue}{13}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{14}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Competences visees}{14}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Projets / TP associes}{14}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Analyse attendue}{14}{subsection.7.3}%
-\contentsline {section}{\numberline {8}Conclusion}{15}{section.8}%
+\contentsline {section}{\numberline {1}Presentation rapide de l'entreprise et des missions}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Entreprise}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Missions}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Bloc 1 -- Concevoir et developper une architecture de stockage de données}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Compétences visées}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Projets / TP associés}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Présentation des projets mobilisés}{3}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Challenge Datalake}{3}{subsubsection.2.3.1}%
+\contentsline {paragraph}{Problématique métier.}{3}{paragraph*.1}%
+\contentsline {paragraph}{Sources de données mobilisées.}{3}{paragraph*.2}%
+\contentsline {paragraph}{Architecture générale du projet.}{4}{paragraph*.3}%
+\contentsline {paragraph}{Couche Bronze : ingestion et conservation du brut.}{4}{paragraph*.4}%
+\contentsline {paragraph}{Couche Silver : normalisation et fiabilisation.}{4}{paragraph*.5}%
+\contentsline {paragraph}{Couche Gold : consolidation et vision analytique.}{5}{paragraph*.6}%
+\contentsline {paragraph}{Choix de stockage.}{5}{paragraph*.7}%
+\contentsline {paragraph}{Traitements et outils techniques.}{6}{paragraph*.8}%
+\contentsline {paragraph}{Organisation de l'API.}{6}{paragraph*.9}%
+\contentsline {paragraph}{Fonctionnalités d'exposition.}{6}{paragraph*.10}%
+\contentsline {paragraph}{Valeur du projet dans le rapport.}{6}{paragraph*.11}%
+\contentsline {subsection}{\numberline {2.4}Justification des compétences du bloc 1}{8}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Concevoir et développer une base de données relationnelle}{8}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Concevoir et développer une base de données non relationnelle}{8}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Concevoir et construire un datalake}{9}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}Créer une API pour rendre les données accessibles}{9}{subsubsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.5}Bilan du bloc 1}{9}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Competences visees}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Projets / TP associes}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Présentation des projets mobilisés}{10}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Projet Spark}{10}{subsubsection.3.3.1}%
+\contentsline {paragraph}{Contexte et objectif fonctionnel.}{10}{paragraph*.12}%
+\contentsline {paragraph}{Sources de données et variété des flux.}{10}{paragraph*.13}%
+\contentsline {paragraph}{Architecture distribuée avec Spark.}{10}{paragraph*.14}%
+\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{11}{paragraph*.15}%
+\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{12}{paragraph*.16}%
+\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{12}{paragraph*.17}%
+\contentsline {paragraph}{Dimension machine learning.}{13}{paragraph*.18}%
+\contentsline {subsection}{\numberline {3.4}Analyse attendue}{13}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Competences visees}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Analyse attendue}{14}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Competences visees}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Projets / TP associes}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Analyse attendue}{15}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{16}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Competences visees}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{16}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Analyse attendue}{16}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Conclusion}{17}{section.7}%

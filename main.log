@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.15)  15 JUN 2026 16:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.15)  16 JUN 2026 11:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -618,7 +618,7 @@ Package hyperref Info: Link coloring ON on input line 72.
 \c@lstlisting=\count357
 Package babel Info: Main language set to 'french'.
 Package hyperref Info: Option `pageanchor' set `false' on input line 74.
-<assets/logo-efrei.png, id=155, 395.4775pt x 128.48pt>
+<assets/logo-efrei.png, id=143, 395.4775pt x 128.48pt>
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
 Package pdftex.def Info: assets/logo-efrei.png  used on input line 80.
@@ -626,101 +626,116 @@ Package pdftex.def Info: assets/logo-efrei.png  used on input line 80.
  [1
 
 {/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./assets/logo-efrei.png>]
-Package hyperref Info: Option `pageanchor' set `true' on input line 102.
+Package hyperref Info: Option `pageanchor' set `true' on input line 100.
  (./main.toc)
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 105.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 103.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [1]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 158.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 112.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [1
 
 ]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 235.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 129.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [2] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+ [2]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 205.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [3] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 257.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 227.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 307.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [3]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 388.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 277.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [4]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 430.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 358.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [5]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 437.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 400.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [6]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 526.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 407.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [7]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 586.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 496.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [8]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 664.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 556.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [9]
-<assets/architecture.drawio.png, id=320, 2037.6125pt x 521.95pt>
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 634.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [10]
+<assets/architecture.drawio.png, id=310, 2037.6125pt x 521.95pt>
 File: assets/architecture.drawio.png Graphic file (type png)
 <use assets/architecture.drawio.png>
-Package pdftex.def Info: assets/architecture.drawio.png  used on input line 665.
+Package pdftex.def Info: assets/architecture.drawio.png  used on input line 635.
 (pdftex.def)             Requested size: 446.13727pt x 114.27982pt.
+<assets/spark_streaming_ui.png, id=312, 1726.45pt x 758.835pt>
+File: assets/spark_streaming_ui.png Graphic file (type png)
+<use assets/spark_streaming_ui.png>
+Package pdftex.def Info: assets/spark_streaming_ui.png  used on input line 689.
+(pdftex.def)             Requested size: 446.13727pt x 196.08824pt.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 731.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 691.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [10 <./assets/architecture.drawio.png>]
+ [11 <./assets/architecture.drawio.png>]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 773.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 756.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [11]
+ [12 <./assets/spark_streaming_ui.png (PNG copy)>]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 809.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [12]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 845.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 801.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [13]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 883.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 837.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [14]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 894.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 873.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [15] 
+ [15]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 911.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [16]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 922.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [17] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -728,21 +743,21 @@ LaTeX2e <2026-06-01>
 L3 programming layer <2026-05-26>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E9989B9EBB48C777B018DF0FE0E8F875;8853.
+(rerunfilecheck)             Checksum: BB387A14B37A8AADB7680730E9CC36FB;8251.
  ) 
 Here is how much of TeX's memory you used:
- 25320 strings out of 467167
- 462962 string characters out of 5409454
- 1210882 words of memory out of 5000000
- 54069 multiletter control sequences out of 15000+600000
+ 25322 strings out of 467167
+ 463134 string characters out of 5409454
+ 1203871 words of memory out of 5000000
+ 54073 multiletter control sequences out of 15000+600000
  639412 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,16n,94p,893b,1374s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (17 pages, 482638 bytes).
+Output written on main.pdf (19 pages, 846036 bytes).
 PDF statistics:
- 483 PDF objects out of 1000 (max. 8388607)
- 427 compressed objects within 5 object streams
- 142 named destinations out of 1000 (max. 500000)
- 319 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 479 PDF objects out of 1000 (max. 8388607)
+ 420 compressed objects within 5 object streams
+ 140 named destinations out of 1000 (max. 500000)
+ 300 words of extra memory for PDF output out of 10000 (max. 10000000)
 
