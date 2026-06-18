@@ -1,0 +1,270 @@
+\documentclass[11pt]{article}
+
+% ===================== POLICES & LANGUE =====================
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[french]{babel}
+
+% ===================== MISE EN PAGE =========================
+\usepackage[includeheadfoot,a4paper,top=0.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
+\usepackage{mdframed}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\tolerance=2000
+\emergencystretch=3em
+\hbadness=2500
+
+% ===================== COULEURS =============================
+\definecolor{titleNavy}{RGB}{22,50,92}
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}
+\definecolor{ruleGray}{RGB}{200,205,212}
+
+% ===================== TITRES ===============================
+\titleformat{\section}
+  {\Large\bfseries\color{titleNavy}}{\thesection}{0.8em}{}[{\vspace{1pt}\color{titleNavy}\titlerule[1.2pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\color{titleNavy}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accentBlue}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% ===================== TABLEAUX =============================
+\arrayrulecolor{ruleGray}
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.35}
+\newcommand{\thead}[1]{\textbf{\textcolor{white}{#1}}}
+
+% ===================== EN-TÊTE / PIED =======================
+\renewcommand\headrulewidth{1.2pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand{\headrule}{\color{titleNavy}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{\color{ruleGray}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739 --- Rapport de certification}}\\ \small\textcolor{black!60}{Introduction \& présentation de l'entreprise}}
+\fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
+\fancyfoot[L]{\small\textcolor{black!55}{EFREI Paris}}
+\fancyfoot[C]{\small\textcolor{black!55}{Master 2 Data Engineering \& IA}}
+\fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
+\setlength{\headheight}{2cm}
+
+\begin{document}
+
+% ===================== TITRE ===============================
+\thispagestyle{fancy}
+\begin{center}
+  \vspace*{0.3cm}
+  {\small\textcolor{black!55}{RNCP36739 --- Expert en Ingénierie de Données}}\\[6pt]
+  {\Huge\bfseries\textcolor{titleNavy}{Rapport de certification}}\\[8pt]
+  {\large\bfseries Introduction, présentation de l'entreprise}\\[2pt]
+  {\large et synthèse des blocs de compétences}\\[10pt]
+  {\normalsize Master 2 Data Engineering \& IA --- EFREI Paris}\\[4pt]
+  {\small Julien TREMONT-RAIMI \quad\textbullet\quad Antoine VANDEPLANQUE \quad\textbullet\quad Promotion 2024--2026}
+\end{center}
+
+\vspace{4pt}
+{\color{titleNavy}\hrule height 1.5pt}
+\vspace{10pt}
+
+% ===================== REMERCIEMENTS =======================
+\section*{Remerciements}
+
+Je tiens à exprimer mes remerciements les plus sincères au intervenants et professeurs. 
+La richesse de leurs enseignements ont grandement enrichi mes connaissances 
+et affûté mes compétences ; leur encadrement, leur conseils, prodigués tout au long de 
+cette formation, ont été  essentiels de ma progression.
+
+Enfin, je voudrais exprimer ma profonde gratitude envers toutes les personnes de Geismar pour le
+cadre d'apprentissage qu'elles m'ont offert. Cet environnement a joué un rôle déterminant dans mon 
+développement professionnel en me permettant d'acquérir de nouvelles compétences. Je tiens à souligner 
+combien les opportunités d'expérimentation qui m'ont été offertes ont été d'une valeur inestimable.
+
+\medskip
+\noindent À tous, merci pour votre contribution essentielle à la concrétisation de ce
+projet.
+
+\clearpage
+
+% ===================== INTRODUCTION (1 page) ================
+\section{Introduction}
+
+La donnée s'est imposée comme l'un des actifs stratégiques majeurs des organisations
+contemporaines. Derrière chaque tableau de bord, chaque modèle prédictif et chaque
+service numérique se trouve une chaîne d'ingénierie qui transforme des flux bruts,
+massifs et hétérogènes en information fiable, exploitable et créatrice de valeur.
+C'est précisément ce métier de \textbf{data engineer} que ce rapport entend illustrer 
+: concevoir, construire et industrialiser cette chaîne, de la source jusqu'à la décision.
+
+Ce document constitue le dossier écrit de certification professionnelle \textbf{RNCP36739}
+\og{} Expert en Ingénierie de Données \fg{}, produit dans le cadre du Mastère Data Engineering \& IA 
+d'EFREI Paris (promotion 2024--2026). Il vise à démontrer l'acquisition des cinq blocs de compétences 
+du référentiel~\cite{rncp} à travers des \textbf{réalisations concrètes} plutôt que des connaissances 
+théoriques isolées.
+
+La démonstration s'appuie sur cinq projets complémentaires, chacun choisi pour
+illustrer au mieux un pan du métier : \textbf{Jobtech}, plateforme d'agrégation de
+données d'emploi tech à partir de six sources hétérogènes ; Le \textbf{project cloud},
+plateforme serverless AWS de mobilité urbaine en temps réel ; Le \textbf{projet spark},
+pipeline Big Data distribué sur données aéronautiques ; \textbf{fizzbuzz Efrei},
+chaîne d'intégration et de déploiement continus conteneurisée ; et le
+\textbf{projet datas cience project}, système de maintenance prédictive industrielle par
+apprentissage automatique. Le tableau ci-dessous récapitule leur rattachement aux
+blocs du référentiel.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
+\hline
+Jobtech & Agrégation de données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
+\hline
+project\_cloud & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
+\hline
+projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
+\hline
+fizzbuzz-Efrei & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
+\hline
+data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
+\hline
+\end{tabularx}
+\end{center}
+
+Chaque bloc suit une structure identique --- compétences visées, contexte et enjeux,
+architecture, réalisations techniques commentées, axes d'amélioration et synthèse
+reliée au référentiel --- de sorte que chaque partie soit autonome et directement
+évaluable. Le rapport est précédé d'une présentation de l'entreprise d'alternance,
+puis d'une synthèse de la couverture des cinq blocs de compétences.
+
+% ===================== PRÉSENTATION ENTREPRISE =============
+\section{Présentation d'entreprise}
+
+\subsection{L'entreprise : Geismar}
+
+Fondée en 1924 à Colmar par Lucien Geismar, la société conçoit, fabrique et vend
+dans le monde entier des outils et des machines destinés à la pose et à l'entretien
+des voies ferrées et des caténaires.
+
+Le siège social est aujourd'hui situé à la Défense. L'entreprise compte
+750~salariés, dont 420 en France, et possède cinq usines : trois en France (Colmar,
+Marseille et Saint-Didier-de-la-Tour) et deux à l'étranger (Italie et États-Unis).
+
+Geismar est présent commercialement dans de nombreux pays, notamment en France, au
+Royaume-Uni, aux États-Unis, au Brésil, en Allemagne, en Italie, en Espagne, au
+Canada et en Afrique du Sud. Le groupe réalise environ 85\,\% de son chiffre
+d'affaires à l'étranger.
+
+\subsection{Le poste : Alternant Data Engineer}
+
+\subsubsection{Contexte}
+
+Geismar utilise différents systèmes ERP selon les filiales : M3, Business Central,
+ou encore des bases Access héritées de systèmes plus anciens. Cette diversité crée un
+besoin de centralisation et d'harmonisation des données à l'échelle du groupe.
+
+\subsubsection{Missions}
+
+Mon rôle consiste à développer des pipelines de données en Python pour extraire,
+transformer et charger les données issues des différents ERP. Ces données sont
+ensuite structurées via une solution de big data selon une architecture
+Bronze-Silver-Gold, qui permet de passer progressivement des données brutes à des
+données exploitables pour le reporting.
+
+Je travaille principalement sur les données financières, la gestion des stocks, le
+suivi des commandes et le reporting opérationnel des différentes filiales. Une partie
+importante de mon travail consiste également à migrer les données vers Snowflake.
+
+\subsubsection{Environnement technique}
+
+J'utilise principalement Python et SQL pour le développement. Les données sont
+stockées sur SQL Server et Snowflake. L'infrastructure cloud repose sur Microsoft
+Azure, notamment Blob Storage pour le stockage et Azure DevOps pour le versionning et
+les pipelines. Côté restitution, les données alimentent des rapports Power BI.
+
+% ===================== SYNTHÈSE DES BLOCS ==================
+\section{Synthèse des blocs de compétences RNCP36739}
+
+La certification \og{}Expert en Ingénierie de Données\fg{} s'articule autour de cinq
+blocs de compétences fondamentaux. Ils couvrent l'intégralité du cycle de vie de la
+donnée dans un environnement Big Data : de la conception d'architectures de stockage
+et de traitement des données massives (Blocs 1 et 2) à leur déploiement optimisé sur
+le cloud (Bloc 3), en passant par l'application des méthodes d'intelligence
+artificielle (Bloc 4) et l'élaboration de stratégies de gouvernance des données
+(Bloc 5).
+
+\needspace{10\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|p{2.6cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Bloc} & \thead{Intitulé} & \thead{Compétences clés} \\
+\hline
+RNCP36739\newline Bloc 1 &
+  Concevoir et développer une architecture de stockage de données &
+  Bases de données relationnelles et non-relationnelles, construction de Datalake,
+  création d'API d'accès aux données. \\
+\hline
+RNCP36739\newline Bloc 2 &
+  Concevoir, développer et déployer une solution de traitement des données massives &
+  Architectures distribuées, systèmes de streaming, optimisation des pipelines,
+  automatisation CI/CD (conteneurisation, ordonnancement). \\
+\hline
+RNCP36739\newline Bloc 3 &
+  Implémenter et optimiser des solutions de stockage et de traitement de données sur
+  le cloud &
+  Solutions cloud (stockage, pipelines), sécurisation (chiffrement, IAM, conformité),
+  optimisation des performances et des coûts. \\
+\hline
+RNCP36739\newline Bloc 4 &
+  Implémenter des méthodes d'intelligence artificielle pour modéliser et prédire de
+  nouveaux comportements &
+  Extraction et préparation des données, tableaux de bord interactifs, modèles
+  prédictifs supervisés, évaluation des performances. \\
+\hline
+RNCP36739\newline Bloc 5 &
+  Concevoir une stratégie de management et de gouvernance de données &
+  Gouvernance (politiques, rôles), conformité (régulations, vie privée), audit
+  qualité, stratégie de sécurité et d'accès aux données. \\
+\hline
+\end{tabularx}
+\end{center}
+
+% ===================== BIBLIOGRAPHIE =======================
+\begin{thebibliography}{9}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}
+[consulté le 15 juin 2026].
+
+\end{thebibliography}
+
+\end{document}
