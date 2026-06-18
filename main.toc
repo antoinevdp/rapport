@@ -35,43 +35,43 @@
 \contentsline {paragraph}{Architecture distribuée avec Spark.}{10}{paragraph*.14}%
 \contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{11}{paragraph*.15}%
 \contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{12}{paragraph*.16}%
-\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{12}{paragraph*.17}%
-\contentsline {paragraph}{Dimension machine learning.}{13}{paragraph*.18}%
-\contentsline {subsection}{\numberline {3.4}Analyse attendue}{13}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{14}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Competences visees}{14}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{14}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Analyse attendue}{14}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{15}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Compétences visées}{15}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Contexte et enjeux}{15}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Architecture et cycle de vie du modèle}{15}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Analyse exploratoire et compréhension métier}{16}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}Exploration des données}{17}{subsubsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.5}Préparation des données et pipeline de transformation}{18}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}Variables explicatives et cibles}{18}{subsubsection.5.5.1}%
-\contentsline {subsubsection}{\numberline {5.5.2}Le pipeline de transformation : ColumnTransformer}{18}{subsubsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.6}Entraînement comparatif et sélection du modèle}{20}{subsection.5.6}%
-\contentsline {subsubsection}{\numberline {5.6.1}Architecture du benchmark}{20}{subsubsection.5.6.1}%
-\contentsline {subsubsection}{\numberline {5.6.2}Modèles candidats}{20}{subsubsection.5.6.2}%
-\contentsline {subsubsection}{\numberline {5.6.3}Le modèle vainqueur : HistGradientBoostingClassifier}{20}{subsubsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.7}Résultats et évaluation}{21}{subsection.5.7}%
-\contentsline {subsubsection}{\numberline {5.7.1}Tâche 1 --- Classification binaire \texttt {failure\_within\_24h}}{21}{subsubsection.5.7.1}%
-\contentsline {subsubsection}{\numberline {5.7.2}Tâche 2 --- Classification multiclasse \texttt {failure\_type} (5 classes)}{21}{subsubsection.5.7.2}%
-\contentsline {subsubsection}{\numberline {5.7.3}Interprétabilité --- importance des variables}{22}{subsubsection.5.7.3}%
-\contentsline {subsubsection}{\numberline {5.7.4}Analyse des erreurs --- matrice de confusion}{23}{subsubsection.5.7.4}%
-\contentsline {subsection}{\numberline {5.8}Mise en service et communication des résultats}{25}{subsection.5.8}%
-\contentsline {subsubsection}{\numberline {5.8.1}API de prédiction --- FastAPI}{25}{subsubsection.5.8.1}%
-\contentsline {subsubsection}{\numberline {5.8.2}Tableau de bord interactif --- Streamlit}{25}{subsubsection.5.8.2}%
-\contentsline {subsubsection}{\numberline {5.8.3}Qualité logicielle et reproductibilité}{26}{subsubsection.5.8.3}%
-\contentsline {subsection}{\numberline {5.9}Robustesse, limites et axes d'amélioration}{27}{subsection.5.9}%
-\contentsline {subsubsection}{\numberline {5.9.1}Validation : split stratifié et perspective k-fold}{27}{subsubsection.5.9.1}%
-\contentsline {subsubsection}{\numberline {5.9.2}Limites de l'interprétabilité par permutation}{27}{subsubsection.5.9.2}%
-\contentsline {subsubsection}{\numberline {5.9.3}Axes d'amélioration}{27}{subsubsection.5.9.3}%
-\contentsline {subsection}{\numberline {5.10}Synthèse --- compétences démontrées}{27}{subsection.5.10}%
-\contentsline {subsubsection}{\numberline {5.10.1}Preuves d'acquisition des compétences}{27}{subsubsection.5.10.1}%
-\contentsline {section}{\numberline {6}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{28}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Competences visees}{28}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{28}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Analyse attendue}{28}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Conclusion}{29}{section.7}%
+\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{13}{paragraph*.17}%
+\contentsline {paragraph}{Dimension machine learning.}{15}{paragraph*.18}%
+\contentsline {subsection}{\numberline {3.4}Analyse attendue}{16}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Competences visees}{17}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Projets / TP associes}{17}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Analyse attendue}{17}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{18}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Compétences visées}{18}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Contexte et enjeux}{18}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Architecture et cycle de vie du modèle}{18}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Analyse exploratoire et compréhension métier}{19}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Exploration des données}{20}{subsubsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.5}Préparation des données et pipeline de transformation}{21}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Variables explicatives et cibles}{21}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Le pipeline de transformation : ColumnTransformer}{21}{subsubsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.6}Entraînement comparatif et sélection du modèle}{23}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Architecture du benchmark}{23}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Modèles candidats}{23}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Le modèle vainqueur : HistGradientBoostingClassifier}{23}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.7}Résultats et évaluation}{24}{subsection.5.7}%
+\contentsline {subsubsection}{\numberline {5.7.1}Tâche 1 --- Classification binaire \texttt {failure\_within\_24h}}{24}{subsubsection.5.7.1}%
+\contentsline {subsubsection}{\numberline {5.7.2}Tâche 2 --- Classification multiclasse \texttt {failure\_type} (5 classes)}{24}{subsubsection.5.7.2}%
+\contentsline {subsubsection}{\numberline {5.7.3}Interprétabilité --- importance des variables}{25}{subsubsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.4}Analyse des erreurs --- matrice de confusion}{26}{subsubsection.5.7.4}%
+\contentsline {subsection}{\numberline {5.8}Mise en service et communication des résultats}{28}{subsection.5.8}%
+\contentsline {subsubsection}{\numberline {5.8.1}API de prédiction --- FastAPI}{28}{subsubsection.5.8.1}%
+\contentsline {subsubsection}{\numberline {5.8.2}Tableau de bord interactif --- Streamlit}{28}{subsubsection.5.8.2}%
+\contentsline {subsubsection}{\numberline {5.8.3}Qualité logicielle et reproductibilité}{29}{subsubsection.5.8.3}%
+\contentsline {subsection}{\numberline {5.9}Robustesse, limites et axes d'amélioration}{30}{subsection.5.9}%
+\contentsline {subsubsection}{\numberline {5.9.1}Validation : split stratifié et perspective k-fold}{30}{subsubsection.5.9.1}%
+\contentsline {subsubsection}{\numberline {5.9.2}Limites de l'interprétabilité par permutation}{30}{subsubsection.5.9.2}%
+\contentsline {subsubsection}{\numberline {5.9.3}Axes d'amélioration}{30}{subsubsection.5.9.3}%
+\contentsline {subsection}{\numberline {5.10}Synthèse --- compétences démontrées}{30}{subsection.5.10}%
+\contentsline {subsubsection}{\numberline {5.10.1}Preuves d'acquisition des compétences}{30}{subsubsection.5.10.1}%
+\contentsline {section}{\numberline {6}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{31}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Competences visees}{31}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{31}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Analyse attendue}{31}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Conclusion}{32}{section.7}%

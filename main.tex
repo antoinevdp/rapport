@@ -672,15 +672,13 @@ et l'alignement temporel.
 
 \paragraph{Architecture distribuée avec Spark.}
 L'ensemble du projet repose sur une architecture autour de Spark, nous avons installé
-spark en local sur une machine puissante, le point d'entrée le cluster se fait via \texttt{spark://localhost:7077}. Les scripts d'ingestion, de streaming, de nettoyage, d'agrégation et de machine learning utilisent tous la même \texttt{SparkSession} où nous avons configuré la mémoire et le nombre de coeurs des CPU nécessaires pour le traitement.
-L'architecture distrubué permet . Le dépôt est structuré selon une logique \textit{Bronze /
-    Silver / Gold}, à laquelle s'ajoutent un entrepôt local pour la couche Silver, un
-metastore Hive et une sortie MariaDB pour la restitution Gold. Cette organisation
-matérialise un pipeline distribué complet, où chaque étape a un rôle technique
+spark en local sur une machine puissante, le point d'entrée le cluster se fait via \texttt{spark://localhost:7077}. Les scripts d'ingestion, de streaming, de nettoyage, d'agrégation et de machine learning utilisent tous la même \texttt{SparkSession} où nous avons configuré la mémoire et le nombre de cœurs des CPU nécessaires pour le traitement.
+L'architecture distribuée permet d'exécuter de nombreuses tâches en parallèle. Le dépôt est structuré selon une structure médaillon \textit{Bronze / Silver / Gold}, à laquelle s'ajoutent un entrepôt local pour la couche Bronze, un metastore Hive côté Silver et une sortie MariaDB pour la partie Gold. Cette organisation matérialise un pipeline distribué complet, où chaque étape a un rôle technique
 précis.
 
 Le schéma ci-dessous résume l'architecture technique du projet, depuis les deux
-sources d'entrée jusqu'aux sorties analytiques et au volet machine learning.
+sources d'entrée jusqu'à l'analyse des données et la prédiction grâce à un modèle
+de machine learning.
 
 \begin{center}
     \includegraphics[width=0.98\textwidth]{assets/architecture.drawio.png}
@@ -689,8 +687,7 @@ sources d'entrée jusqu'aux sorties analytiques et au volet machine learning.
 \end{center}
 
 \paragraph{Couche Bronze : ingestion batch et streaming.}
-La couche \textit{Bronze} centralise la donnée brute et correspond au point d'entrée
-technique du pipeline distribué. Elle reçoit des flux de natures différentes sans
+La première étape, la couche \textit{Bronze}, centralise les données brutes et correspond au point d'entrée technique du pipeline distribué. Elle reçoit des flux de natures différentes sans
 chercher à les harmoniser immédiatement, ce qui permet de conserver une trace fidèle
 des données réellement collectées. Dans notre projet, cette couche est alimentée par
 deux mécanismes distincts. Le premier est un traitement batch, porté par
@@ -705,12 +702,9 @@ seulement un espace de dépôt passif. Elle constitue une zone d'atterrissage ca
 d'absorber à la fois des extractions historiques et un flux incrémental. Le format
 Parquet a été retenu pour cette couche brute car il reste compact, colonne par
 colonne, tout en étant immédiatement exploitable par Spark pour des lectures
-sélectives. Le partitionnement des vols par \texttt{Year}, \texttt{Month} et
-\texttt{Day} améliore également les performances des traitements aval, puisqu'il
-permet de limiter les scans à une période donnée au lieu de relire l'ensemble du
-jeu de données.
+sélectives. Nous avons également mis en place le partitionnement des vols par \texttt{Year}, \texttt{Month} et \texttt{Day} cat il améliore les performances des traitements, puisqu'il permet de limiter les extractions de données à une période donnée au lieu de relire l'ensemble du jeu de données.
 
-La Bronze matérialise aussi les premières garanties de robustesse du pipeline. Dans
+Nous avons aussi mis en place des mécanismes de robustesse dans la couche Bronze. Dans
 le cas du streaming, le \textit{checkpointing} conserve l'état du flux et l'avancement
 des micro-batches, ce qui permet une reprise plus fiable après interruption sans
 retraiter arbitrairement tous les fichiers déjà vus. Cette approche est essentielle
@@ -732,9 +726,7 @@ query = flights_year_month_day.writeStream \
     .start()
 \end{lstlisting}
 
-Cette implémentation est représentative d'un pipeline Big Data, car elle ajoute un
-mécanisme essentiel de reprise et de fiabilité : le \textit{checkpointing}, qui
-permet de conserver l'état du flux et de limiter les pertes en cas de reprise.
+Sur la capture d'écran ci-dessous, on voit l'interface Spark Streaming qui permet de suivre l'état des traitements en cours : 
 
 \begin{center}
     \includegraphics[width=0.98\textwidth]{assets/spark_streaming_ui.png}
@@ -761,15 +753,6 @@ pas au même instant réel. Le projet résout donc une difficulté classique des
 massives hétérogènes : rendre comparables des événements issus de systèmes qui n'ont
 pas la même représentation du temps.
 
-La partie météo suit la même logique de fiabilisation. Les colonnes entièrement
-nulles sont supprimées, les dates sont homogénéisées et les observations sont
-préparées pour une granularité horaire cohérente avec les heures de départ des vols.
-Une fois ces traitements effectués, les jeux de données sont enregistrés dans le
-warehouse Silver sous forme de tables Spark. Cette persistance intermédiaire est
-utile techniquement, car elle isole une version nettoyée et réutilisable de la
-donnée : les étapes Gold peuvent alors se concentrer sur les jointures et les
-agrégations sans avoir à répéter les opérations de préparation.
-
 \begin{lstlisting}[language=Python,caption={Extrait de la couche Silver : normalisation des horaires de vol et conversion en UTC.}]
 df = df.withColumn("OriginTimezone", mapping_expr[col("Origin")])
 df = df.withColumn("DestTimezone", mapping_expr[col("Dest")])
@@ -781,10 +764,33 @@ elif column in ["CRSArrTime", "ArrTime"]:
     df = df.withColumn(column, to_utc_timestamp(col(column), col("DestTimezone")))
 \end{lstlisting}
 
-Cette étape est déterminante, car sans normalisation temporelle et sans réduction
-du bruit dans les données météo, les jointures entre vols et conditions météo
-resteraient approximatives ou erronées. La couche Silver est donc le niveau où la
-donnée devient techniquement exploitable à l'échelle.
+La partie météo suit la même logique de fiabilisation. Les colonnes entièrement
+nulles sont supprimées, les dates sont homogénéisées, puis les observations sont
+converties dans un format temporel exploitable par Spark et alignées sur une
+granularité horaire cohérente avec les heures de départ des vols. Une fois ces
+transformations appliquées, les jeux de données ne sont plus simplement écrits
+comme des fichiers Parquet dans un répertoire, comme dans la couche Bronze avec
+\texttt{.save(...)}, mais sauvegardés comme de véritables tables Spark via
+\texttt{saveAsTable(...)}. Dans \texttt{cleaning.py}, cette écriture est réalisée
+après activation de \texttt{enableHiveSupport()} et configuration de
+\texttt{spark.sql.warehouse.dir} vers \texttt{silver-warehouse}. Concrètement, les
+données restent stockées physiquement sous forme de fichiers Parquet partitionnés
+par \texttt{Year}, \texttt{Month} et \texttt{Day}, mais elles sont en plus
+référencées dans le metastore Hive sous les noms logiques \texttt{flights} et
+\texttt{weather}.
+
+Le metastore Hive joue ici un rôle important : il conserve les métadonnées des
+tables, c'est-à-dire leur schéma, leur emplacement physique, leurs partitions et
+leur nom logique dans le catalogue Spark SQL. Cette couche de métadonnées apporte
+une différence essentielle avec la Bronze : en Bronze, Spark relit un dossier de
+fichiers bruts ; en Silver, il peut rouvrir directement des tables structurées et
+stabilisées, déjà connues du moteur. Ce choix est particulièrement pertinent dans
+notre projet, car la couche Gold peut s'appuyer sur ces tables intermédiaires pour
+exécuter ses jointures et ses agrégations sans redéfinir les schémas, sans
+manipuler explicitement les chemins de fichiers et sans rejouer toute la logique
+de nettoyage. La persistance Silver constitue donc non seulement un stockage
+intermédiaire, mais aussi une interface technique propre entre la préparation de
+la donnée et son exploitation analytique.
 
 \paragraph{Couche Gold : jointures analytiques et restitution.}
 La couche \textit{Gold} s'appuie sur un script Spark SQL dédié. Elle correspond au
@@ -805,15 +811,19 @@ consommables : retard moyen par compagnie, impact de la neige ou des précipitat
 vols les plus affectés par certaines conditions météo, ou encore ratios de retards
 par transporteur.
 
-Sur le plan technique, Spark SQL apporte ici deux avantages. D'une part, il permet
-d'exprimer clairement les jointures et les agrégations dans une forme déclarative,
-plus lisible pour un traitement analytique complexe. D'autre part, il bénéficie de
-l'exécution distribuée de Spark pour calculer ces indicateurs sur des volumes plus
-importants qu'un traitement local classique. Les résultats finaux sont ensuite
-exportés vers MariaDB via JDBC. Cette sortie relationnelle joue le rôle de couche de
-service : elle facilite la consultation des tables Gold par d'autres outils,
-éventuellement un dashboard, un outil BI ou un composant applicatif, sans imposer à
-chaque consommateur de relancer la logique Spark complète.
+Sur le plan technique, Spark SQL n'apporte pas seulement une écriture plus lisible
+des requêtes analytiques : il fournit aussi une couche d'exécution unifiée entre
+le modèle relationnel exprimé par les requêtes et le moteur distribué de Spark.
+Les jointures entre \texttt{flights} et \texttt{weather}, ainsi que les agrégations
+sur les retards, sont formulées sous forme déclarative, puis traduites en plan
+d'exécution par Spark. Cela permet de bénéficier des optimisations du moteur,
+notamment sur les projections, les filtres, les phases de jointure et les
+regroupements, tout en gardant une écriture proche du SQL classique. Dans notre
+projet, cette approche était particulièrement adaptée, car elle permettait de
+produire plusieurs tables analytiques spécialisées, comme le retard moyen par
+compagnie, les vols les plus impactés pendant un épisode neigeux ou les retards
+maximaux par type de météo, à partir des mêmes tables Silver, sans dupliquer la
+logique de préparation.
 
 \begin{lstlisting}[language=Python,caption={Extrait de la couche Gold : jointure analytique entre vols et conditions météo.}]
 query = """
@@ -829,10 +839,45 @@ query = """
 df = spark.sql(query)
 \end{lstlisting}
 
-Cette couche Gold est particulièrement intéressante pour la suite du rapport, car
-elle matérialise la finalité du pipeline distribué : on ne se contente plus de
-préparer des données techniquement correctes, on produit des sorties analytiques
-directement interrogeables et prêtes à être consommées par une couche de restitution.
+Les résultats finaux ne restent toutefois pas dans Spark. Une fois calculés, ils
+sont exportés vers MariaDB via le connecteur JDBC, ce qui transforme les sorties
+Gold en tables relationnelles persistantes, directement interrogeables par des
+outils externes. Cette étape est importante sur le plan architectural : Spark joue
+le rôle de moteur de calcul, tandis que MariaDB joue le rôle de service layer.
+Les consommateurs n'ont donc pas besoin d'accéder au cluster Spark, ni de
+relancer les scripts de traitement, pour exploiter les indicateurs produits. Dans
+notre cas, cette base MariaDB était hébergée sur un Raspberry Pi, ce qui
+permettait d'exposer les tables Gold sur le réseau et de les rendre accessibles en
+ligne depuis d'autres postes.
+
+\begin{center}
+    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-1.png}
+
+    {\small \textit{Figure 4 : Dashboard Power BI}}
+\end{center}
+
+Ce choix a ensuite facilité l'intégration avec Power BI. Plutôt que de connecter
+l'outil de visualisation directement aux scripts Spark ou aux fichiers
+intermédiaires, nous avons pu brancher Power BI sur des tables déjà calculées,
+structurées et stabilisées dans MariaDB. Cette séparation entre calcul distribué
+et restitution présente plusieurs avantages : elle simplifie la consommation des
+données, réduit le couplage avec l'environnement Spark, et permet à un outil BI
+de travailler sur une source relationnelle standard, accessible à distance. Autrement
+dit, la couche Gold ne produit pas uniquement des résultats analytiques ; elle
+alimente aussi une interface de diffusion exploitable pour la visualisation, le
+reporting et la consultation en ligne.
+
+\begin{center}
+    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-1.png}
+
+    {\small \textit{Figure 5 : Dashboard Power BI}}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-2.png}
+
+    {\small \textit{Figure 6 : Dashboard Power BI}}
+\end{center}
 
 \paragraph{Dimension machine learning.}
 Le projet inclut également un script \texttt{ML.py}, qui prolonge la chaîne de
@@ -843,6 +888,7 @@ validation croisée. Cette partie n'est pas le coeur de la démonstration du blo
 mais elle montre que la chaîne Spark construite est suffisamment robuste pour
 servir ensuite à des traitements avancés sur données préparées.
 
+\newpage
 \subsection{Analyse attendue}
 
 Mettez en avant la conception des pipelines, le traitement distribue, les choix
@@ -859,17 +905,17 @@ stockage, au traitement, a la securite et a l'optimisation des couts.
 
 \begin{itemize}
     \item Mettre en œuvre des solutions de stockage de données dans le cloud pour
-          permettre aux entreprises d'explorer leurs données en implementant des
-          techniques et strategies adaptees a leur utilisation.
-    \item Concevoir et developper des pipelines et des solutions de traitement de
+          permettre aux entreprises d'explorer leurs données en implémentant des
+          techniques et strategies adaptées a leur utilisation.
+    \item Concevoir et développer des pipelines et des solutions de traitement de
           données dans le cloud en chargeant les données, en les transformant et en les
           mettant a disposition des utilisateurs.
-    \item Mettre en place une politique de securite des données dans le cloud en
-          developpant une strategie de chiffrement et de gestion des identites et des
-          acces, dans le respect des reglements en vigueur.
+    \item Mettre en place une politique de sécurité des données dans le cloud en
+          développant une stratégie de chiffrement et de gestion des identités et des
+          accès, dans le respect des règlements en vigueur.
     \item Optimiser les solutions de stockage et de traitement des données dans le
-          cloud en definissant des indicateurs de performance pour assurer la
-          disponibilite des services et optimiser les couts.
+          cloud en définissant des indicateurs de performance pour assurer la
+          disponibilité des services et optimiser les coûts.
 \end{itemize}
 
 \subsection{Projets / TP associes}
