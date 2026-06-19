@@ -27,6 +27,7 @@
 \usepackage{makecell}
 \usepackage{seqsplit}
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{enumitem}
 \usepackage{needspace}
@@ -373,16 +374,16 @@ RNCP36739\newline Bloc 5 &
 \subsection{Présentation des projets mobilisés}
 \subsubsection{Challenge Datalake}
 
-Pour ce bloc, nous nous appuyons principalement sur le projet \textit{Challenge Datalake}
-réalisé en équipe. L'objectif était de construire une plateforme capable de produire une
-vision consolidée du marché technologique européen en croisant plusieurs signaux :
-popularité des technologies, demande des recruteurs, salaires, expérience
-attendue et évolution temporelle. Le projet ne consistait donc pas seulement à
-stocker des données, mais à mettre en place une chaîne complète capable de capter
-des informations hétérogènes, de les fiabiliser puis de les restituer sous une
-forme exploitable.
+Pour le bloc 1, nous nous appuyons principalement sur le projet \textit{Challenge
+Datalake}, réalisé en équipe. L'objectif était de construire une plateforme capable
+de produire une vision consolidée du marché technologique européen en croisant
+plusieurs signaux : popularité des technologies, demande des recruteurs, salaires,
+expérience attendue et évolution temporelle. Le projet ne consistait donc pas
+seulement à stocker des données, mais à mettre en place une chaîne complète capable
+de capter des informations hétérogènes, de les fiabiliser puis de les restituer sous
+une forme exploitable.
 
-\paragraph{Problématique métier.}
+\paragraph{Contexte et objectif fonctionnel.}
 L'idée directrice était de répondre à des questions simples en apparence, mais
 complexes d'un point de vue data : quelles technologies montent ou reculent,
 quelles compétences sont les plus demandées, dans quels pays les opportunités sont
@@ -535,7 +536,7 @@ on fiabilise les tables source par source. En Gold, on change de niveau de
 raisonnement : on construit des objets orientés décision, pensés pour l'analyse
 et non plus seulement pour le nettoyage ou la conservation.
 
-\paragraph{Choix de stockage.}
+\paragraph{Choix de stockage relationnel et hybride.}
 L'architecture s'appuyait sur une stratégie de stockage mixte. Les données
 collectées et les jeux intermédiaires étaient conservés sous forme de fichiers
 dans les répertoires du datalake, en particulier dans une logique de stockage brut
@@ -545,8 +546,14 @@ et les traitements. En parallèle, les couches structurées \textit{Silver} et
 est important : le stockage fichier servait la traçabilité, l'archivage et la
 souplesse des pipelines, tandis que MySQL apportait une structure relationnelle
 fiable pour la consultation, les filtres, les recherches et l'exposition des
-données. Nous avons donc combiné deux logiques complémentaires plutôt que de
-choisir un seul mode de stockage.
+données.
+
+Ce volet relationnel justifie directement l'une des compétences du bloc. Dans ce
+projet, MySQL n'est pas une simple base technique en arrière-plan : il sert de
+socle relationnel pour les tables nettoyées et consolidées, avec une modélisation
+adaptée aux requêtes métier et aux analyses croisées. Les schémas SQL, les tables
+de dimensions, les tables de faits et la logique d'\textit{upsert} montrent que le
+modèle a été pensé pour des usages concrets de consultation et d'exposition.
 
 La structure technique globale du projet peut être résumée par le schéma suivant.
 
@@ -573,7 +580,7 @@ La structure technique globale du projet peut être résumée par le schéma sui
     {\small \textit{Figure 1 : Synthèse de l'architecture technique du projet Challenge Datalake.}}
 \end{center}
 
-\paragraph{Traitements et outils techniques.}
+\paragraph{Traitements, orchestration et robustesse.}
 Sur la partie traitement, nous avons mobilisé principalement Python, PySpark et
 Pandas. Python servait de langage commun pour l'ingestion, l'orchestration et les
 scripts métiers. PySpark intervenait pour traiter des jeux de données plus lourds
@@ -583,28 +590,71 @@ raisonnable et qu'un traitement tabulaire classique suffisait. Cette combinaison
 nous a permis d'adapter l'outil au type de source et au volume traité, tout en
 gardant une cohérence d'ensemble dans le projet.
 
-\paragraph{Organisation de l'API.}
+Le script principal d'exécution du pipeline centralise en outre plusieurs aspects
+opérationnels importants pour un projet de data engineering : sélection des étapes
+à exécuter, journalisation des traitements, mesure du temps d'exécution et gestion
+des erreurs par blocs \texttt{try/except}. Ce point est utile dans le cadre du bloc
+1, car il montre que l'architecture de stockage n'a pas été pensée comme une suite
+de scripts isolés, mais comme une chaîne exploitable, relançable et observable.
+
+\paragraph{Organisation de l'API REST.}
 Le dernier volet du projet concernait l'exposition de la donnée. Nous avons
 développé une API REST avec Django et Django REST Framework afin de rendre les
-résultats accessibles à d'autres applications ou à des utilisateurs métiers.
-L'API était organisée en modules métiers par source, par exemple
-\texttt{github\_jobs}, \texttt{stackoverflow\_survey}, \texttt{eurotechjobs},
-\texttt{jobicy\_jobs}, \texttt{trends} et \texttt{adzuna\_jobs}, ainsi qu'un
-module \texttt{analysis} pour les restitutions transverses. Cette structuration
-reprenait la logique du pipeline : chaque source avait sa propre porte d'entrée,
-mais l'API proposait aussi une lecture consolidée du marché.
+résultats accessibles à d'autres applications ou à des utilisateurs métiers. L'API
+était organisée en modules par source, par exemple \texttt{trends},
+\texttt{stackoverflow\_survey}, \texttt{adzuna\_jobs}, \texttt{github\_repos},
+\texttt{eurotechjobs} et \texttt{jobicy\_jobs}, ainsi qu'un module
+\texttt{analysis} pour les restitutions transverses de la couche Gold. Cette
+structuration reprenait la logique du pipeline : chaque source avait sa propre
+porte d'entrée, mais l'API proposait aussi une lecture consolidée du marché.
 
-\paragraph{Fonctionnalités d'exposition.}
+Les endpoints suivaient une logique REST homogène. Le projet prévoyait des routes
+de consultation pour chaque source, des vues de synthèse statistiques, des séries
+temporelles et des points d'accès analytiques. La documentation du rendu mentionne
+notamment plusieurs familles de routes :
+\begin{itemize}
+    \item \texttt{/api/trends/}
+    \item \texttt{/api/stackoverflow-survey/}
+    \item \texttt{/api/adzuna-jobs/}
+    \item \texttt{/api/github-repos/}
+    \item \texttt{/api/eurotechjobs/}
+    \item \texttt{/api/jobicy/}
+    \item \texttt{/api/analysis/}
+\end{itemize}
+Cette granularité montre que l'API ne se limitait pas à exposer une seule table,
+mais couvrait l'ensemble des domaines de données du projet.
+
+\paragraph{Fonctionnalités d'exposition et documentation.}
 Au-delà de la simple mise à disposition des tables, l'API proposait des fonctions
 de filtre, de tri, de pagination et de documentation automatique via Swagger /
-OpenAPI. Le projet comportait également des éléments d'authentification et de
-gestion des permissions, ce qui montre que l'enjeu n'était pas seulement de sortir
-des données, mais de construire une couche de service exploitable, documentée et
-réutilisable. Dans une logique de démonstration, la collection Postman fournie
-dans le dépôt permettait de tester rapidement les endpoints et de valider les cas
-d'usage principaux.
+OpenAPI. Le rendu du projet détaille l'usage de \texttt{drf-spectacular} pour
+générer une documentation interactive sous \texttt{/api/docs/}, une version ReDoc
+et un schéma OpenAPI exploitable par d'autres outils. Cette documentation est un
+élément important dans le cadre du bloc 1, car elle transforme la base de données
+et le datalake en service réellement consommable, compréhensible et testable.
 
-\paragraph{Valeur du projet dans le rapport.}
+\begin{center}
+    \fbox{\parbox{0.92\textwidth}{
+        \centering
+        \vspace{2.4cm}
+        \textit{Emplacement réservé pour une capture de l'interface Swagger UI du projet Challenge Datalake.}
+        \vspace{2.4cm}
+    }}
+
+    {\small \textit{Capture à ajouter : documentation Swagger UI de l'API Challenge Datalake.}}
+\end{center}
+
+\paragraph{Authentification et contrôle d'accès.}
+Le projet comportait également des éléments d'authentification et de gestion des
+permissions. Le rendu mentionne une authentification par session ainsi qu'une
+authentification JWT, avec des endpoints dédiés et des réglages pensés pour des
+tests réalistes. Il décrit aussi une politique de permissions différenciant les
+administrateurs, les utilisateurs authentifiés en lecture seule et les utilisateurs
+anonymes. Ces éléments sont importants, car ils montrent que l'enjeu n'était pas
+seulement de sortir des données, mais de construire une couche de service robuste,
+documentée et réutilisable.
+
+\paragraph{Valeur du projet pour le bloc 1.}
 Ce projet est particulièrement intéressant pour ce rapport, car il constitue un
 cas concret d'architecture de données de bout en bout. Il relie des problématiques
 de collecte, de structuration, de stockage, de transformation et de diffusion dans
@@ -613,160 +663,94 @@ exercice d'import de données, mais bien d'une plateforme cohérente où chaque
 couche répond à un rôle précis, depuis la source brute jusqu'au service exposé aux
 consommateurs.
 
-Pour la sous-compétence NoSQL, nous mobilisons en complément un autre projet,
-\textit{project\_cloud}, mais uniquement sur son volet NoSQL. Dans ce cadre, nous
-avons utilisé Amazon DynamoDB pour concevoir une base non relationnelle orientée
+\subsubsection{Projet Cloud : volet NoSQL}
+
+Pour la sous-compétence NoSQL, nous mobilisons en complément le projet
+\textit{project\_cloud}, mais uniquement sur son volet base non relationnelle.
+Dans ce cadre, nous avons utilisé Amazon DynamoDB pour concevoir une base orientée
 cas d'usage, destinée à stocker rapidement des données semi-structurées issues de
 plusieurs flux urbains sans imposer un schéma relationnel rigide.
 
-\newpage
-\subsection{Justification des compétences du bloc 1}
+\paragraph{Modèle de données dénormalisé.}
+Le modèle adopté est typiquement orienté document. Chaque enregistrement est
+stocké sous forme d'item JSON dénormalisé contenant directement les informations
+utiles au cas d'usage. Par exemple, les données de parkings incluent dans un même
+item l'identifiant, le nom, l'adresse, les capacités, les tarifs, l'état courant,
+les coordonnées et l'horodatage d'ingestion ; les données de trafic embarquent les
+propriétés métiers et les coordonnées du segment ; les données de départs
+regroupent l'identifiant du trajet, la gare de départ, la destination, le réseau,
+les horaires et la géolocalisation. Cette organisation est adaptée à DynamoDB,
+car elle évite les jointures et privilégie un accès direct à des objets déjà prêts
+à être consommés.
 
-\subsubsection{Concevoir et développer une base de données relationnelle}
+\paragraph{Tables par flux métier.}
+La modélisation repose sur des tables distinctes par grand flux métier, par
+exemple \texttt{parkings}, \texttt{traffic} et \texttt{departures}. Ce découpage
+répond à une logique d'usage : chaque table correspond à un type de données
+interrogé par des traitements et des endpoints spécifiques. Les items partagent
+néanmoins certaines métadonnées communes, notamment un champ \texttt{type}, un
+champ \texttt{ingestion\_timestamp} et, selon les cas, des informations de
+localisation. Ce choix permet d'unifier les traitements techniques tout en
+conservant la souplesse propre à chaque domaine.
 
-Le \textit{Challenge Datalake} démontre clairement cette compétence, car la couche
-\textit{Silver} puis la couche \textit{Gold} reposent sur MySQL pour structurer et
-exposer les données nettoyées. Dans ce projet, la base relationnelle ne sert pas
-uniquement de zone de stockage ; elle joue le rôle de \textit{data warehouse}
-centralisé, destiné à accueillir des données normalisées provenant de plusieurs
-sources externes.
-
-Le rapport du projet explique que la couche Bronze collecte les données brutes,
-que la couche Silver les nettoie et les homogénéise, puis que la couche Gold les
-unifie pour les rendre exploitables par l'API. Cette logique est confirmée dans
-le dépôt \texttt{julientremont/Jobtech}, où la configuration Django et les
-utilitaires SQL montrent l'usage explicite de MySQL. On y retrouve notamment des
-schémas SQL dédiés, une gestion de connexions centralisée, ainsi qu'une
-modélisation orientée analyse, avec des tables relationnelles adaptées aux
-requêtes métier.
-
-Cette partie répond donc à la compétence attendue, car il ne s'agissait pas
-seulement d'installer une base SQL, mais bien de concevoir une structure
-relationnelle cohérente avec le besoin client : centraliser des données sur le
-marché de l'emploi tech, les rendre interrogeables, les relier entre elles et
-permettre leur exploitation à travers une application. Le choix de MySQL est
-également pertinent au regard de la nature des données structurées finales,
-notamment pour les analyses croisées, les filtres, la pagination et les accès via
-API.
-
-\subsubsection{Concevoir et développer une base de données non relationnelle}
-
-Cette sous-compétence est justifiée par un autre projet que nous avons réalisé,
-\textit{project\_cloud}. Dans ce dépôt, la partie qui nous intéresse pour le bloc 1
-est la conception de la couche NoSQL avec Amazon DynamoDB. L'objectif n'était pas
-de reproduire un modèle relationnel, mais de stocker efficacement des données
-hétérogènes liées à plusieurs domaines métier de la ville de Paris, notamment les
-parkings, le trafic et les départs de transport.
-
-Le modèle de données adopté est typiquement orienté document. Chaque enregistrement
-est stocké sous forme d'item JSON dénormalisé, contenant directement les
-informations utiles au cas d'usage. Par exemple, les données de parkings incluent
-dans un même item l'identifiant, le nom, l'adresse, les capacités, les tarifs,
-l'état courant, les coordonnées et l'horodatage d'ingestion ; les données de
-trafic embarquent les propriétés métiers et les coordonnées du segment ; les
-données de départs regroupent l'identifiant du trajet, la gare de départ, la
-destination, le réseau, les horaires et la géolocalisation. Cette organisation est
-adaptée à DynamoDB, car elle évite les jointures et privilégie un accès direct à
-des objets déjà prêts à être consommés.
-
-La modélisation repose sur des tables distinctes par grand flux métier, par exemple
-\texttt{parkings}, \texttt{traffic} et \texttt{departures}. Ce découpage répond à une
-logique d'usage : chaque table correspond à un type de données interrogé par des
-traitements et des endpoints spécifiques. Les items partagent néanmoins certaines
-métadonnées communes, notamment un champ \texttt{type}, un champ
-\texttt{ingestion\_timestamp} et, selon les cas, des informations de localisation.
-Ce choix permet d'unifier les traitements techniques tout en conservant la
-souplesse propre à chaque domaine. Le code montre également l'usage d'écritures en
-lot avec \texttt{batch\_writer()}, ce qui est cohérent avec une logique d'ingestion
-fréquente et de chargement par lots.
-
+\paragraph{Patrons d'accès et indexation.}
 Un point important de cette conception est la prise en compte des patrons d'accès.
 Nous n'avons pas modélisé la base autour de relations théoriques entre entités,
 mais autour des requêtes réellement attendues. Les scripts et l'API exploitent un
 index secondaire global de type \textit{GSI} sur les attributs \texttt{type} et
 \texttt{ingestion\_timestamp} afin de retrouver rapidement le dernier lot ingéré
-ou les enregistrements correspondant à une fenêtre d'ingestion précise. Cette
-stratégie est représentative d'une bonne pratique NoSQL : on part des besoins de
-lecture, puis on construit la structure de stockage et les index en conséquence.
+ou les enregistrements correspondant à une fenêtre d'ingestion précise. Le code
+montre également l'usage d'écritures en lot avec \texttt{batch\_writer()}, ce qui
+est cohérent avec une logique d'ingestion fréquente et de chargement par lots.
 
-Cette conception répond à la compétence visée, car elle montre que nous avons su
-adapter le modèle de stockage à des données semi-structurées et à des besoins
-d'accès rapides, dans une logique orientée exploitation. Le volet NoSQL de
-\textit{project\_cloud} montre concrètement notre capacité à choisir une
-technologie non relationnelle lorsque la flexibilité du schéma, la dénormalisation,
-la montée en charge et la rapidité de lecture priment sur les contraintes d'un
-modèle SQL classique. C'est précisément ce qui était attendu ici : non pas
-simplement utiliser DynamoDB, mais concevoir une base cohérente avec la nature des
-données et les usages applicatifs visés.
+Ce volet NoSQL complète donc efficacement le \textit{Challenge Datalake}. Il montre
+notre capacité à choisir une technologie non relationnelle lorsque la flexibilité
+du schéma, la dénormalisation, la montée en charge et la rapidité de lecture
+priment sur les contraintes d'un modèle SQL classique.
 
-\subsubsection{Concevoir et construire un datalake}
+\newpage
+\subsection{Analyse attendue}
 
-Le \textit{Challenge Datalake} est la partie la plus représentative de cette
-compétence. L'architecture mise en place repose sur une logique \textit{Bronze /
-    Silver / Gold}, explicitement décrite dans le rapport du projet. La couche Bronze
-sert à collecter les données brutes depuis différentes sources externes et à les
-stocker localement au format Parquet. La couche Silver applique les traitements de
-nettoyage, de normalisation et d'enrichissement. Enfin, la couche Gold consolide
-les données dans un entrepôt exploitable par l'API et par les analyses.
+Mettez en avant la logique d'architecture de stockage retenue, la manière dont les
+sources hétérogènes sont intégrées dans une chaîne cohérente, l'adéquation entre
+les modèles de données choisis et les usages visés, ainsi que la capacité du projet
+à rendre les données accessibles via une API documentée et exploitable.
 
-Le choix de cette architecture est pertinent car il permet de séparer clairement
-les responsabilités : ingestion brute, préparation de la donnée et exposition des
-données consolidées. Cette organisation facilite la maintenance, la traçabilité
-et la reprise des traitements. Elle répond aussi à la diversité des systèmes
-sources : API publiques, fichiers CSV, enquêtes annuelles, scraping web et données
-issues de plateformes open source.
+\subsubsection{Preuves d'acquisition des compétences}
 
-Le rapport de rendu détaille plusieurs flux : Google Trends avec collecte
-historique et quotidienne, StackOverflow Survey avec import de fichiers annuels,
-Adzuna avec appels API mensuels, EuroTech Jobs et Jobicy via scrapping, ainsi que
-GitHub Repositories via API publique. Cette variété de formats et de rythmes
-d'ingestion illustre bien la capacité à intégrer des données structurées,
-semi-structurées et non structurées dans une architecture unique. Le stockage en
-Parquet et le traitement avec PySpark montrent en outre une démarche orientée
-performance et scalabilité, notamment grâce au partitionnement temporel et à la
-standardisation progressive des colonnes.
+Le tableau suivant récapitule, pour chacune des quatre sous-compétences du Bloc 1,
+la réalisation concrète qui la démontre dans les projets mobilisés.
 
-Nous pouvons donc justifier cette compétence en montrant que le projet ne se limite pas
-à une simple agrégation de fichiers : il s'agit bien d'un datalake conçu pour
-absorber plusieurs sources, conserver la donnée brute, produire une donnée fiabilisée
-et la rendre exploitable dans une couche analytique. C'est précisément l'objectif
-attendu dans ce bloc.
-
-\subsubsection{Créer une API pour rendre les données accessibles}
-
-La dernière sous-compétence du bloc est également couverte par le
-\textit{Challenge Datalake} grâce à l'API REST développée avec Django et Django
-REST Framework. Le rapport du projet consacre une partie complète à cette API et
-à son rôle de vitrine de données. L'objectif n'était pas seulement d'entreposer
-les données, mais de les rendre accessibles de manière claire, documentée et
-sécurisée.
-
-L'API est organisée par source de données, avec des routes dédiées pour Google
-Trends, StackOverflow Survey, Adzuna, GitHub, EuroTech Jobs et Jobicy, ainsi que
-des endpoints d'analyse transverses pour la couche Gold. Le dépôt montre
-également la présence d'une documentation Swagger / OpenAPI, d'une authentification
-par session et JWT, d'un système de permissions, ainsi que de fonctionnalités de
-filtrage, tri et pagination. Ces éléments sont importants, car ils traduisent une
-conception orientée usage et non une simple exposition brute des tables.
-
-Cette API justifie pleinement la compétence attendue : elle permet à des clients
-ou à d'autres services d'interroger les données selon leurs besoins, de récupérer
-des résumés, des séries temporelles ou des analyses métier, tout en conservant un
-cadre technique robuste. Elle améliore donc concrètement l'accessibilité et la
-praticité des données, ce qui correspond exactement à l'objectif de la sous-partie
-\textit{API et Web Services}.
-
-\subsection{Bilan du bloc 1}
-
-Au travers de ces deux projets, nous pouvons justifier l'ensemble des sous-compétences
-du bloc 1. Le \textit{Challenge Datalake} démontre notre capacité à concevoir une
-architecture de stockage complète, à centraliser plusieurs flux de données, à
-structurer une base relationnelle et à exposer les données via une API robuste.
-Le projet \textit{project\_cloud} complète cette démonstration sur la partie NoSQL,
-avec un cas concret d'usage de DynamoDB pour des données semi-structurées. Dans
-l'ensemble, ces réalisations montrent notre capacité à choisir les bons modèles de
-stockage selon les usages, à organiser les flux de données de bout en bout et à
-mettre les données à disposition de manière exploitable.
+\needspace{14\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
+\midrule
+Concevoir et développer une base de données relationnelle &
+  Le \textit{Challenge Datalake} s'appuie sur MySQL pour structurer les couches
+  \textit{Silver} et \textit{Gold}, avec tables nettoyées, logique d'\textit{upsert},
+  tables de dimensions, tables de faits et exposition relationnelle adaptée aux
+  filtres, recherches et requêtes analytiques. \\
+Concevoir et développer une base de données non relationnelle &
+  Le volet NoSQL de \textit{project\_cloud} repose sur DynamoDB avec items JSON
+  dénormalisés, tables séparées par flux métier, écritures par lots et index
+  secondaire global sur \texttt{type} et \texttt{ingestion\_timestamp}, conçu à
+  partir des besoins de lecture réels. \\
+Concevoir et construire un datalake &
+  Le \textit{Challenge Datalake} met en place une architecture \textit{Bronze /
+  Silver / Gold} capable d'ingérer des API, des fichiers tabulaires, des données
+  semi-structurées et du scraping, de conserver le brut, de normaliser les jeux de
+  données puis de produire une couche analytique consolidée. \\
+Créer une API pour rendre les données accessibles &
+  L'API REST développée avec Django REST Framework expose les données par source et
+  par vues analytiques, avec filtres, tri, pagination, documentation Swagger /
+  OpenAPI, authentification par session et JWT, et gestion des permissions pour des
+  usages applicatifs ou métiers. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
 \newpage
 \section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}
