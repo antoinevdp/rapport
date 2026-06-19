@@ -571,6 +571,12 @@ adaptée aux requêtes métier et aux analyses croisées. Les schémas SQL, les 
 de dimensions, les tables de faits et la logique d'\textit{upsert} montrent que le
 modèle a été pensé pour des usages concrets de consultation et d'exposition.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/mysql-tables-datalake.png}
+    \caption{Capture de la structure relationnelle MySQL des couches Silver et Gold du projet Challenge Datalake.}
+\end{figure}
+
 La structure technique globale du projet peut être résumée par le schéma suivant.
 
 \begin{center}
@@ -640,6 +646,12 @@ notamment plusieurs familles de routes :
 Cette granularité montre que l'API ne se limitait pas à exposer une seule table,
 mais couvrait l'ensemble des domaines de données du projet.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/swagger-ui-endpoints-datalake.png}
+    \caption{Documentation Swagger UI des endpoints de l'API du projet Challenge Datalake.}
+\end{figure}
+
 \paragraph{Fonctionnalités d'exposition et documentation.}
 Au-delà de la simple mise à disposition des tables, l'API proposait des fonctions
 de filtre, de tri, de pagination et de documentation automatique via Swagger /
@@ -649,16 +661,11 @@ et un schéma OpenAPI exploitable par d'autres outils. Cette documentation est u
 élément important dans le cadre du bloc 1, car elle transforme la base de données
 et le datalake en service réellement consommable, compréhensible et testable.
 
-\begin{center}
-    \fbox{\parbox{0.92\textwidth}{
-        \centering
-        \vspace{2.4cm}
-        \textit{Emplacement réservé pour une capture de l'interface Swagger UI du projet Challenge Datalake.}
-        \vspace{2.4cm}
-    }}
-
-    {\small \textit{Capture à ajouter : documentation Swagger UI de l'API Challenge Datalake.}}
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/swagger-ui-schema-datalake.png}
+    \caption{Vue Swagger / OpenAPI du schéma exposé par l'API du projet Challenge Datalake.}
+\end{figure}
 
 \paragraph{Authentification et contrôle d'accès.}
 Le projet comportait également des éléments d'authentification et de gestion des
