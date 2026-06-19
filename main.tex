@@ -28,6 +28,7 @@
 \usepackage{seqsplit}
 \usepackage{tabularx}
 \usepackage{colortbl}
+\usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{needspace}
 \usepackage{float}
@@ -60,9 +61,10 @@
 % ===================== COULEURS =============================
 \definecolor{titleNavy}{RGB}{22,50,92}
 \definecolor{accentBlue}{RGB}{30,110,180}
-\definecolor{tableHeader}{RGB}{22,50,92}
-\definecolor{tableRowAlt}{RGB}{238,242,248}
-\definecolor{ruleGray}{RGB}{200,205,212}
+\definecolor{tableHeader}{RGB}{227,236,247}
+\definecolor{tableHeaderText}{RGB}{22,50,92}
+\definecolor{tableRowAlt}{RGB}{245,248,252}
+\definecolor{ruleGray}{RGB}{210,216,224}
 \definecolor{validGreen}{RGB}{36,130,70}
 \definecolor{bronzeColor}{RGB}{180,110,60}
 \definecolor{bronzeBg}{RGB}{255,240,220}
@@ -74,6 +76,13 @@
 \definecolor{cloudBg}{RGB}{220,238,255}
 \definecolor{mlColor}{RGB}{80,140,60}
 \definecolor{mlBg}{RGB}{225,245,220}
+
+\renewcommand{\theadfont}{\bfseries\color{tableHeaderText}}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\extrarowheight}{2pt}
+\setlength{\arrayrulewidth}{0.45pt}
+\setlength{\tabcolsep}{6pt}
+\arrayrulecolor{ruleGray}
 
 % ---- Figures encadrées avec légende (captures du projet) ----
 \captionsetup{font={small,it}, labelfont={bf,color=titleNavy}, labelsep=endash, justification=centering}
@@ -184,6 +193,8 @@
 \section*{Remerciements}
 \addcontentsline{toc}{section}{Remerciements}
 
+\noindent\textbf{Julien Tremont-Raimi}
+
 Je tiens à exprimer mes remerciements les plus sincères au intervenants et professeurs.
 La richesse de leurs enseignements ont grandement enrichi mes connaissances
 et affûté mes compétences ; leur encadrement, leur conseils, prodigués tout au long de
@@ -193,6 +204,19 @@ Enfin, je voudrais exprimer ma profonde gratitude envers toutes les personnes de
 cadre d'apprentissage qu'elles m'ont offert. Cet environnement a joué un rôle déterminant dans mon
 développement professionnel en me permettant d'acquérir de nouvelles compétences. Je tiens à souligner
 combien les opportunités d'expérimentation qui m'ont été offertes ont été d'une valeur inestimable.
+
+\medskip
+\noindent\textbf{Antoine Vandeplanque}
+
+Je tiens également à remercier les intervenants de la formation pour la qualité de leurs enseignements
+et pour les échanges qui ont nourri ma réflexion tout au long de ce parcours.
+
+J'adresse une gratitude particulière à ma tutrice, Leticia Pitthan, pour son accompagnement, sa
+disponibilité et ses conseils, qui m'ont permis de progresser et de prendre du recul sur mes missions.
+
+Je remercie enfin mes collègues de Renault Digital pour leur accueil, leur confiance et l'environnement
+de travail stimulant dans lequel j'ai pu évoluer. Leur partage d'expérience et leur soutien au
+quotidien ont largement contribué à mon développement professionnel.
 
 \medskip
 \noindent À tous, merci pour votre contribution essentielle à la concrétisation de ce
@@ -226,21 +250,17 @@ blocs du référentiel.
 
 \needspace{12\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|l|}
-\hline
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}Xl@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
-\hline
+\midrule
 Jobtech & Agrégation de données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
-\hline
 project\_cloud & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
-\hline
 projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
-\hline
 fizzbuzz-Efrei & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
-\hline
 data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -306,38 +326,34 @@ artificielle (Bloc 4) et l'élaboration de stratégies de gouvernance des donné
 
 \needspace{10\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|p{2.6cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}p{2.6cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Bloc} & \thead{Intitulé} & \thead{Compétences clés} \\
-\hline
+\midrule
 RNCP36739\newline Bloc 1 &
   Concevoir et développer une architecture de stockage de données &
   Bases de données relationnelles et non-relationnelles, construction de Datalake,
   création d'API d'accès aux données. \\
-\hline
 RNCP36739\newline Bloc 2 &
   Concevoir, développer et déployer une solution de traitement des données massives &
   Architectures distribuées, systèmes de streaming, optimisation des pipelines,
   automatisation CI/CD (conteneurisation, ordonnancement). \\
-\hline
 RNCP36739\newline Bloc 3 &
   Implémenter et optimiser des solutions de stockage et de traitement de données sur
   le cloud &
   Solutions cloud (stockage, pipelines), sécurisation (chiffrement, IAM, conformité),
   optimisation des performances et des coûts. \\
-\hline
 RNCP36739\newline Bloc 4 &
   Implémenter des méthodes d'intelligence artificielle pour modéliser et prédire de
   nouveaux comportements &
   Extraction et préparation des données, tableaux de bord interactifs, modèles
   prédictifs supervisés, évaluation des performances. \\
-\hline
 RNCP36739\newline Bloc 5 &
   Concevoir une stratégie de management et de gouvernance de données &
   Gouvernance (politiques, rôles), conformité (régulations, vie privée), audit
   qualité, stratégie de sécurité et d'accès aux données. \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -367,7 +383,7 @@ RNCP36739\newline Bloc 5 &
 
 \begin{itemize}
     \item Challenge Datalake 1 Data Integration
-    \item Project Cloud
+    \item Project Cloud (No SQL)
 \end{itemize}
 
 \subsection{Présentation des projets mobilisés}
@@ -1106,36 +1122,32 @@ réalisation concrète qui la démontre dans le projet.
 
 \needspace{14\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
-\hline
+\midrule
 Architecture distribuée pour le traitement de données massives &
   Architecture Spark distribuée structurée en couches Bronze / Silver / Gold,
   pilotée par une \texttt{SparkSession} commune et un point d'entrée cluster
   \texttt{spark://localhost:7077}. \\
-\hline
 Système distribué de streaming &
   Ingestion incrémentale des vols via \texttt{readStream}, écriture en mode
   \texttt{append}, partitionnement des sorties et \textit{checkpointing} pour la
   reprise fiable des micro-batches. \\
-\hline
 Transformation de données variées pour l'analytique à l'échelle &
   Croisement de deux sources hétérogènes (vols CSV et météo API), normalisation
   temporelle en UTC en Silver, puis jointures analytiques en Gold avec Spark SQL. \\
-\hline
 Optimisation des performances des pipelines &
   Utilisation du format Parquet, partitionnement par \texttt{Year}/\texttt{Month}/\texttt{Day},
   séparation Bronze / Silver / Gold et exécution distribuée Spark SQL pour limiter
   les lectures inutiles et accélérer les agrégations. \\
-\hline
 Automatisation, tests, intégration et déploiement des pipelines &
   Workflow GitHub Actions exécuté sur plusieurs branches et versions Python,
   combinant linting \texttt{flake8}, tests \texttt{unittest}, couverture
   \texttt{coverage}, puis conteneurisation avec Docker et exécution reproductible via
   \texttt{docker compose} pour préparer la livraison de l'application. \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -1199,23 +1211,18 @@ AWS propose plusieurs alternatives pour chaque composant de l'architecture. Les
 choix retenus sont justifiés par rapport à ces alternatives.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}lll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Besoin} & \thead{Choix retenu} & \thead{Alternative} & \thead{Justification} \\
-\hline
+\midrule
 Lac de données & S3 & EFS, EBS & Coût minimal, accès objet universel \\
-\hline
 Base NoSQL & DynamoDB & MongoDB Atlas, ElasticSearch & Managé, serverless, GSI natif \\
-\hline
 Compute API & Lambda & EC2, ECS/Fargate & Pas d'infra à gérer, facturation à l'usage \\
-\hline
 Routage API & API Gateway & ALB, CloudFront & Intégration Lambda native, gestion CORS \\
-\hline
 Dashboard & Streamlit (EC2) & QuickSight, PowerBI & Open source, Python natif \\
-\hline
 Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeable \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \subsection{Architecture cloud}
@@ -1357,19 +1364,16 @@ la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serai
 l'enregistrement le plus récent en O(1).
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
-\hline
+\midrule
 Items lus & Toute la table (N) & Exactement 1 \\
-\hline
 Unités de lecture (RCU) & N & 1 \\
-\hline
 Complexité & O(n) & O(1) \\
-\hline
 Tri & Côté application & Natif (sort key) \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
@@ -1440,31 +1444,22 @@ fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
 3\_600\_000\_000}), puis calcul des indicateurs métier.
 
 \needspace{12\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
-\hline
+\midrule
 \texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
-\hline
 \texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
-\hline
 \texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
-\hline
 \texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
-\hline
 \texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
-\hline
 \texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
-\hline
 \texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
-\hline
 \texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
-\hline
 \texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
-\hline
 \texttt{aggregation\_departures\_total} & Total des départs sur la période \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
@@ -1524,15 +1519,14 @@ et l'exécution. Le cold start n'a lieu qu'à la première invocation après une
 d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
-\hline
+\midrule
 Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
-\hline
 Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
@@ -1551,23 +1545,21 @@ Chaque composant s'exécute sous un rôle IAM dédié n'accordant que les permis
 strictement nécessaires à sa fonction.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Rôle IAM} & \thead{Permissions} & \thead{Justification} \\
-\hline
+\midrule
 \texttt{lambda-api-role} &
   \code{dynamodb:GetItem}\newline \code{dynamodb:Query}\newline \code{dynamodb:Scan} &
   L'API ne fait que lire --- aucune permission d'écriture accordée. \\
-\hline
 \texttt{ingestion-role} &
   \code{s3:PutObject}\newline \code{dynamodb:PutItem}\newline \code{dynamodb:BatchWriteItem} &
   L'ingestion écrit S3 et DynamoDB, sans relecture. \\
-\hline
 \texttt{aggregation-role} &
   \code{dynamodb:Query} (Silver)\newline \code{dynamodb:PutItem} (Gold) &
   Isolation stricte : lecture Silver, écriture Gold. \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Cette séparation garantit qu'une compromission d'un Lambda d'agrégation ne peut ni
@@ -1581,17 +1573,15 @@ Le chiffrement en transit est assuré par défaut en HTTPS (TLS 1.2+) sur tous l
 appels boto3. Le chiffrement au repos est natif sur chaque service managé.
 
 \needspace{7\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Service} & \thead{Mode de chiffrement} & \thead{Implémentation projet} \\
-\hline
+\midrule
 AWS S3 & SSE-S3 (clé gérée AWS) & Chiffrement côté serveur automatique \\
-\hline
 AWS DynamoDB & AES-256 (clé AWS) & Activé par défaut sur toutes les tables \\
-\hline
 API Gateway & TLS 1.2+ obligatoire & Aucun trafic HTTP non chiffré \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour des données sensibles (positions GPS, données personnelles de transport), le
@@ -1626,19 +1616,16 @@ L'architecture Lambda + API Gateway est coût-efficace pour un flux intermittent
 comparaison avec une instance EC2 permanente illustre le gain.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Critère} & \thead{Lambda + API Gateway} & \thead{EC2 t3.small} \\
-\hline
+\midrule
 Facturation & À la requête (0,20 \$/M appels) & À l'heure ($\approx$18 \$/mois) \\
-\hline
 Scaling & Automatique, instantané & Manuel ou auto-scaling (délai) \\
-\hline
 Coût en veille & 0 \$ & 18 \$/mois (actif 24/7) \\
-\hline
 Maintenance OS & Aucune (managé) & Patches, mises à jour, supervision \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour le profil du projet (appels toutes les 5 minutes), la facturation Lambda est
@@ -1652,17 +1639,15 @@ le coût de stockage croît indéfiniment. Une politique de cycle de vie S3 auto
 l'archivage puis la suppression.
 
 \needspace{7\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|l|l|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xll@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Règle} & \thead{Délai} & \thead{Effet} \\
-\hline
+\midrule
 Transition vers S3 Infrequent Access & 30 jours & $-40\,\%$ de coût \\
-\hline
 Transition vers S3 Glacier & 90 jours & $-70\,\%$ (récupération lente) \\
-\hline
 Suppression automatique & 365 jours & Coût nul \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \subsubsection{Supervision CloudWatch}
@@ -1672,21 +1657,17 @@ CloudWatch collecte automatiquement les métriques de chaque service. Une alarme
 avant que le throttling n'affecte les utilisateurs.
 
 \needspace{9\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Service} & \thead{Métrique} & \thead{Seuil d'alerte} \\
-\hline
+\midrule
 Lambda ingestion & \texttt{Errors} & $>$ 0 erreur en 5 min \\
-\hline
 Lambda API & \texttt{Duration} & $>$ 3 secondes \\
-\hline
 DynamoDB & \texttt{ThrottledRequests} & $>$ 0 (critique) \\
-\hline
 API Gateway & \texttt{5XXError} & $>$ 1\,\% du trafic \\
-\hline
 S3 & \texttt{NumberOfObjects} & Croissance anormale \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \capture{Tableau de bord Streamlit -- page Parkings : taux d'occupation global en temps réel et carte des parkings disponibles.}
@@ -1705,27 +1686,24 @@ réalisation concrète qui la démontre dans le projet.
 
 \needspace{12\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
-\hline
+\midrule
 Stockage de données dans le cloud &
   Lac de données S3 horodaté (Bronze) et base DynamoDB managée (Silver/Gold),
   avec choix de services justifié face aux alternatives AWS. \\
-\hline
 Pipelines de traitement cloud &
   Ingestion incrémentale idempotente S3 $\rightarrow$ DynamoDB et pipeline
   d'agrégation produisant 10 tables analytiques pré-calculées. \\
-\hline
 Sécurité (chiffrement \& IAM) &
   Rôles IAM au moindre privilège, chiffrement au repos (SSE-S3, AES-256) et en
   transit (TLS 1.2+), automatisation sécurisée via EventBridge. \\
-\hline
 Optimisation (performance, disponibilité, coûts) &
   GSI pour un accès O(1), compute serverless facturé à l'usage, cycle de vie S3 et
   supervision CloudWatch (métriques + alarmes SNS). \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -1859,17 +1837,15 @@ deux tâches de prédiction du projet.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Stratégie}    & \thead{Pré-requis} & \thead{Coût d'une panne} & \thead{Coût de maintenance}      \\
-        \hline
+        \midrule
         Corrective           & Aucun              & Élevé (arrêt non prévu)  & Faible (minimal)                 \\
-        \hline
         Préventive planifiée & Calendrier         & Faible                   & Élevé (pièces saines remplacées) \\
-        \hline
         \textbf{Prédictive}  & Capteurs + ML      & Quasi-nul                & Optimisé (juste à temps)         \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -1891,7 +1867,7 @@ observations qui orientent les choix méthodologiques.
     \texttt{none} (85\,\%). Ce déséquilibre impose le F1-score et la PR-AUC comme
     métriques, ainsi qu'un split stratifié.}
 
-Les boîtes à moustaches confirment que les variables dominantes séparent nettement
+Les box plots confirment que les variables dominantes séparent nettement
 les machines saines des machines à risque : sur les machines en panne, la température
 moyenne passe de 49 à 63\,°C et la durée de vie résiduelle chute de 30,6 à 11,8\,h.
 
@@ -1913,27 +1889,22 @@ et deux cibles alternatives, une par tâche de prédiction.
 
 \needspace{10\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Variable}              & \thead{Type}      & \thead{Description}                      \\
-        \hline
+        \midrule
         \texttt{rul\_hours}           & Numérique         & Heures de vie résiduelle estimée         \\
-        \hline
         \texttt{temperature\_motor}   & Numérique         & Température moteur (°C)                  \\
-        \hline
         \texttt{rpm}                  & Numérique         & Vitesse de rotation (tours/min)          \\
-        \hline
         \texttt{vibration\_rms}       & Numérique         & Amplitude vibratoire RMS                 \\
-        \hline
         \texttt{pressure\_level}      & Numérique         & Niveau de pression                       \\
-        \hline
+        \addlinespace[2pt]
         \texttt{operating\_mode}      & Catégoriel        & Mode de fonctionnement                   \\
-        \hline\hline
+        \midrule
         \texttt{failure\_within\_24h} & Cible binaire     & Une panne surviendra-t-elle sous 24\,h ? \\
-        \hline
         \texttt{failure\_type}        & Cible multiclasse & Type de panne (5 classes)                \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2117,21 +2088,17 @@ distingue par deux optimisations déterminantes :
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Caractéristique}    & \thead{HistGradientBoosting}           & \thead{RandomForest}               \\
-        \hline
+        \midrule
         Valeurs manquantes         & Nativement gérées                      & Imputation requise                 \\
-        \hline
         Complexité d'entraînement  & $O(256 \times d \times \text{arbres})$ & $O(n \log n \times \text{arbres})$ \\
-        \hline
         Risque de surapprentissage & Modéré (régularisation $\ell_2$)       & Faible (bagging)                   \\
-        \hline
         Interprétabilité           & Faible (boîte noire)                   & Moyenne (importance native)        \\
-        \hline
         Gestion du déséquilibre    & Bonne (\texttt{class\_weight})         & Très bonne (\texttt{balanced})     \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2147,19 +2114,16 @@ indispensable pour choisir le bon modèle par cas d'usage.
 
 \needspace{10\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|c|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xccccc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Modèle}             & \thead{F1}      & \thead{Précision} & \thead{Rappel} & \thead{ROC-AUC} & \thead{PR-AUC}  \\
-        \hline
+        \midrule
         \textbf{gradient boosting} & \textbf{0,9775} & 0,9789            & 0,9761         & \textbf{0,9991} & \textbf{0,9956} \\
-        \hline
         random forest              & 0,9752          & 0,9857            & 0,9649         & 0,9995          & 0,9976          \\
-        \hline
         mlp classifier             & 0,9337          & 0,9697            & 0,9003         & 0,9974          & 0,9877          \\
-        \hline
         logistic regression        & 0,7224          & 0,8456            & 0,6306         & 0,9485          & 0,8273          \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2180,15 +2144,14 @@ inutilisable pour ce cas d'usage critique.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xccc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Modèle}           & \thead{weighted\_F1} & \thead{macro\_F1} & \thead{Classes} \\
-        \hline
+        \midrule
         \textbf{random\_forest}  & \textbf{0,9782}      & 0,8955            & 5               \\
-        \hline
         hist\_gradient\_boosting & 0,9753               & 0,8829            & 5               \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2208,23 +2171,18 @@ mélangées aléatoirement. Plus la chute est forte, plus la variable est prédi
 
 \needspace{9\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Variable}            & \thead{Importance (permutation)} \\
-        \hline
+        \midrule
         \texttt{rul\_hours}         & \textbf{0,4954}                  \\
-        \hline
         \texttt{temperature\_motor} & 0,2899                           \\
-        \hline
         \texttt{rpm}                & 0,2772                           \\
-        \hline
         \texttt{vibration\_rms}     & 0,1165                           \\
-        \hline
         \texttt{pressure\_level}    & 0,0471                           \\
-        \hline
         \texttt{operating\_mode}    & 0,0174                           \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2262,15 +2220,14 @@ Au-delà des scores agrégés, l'analyse de la matrice de confusion
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabular}{|l|>{\centering\arraybackslash}p{3.9cm}|>{\centering\arraybackslash}p{3.9cm}|}
-        \hline
+    \begin{tabular}{@{}l>{\centering\arraybackslash}p{3.9cm}>{\centering\arraybackslash}p{3.9cm}@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{}                     & \thead{Prédit : panne}                   & \thead{Prédit : pas de panne}        \\
-        \hline
+        \midrule
         \textbf{Réel : panne}        & VP (vrais positifs)                      & FN (faux négatifs --- risque métier) \\
-        \hline
         \textbf{Réel : pas de panne} & FP (faux positifs --- coût mobilisation) & VN (vrais négatifs)                  \\
-        \hline
+        \bottomrule
     \end{tabular}
 \end{center}
 
@@ -2343,7 +2300,7 @@ Il s'organise en trois pages complémentaires :
 
 \begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=3pt]
     \item \textbf{Page exploration (EDA)} : distributions des variables capteurs
-          (histogrammes, boîtes à moustaches), corrélations entre variables (carte de
+          (histogrammes, box plots), corrélations entre variables (carte de
           chaleur), répartition des classes cibles. Elle permet à un expert métier de
           comprendre les données sans écrire de code.
     \item \textbf{Page benchmark} : tableau comparatif des modèles (F1, précision,
@@ -2371,25 +2328,19 @@ est la condition de la reproductibilité des résultats annoncés.
 
 \needspace{9\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Module testé}                   & \thead{Périmètre de validation}                        \\
-        \hline
+        \midrule
         \texttt{test\_data.py}                 & Chargement du dataset, séparation features/cible       \\
-        \hline
         \texttt{test\_preprocessing.py}        & Pipeline ColumnTransformer, split stratifié            \\
-        \hline
         \texttt{test\_prediction\_pipeline.py} & Pipeline complet entraînement $\rightarrow$ prédiction \\
-        \hline
         \texttt{test\_evaluate.py}             & Métriques binaires et multiclasses                     \\
-        \hline
         \texttt{test\_explainability.py}       & Permutation importance                                 \\
-        \hline
         \texttt{test\_api.py}                  & Endpoints FastAPI (health, predict)                    \\
-        \hline
         \texttt{test\_dashboard\_helpers.py}   & Fonctions de visualisation Streamlit                   \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2412,17 +2363,15 @@ cinq.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Méthode}       & \thead{Avantage}                        & \thead{Inconvénient}               \\
-        \hline
+        \midrule
         Split 80/20 stratifié & Rapide, simple à implémenter            & Variance selon la graine aléatoire \\
-        \hline
         k-fold (k=5)          & Estimation robuste (k résultats)        & 5$\times$ le temps de calcul       \\
-        \hline
         Stratified k-fold     & Robustesse + représentation des classes & Même coût que k-fold               \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2461,40 +2410,33 @@ réalisation concrète qui la démontre dans le projet et le résultat mesurable
 
 \needspace{14\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Compétence visée}                                   & \thead{Réalisation et preuve dans le projet} \\
-        \hline
+        \midrule
         Extraire des données de systèmes variés                    &
         Chargement et exploration d'un jeu de données de capteurs industriels
         (\texttt{data.py}, 6 variables, 2 cibles) avec séparation features/cible contrôlée.                       \\
-        \hline
         Préparer et nettoyer les données                           &
         Pipeline \texttt{ColumnTransformer} : imputation médiane + standardisation
         (numériques), imputation modale + encodage one-hot (catégoriel), split
         stratifié 80/20.                                                                                          \\
-        \hline
         Communication infographique (tableaux de bord interactifs) &
         Tableau de bord \textbf{Streamlit} à trois pages : exploration (EDA),
         comparaison des modèles, prédiction en temps réel via l'API.                                              \\
-        \hline
         Développer un modèle prédictif supervisé                   &
         Deux tâches (classification binaire et multiclasse à 5 classes), quatre
         modèles candidats par tâche, sélection automatisée du meilleur.                                           \\
-        \hline
         Évaluer et comparer les performances                       &
         Benchmark sur F1, précision, rappel, ROC-AUC, PR-AUC ; meilleur F1
         = \textbf{0,9775} (binaire) et weighted\_F1 = \textbf{0,9782} (multiclasse).                              \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
 \newpage
 \section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}
-
-Cette partie doit montrer votre capacite a relier les enjeux techniques aux
-enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
 
 \subsection{Competences visees}
 
