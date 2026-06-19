@@ -282,10 +282,10 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/seqsplit/seqsplit.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/seqsplit/seqsplit.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/float/float.sty

@@ -25,8 +25,8 @@
 \contentsline {paragraph}{Fonctionnalités d'exposition et documentation.}{8}{paragraph*.10}%
 \contentsline {paragraph}{Authentification et contrôle d'accès.}{8}{paragraph*.11}%
 \contentsline {paragraph}{Valeur du projet pour le bloc 1.}{8}{paragraph*.12}%
-\contentsline {subsubsection}{\numberline {4.3.2}Projet Cloud : volet NoSQL}{8}{subsubsection.4.3.2}%
-\contentsline {paragraph}{Modèle de données dénormalisé.}{8}{paragraph*.13}%
+\contentsline {subsubsection}{\numberline {4.3.2}Projet Cloud : volet NoSQL}{9}{subsubsection.4.3.2}%
+\contentsline {paragraph}{Modèle de données dénormalisé.}{9}{paragraph*.13}%
 \contentsline {paragraph}{Tables par flux métier.}{9}{paragraph*.14}%
 \contentsline {paragraph}{Patrons d'accès et indexation.}{9}{paragraph*.15}%
 \contentsline {subsection}{\numberline {4.4}Analyse attendue}{10}{subsection.4.4}%
