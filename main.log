@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.6)  18 JUN 2026 12:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.6)  18 JUN 2026 19:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -554,11 +554,127 @@ Package: array 2026/02/24 v2.7b Tabular extension package (FMi)
 \extratabsurround=\skip71
 \backup@length=\skip72
 \ar@cellbox=\box70
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/mdframed/mdframed.sty
+Package: mdframed 2013/07/01 1.9b: mdframed
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-05-26 L3 programming layer (loader) 
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count351
+))
+Package: xparse 2025-10-09 L3 Experimental document command parser
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/zref/zref-abspage.sty
+Package: zref-abspage 2026-03-07 v2.37 Module abspage for zref (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/zref/zref-base.sty
+Package: zref-base 2026-03-07 v2.37 Module base for zref (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 767.
+Package zref Info: New property: default on input line 768.
+Package zref Info: New property: page on input line 769.
+)
+\c@abspage=\count352
+Package zref Info: New property: abspage on input line 67.
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/needspace/needspace.sty
+Package: needspace 2025/03/13 v1.3e reserve vertical space
+)
+\mdf@templength=\skip73
+\c@mdf@globalstyle@cnt=\count353
+\mdf@skipabove@length=\skip74
+\mdf@skipbelow@length=\skip75
+\mdf@leftmargin@length=\skip76
+\mdf@rightmargin@length=\skip77
+\mdf@innerleftmargin@length=\skip78
+\mdf@innerrightmargin@length=\skip79
+\mdf@innertopmargin@length=\skip80
+\mdf@innerbottommargin@length=\skip81
+\mdf@splittopskip@length=\skip82
+\mdf@splitbottomskip@length=\skip83
+\mdf@outermargin@length=\skip84
+\mdf@innermargin@length=\skip85
+\mdf@linewidth@length=\skip86
+\mdf@innerlinewidth@length=\skip87
+\mdf@middlelinewidth@length=\skip88
+\mdf@outerlinewidth@length=\skip89
+\mdf@roundcorner@length=\skip90
+\mdf@footenotedistance@length=\skip91
+\mdf@userdefinedwidth@length=\skip92
+\mdf@needspace@length=\skip93
+\mdf@frametitleaboveskip@length=\skip94
+\mdf@frametitlebelowskip@length=\skip95
+\mdf@frametitlerulewidth@length=\skip96
+\mdf@frametitleleftmargin@length=\skip97
+\mdf@frametitlerightmargin@length=\skip98
+\mdf@shadowsize@length=\skip99
+\mdf@extratopheight@length=\skip100
+\mdf@subtitleabovelinewidth@length=\skip101
+\mdf@subtitlebelowlinewidth@length=\skip102
+\mdf@subtitleaboveskip@length=\skip103
+\mdf@subtitlebelowskip@length=\skip104
+\mdf@subtitleinneraboveskip@length=\skip105
+\mdf@subtitleinnerbelowskip@length=\skip106
+\mdf@subsubtitleabovelinewidth@length=\skip107
+\mdf@subsubtitlebelowlinewidth@length=\skip108
+\mdf@subsubtitleaboveskip@length=\skip109
+\mdf@subsubtitlebelowskip@length=\skip110
+\mdf@subsubtitleinneraboveskip@length=\skip111
+\mdf@subsubtitleinnerbelowskip@length=\skip112
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
+File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
+)
+\mdf@frametitlebox=\box71
+\mdf@footnotebox=\box72
+\mdf@splitbox@one=\box73
+\mdf@splitbox@two=\box74
+\mdf@splitbox@save=\box75
+\mdfsplitboxwidth=\skip113
+\mdfsplitboxtotalwidth=\skip114
+\mdfsplitboxheight=\skip115
+\mdfsplitboxdepth=\skip116
+\mdfsplitboxtotalheight=\skip117
+\mdfframetitleboxwidth=\skip118
+\mdfframetitleboxtotalwidth=\skip119
+\mdfframetitleboxheight=\skip120
+\mdfframetitleboxdepth=\skip121
+\mdfframetitleboxtotalheight=\skip122
+\mdffootnoteboxwidth=\skip123
+\mdffootnoteboxtotalwidth=\skip124
+\mdffootnoteboxheight=\skip125
+\mdffootnoteboxdepth=\skip126
+\mdffootnoteboxtotalheight=\skip127
+\mdftotallinewidth=\skip128
+\mdfboundingboxwidth=\skip129
+\mdfboundingboxtotalwidth=\skip130
+\mdfboundingboxheight=\skip131
+\mdfboundingboxdepth=\skip132
+\mdfboundingboxtotalheight=\skip133
+\mdf@freevspace@length=\skip134
+\mdf@horizontalwidthofbox@length=\skip135
+\mdf@verticalmarginwhole@length=\skip136
+\mdf@horizontalspaceofbox=\skip137
+\mdfsubtitleheight=\skip138
+\mdfsubsubtitleheight=\skip139
+\c@mdfcountframes=\count354
+
+****** mdframed patching \endmdf@trivlist
+
+****** -- success******
+
+\mdf@envdepth=\count355
+\c@mdf@env@i=\count356
+\c@mdf@env@ii=\count357
+\c@mdf@zref@counter=\count358
+Package zref Info: New property: mdf@pagevalue on input line 895.
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen305
-\c@nlinenum=\count351
+\c@nlinenum=\count359
 \TeXr@lab=\toks41
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/seqsplit/seqsplit.sty
+Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins, etc.) 
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@col@width=\dimen306
@@ -566,31 +682,29 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@old@col=\dimen308
 \TX@target=\dimen309
 \TX@delta=\dimen310
-\TX@cols=\count352
+\TX@cols=\count360
 \TX@ftn=\toks42
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2026/05/01 v1.0l Color table columns (DPC)
 
 new hooks used!!
-\minrowclearance=\skip73
-\rownum=\count353
+\minrowclearance=\skip140
+\rownum=\count361
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
-\labelindent=\skip74
+\labelindent=\skip141
 \enit@outerparindent=\dimen311
 \enit@toks=\toks43
-\enit@inbox=\box71
-\enit@count@id=\count354
-\enitdp@description=\count355
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/needspace/needspace.sty
-Package: needspace 2025/03/13 v1.3e reserve vertical space
+\enit@inbox=\box76
+\enit@count@id=\count362
+\enitdp@description=\count363
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count356
+\c@float@type=\count364
 \float@exts=\toks44
-\float@box=\box72
+\float@box=\box77
 \@float@everytoks=\toks45
-\@floatcapt=\box73
+\@floatcapt=\box78
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
  (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
@@ -606,46 +720,43 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 Package caption Info: Standard document class detected.
 Package caption Info: french babel package is loaded.
 )
-\c@caption@flags=\count357
-\c@continuedfloat=\count358
+\c@caption@flags=\count365
+\c@continuedfloat=\count366
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 )
 Package french3.ldf Info: Setting StandardItemizeEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 128.
+(french3.ldf)             reported on input line 149.
 Package french3.ldf Info: Setting StandardEnumerateEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 128.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count359
-) (./main.aux
+(french3.ldf)             reported on input line 149.
+ (./main.aux
 Package babel Info: 'french' activates 'french' shorthands.
-(babel)             Reported on input line 11.
+(babel)             Reported on input line 12.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 128.
-LaTeX Font Info:    ... okay on input line 128.
-LaTeX Info: Redefining \degres on input line 128.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 149.
+LaTeX Font Info:    ... okay on input line 149.
+LaTeX Info: Redefining \degres on input line 149.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -683,16 +794,16 @@ LaTeX Info: Redefining \degres on input line 128.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count360
+\scratchcounter=\count367
 \scratchdimen=\dimen320
-\scratchbox=\box74
-\nofMPsegments=\count361
-\nofMParguments=\count362
+\scratchbox=\box79
+\nofMPsegments=\count368
+\nofMParguments=\count369
 \everyMPshowfont=\toks46
-\MPscratchCnt=\count363
+\MPscratchCnt=\count370
 \MPscratchDim=\dimen321
-\MPnumerator=\count364
-\makeMPintoPDFobject=\count365
+\MPnumerator=\count371
+\makeMPintoPDFobject=\count372
 \everyMPtoPDFconversion=\toks47
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -700,24 +811,24 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 128.
+Package hyperref Info: Link coloring ON on input line 149.
  (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-\c@lstlisting=\count366
+\c@lstlisting=\count373
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Option `pageanchor' set `false' on input line 130.
-<assets/logo-efrei.png, id=264, 395.4775pt x 128.48pt>
+Package hyperref Info: Option `pageanchor' set `false' on input line 151.
+<assets/logo-efrei.png, id=376, 395.4775pt x 128.48pt>
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 136.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 157.
 (pdftex.def)             Requested size: 113.81102pt x 36.97397pt.
  [1
 
 {/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./assets/logo-efrei.png>]
-Package hyperref Info: Option `pageanchor' set `true' on input line 156.
+Package hyperref Info: Option `pageanchor' set `true' on input line 177.
  (./main.toc
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
@@ -729,343 +840,442 @@ Package pdftex.def Info: assets/logo-efrei.png  used on input line 70.
 
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 159.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 180.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [2]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 168.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 201.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [1
 
 ]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 185.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 289.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [2]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 261.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 344.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [3] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+ [3]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 420.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [4] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 283.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 442.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 333.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [4]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 414.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 492.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [5]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 456.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 573.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [6]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 463.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 615.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [7]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 552.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 622.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [8]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 612.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 711.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [9]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 679.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 771.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
  [10]
-<assets/architecture.drawio.png, id=462, 2037.6125pt x 521.95pt>
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 838.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [11]
+<assets/architecture.drawio.png, id=611, 2037.6125pt x 521.95pt>
 File: assets/architecture.drawio.png Graphic file (type png)
 <use assets/architecture.drawio.png>
-Package pdftex.def Info: assets/architecture.drawio.png  used on input line 684.
+Package pdftex.def Info: assets/architecture.drawio.png  used on input line 843.
 (pdftex.def)             Requested size: 446.13727pt x 114.27982pt.
-<assets/spark_streaming_ui.png, id=464, 1726.45pt x 758.835pt>
+<assets/spark_streaming_ui.png, id=613, 1726.45pt x 758.835pt>
 File: assets/spark_streaming_ui.png Graphic file (type png)
 <use assets/spark_streaming_ui.png>
-Package pdftex.def Info: assets/spark_streaming_ui.png  used on input line 732.
+Package pdftex.def Info: assets/spark_streaming_ui.png  used on input line 891.
 (pdftex.def)             Requested size: 446.13727pt x 196.08824pt.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 734.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 893.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [11 <./assets/architecture.drawio.png>]
+ [12 <./assets/architecture.drawio.png>]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 804.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 963.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [12 <./assets/spark_streaming_ui.png (PNG copy)>]
-<assets/powerbi-spark-1.png, id=498, 621.522pt x 349.305pt>
-File: assets/powerbi-spark-1.png Graphic file (type png)
-<use assets/powerbi-spark-1.png>
-Package pdftex.def Info: assets/powerbi-spark-1.png  used on input line 854.
-(pdftex.def)             Requested size: 446.13727pt x 250.74254pt.
+ [13 <./assets/spark_streaming_ui.png (PNG copy)>]
+<assets/spark-mysql-table.png, id=647, 1201.48875pt x 624.3325pt>
+File: assets/spark-mysql-table.png Graphic file (type png)
+<use assets/spark-mysql-table.png>
+Package pdftex.def Info: assets/spark-mysql-table.png  used on input line 1013.
+(pdftex.def)             Requested size: 341.43307pt x 177.42218pt.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 856.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1028.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [13]
+ [14 <./assets/spark-mysql-table.png (PNG copy)>]
+<assets/powerbi-spark-1.png, id=666, 621.522pt x 349.305pt>
 File: assets/powerbi-spark-1.png Graphic file (type png)
 <use assets/powerbi-spark-1.png>
-Package pdftex.def Info: assets/powerbi-spark-1.png  used on input line 871.
+Package pdftex.def Info: assets/powerbi-spark-1.png  used on input line 1030.
 (pdftex.def)             Requested size: 446.13727pt x 250.74254pt.
-<assets/powerbi-spark-2.png, id=517, 741.972pt x 415.5525pt>
+<assets/powerbi-spark-2.png, id=667, 741.972pt x 415.5525pt>
 File: assets/powerbi-spark-2.png Graphic file (type png)
 <use assets/powerbi-spark-2.png>
-Package pdftex.def Info: assets/powerbi-spark-2.png  used on input line 877.
+Package pdftex.def Info: assets/powerbi-spark-2.png  used on input line 1036.
 (pdftex.def)             Requested size: 446.13727pt x 249.86604pt.
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 879.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1049.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [14 <./assets/powerbi-spark-1.png>]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 891.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [15 <./assets/powerbi-spark-2.png>]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 898.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [16]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 934.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [17]
-
-LaTeX Warning: Citation `rncp' on page 18 undefined on input line 938.
-
-
-LaTeX Warning: Citation `sklearn' on page 18 undefined on input line 977.
-
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1002.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[18]
-<figures/fig_distribution_cibles.png, id=548, 1787.67876pt x 791.95876pt>
-File: figures/fig_distribution_cibles.png Graphic file (type png)
-<use figures/fig_distribution_cibles.png>
-Package pdftex.def Info: figures/fig_distribution_cibles.png  used on input line 1094.
-(pdftex.def)             Requested size: 432.48051pt x 191.58452pt.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1094.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1094.
-
+ [15 <./assets/powerbi-spark-1.png> <./assets/powerbi-spark-2.png>]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
 Package pdftex.def Info: assets/logo-efrei.png  used on input line 1095.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[19{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<figures/fig_boxplots.png, id=556, 1893.0725pt x 696.6025pt>
-File: figures/fig_boxplots.png Graphic file (type png)
-<use figures/fig_boxplots.png>
-Package pdftex.def Info: figures/fig_boxplots.png  used on input line 1102.
-(pdftex.def)             Requested size: 432.48051pt x 159.14165pt.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1102.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1102.
-
-<figures/fig_heatmap.png, id=557, 1375.1375pt x 1062.97125pt>
-File: figures/fig_heatmap.png Graphic file (type png)
-<use figures/fig_heatmap.png>
-Package pdftex.def Info: figures/fig_heatmap.png  used on input line 1106.
-(pdftex.def)             Requested size: 282.24911pt x 218.17003pt.
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1106.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1106.
-
+ [16]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1107.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1142.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[20 <./figures/fig_distribution_cibles.png (PNG copy)> <./figures/fig_boxplots.png (PNG copy)>]
-Overfull \hbox (22.20515pt too wide) in paragraph at lines 1144--1148
-[]\T1/cmr/m/n/10 Les va-riables nu-mé-riques et la va-riable ca-té-go-rielle exigent des trai-te-ments dis-tincts. Le \T1/cmtt/m/n/10 ColumnTransformer
- []
-
+ [17]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1149.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1226.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[21 <./figures/fig_heatmap.png (PNG copy)>]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1245.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [22]
-Overfull \hbox (3.48384pt too wide) in paragraph at lines 1296--1301
-\T1/cmr/m/n/10 aux don-nées de main-te-nance --- les pannes sont rares par dé-fi-ni-tion. Le \T1/cmtt/m/n/10 HistGradientBoostingClassifier
- []
+ [18]
+<figures/fig_architecture_cloud.png, id=693, 1416.29124pt x 543.02875pt>
+File: figures/fig_architecture_cloud.png Graphic file (type png)
+<use figures/fig_architecture_cloud.png>
+Package pdftex.def Info: figures/fig_architecture_cloud.png  used on input line 1279.
+(pdftex.def)             Requested size: 455.24411pt x 174.54333pt.
 
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1318.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[23]
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1348.
-<figures/fig_comparaison_binaire.png, id=650, 1787.67876pt x 882.29625pt>
-File: figures/fig_comparaison_binaire.png Graphic file (type png)
-<use figures/fig_comparaison_binaire.png>
-Package pdftex.def Info: figures/fig_comparaison_binaire.png  used on input line 1379.
-(pdftex.def)             Requested size: 432.48051pt x 213.43826pt.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1379.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1379.
-
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1383.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[24 <./figures/fig_comparaison_binaire.png (PNG copy)>]
-<figures/fig_importance_binaire.png, id=660, 1426.32875pt x 844.15375pt>
-File: figures/fig_importance_binaire.png Graphic file (type png)
-<use figures/fig_importance_binaire.png>
-Package pdftex.def Info: figures/fig_importance_binaire.png  used on input line 1458.
-(pdftex.def)             Requested size: 386.96027pt x 229.00653pt.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1458.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1458.
-
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1459.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[25]
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1465.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [26 <./figures/fig_importance_binaire.png (PNG copy)>]
-<figures/fig_confusion_binaire.png, id=686, 967.615pt x 844.15375pt>
-File: figures/fig_confusion_binaire.png Graphic file (type png)
-<use figures/fig_confusion_binaire.png>
-Package pdftex.def Info: figures/fig_confusion_binaire.png  used on input line 1489.
-(pdftex.def)             Requested size: 282.24911pt x 246.22807pt.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1489.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1489.
-
-<figures/fig_confusion_multiclasse.png, id=687, 1055.945pt x 844.15375pt>
-File: figures/fig_confusion_multiclasse.png Graphic file (type png)
-<use figures/fig_confusion_multiclasse.png>
-Package pdftex.def Info: figures/fig_confusion_multiclasse.png  used on input line 1498.
-(pdftex.def)             Requested size: 318.66948pt x 254.74223pt.
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1498.
-
-
-LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1498.
-
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1499.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[27 <./figures/fig_confusion_binaire.png (PNG copy)>]
-
-LaTeX Warning: Citation `fastapi' on page 28 undefined on input line 1505.
-
-
-Overfull \hbox (50.63235pt too wide) in paragraph at lines 1533--1539
-\T1/cmr/m/n/10 as-su-rée par Py-dan-tic v2 via les sché-mas \T1/cmtt/m/n/10 FailureWithin24hPredictionRequest \T1/cmr/m/n/10 et \T1/cmtt/m/n/10 FailureTypePredictionRequest\T1/cmr/m/n/10 ,
- []
-
-
-LaTeX Warning: Citation `streamlit' on page 28 undefined on input line 1542.
-
-File: assets/logo-efrei.png Graphic file (type png)
-<use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1551.
-(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[28 <./figures/fig_confusion_multiclasse.png (PNG copy)>]
-<figures/fig_dashboard.png, id=723, 2023.56pt x 1082.0425pt>
-File: figures/fig_dashboard.png Graphic file (type png)
-<use figures/fig_dashboard.png>
-Package pdftex.def Info: figures/fig_dashboard.png  used on input line 1566.
-(pdftex.def)             Requested size: 455.24411pt x 243.41603pt.
-
-Overfull \hbox (0.79999pt too wide) in paragraph at lines 1566--1566
+Overfull \hbox (0.79999pt too wide) in paragraph at lines 1279--1279
  [][][][] 
  []
 
 
 LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1566.
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1279.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
-(Font)              using `T1/cmr/bx/scsl' instead on input line 1566.
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1279.
+
+
+LaTeX Warning: Citation `s3' on page 19 undefined on input line 1283.
 
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1614.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1288.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[29 <./figures/fig_dashboard.png (PNG copy)>]
-Overfull \hbox (1.95976pt too wide) in paragraph at lines 1643--1650
+[19]
+<figures/fig_s3_tree.png, id=699, 552.26324pt x 251.13824pt>
+File: figures/fig_s3_tree.png Graphic file (type png)
+<use figures/fig_s3_tree.png>
+Package pdftex.def Info: figures/fig_s3_tree.png  used on input line 1291.
+(pdftex.def)             Requested size: 455.24411pt x 207.023pt.
+
+Overfull \hbox (0.79999pt too wide) in paragraph at lines 1291--1291
+ [][][][] 
+ []
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1291.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1291.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1292.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[20{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./figures/fig_architecture_cloud.png>]
+
+LaTeX Warning: Citation `dynamodb' on page 21 undefined on input line 1321.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1341.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[21 <./figures/fig_s3_tree.png>]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1423.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [22]
+
+LaTeX Warning: Citation `lambda' on page 23 undefined on input line 1478.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1509.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[23]
+
+LaTeX Warning: Citation `apigateway' on page 24 undefined on input line 1515.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1583.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[24] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+Overfull \hbox (22.56618pt too wide) in paragraph at lines 1670--1673
+[]\T1/cmr/m/n/10 CloudWatch col-lecte au-to-ma-ti-que-ment les mé-triques de chaque ser-vice. Une alarme sur \T1/cmtt/m/n/10 ThrottledRequests
+ []
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1674.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[25]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1732.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [26]
+
+LaTeX Warning: Citation `sklearn' on page 27 undefined on input line 1775.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1800.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[27]
+<figures/fig_distribution_cibles.png, id=872, 1787.67876pt x 791.95876pt>
+File: figures/fig_distribution_cibles.png Graphic file (type png)
+<use figures/fig_distribution_cibles.png>
+Package pdftex.def Info: figures/fig_distribution_cibles.png  used on input line 1892.
+(pdftex.def)             Requested size: 432.48051pt x 191.58452pt.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1892.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1892.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1893.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[28]
+<figures/fig_boxplots.png, id=879, 1893.0725pt x 696.6025pt>
+File: figures/fig_boxplots.png Graphic file (type png)
+<use figures/fig_boxplots.png>
+Package pdftex.def Info: figures/fig_boxplots.png  used on input line 1900.
+(pdftex.def)             Requested size: 432.48051pt x 159.14165pt.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1900.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1900.
+
+<figures/fig_heatmap.png, id=880, 1375.1375pt x 1062.97125pt>
+File: figures/fig_heatmap.png Graphic file (type png)
+<use figures/fig_heatmap.png>
+Package pdftex.def Info: figures/fig_heatmap.png  used on input line 1904.
+(pdftex.def)             Requested size: 282.24911pt x 218.17003pt.
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1904.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 1904.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1905.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[29 <./figures/fig_distribution_cibles.png (PNG copy)> <./figures/fig_boxplots.png (PNG copy)>]
+Overfull \hbox (22.20515pt too wide) in paragraph at lines 1942--1946
+[]\T1/cmr/m/n/10 Les va-riables nu-mé-riques et la va-riable ca-té-go-rielle exigent des trai-te-ments dis-tincts. Le \T1/cmtt/m/n/10 ColumnTransformer
+ []
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 1947.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[30 <./figures/fig_heatmap.png (PNG copy)>]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2043.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [31]
+Overfull \hbox (3.48384pt too wide) in paragraph at lines 2094--2099
+\T1/cmr/m/n/10 aux don-nées de main-te-nance --- les pannes sont rares par dé-fi-ni-tion. Le \T1/cmtt/m/n/10 HistGradientBoostingClassifier
+ []
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2116.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[32]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 2146.
+<figures/fig_comparaison_binaire.png, id=966, 1787.67876pt x 882.29625pt>
+File: figures/fig_comparaison_binaire.png Graphic file (type png)
+<use figures/fig_comparaison_binaire.png>
+Package pdftex.def Info: figures/fig_comparaison_binaire.png  used on input line 2177.
+(pdftex.def)             Requested size: 432.48051pt x 213.43826pt.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2177.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2177.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2181.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[33 <./figures/fig_comparaison_binaire.png (PNG copy)>]
+<figures/fig_importance_binaire.png, id=976, 1426.32875pt x 844.15375pt>
+File: figures/fig_importance_binaire.png Graphic file (type png)
+<use figures/fig_importance_binaire.png>
+Package pdftex.def Info: figures/fig_importance_binaire.png  used on input line 2256.
+(pdftex.def)             Requested size: 386.96027pt x 229.00653pt.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2256.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2256.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2257.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[34]
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2263.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+ [35 <./figures/fig_importance_binaire.png (PNG copy)>]
+<figures/fig_confusion_binaire.png, id=1002, 967.615pt x 844.15375pt>
+File: figures/fig_confusion_binaire.png Graphic file (type png)
+<use figures/fig_confusion_binaire.png>
+Package pdftex.def Info: figures/fig_confusion_binaire.png  used on input line 2287.
+(pdftex.def)             Requested size: 282.24911pt x 246.22807pt.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2287.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2287.
+
+<figures/fig_confusion_multiclasse.png, id=1003, 1055.945pt x 844.15375pt>
+File: figures/fig_confusion_multiclasse.png Graphic file (type png)
+<use figures/fig_confusion_multiclasse.png>
+Package pdftex.def Info: figures/fig_confusion_multiclasse.png  used on input line 2296.
+(pdftex.def)             Requested size: 318.66948pt x 254.74223pt.
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2296.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2296.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2297.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[36 <./figures/fig_confusion_binaire.png (PNG copy)>]
+
+LaTeX Warning: Citation `fastapi' on page 37 undefined on input line 2303.
+
+
+Overfull \hbox (50.63235pt too wide) in paragraph at lines 2331--2337
+\T1/cmr/m/n/10 as-su-rée par Py-dan-tic v2 via les sché-mas \T1/cmtt/m/n/10 FailureWithin24hPredictionRequest \T1/cmr/m/n/10 et \T1/cmtt/m/n/10 FailureTypePredictionRequest\T1/cmr/m/n/10 ,
+ []
+
+
+LaTeX Warning: Citation `streamlit' on page 37 undefined on input line 2340.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2349.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[37 <./figures/fig_confusion_multiclasse.png (PNG copy)>]
+<figures/fig_dashboard.png, id=1039, 2023.56pt x 1082.0425pt>
+File: figures/fig_dashboard.png Graphic file (type png)
+<use figures/fig_dashboard.png>
+Package pdftex.def Info: figures/fig_dashboard.png  used on input line 2364.
+(pdftex.def)             Requested size: 455.24411pt x 243.41603pt.
+
+Overfull \hbox (0.79999pt too wide) in paragraph at lines 2364--2364
+ [][][][] 
+ []
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2364.
+
+
+LaTeX Font Warning: Font shape `T1/cmr/bx/scit' undefined
+(Font)              using `T1/cmr/bx/scsl' instead on input line 2364.
+
+File: assets/logo-efrei.png Graphic file (type png)
+<use assets/logo-efrei.png>
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2412.
+(pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
+[38 <./figures/fig_dashboard.png (PNG copy)>]
+Overfull \hbox (1.95976pt too wide) in paragraph at lines 2441--2448
 \T1/cmr/m/n/10 classes de pannes rares sont sous-représentées. Deux le-viers sont iden-ti-fiés : un sur-échan-tillon-nage \T1/cmr/bx/n/10 SMOTE
  []
 
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1695.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2493.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
-[30]
+[39]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1733.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2531.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [31]
+ [40]
 File: assets/logo-efrei.png Graphic file (type png)
 <use assets/logo-efrei.png>
-Package pdftex.def Info: assets/logo-efrei.png  used on input line 1744.
+Package pdftex.def Info: assets/logo-efrei.png  used on input line 2552.
 (pdftex.def)             Requested size: 56.9055pt x 18.48698pt.
- [32] 
+ [41] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -1077,21 +1287,21 @@ L3 programming layer <2026-05-26>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3D163544B8BC7BFF0B25BF05543B49A4;15029.
+(rerunfilecheck)             Checksum: 64A1E045D98AD3E853D32871FF00848E;21817.
  ) 
 Here is how much of TeX's memory you used:
- 28721 strings out of 467167
- 530536 string characters out of 5409455
- 1358509 words of memory out of 5000000
- 57253 multiletter control sequences out of 15000+600000
- 647301 words of font info for 79 fonts, out of 8000000 for 9000
+ 30107 strings out of 467167
+ 557629 string characters out of 5409455
+ 1485528 words of memory out of 5000000
+ 58445 multiletter control sequences out of 15000+600000
+ 648303 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,16n,94p,899b,1340s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbi0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfoc0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (35 pages, 2384071 bytes).
+ 84i,16n,94p,899b,2063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbi0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfoc0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on main.pdf (44 pages, 3005344 bytes).
 PDF statistics:
- 921 PDF objects out of 1000 (max. 8388607)
- 788 compressed objects within 8 object streams
- 280 named destinations out of 1000 (max. 500000)
- 638 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1279 PDF objects out of 1440 (max. 8388607)
+ 1126 compressed objects within 12 object streams
+ 435 named destinations out of 1000 (max. 500000)
+ 877 words of extra memory for PDF output out of 10000 (max. 10000000)
 

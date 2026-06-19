@@ -23,7 +23,9 @@
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
 
 \usepackage{array}
+\usepackage{mdframed}
 \usepackage{makecell}
+\usepackage{seqsplit}
 \usepackage{tabularx}
 \usepackage{colortbl}
 \usepackage{enumitem}
@@ -86,6 +88,11 @@
 
 % ===================== STYLES TIKZ ==========================
 \tikzset{
+  medalbox/.style={
+    rectangle, rounded corners=5pt, very thick,
+    text width=11.5cm, minimum height=1.5cm, align=center,
+    font=\small, inner sep=8pt
+  },
   flowbox/.style={
     rectangle, rounded corners=4pt, thick,
     text width=9cm, minimum height=1.2cm, align=center,
@@ -99,6 +106,20 @@
   arrowM/.style={-{Stealth[scale=1.3]}, line width=1.4pt, draw=black!50},
 }
 \newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
+\newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
+
+\mdfdefinestyle{captureStyle}{
+  linecolor=black!30, linewidth=0.8pt, roundcorner=5pt,
+  backgroundcolor=black!4,
+  innertopmargin=7pt, innerbottommargin=7pt,
+  innerleftmargin=12pt, innerrightmargin=12pt,
+  skipabove=8pt, skipbelow=8pt, nobreak=true,
+}
+\newcommand{\capture}[1]{%
+  \begin{mdframed}[style=captureStyle]
+    \centering\small\textit{\textbf{\textcolor{black!60}{[Capture]}}\quad #1}
+  \end{mdframed}%
+}
 
 
 \lstset{style=mystyle}
@@ -163,24 +184,162 @@
 \section*{Remerciements}
 \addcontentsline{toc}{section}{Remerciements}
 
-Remerciements a completer.
+Je tiens à exprimer mes remerciements les plus sincères au intervenants et professeurs.
+La richesse de leurs enseignements ont grandement enrichi mes connaissances
+et affûté mes compétences ; leur encadrement, leur conseils, prodigués tout au long de
+cette formation, ont été  essentiels de ma progression.
+
+Enfin, je voudrais exprimer ma profonde gratitude envers toutes les personnes de Geismar pour le
+cadre d'apprentissage qu'elles m'ont offert. Cet environnement a joué un rôle déterminant dans mon
+développement professionnel en me permettant d'acquérir de nouvelles compétences. Je tiens à souligner
+combien les opportunités d'expérimentation qui m'ont été offertes ont été d'une valeur inestimable.
+
+\medskip
+\noindent À tous, merci pour votre contribution essentielle à la concrétisation de ce
+projet.
 
 \newpage
-\section{Presentation rapide de l'entreprise et des missions}
+\section{Introduction}
 
-Presentez ici l'entreprise, son secteur d'activite, son organisation, ainsi que
-les missions qui vous ont ete confiees pendant l'alternance, le stage ou les
-projets academiques relies au parcours.
+La donnée s'est imposée comme l'un des actifs stratégiques majeurs des organisations
+contemporaines. Derrière chaque tableau de bord, chaque modèle prédictif et chaque
+service numérique se trouve une chaîne d'ingénierie qui transforme des flux bruts,
+massifs et hétérogènes en information fiable, exploitable et créatrice de valeur.
+C'est précisément ce métier de \textbf{data engineer} que ce rapport entend illustrer
+: concevoir, construire et industrialiser cette chaîne, de la source jusqu'à la décision.
 
-\subsection{Entreprise}
+Ce document constitue le dossier écrit de certification professionnelle \textbf{RNCP36739}
+\og{} Expert en Ingénierie de Données \fg{}, produit dans le cadre du Mastère Data Engineering \& IA
+d'EFREI Paris (promotion 2024--2026). Il vise à démontrer l'acquisition des cinq blocs de compétences
+du référentiel~\cite{rncp} à travers des \textbf{réalisations concrètes} plutôt que des connaissances
+théoriques isolées.
 
-Decrivez l'entreprise, son contexte metier, ses enjeux data et l'environnement
-dans lequel vous avez evolue.
+La démonstration s'appuie sur cinq projets complémentaires, chacun choisi pour
+illustrer au mieux un pan du métier : \textbf{Jobtech}, plateforme d'agrégation de
+données d'emploi tech à partir de six sources hétérogènes ; Le \textbf{project cloud},
+plateforme serverless AWS de mobilité urbaine en temps réel ; Le \textbf{projet spark},
+pipeline Big Data distribué sur données aéronautiques ; \textbf{fizzbuzz Efrei},
+chaîne d'intégration et de déploiement continus conteneurisée ; et le
+\textbf{projet datas cience project}, système de maintenance prédictive industrielle par
+apprentissage automatique. Le tableau ci-dessous récapitule leur rattachement aux
+blocs du référentiel.
 
-\subsection{Missions}
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
+\hline
+Jobtech & Agrégation de données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
+\hline
+project\_cloud & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
+\hline
+projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
+\hline
+fizzbuzz-Efrei & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
+\hline
+data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
+\hline
+\end{tabularx}
+\end{center}
 
-Precisez vos responsabilites, les equipes avec lesquelles vous avez travaille et
-la nature des projets menes.
+Chaque bloc suit une structure identique --- compétences visées, contexte et enjeux,
+architecture, réalisations techniques commentées, axes d'amélioration et synthèse
+reliée au référentiel --- de sorte que chaque partie soit autonome et directement
+évaluable. Le rapport est précédé d'une présentation de l'entreprise d'alternance,
+puis d'une synthèse de la couverture des cinq blocs de compétences.
+
+\section{Présentation d'entreprise}
+
+\subsection{L'entreprise : Geismar}
+
+Fondée en 1924 à Colmar par Lucien Geismar, la société conçoit, fabrique et vend
+dans le monde entier des outils et des machines destinés à la pose et à l'entretien
+des voies ferrées et des caténaires.
+
+Le siège social est aujourd'hui situé à la Défense. L'entreprise compte
+750~salariés, dont 420 en France, et possède cinq usines : trois en France (Colmar,
+Marseille et Saint-Didier-de-la-Tour) et deux à l'étranger (Italie et États-Unis).
+
+Geismar est présent commercialement dans de nombreux pays, notamment en France, au
+Royaume-Uni, aux États-Unis, au Brésil, en Allemagne, en Italie, en Espagne, au
+Canada et en Afrique du Sud. Le groupe réalise environ 85\,\% de son chiffre
+d'affaires à l'étranger.
+
+\subsection{Le poste : Alternant Data Engineer}
+
+\subsubsection{Contexte}
+
+Geismar utilise différents systèmes ERP selon les filiales : M3, Business Central,
+ou encore des bases Access héritées de systèmes plus anciens. Cette diversité crée un
+besoin de centralisation et d'harmonisation des données à l'échelle du groupe.
+
+\subsubsection{Missions}
+
+Mon rôle consiste à développer des pipelines de données en Python pour extraire,
+transformer et charger les données issues des différents ERP. Ces données sont
+ensuite structurées via une solution de big data selon une architecture
+Bronze-Silver-Gold, qui permet de passer progressivement des données brutes à des
+données exploitables pour le reporting.
+
+Je travaille principalement sur les données financières, la gestion des stocks, le
+suivi des commandes et le reporting opérationnel des différentes filiales. Une partie
+importante de mon travail consiste également à migrer les données vers Snowflake.
+
+\subsubsection{Environnement technique}
+
+J'utilise principalement Python et SQL pour le développement. Les données sont
+stockées sur SQL Server et Snowflake. L'infrastructure cloud repose sur Microsoft
+Azure, notamment Blob Storage pour le stockage et Azure DevOps pour le versionning et
+les pipelines. Côté restitution, les données alimentent des rapports Power BI.
+
+\section{Synthèse des blocs de compétences RNCP36739}
+
+La certification \og{}Expert en Ingénierie de Données\fg{} s'articule autour de cinq
+blocs de compétences fondamentaux. Ils couvrent l'intégralité du cycle de vie de la
+donnée dans un environnement Big Data : de la conception d'architectures de stockage
+et de traitement des données massives (Blocs 1 et 2) à leur déploiement optimisé sur
+le cloud (Bloc 3), en passant par l'application des méthodes d'intelligence
+artificielle (Bloc 4) et l'élaboration de stratégies de gouvernance des données
+(Bloc 5).
+
+\needspace{10\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|p{2.6cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Bloc} & \thead{Intitulé} & \thead{Compétences clés} \\
+\hline
+RNCP36739\newline Bloc 1 &
+  Concevoir et développer une architecture de stockage de données &
+  Bases de données relationnelles et non-relationnelles, construction de Datalake,
+  création d'API d'accès aux données. \\
+\hline
+RNCP36739\newline Bloc 2 &
+  Concevoir, développer et déployer une solution de traitement des données massives &
+  Architectures distribuées, systèmes de streaming, optimisation des pipelines,
+  automatisation CI/CD (conteneurisation, ordonnancement). \\
+\hline
+RNCP36739\newline Bloc 3 &
+  Implémenter et optimiser des solutions de stockage et de traitement de données sur
+  le cloud &
+  Solutions cloud (stockage, pipelines), sécurisation (chiffrement, IAM, conformité),
+  optimisation des performances et des coûts. \\
+\hline
+RNCP36739\newline Bloc 4 &
+  Implémenter des méthodes d'intelligence artificielle pour modéliser et prédire de
+  nouveaux comportements &
+  Extraction et préparation des données, tableaux de bord interactifs, modèles
+  prédictifs supervisés, évaluation des performances. \\
+\hline
+RNCP36739\newline Bloc 5 &
+  Concevoir une stratégie de management et de gouvernance de données &
+  Gouvernance (politiques, rôles), conformité (régulations, vie privée), audit
+  qualité, stratégie de sécurité et d'accès aux données. \\
+\hline
+\end{tabularx}
+\end{center}
 
 \newpage
 \section{Bloc 1 -- Concevoir et developper une architecture de stockage de données}
@@ -851,9 +1010,9 @@ permettait d'exposer les tables Gold sur le réseau et de les rendre accessibles
 ligne depuis d'autres postes.
 
 \begin{center}
-    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-1.png}
+    \includegraphics[width=0.75\textwidth]{assets/spark-mysql-table.png}
 
-    {\small \textit{Figure 4 : Dashboard Power BI}}
+    {\small \textit{Figure 4 : Exemple de table dans MariaDB}}
 \end{center}
 
 Ce choix a ensuite facilité l'intégration avec Power BI. Plutôt que de connecter
@@ -888,6 +1047,51 @@ validation croisée. Cette partie n'est pas le coeur de la démonstration du blo
 mais elle montre que la chaîne Spark construite est suffisamment robuste pour
 servir ensuite à des traitements avancés sur données préparées.
 
+\subsubsection{Projet DevOps : fizzbuzz-Efrei}
+
+En complément du projet Spark, nous mobilisons également le dépôt
+\texttt{fizzbuzz-Efrei} pour justifier la dimension DevOps de ce bloc. Le périmètre
+fonctionnel de l'application est volontairement simple : il s'agit d'une
+implémentation Python du problème FizzBuzz accompagnée de tests unitaires. Ce choix
+est justement intéressant dans le cadre du bloc 2, car il permet de concentrer la
+démonstration non pas sur la complexité métier, mais sur l'industrialisation du cycle
+de livraison : contrôle qualité, intégration continue, conteneurisation et préparation
+au déploiement.
+
+Le premier apport du projet concerne la chaîne d'intégration continue mise en place
+avec GitHub Actions. Le dépôt contient un workflow \texttt{python-package.yml}
+déclenché sur les branches \texttt{dev}, \texttt{main} et \texttt{docker}. À chaque
+push, ce pipeline exécute automatiquement la même suite de vérifications sur une
+matrice de versions Python \texttt{3.9}, \texttt{3.10} et \texttt{3.11}. Les étapes
+enchainent l'installation des dépendances, l'analyse statique avec \texttt{flake8},
+l'exécution des tests unitaires via \texttt{python -m unittest test.py}, puis la
+mesure de couverture avec \texttt{coverage run} et \texttt{coverage report}. Cette
+organisation montre que nous avons mis en place une validation systématique du code
+avant intégration, afin de détecter rapidement les régressions, de garantir la
+compatibilité sur plusieurs environnements Python et de fiabiliser les livraisons.
+
+Le second apport majeur du projet est la conteneurisation de l'application. Le
+\texttt{Dockerfile} s'appuie sur une image \texttt{python:3.12.8-slim}, définit un
+répertoire de travail dédié, installe les dépendances depuis \texttt{requirements.txt}
+et exécute l'application avec un utilisateur non privilégié. Ce dernier point est
+important, car il traduit une prise en compte des bonnes pratiques de sécurité dès la
+phase de packaging. Le dépôt contient également un fichier \texttt{compose.yaml} qui
+permet de reconstruire puis de lancer localement le service avec
+\texttt{docker compose up --build}. Nous obtenons ainsi un environnement d'exécution
+reproductible, indépendant de la machine du développeur, ce qui réduit fortement les
+écarts entre développement, validation et livraison.
+
+Le projet ne montre pas un déploiement de production complet avec orchestrateur ou
+infrastructure cloud, et il ne faut pas le présenter comme tel. En revanche, il montre
+très clairement la mise en place des briques attendues dans une démarche CI/CD : une
+application validée automatiquement, empaquetée sous forme d'image Docker et prête à
+être publiée dans un registre puis déployée dans un environnement cible. Le
+\texttt{README.Docker.md} documente d'ailleurs explicitement les commandes de build et
+de push d'image. Dans le cadre du bloc 2, cette réalisation est pertinente car elle
+démontre notre capacité à automatiser la vérification du code, à standardiser
+l'exécution de l'application et à préparer une chaîne de déploiement outillée,
+complémentaire des enjeux de traitement massif couverts par Spark.
+
 \newpage
 \subsection{Analyse attendue}
 
@@ -895,21 +1099,69 @@ Mettez en avant la conception des pipelines, le traitement distribue, les choix
 de performance, l'automatisation et la maniere dont vous avez deploie ou
 industrialise les traitements.
 
+\subsubsection{Preuves d'acquisition des compétences}
+
+Le tableau suivant récapitule, pour chacune des cinq sous-compétences du Bloc 2, la
+réalisation concrète qui la démontre dans le projet.
+
+\needspace{14\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
+\hline
+Architecture distribuée pour le traitement de données massives &
+  Architecture Spark distribuée structurée en couches Bronze / Silver / Gold,
+  pilotée par une \texttt{SparkSession} commune et un point d'entrée cluster
+  \texttt{spark://localhost:7077}. \\
+\hline
+Système distribué de streaming &
+  Ingestion incrémentale des vols via \texttt{readStream}, écriture en mode
+  \texttt{append}, partitionnement des sorties et \textit{checkpointing} pour la
+  reprise fiable des micro-batches. \\
+\hline
+Transformation de données variées pour l'analytique à l'échelle &
+  Croisement de deux sources hétérogènes (vols CSV et météo API), normalisation
+  temporelle en UTC en Silver, puis jointures analytiques en Gold avec Spark SQL. \\
+\hline
+Optimisation des performances des pipelines &
+  Utilisation du format Parquet, partitionnement par \texttt{Year}/\texttt{Month}/\texttt{Day},
+  séparation Bronze / Silver / Gold et exécution distribuée Spark SQL pour limiter
+  les lectures inutiles et accélérer les agrégations. \\
+\hline
+Automatisation, tests, intégration et déploiement des pipelines &
+  Workflow GitHub Actions exécuté sur plusieurs branches et versions Python,
+  combinant linting \texttt{flake8}, tests \texttt{unittest}, couverture
+  \texttt{coverage}, puis conteneurisation avec Docker et exécution reproductible via
+  \texttt{docker compose} pour préparer la livraison de l'application. \\
+\hline
+\end{tabularx}
+\end{center}
+
 \newpage
 \section{Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}
 
-Cette partie doit demontrer votre maitrise des services cloud appliques au
-stockage, au traitement, a la securite et a l'optimisation des couts.
+Cette partie démontre l’acquisition des quatre compétences du Bloc 3 du référentiel
+RNCP36739~\cite{rncp} à travers une plateforme \textbf{cloud serverless AWS}. Chaque
+étape couvre une ou plusieurs sous-compétences du référentiel, synthétisées dans le
+tableau de validation a la fin du bloc.
 
-\subsection{Competences visees}
+\subsection{Compétences visées}
 
-\begin{itemize}
-    \item Mettre en œuvre des solutions de stockage de données dans le cloud pour
+Le référentiel RNCP36739 définit quatre sous-compétences pour le Bloc 3, que ce
+dossier couvre intégralement à travers le \texttt{projet cloud}  Ce bloc porte sur
+la mise en œuvre de solutions cloud pour le stockage, le traitement et la mise à
+disposition des données : choix des services managés, conception des flux, sécurisation
+des accès, optimisation de la performance et de la disponibilité
+
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt, topsep=3pt]
+    \item Mettre en \oe{}uvre des solutions de stockage de données dans le cloud pour
           permettre aux entreprises d'explorer leurs données en implémentant des
-          techniques et strategies adaptées a leur utilisation.
+          techniques et stratégies adaptées à leur utilisation.
     \item Concevoir et développer des pipelines et des solutions de traitement de
           données dans le cloud en chargeant les données, en les transformant et en les
-          mettant a disposition des utilisateurs.
+          mettant à disposition des utilisateurs.
     \item Mettre en place une politique de sécurité des données dans le cloud en
           développant une stratégie de chiffrement et de gestion des identités et des
           accès, dans le respect des règlements en vigueur.
@@ -925,11 +1177,557 @@ stockage, au traitement, a la securite et a l'optimisation des couts.
     \item Securite des données
 \end{itemize}
 
-\subsection{Analyse attendue}
+\subsection{Contexte et enjeux}
 
-Detaillez les services cloud mobilises, les mecanismes de securisation, les flux
-de données, la supervision, les arbitrages techniques et les optimisations mises
-en place.
+Le \texttt{projet cloud} est une plateforme de données temps réel lyonnaise. Elle
+agrège en continu trois flux de données ouvertes : les départs ferroviaires et de
+métro en gare de Lyon (SNCF/RATP), l'état des parkings parisiens (disponibilité,
+places, tarifs) et l'état du trafic routier (indice de congestion, segments
+critiques, fluidité par zone). L'objectif est de permettre un suivi opérationnel de
+la mobilité lyonnaise via un tableau de bord Streamlit alimenté par une API
+serverless.
+
+L'enjeu architectural central est double : garantir la latence sur des données en
+temps réel et maîtriser les coûts. Un scan DynamoDB complet pour chaque
+requête API serait fonctionnellement correct, mais son coût de lecture croîtrait
+linéairement avec le volume. La mise en place d'un Global Secondary Index (GSI)
+ramène le coût de chaque requête à O(1), quelle que soit la taille de la table.
+
+\subsubsection{Positionnement dans l'écosystème AWS}
+
+AWS propose plusieurs alternatives pour chaque composant de l'architecture. Les
+choix retenus sont justifiés par rapport à ces alternatives.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Besoin} & \thead{Choix retenu} & \thead{Alternative} & \thead{Justification} \\
+\hline
+Lac de données & S3 & EFS, EBS & Coût minimal, accès objet universel \\
+\hline
+Base NoSQL & DynamoDB & MongoDB Atlas, ElasticSearch & Managé, serverless, GSI natif \\
+\hline
+Compute API & Lambda & EC2, ECS/Fargate & Pas d'infra à gérer, facturation à l'usage \\
+\hline
+Routage API & API Gateway & ALB, CloudFront & Intégration Lambda native, gestion CORS \\
+\hline
+Dashboard & Streamlit (EC2) & QuickSight, PowerBI & Open source, Python natif \\
+\hline
+Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeable \\
+\hline
+\end{tabularx}\end{center}
+
+\subsection{Architecture cloud}
+
+L'architecture suit le motif Medallion (Bronze/Silver/Gold) transposé sur des
+services managés AWS : S3 comme data lake brutes, DynamoDB comme couche
+nettoyée puis agrégée, et une exposition serverless via Lambda et API Gateway.
+
+\needspace{20\baselineskip}
+\begin{center}\fitwidth{%
+\begin{tikzpicture}[node distance=0.85cm]
+
+% Sources
+\node[minibox, fill=black!5, draw=black!30, text width=3cm] (sncf)
+  {\small\textbf{API SNCF/RATP}\\Départs};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of sncf] (park)
+  {\small\textbf{API Parkings}\\Disponibilité};
+\node[minibox, fill=black!5, draw=black!30, text width=3cm, right=0.6cm of park] (traf)
+  {\small\textbf{API Trafic}\\Congestion};
+
+% Bronze S3
+\node[medalbox, fill=bronzeBg, draw=bronzeColor, below=0.9cm of park] (s3) {
+  \textbf{\textcolor{bronzeColor}{BRONZE}} \quad AWS S3 — bucket \texttt{efrei-cloud-project}\\[2pt]
+  \small \texttt{departures|parking|traffic/<timestamp\_ISO>/data.json}
+};
+
+% Silver DynamoDB
+\node[medalbox, fill=silverBg, draw=silverColor, below=0.8cm of s3] (ddb) {
+  \textbf{\textcolor{silverColor}{SILVER}} \quad DynamoDB — 3 tables temps réel\\[2pt]
+  \small \texttt{parkings} · \texttt{traffic} · \texttt{departures} \quad · \quad GSI : (type, ingestion\_timestamp) \textbf{O(1)}
+};
+
+% Gold DynamoDB agrégats
+\node[medalbox, fill=goldBg, draw=goldColor, below=0.8cm of ddb] (gold) {
+  \textbf{\textcolor{goldColor}{GOLD}} \quad DynamoDB — 10 tables d'agrégats\\[2pt]
+  \small occupancy\_rate · availability · congestion\_index · fluidity · departures\_by\_network …
+};
+
+% API
+\node[flowbox, fill=cloudBg, draw=cloudColor, below=0.8cm of gold, text width=9cm] (api) {
+  \textbf{\textcolor{cloudColor}{Lambda + API Gateway}} — 13 endpoints\\[2pt]
+  \small 3 temps réel (GSI query) · 10 agrégats (scan statique) · Streamlit Dashboard
+};
+
+\draw[arrowM] (sncf.south) -- ++(0,-0.35) -| ([xshift=-2cm]s3.north);
+\draw[arrowM] (park.south) -- (s3.north);
+\draw[arrowM] (traf.south) -- ++(0,-0.35) -| ([xshift=2cm]s3.north);
+\draw[arrowM] (s3) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{process\_s3\_to\_dynamodb.py}} (ddb);
+\draw[arrowM] (ddb) -- node[right, font=\scriptsize\itshape, text=black!50] {\texttt{agregation\_*.py}} (gold);
+\draw[arrowM] (gold) -- (api);
+
+\end{tikzpicture}}\end{center}
+
+Le schéma technique du projet ci-dessous détaille le flux complet, du calcul
+ordonnancé sur EC2 jusqu'à la visualisation Streamlit.
+
+\figc{fig_architecture_cloud.png}{\linewidth}{Architecture technique du
+\texttt{projet cloud}. Les trois sources open data sont collectées par un pipeline
+ordonnancé sur EC2, stockées en JSON dans S3, nettoyées et indexées dans DynamoDB,
+agrégées dans un rapport quotidien, puis exposées via une fonction Lambda et une API
+Gateway consommée par le dashboard Streamlit.}
+
+\subsection{Stockage S3 --- data lake brutes horodaté}
+
+AWS S3~\cite{s3} constitue la couche Bronze de l'architecture. Chaque ingestion
+produit un objet JSON horodaté dans le préfixe correspondant à la source
+(\texttt{departures/<timestamp\_ISO>/data.json}). Cette organisation préserve
+l'historique complet des snapshots et permet de rejouer n'importe quelle fenêtre
+temporelle sans perte.
+
+\figc{fig_s3_tree.png}{\linewidth}{Organisation du bucket S3
+\texttt{efrei-cloud-project} : un préfixe par source (départs, parking, trafic) et,
+sous chacun, un dossier horodaté par snapshot contenant le fichier \texttt{data.json}.}
+
+\begin{lstlisting}[language=Python, caption=Écriture et lecture S3 (utils\_s3.py)]
+def upload_to_s3(s3, json_data, bucket_name, key):
+    s3.put_object(
+        Bucket=bucket_name,
+        Key=key,
+        Body=json.dumps(json_data, indent=4, cls=DecimalEncoder)
+    )
+
+def get_json_from_s3(s3, bucket, key):
+    response = s3.get_object(Bucket=bucket, Key=key)
+    content  = response["Body"].read().decode("utf-8")
+    return json.loads(content)
+
+def get_s3_object_keys(s3, bucket_name, prefix):
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+    return [obj['Key'] for obj in response.get('Contents', [])]
+\end{lstlisting}
+
+Le \texttt{DecimalEncoder} sérialise les \texttt{Decimal} Python en \texttt{int} ou
+\texttt{float} selon la présence d'une partie décimale --- une nécessité, car
+DynamoDB stocke tous les nombres au format \texttt{Decimal}.
+
+\capture{Console AWS S3 -- bucket \texttt{efrei-cloud-project}, dossier \texttt{departures} : liste des objets JSON horodatés.}
+
+\subsection{DynamoDB --- modèle d'accès et index secondaire global}
+
+\subsubsection{Modèle de données}
+
+Chaque item DynamoDB~\cite{dynamodb} dans les trois tables temps réel porte un
+attribut \texttt{type} (valeur constante par table : \texttt{"parkings"},
+\texttt{"traffic"}, \texttt{"departures"}) et un \texttt{ingestion\_timestamp} en
+microsecondes Unix. Ce couple constitue la clé du GSI. L'horodatage est exprimé en
+microsecondes (\texttt{timestamp() * 1\_000\_000}) pour garantir l'unicité sur des
+ingestions rapprochées : un horodatage en secondes provoquerait des collisions si
+deux snapshots arrivaient dans la même seconde.
+
+\begin{lstlisting}[language=Python, caption=Création d'un item avec horodatage microseconde (process\_s3\_to\_dynamodb.py)]
+def create_stations_departures_dict(json_data, ingestion_timestamp_str):
+    results = []
+    for index, departure in enumerate(json_data["departures"]):
+        result = {
+            "gid": index,
+            "trip_id": departure["display_informations"]["trip_short_name"],
+            "ingestion_timestamp": int(
+                datetime.fromisoformat(ingestion_timestamp_str).timestamp()
+                * 1_000_000),           # microsecondes : unicite garantie
+            "departure_datetime": departure["stop_date_time"]["base_departure_date_time"],
+            "departure_station":  departure["stop_point"]["name"],
+            "network":            departure["display_informations"]["network"],
+            "type": "departures",       # PK du GSI : valeur constante par table
+            "long": departure["stop_point"]["coord"]["lon"],
+            "lat":  departure["stop_point"]["coord"]["lat"],
+        }
+        results.append(result)
+    return results
+\end{lstlisting}
+
+\subsubsection{Global Secondary Index --- requête O(1) sur le dernier snapshot}
+
+L'enjeu de performance est d'accéder au dernier snapshot \textit{sans} scanner toute
+la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serait un
+\texttt{scan} en O(n) sur l'ensemble de l'historique. Avec le GSI
+\texttt{gsi-type-ingestion\_timestamp} (PK : type, SK : ingestion\_timestamp), une
+\texttt{query} avec \texttt{ScanIndexForward=False, Limit=1} retourne
+l'enregistrement le plus récent en O(1).
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
+\hline
+Items lus & Toute la table (N) & Exactement 1 \\
+\hline
+Unités de lecture (RCU) & N & 1 \\
+\hline
+Complexité & O(n) & O(1) \\
+\hline
+Tri & Côté application & Natif (sort key) \\
+\hline
+\end{tabularx}\end{center}
+
+\begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
+def get_last_processed_timestamp(dynamodb, table_name, type_table):
+    table = dynamodb.Table(table_name)
+    try:
+        response = table.query(
+            IndexName='gsi-type-ingestion_timestamp',
+            KeyConditionExpression=Key('type').eq(type_table),
+            ScanIndexForward=False,   # tri SK descendant : le plus grand en tete
+            Limit=1,
+            ProjectionExpression="ingestion_timestamp"
+        )
+        items = response.get('Items', [])
+        return items[0]['ingestion_timestamp'] if items else None
+    except Exception:
+        # Fallback : scan si GSI non disponible (degraded mode)
+        response = table.scan(
+            ProjectionExpression="ingestion_timestamp", Limit=1000)
+        timestamps = [item['ingestion_timestamp'] for item in response['Items']]
+        return max(timestamps) if timestamps else None
+\end{lstlisting}
+
+Le fallback sur \texttt{scan} garantit la disponibilité du service même si le GSI est
+en cours de construction ou temporairement indisponible (mode dégradé). Ce même
+pattern --- query GSI en priorité, scan en secours --- est réutilisé dans le Lambda
+de l'API.
+
+\capture{Console AWS DynamoDB -- table \texttt{parkings}, onglet \textit{Indexes} : configuration du GSI \texttt{gsi-type-ingestion\_timestamp}.}
+
+\subsubsection{Ingestion incrémentale depuis S3}
+
+Le pipeline S3 $\rightarrow$ DynamoDB ne retraite que les nouveaux objets S3. La
+borne de reprise est le dernier \texttt{ingestion\_timestamp} connu via le GSI ; les
+clés S3 sont filtrées par comparaison ISO de leur horodatage.
+
+\begin{lstlisting}[language=Python, caption=Ingestion incrémentale S3 vers DynamoDB (process\_s3\_to\_dynamodb.py)]
+last_processed_timestamp_str = get_last_processed_timestamp(
+    dynamodb, DYNAMODB_TABLE_NAME, "departures")
+
+keys     = get_s3_object_keys(s3, BUCKET_NAME, s3_folder)
+new_keys = []
+
+if last_processed_timestamp_str:
+    last_dt = datetime.fromtimestamp(
+        float(last_processed_timestamp_str) / 1_000_000)
+    for key in keys:
+        key_dt = datetime.fromisoformat(key.split('/')[1])
+        if key_dt > last_dt:
+            new_keys.append(key)
+else:
+    new_keys = keys    # premiere ingestion : tout traiter
+
+for key in new_keys:
+    response = get_json_from_s3(s3, BUCKET_NAME, key)
+    items    = create_stations_departures_dict(response, key.split('/')[1])
+    batch_put_items_to_dynamodb(dynamodb, DYNAMODB_TABLE_NAME, items)
+\end{lstlisting}
+
+L'idempotence est garantie : à chaque relance, seuls les objets S3 postérieurs au
+dernier horodatage connu sont réingérés, sans duplication des données déjà présentes.
+
+\subsection{Traitement cloud --- agrégation analytique}
+
+Un pipeline d'agrégation lit les tables temps réel (Silver) et produit dix tables
+analytiques pré-agrégées dans DynamoDB (Gold). Pour les parkings, l'agrégation se
+fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
+3\_600\_000\_000}), puis calcul des indicateurs métier.
+
+\needspace{12\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
+\hline
+\texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
+\hline
+\texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
+\hline
+\texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
+\hline
+\texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
+\hline
+\texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
+\hline
+\texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
+\hline
+\texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
+\hline
+\texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
+\hline
+\texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
+\hline
+\texttt{aggregation\_departures\_total} & Total des départs sur la période \\
+\hline
+\end{tabularx}\end{center}
+
+Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
+l'ingestion : l'API lit ensuite ces tables d'agrégats (petites et statiques) sans
+recalculer quoi que ce soit à chaque appel.
+
+\subsection{Mise à disposition --- Lambda et API Gateway}
+
+\subsubsection{Routage des 13 endpoints serverless}
+
+L'API expose treize endpoints via un Lambda~\cite{lambda} unique routé par chemin :
+trois endpoints temps réel (requête GSI vers le dernier snapshot) et dix endpoints
+d'agrégats (scan de tables statiques).
+
+\begin{lstlisting}[language=Python, caption=Lambda handler -- routage des 13 endpoints (api/main.py)]
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    path     = event.get('path')
+
+    # Endpoints agregats : scan complet (tables fixes, volume faible)
+    aggregation_tables = [
+        "aggregation_overall_occupancy_rate",
+        "aggregation_average_availability_parking",
+        "aggregation_reference_pricing",
+        "aggregation_traffic_congestion_index",
+        "aggregation_departures_by_network",
+        # ... 10 tables au total
+    ]
+    if path.lstrip('/') in aggregation_tables:
+        items = get_all_items(dynamodb, path.lstrip('/'))
+        return {'statusCode': 200,
+                'body': json.dumps(items, default=decimal_serializer)}
+
+    # Endpoints temps reel : requete GSI -> dernier snapshot
+    if path == '/parkings':     table_name, type_value = "parkings",   "parkings"
+    elif path == '/traffic':    table_name, type_value = "traffic",    "traffic"
+    elif path == '/departures': table_name, type_value = "departures", "departures"
+    else:
+        return {'statusCode': 404,
+                'body': json.dumps({'message': f'Not Found {path}'})}
+
+    last_ts = get_last_ingestion_time(dynamodb, table_name, type_value)
+    items   = get_items_by_ingestion_time(dynamodb, table_name, last_ts, type_value)
+    return {'statusCode': 200,
+            'body': json.dumps(items, default=decimal_serializer)}
+\end{lstlisting}
+
+L'architecture serverless (Lambda + API Gateway~\cite{apigateway}) supprime toute
+gestion d'infrastructure : pas de serveur à provisionner, pas de scaling manuel, et
+une facturation à la requête --- optimale pour un flux temps  réel à appels
+intermittents.
+
+\subsubsection{Cold start et stratégies de mitigation}
+
+Une invocation Lambda comprend deux phases : l'initialisation (\textit{cold start})
+et l'exécution. Le cold start n'a lieu qu'à la première invocation après une période
+d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
+\hline
+Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
+\hline
+Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
+\hline
+\end{tabularx}\end{center}
+
+Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
+Pour une API à très faible latence, trois leviers existent : la \textbf{Provisioned
+Concurrency} (instances maintenues chaudes en permanence), un \textbf{warm-up ping}
+EventBridge, ou un package minimal (boto3 étant fourni par le runtime AWS, le ZIP ne
+contient que le code applicatif ce qui réduit le temps de chargement).
+
+\capture{Console AWS API Gateway -- liste des 13 routes configurées (méthode GET + intégration Lambda).}
+
+\subsection{Sécurité et gestion des identités}
+
+\subsubsection{Principe du moindre privilège (IAM)}
+
+Chaque composant s'exécute sous un rôle IAM dédié n'accordant que les permissions
+strictement nécessaires à sa fonction.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Rôle IAM} & \thead{Permissions} & \thead{Justification} \\
+\hline
+\texttt{lambda-api-role} &
+  \code{dynamodb:GetItem}\newline \code{dynamodb:Query}\newline \code{dynamodb:Scan} &
+  L'API ne fait que lire --- aucune permission d'écriture accordée. \\
+\hline
+\texttt{ingestion-role} &
+  \code{s3:PutObject}\newline \code{dynamodb:PutItem}\newline \code{dynamodb:BatchWriteItem} &
+  L'ingestion écrit S3 et DynamoDB, sans relecture. \\
+\hline
+\texttt{aggregation-role} &
+  \code{dynamodb:Query} (Silver)\newline \code{dynamodb:PutItem} (Gold) &
+  Isolation stricte : lecture Silver, écriture Gold. \\
+\hline
+\end{tabularx}\end{center}
+
+Cette séparation garantit qu'une compromission d'un Lambda d'agrégation ne peut ni
+écrire dans les tables Silver ni lire d'autres tables Gold que les siennes. En
+production, les rôles seraient affinés par préfixe de table via des conditions
+\texttt{IAM StringLike} sur l'ARN.
+
+\subsubsection{Chiffrement des données}
+
+Le chiffrement en transit est assuré par défaut en HTTPS (TLS 1.2+) sur tous les
+appels boto3. Le chiffrement au repos est natif sur chaque service managé.
+
+\needspace{7\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Mode de chiffrement} & \thead{Implémentation projet} \\
+\hline
+AWS S3 & SSE-S3 (clé gérée AWS) & Chiffrement côté serveur automatique \\
+\hline
+AWS DynamoDB & AES-256 (clé AWS) & Activé par défaut sur toutes les tables \\
+\hline
+API Gateway & TLS 1.2+ obligatoire & Aucun trafic HTTP non chiffré \\
+\hline
+\end{tabularx}\end{center}
+
+Pour des données sensibles (positions GPS, données personnelles de transport), le
+SSE-KMS avec rotation annuelle de clé serait retenu : il permet de révoquer l'accès
+en révoquant la clé, sans supprimer les objets.
+
+\subsubsection{Automatisation de l'ingestion par EventBridge}
+
+L'ingestion manuelle actuelle serait industrialisée par AWS EventBridge Scheduler :
+un schedule cron déclenche chaque Lambda d'ingestion toutes les 5 minutes.
+
+\begin{lstlisting}[language=bash, caption=EventBridge Scheduler -- déclenchement périodique (AWS CLI)]
+aws scheduler create-schedule \
+  --name "ingest-parkings-every-5min" \
+  --schedule-expression "rate(5 minutes)" \
+  --target '{
+    "Arn": "arn:aws:lambda:eu-west-1:ACCOUNT:function:ingest-parkings",
+    "RoleArn": "arn:aws:iam::ACCOUNT:role/scheduler-invoke-role"
+  }' \
+  --flexible-time-window '{"Mode": "OFF"}'
+\end{lstlisting}
+
+Le rôle \texttt{scheduler-invoke-role} ne dispose que de la permission
+\texttt{lambda:InvokeFunction} sur la fonction ciblée --- nouvelle application du
+moindre privilège.
+
+\subsection{Optimisation des performances et des coûts}
+
+\subsubsection{Serverless contre serveur permanent}
+
+L'architecture Lambda + API Gateway est coût-efficace pour un flux intermittent. La
+comparaison avec une instance EC2 permanente illustre le gain.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Critère} & \thead{Lambda + API Gateway} & \thead{EC2 t3.small} \\
+\hline
+Facturation & À la requête (0,20 \$/M appels) & À l'heure ($\approx$18 \$/mois) \\
+\hline
+Scaling & Automatique, instantané & Manuel ou auto-scaling (délai) \\
+\hline
+Coût en veille & 0 \$ & 18 \$/mois (actif 24/7) \\
+\hline
+Maintenance OS & Aucune (managé) & Patches, mises à jour, supervision \\
+\hline
+\end{tabularx}\end{center}
+
+Pour le profil du projet (appels toutes les 5 minutes), la facturation Lambda est
+négligeable : $\approx$ 8\,640 invocations/mois, très en dessous du palier gratuit
+AWS (1 million d'invocations/mois).
+
+\subsubsection{Cycle de vie du stockage S3}
+
+Le bucket accumule des snapshots toutes les 5 minutes ; sans politique de rétention,
+le coût de stockage croît indéfiniment. Une politique de cycle de vie S3 automatise
+l'archivage puis la suppression.
+
+\needspace{7\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|l|l|}
+\hline
+\rowcolor{tableHeader}
+\thead{Règle} & \thead{Délai} & \thead{Effet} \\
+\hline
+Transition vers S3 Infrequent Access & 30 jours & $-40\,\%$ de coût \\
+\hline
+Transition vers S3 Glacier & 90 jours & $-70\,\%$ (récupération lente) \\
+\hline
+Suppression automatique & 365 jours & Coût nul \\
+\hline
+\end{tabularx}\end{center}
+
+\subsubsection{Supervision CloudWatch}
+
+CloudWatch collecte automatiquement les métriques de chaque service. Une alarme sur
+\texttt{ThrottledRequests} $>$ 0 déclenche une notification SNS, permettant de réagir
+avant que le throttling n'affecte les utilisateurs.
+
+\needspace{9\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Service} & \thead{Métrique} & \thead{Seuil d'alerte} \\
+\hline
+Lambda ingestion & \texttt{Errors} & $>$ 0 erreur en 5 min \\
+\hline
+Lambda API & \texttt{Duration} & $>$ 3 secondes \\
+\hline
+DynamoDB & \texttt{ThrottledRequests} & $>$ 0 (critique) \\
+\hline
+API Gateway & \texttt{5XXError} & $>$ 1\,\% du trafic \\
+\hline
+S3 & \texttt{NumberOfObjects} & Croissance anormale \\
+\hline
+\end{tabularx}\end{center}
+
+\capture{Tableau de bord Streamlit -- page Parkings : taux d'occupation global en temps réel et carte des parkings disponibles.}
+
+\subsection{Synthèse --- compétences démontrées}
+
+Le \texttt{projet cloud} couvre l'intégralité du périmètre du Bloc 3 à travers une
+architecture serverless AWS complète, du data lake brutes à l'API de
+consommation.
+
+\subsubsection{Preuves d'acquisition des compétences}
+\label{sec:preuves-bloc3}
+
+Le tableau suivant récapitule, pour chacune des quatre sous-compétences du Bloc 3, la
+réalisation concrète qui la démontre dans le projet.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
+\hline
+Stockage de données dans le cloud &
+  Lac de données S3 horodaté (Bronze) et base DynamoDB managée (Silver/Gold),
+  avec choix de services justifié face aux alternatives AWS. \\
+\hline
+Pipelines de traitement cloud &
+  Ingestion incrémentale idempotente S3 $\rightarrow$ DynamoDB et pipeline
+  d'agrégation produisant 10 tables analytiques pré-calculées. \\
+\hline
+Sécurité (chiffrement \& IAM) &
+  Rôles IAM au moindre privilège, chiffrement au repos (SSE-S3, AES-256) et en
+  transit (TLS 1.2+), automatisation sécurisée via EventBridge. \\
+\hline
+Optimisation (performance, disponibilité, coûts) &
+  GSI pour un accès O(1), compute serverless facturé à l'usage, cycle de vie S3 et
+  supervision CloudWatch (métriques + alarmes SNS). \\
+\hline
+\end{tabularx}
+\end{center}
 
 \newpage
 \section[Bloc 4 -- Implementer des methodes d'intelligence artificielle]{Bloc 4 -- Implementer des methodes d'intelligence artificielle pour\\ modeliser et predire de nouveaux comportements et usages}
@@ -1740,5 +2538,15 @@ argumenter, justifier vos choix et prendre du recul sur vos realisations.
 Vous pouvez terminer cette conclusion par une ouverture vers la soutenance,
 qui devra s'appuyer sur un support synthetique et pertinent et mettre en valeur
 votre e-portfolio de competences.
+
+\begin{thebibliography}{9}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}
+[consulté le 15 juin 2026].
+
+\end{thebibliography}
 
 \end{document}
