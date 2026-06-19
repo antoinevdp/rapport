@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+
+% ===================== POLICES & LANGUE =====================
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[french]{babel}
+
+% ===================== MISE EN PAGE =========================
+\usepackage[includeheadfoot,a4paper,top=0.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\tolerance=2000
+\emergencystretch=3em
+\hbadness=2500
+
+% ===================== COULEURS =============================
+\definecolor{titleNavy}{RGB}{22,50,92}
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}
+\definecolor{ruleGray}{RGB}{200,205,212}
+
+% ===================== TITRES ===============================
+\titleformat{\section}
+  {\Large\bfseries\color{titleNavy}}{\thesection}{0.8em}{}[{\vspace{1pt}\color{titleNavy}\titlerule[1.2pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\color{titleNavy}}{\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+
+% ===================== TABLEAUX =============================
+\arrayrulecolor{ruleGray}
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.35}
+\newcommand{\thead}[1]{\textbf{\textcolor{white}{#1}}}
+
+% ===================== EN-TÊTE / PIED =======================
+\renewcommand\headrulewidth{1.2pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand{\headrule}{\color{titleNavy}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{\color{ruleGray}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739 --- Rapport de certification}}\\ \small\textcolor{black!60}{Conclusion \& références}}
+\fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
+\fancyfoot[L]{\small\textcolor{black!55}{EFREI Paris}}
+\fancyfoot[C]{\small\textcolor{black!55}{Master 2 Data Engineering \& IA}}
+\fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
+\setlength{\headheight}{2cm}
+
+\begin{document}
+
+% ===================== TITRE ===============================
+\thispagestyle{fancy}
+\begin{center}
+  \vspace*{0.3cm}
+  {\small\textcolor{black!55}{RNCP36739 --- Expert en Ingénierie de Données}}\\[6pt]
+  {\Huge\bfseries\textcolor{titleNavy}{Conclusion \& références}}\\[8pt]
+  {\large\bfseries Bilan du parcours et bibliographie consolidée}\\[10pt]
+  {\normalsize Master 2 Data Engineering \& IA --- EFREI Paris}\\[4pt]
+  {\small Julien TREMONT-RAIMI \quad\textbullet\quad Antoine VANDEPLANQUE \quad\textbullet\quad Promotion 2024--2026}
+\end{center}
+
+\vspace{4pt}
+{\color{titleNavy}\hrule height 1.5pt}
+\vspace{10pt}
+
+% ===================== CONCLUSION ==========================
+\section{Conclusion}
+
+\subsection{Fil conducteur --- du stockage à la valeur métier}
+
+Ce rapport a présenté cinq projets. Ensemble, ils couvrent tout le cycle de vie de
+la donnée, du stockage brut jusqu'à la décision~\cite{rncp}. Chaque couche --- Bronze,
+Silver, Gold --- transforme un peu plus la donnée. Chaque outil --- Spark, DynamoDB,
+Lambda, scikit-learn --- répond à un besoin précis.
+
+Ces choix ne sont pas arbitraires. Avant chaque décision technique, nous nous sommes
+posé les bonnes questions : quel volume ? quelle latence ? quel coût ? Puis nous avons
+comparé les options. Savoir justifier un choix, et pas seulement le citer, est au
+centre du métier.
+
+\subsection{Progression observée sur deux années}
+
+Notre niveau a nettement évolué en deux ans. Au début, nos pipelines étaient simples
+et séquentiels. Aujourd'hui, nous concevons des architectures distribuées en
+plusieurs couches. Côté cloud, nous sommes passés de simples appels boto3 à une vraie
+architecture serverless, pensée pour le coût et la sécurité. En machine learning,
+nous ne testons plus un seul modèle mais un benchmark complet, avec interprétabilité
+et mise en service. Enfin, la chaîne CI/CD montre une vraie maturité côté DevOps.
+
+\subsection{Prise de recul --- limites et axes d'amélioration}
+
+Nos projets ont aussi des limites, et nous les assumons. Le monitoring reste
+incomplet : pas encore de suivi temps réel de la latence ni des erreurs, même si
+CloudWatch et la Spark UI posent les bases. Nous n'avons pas non plus testé nos
+pipelines sur des volumes beaucoup plus grands. Enfin, en production réelle, il
+faudrait détecter la dérive des données et réentraîner les modèles automatiquement.
+Ce sont nos prochaines pistes.
+
+\subsection{Ouverture}
+
+Ce rapport est la base de notre dossier de certification. La soutenance sera
+l'occasion d'approfondir les choix clés : le GSI DynamoDB, l'AQE dans Spark, le
+benchmark des modèles. Le code, les modèles, les tableaux de bord et les pipelines
+CI/CD réalisés pendant ces deux ans sont la preuve concrète de notre travail. Ils
+montrent que les cinq blocs sont acquis.
+
+% ===================== RÉFÉRENCES ==========================
+\begin{thebibliography}{99}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}.
+
+\bibitem{spark}
+Zaharia M., Xin R.~S., Wendell P. \textit{et al.}
+\textit{Apache Spark: A Unified Engine for Big Data Processing}.
+\textit{Communications of the ACM}, vol.~59, n\textdegree{}11, pp.~56--65, 2016.
+DOI : \url{https://doi.org/10.1145/2934664}
+
+\bibitem{spark-streaming}
+Apache Software Foundation.
+\textit{Structured Streaming Programming Guide --- Apache Spark}.
+Documentation officielle, version 3.x.
+Disponible sur : \url{https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html}.
+
+\bibitem{parquet}
+Apache Software Foundation.
+\textit{Apache Parquet --- Columnar Storage Format}.
+Disponible sur : \url{https://parquet.apache.org/}.
+
+\bibitem{hive}
+Apache Software Foundation.
+\textit{Apache Hive --- Data Warehouse Software}.
+Disponible sur : \url{https://hive.apache.org/}.
+
+\bibitem{mysql}
+Oracle Corporation.
+\textit{MySQL 8.0 Reference Manual}.
+Disponible sur : \url{https://dev.mysql.com/doc/refman/8.0/en/}.
+
+\bibitem{django}
+Django Software Foundation.
+\textit{Django REST Framework --- Web APIs for Django}.
+Disponible sur : \url{https://www.django-rest-framework.org/}.
+
+\bibitem{s3}
+Amazon Web Services.
+\textit{Amazon S3 --- Object Storage}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/s3/}.
+
+\bibitem{dynamodb}
+DeCandia G., Hastorun D., Jampani M. \textit{et al.}
+\textit{Dynamo: Amazon's Highly Available Key-value Store}.
+\textit{ACM SIGOPS Operating Systems Review}, vol.~41, n\textdegree{}6,
+pp.~205--220, 2007.
+DOI : \url{https://doi.org/10.1145/1323293.1294281}
+
+\bibitem{lambda}
+Amazon Web Services.
+\textit{AWS Lambda --- Serverless Compute}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/lambda/}.
+
+\bibitem{apigateway}
+Amazon Web Services.
+\textit{Amazon API Gateway}. Documentation officielle AWS.
+Disponible sur : \url{https://docs.aws.amazon.com/apigateway/}.
+
+\bibitem{boto3}
+Amazon Web Services.
+\textit{Boto3 --- AWS SDK for Python}. Documentation officielle.
+Disponible sur : \url{https://boto3.amazonaws.com/v1/documentation/api/latest/index.html}.
+
+\bibitem{sklearn}
+Pedregosa F., Varoquaux G., Gramfort A. \textit{et al.}
+\textit{Scikit-learn: Machine Learning in Python}.
+\textit{Journal of Machine Learning Research}, vol.~12, pp.~2825--2830, 2011.
+
+\bibitem{pandas}
+McKinney W.
+\textit{Data Structures for Statistical Computing in Python}.
+\textit{Proceedings of the 9th Python in Science Conference}, pp.~56--61, 2010.
+DOI : \url{https://doi.org/10.25080/Majora-92bf1922-00a}
+
+\bibitem{fastapi}
+Ramírez S.
+\textit{FastAPI --- Modern, fast web framework for building APIs with Python}.
+Documentation officielle. Disponible sur : \url{https://fastapi.tiangolo.com/}.
+
+\bibitem{streamlit}
+Streamlit Inc.
+\textit{Streamlit --- A faster way to build and share data apps}.
+Documentation officielle. Disponible sur : \url{https://docs.streamlit.io/}.
+
+\bibitem{githubactions}
+GitHub, Inc.
+\textit{GitHub Actions Documentation}.
+Disponible sur : \url{https://docs.github.com/actions}.
+
+\bibitem{docker}
+Docker, Inc.
+\textit{Docker Documentation}.
+Disponible sur : \url{https://docs.docker.com/}.
+
+\bibitem{openmeteo}
+Open-Meteo.
+\textit{Open-Meteo --- Free Weather API}.
+Disponible sur : \url{https://open-meteo.com/}.
+
+\end{thebibliography}
+
+\end{document}
