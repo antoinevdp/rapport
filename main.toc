@@ -13,35 +13,36 @@
 \contentsline {subsection}{\numberline {4.2}Projets / TP associés}{4}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Présentation des projets mobilisés}{4}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}Challenge Datalake}{4}{subsubsection.4.3.1}%
-\contentsline {paragraph}{Problématique métier.}{4}{paragraph*.1}%
+\contentsline {paragraph}{Contexte et objectif fonctionnel.}{4}{paragraph*.1}%
 \contentsline {paragraph}{Sources de données mobilisées.}{4}{paragraph*.2}%
 \contentsline {paragraph}{Architecture générale du projet.}{5}{paragraph*.3}%
 \contentsline {paragraph}{Couche Bronze : ingestion et conservation du brut.}{5}{paragraph*.4}%
 \contentsline {paragraph}{Couche Silver : normalisation et fiabilisation.}{5}{paragraph*.5}%
 \contentsline {paragraph}{Couche Gold : consolidation et vision analytique.}{6}{paragraph*.6}%
-\contentsline {paragraph}{Choix de stockage.}{6}{paragraph*.7}%
-\contentsline {paragraph}{Traitements et outils techniques.}{7}{paragraph*.8}%
-\contentsline {paragraph}{Organisation de l'API.}{7}{paragraph*.9}%
-\contentsline {paragraph}{Fonctionnalités d'exposition.}{7}{paragraph*.10}%
-\contentsline {paragraph}{Valeur du projet dans le rapport.}{7}{paragraph*.11}%
-\contentsline {subsection}{\numberline {4.4}Justification des compétences du bloc 1}{9}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Concevoir et développer une base de données relationnelle}{9}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}Concevoir et développer une base de données non relationnelle}{9}{subsubsection.4.4.2}%
-\contentsline {subsubsection}{\numberline {4.4.3}Concevoir et construire un datalake}{10}{subsubsection.4.4.3}%
-\contentsline {subsubsection}{\numberline {4.4.4}Créer une API pour rendre les données accessibles}{10}{subsubsection.4.4.4}%
-\contentsline {subsection}{\numberline {4.5}Bilan du bloc 1}{10}{subsection.4.5}%
+\contentsline {paragraph}{Choix de stockage relationnel et hybride.}{6}{paragraph*.7}%
+\contentsline {paragraph}{Traitements, orchestration et robustesse.}{7}{paragraph*.8}%
+\contentsline {paragraph}{Organisation de l'API REST.}{7}{paragraph*.9}%
+\contentsline {paragraph}{Fonctionnalités d'exposition et documentation.}{8}{paragraph*.10}%
+\contentsline {paragraph}{Authentification et contrôle d'accès.}{8}{paragraph*.11}%
+\contentsline {paragraph}{Valeur du projet pour le bloc 1.}{8}{paragraph*.12}%
+\contentsline {subsubsection}{\numberline {4.3.2}Projet Cloud : volet NoSQL}{8}{subsubsection.4.3.2}%
+\contentsline {paragraph}{Modèle de données dénormalisé.}{8}{paragraph*.13}%
+\contentsline {paragraph}{Tables par flux métier.}{9}{paragraph*.14}%
+\contentsline {paragraph}{Patrons d'accès et indexation.}{9}{paragraph*.15}%
+\contentsline {subsection}{\numberline {4.4}Analyse attendue}{10}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Preuves d'acquisition des compétences}{10}{subsubsection.4.4.1}%
 \contentsline {section}{\numberline {5}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}{11}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Compétences visées}{11}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Projets / TP associes}{11}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Présentation des projets mobilisés}{11}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}Projet Spark}{11}{subsubsection.5.3.1}%
-\contentsline {paragraph}{Contexte et objectif fonctionnel.}{11}{paragraph*.12}%
-\contentsline {paragraph}{Sources de données et variété des flux.}{11}{paragraph*.13}%
-\contentsline {paragraph}{Architecture distribuée avec Spark.}{11}{paragraph*.14}%
-\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{12}{paragraph*.15}%
-\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{13}{paragraph*.16}%
-\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{14}{paragraph*.17}%
-\contentsline {paragraph}{Dimension machine learning.}{15}{paragraph*.18}%
+\contentsline {paragraph}{Contexte et objectif fonctionnel.}{11}{paragraph*.16}%
+\contentsline {paragraph}{Sources de données et variété des flux.}{11}{paragraph*.17}%
+\contentsline {paragraph}{Architecture distribuée avec Spark.}{11}{paragraph*.18}%
+\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{12}{paragraph*.19}%
+\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{13}{paragraph*.20}%
+\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{14}{paragraph*.21}%
+\contentsline {paragraph}{Dimension machine learning.}{15}{paragraph*.22}%
 \contentsline {subsubsection}{\numberline {5.3.2}Projet DevOps : fizzbuzz-Efrei}{16}{subsubsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.4}Analyse attendue}{17}{subsection.5.4}%
 \contentsline {subsubsection}{\numberline {5.4.1}Preuves d'acquisition des compétences}{17}{subsubsection.5.4.1}%
