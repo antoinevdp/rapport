@@ -1,0 +1,194 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\definecolor{flag}{RGB}{170,40,40}
+\definecolor{ok}{RGB}{36,130,70}
+\definecolor{mix}{RGB}{180,120,20}
+\definecolor{tableRowAlt}{RGB}{238,242,248}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\hum}[1]{\textcolor{ok}{#1}}
+\newcommand{\iaa}[1]{\textcolor{flag}{#1}}
+\newcommand{\mixx}[1]{\textcolor{mix}{#1}}
+
+\title{Audit stylométrique IA / Humain --- \textbf{méthode v2 (contrastive)}\\
+\large Fichier \texttt{main.tex} --- approfondissement}
+\author{Auditeur automatique (Claude Code)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Ce que corrige cette version}
+La première passe rendait un global $\approx$ 50\,\%, peu exploitable. \textbf{Ce n'était
+pas une erreur de mesure mais un artefact de méthode :} moyenner des signaux faibles en
+valeur \emph{absolue} ramène mécaniquement tout vers le centre (régression vers la
+moyenne). Deux changements corrigent cela :
+\begin{enumerate}[]
+  \item \textbf{Audit contrastif.} Le document contient des sections \emph{prouvées
+  humaines} (présentation Geismar, descriptif du poste : 1\textsuperscript{re} personne,
+  faits vérifiables, zéro tournure générique). Elles servent d'\textbf{empreinte de
+  référence de l'auteur}. On mesure la \emph{distance} de chaque section à cette empreinte,
+  au lieu d'un seuil absolu universel.
+  \item \textbf{Features réellement discriminantes} (et non la moyenne des longueurs) :
+  \emph{forme} de la distribution des longueurs de phrase (l'IA évite les phrases
+  courtes et varie peu), \emph{diversité des ouvreurs}, \emph{répétition de n-grammes} ;
+  plus deux signaux quasi-binaires : densité de \emph{coquilles réelles} (marqueur humain)
+  et densité \emph{1\textsuperscript{re} personne + concret} (chiffres, identifiants de code).
+\end{enumerate}
+Résultat : les scores s'étalent désormais de \textbf{12 à 79} (et non plus 38--62), et
+deux indicateurs indépendants (rubrique + distance à l'empreinte) concordent.
+
+\section{Limite assumée}
+La littérature identifie la \textbf{perplexité} (régularité probabiliste sous un modèle de
+langage) comme le signal le plus discriminant. Elle exige un modèle de langage : je ne la
+calcule \textbf{pas} et ne la simule pas (cela serait inventé). La méthode ci-dessous est
+\emph{stylométrique} et \emph{contrastive} ; elle reste heuristique, non forensique.
+
+\section{Diagnostic global révisé}
+Le $\approx$ 49\,\% global n'est pas \enquote{aléatoire} : c'est la signature d'un document
+\textbf{Mixte par construction}, où la plupart des sections combinent un \emph{fond humain
+réel} et une \emph{forme rédactionnelle IA}. La décomposition par volume de prose le montre :
+
+\begin{center}
+\begin{tabularx}{\linewidth}{Y r l}
+\toprule
+Bande de score (sur 9\,142 mots de prose) & Part & Interprétation \\
+\midrule
+\hum{$\leq$ 35 --- Humain probable} & $\approx$ 16\,\% & Voix perso, concret, coquilles \\
+36--44 --- Mixte équilibré & $\approx$ 9\,\% & Indécis \\
+\mixx{45--59 --- Mixte à dominante IA} & $\approx$ 73\,\% & Fond réel, \emph{forme} IA \\
+\iaa{$\geq$ 60 --- IA probable} & $\approx$ 2\,\% & Synthèses de clôture, généralités \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent \textbf{Conclusion :} environ \textbf{trois quarts de la prose} sont du
+\enquote{contenu réel rédigé dans une forme IA}, avec un noyau personnel net ($\approx$
+16\,\%) et de rares passages purement génériques. Ce n'est pas un coup de dé : c'est un
+document rédigé \textbf{avec} une IA sur une matière authentique.
+
+\section{Empreinte humaine de référence (auteur)}
+Calculée sur \enquote{Geismar} + \enquote{Le poste} :
+burstiness (CV) $\approx$ 0,44 ; phrases courtes $\approx$ 35\,\% ; diversité des ouvreurs
+$\approx$ 0,90 ; \enquote{tells} $\approx$ 0 ; densité concret $\approx$ 85/1000.
+Toute section qui s'éloigne fortement de ce profil (CV bas, peu de phrases courtes,
+ouvreurs répétitifs, concret faible) est suspecte.
+
+\section{Résultats par section (score IA 5--95, décisif)}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{Y r c c Y}
+\toprule
+Section & Mots & Score & Verdict & Signal moteur \\
+\midrule
+\rowcolor{tableRowAlt}\multicolumn{5}{l}{\textit{Pages liminaires}}\\
+Remerciements & 112 & 39 & Mixte & tells 17,9 vs coquilles+\enquote{je}$\times$9 \\
+Introduction & 257 & 31 & \hum{Humain} & rythme varié (CV 0,63) ; \emph{mais 1\textsuperscript{re} phrase IA} \\
+Entreprise : Geismar & 108 & 28 & \hum{Humain} & faits concrets, ancre de référence \\
+Le poste (alternance) & 171 & 12 & \hum{Humain} & \enquote{je}, concret, ouvreurs 1,0 \\
+Synthèse des blocs & 70 & 36 & Mixte & court (faible confiance) \\
+\midrule
+\rowcolor{tableRowAlt}\multicolumn{5}{l}{\textit{Bloc 1 --- Challenge Datalake}}\\
+Présentation projets & 1515 & \mixx{59} & \mixx{Mixte (IA)} & ouvreurs \iaa{0,44}, peu de phrases courtes \\
+Justification compét. & 1197 & 48 & Mixte & ouvreurs \iaa{0,38}, clôtures répétées \\
+Bilan bloc 1 & 106 & 48 & Mixte & court (faible confiance) \\
+\midrule
+\rowcolor{tableRowAlt}\multicolumn{5}{l}{\textit{Bloc 2 --- Spark \& DevOps}}\\
+Présentation projets & 2295 & \mixx{56} & \mixx{Mixte (IA)} & ouvreurs \iaa{0,25} (pire) ; mais concret+coquilles \\
+\midrule
+\rowcolor{tableRowAlt}\multicolumn{5}{l}{\textit{Bloc 3 --- Cloud AWS}}\\
+Contexte et enjeux & 157 & 32 & \hum{Humain} & CV 0,50, phrases courtes 25\,\% \\
+Architecture cloud & 101 & 34 & \hum{Humain} & concret 99, varié \\
+Stockage S3 & 108 & 40 & Mixte & — \\
+DynamoDB \& GSI & 226 & 30 & \hum{Humain} & concret 120, chiffres, coquille \\
+Lambda \& API Gateway & 172 & 20 & \hum{Humain} & CV 0,51, concret 116 \\
+Sécurité \& IAM & 155 & 40 & Mixte & — \\
+Optimisation coûts & 119 & 39 & Mixte & très proche de l'empreinte humaine \\
+Synthèse Bloc 3 & 44 & \iaa{61} & \iaa{IA prob.} & CV 0,09 ; \enquote{couvre l'intégralité} \\
+\midrule
+\rowcolor{tableRowAlt}\multicolumn{5}{l}{\textit{Bloc 4 --- Machine Learning}}\\
+Compétences visées & 88 & 54 & \mixx{Mixte (IA)} & CV 0,11 (énumération mécanique) \\
+Contexte et enjeux & 113 & 43 & Mixte & — \\
+Architecture / cycle ML & 88 & \iaa{62} & \iaa{IA prob.} & CV \iaa{0,12} ; \enquote{il est impératif} \\
+Analyse exploratoire (EDA) & 305 & 25 & \hum{Humain} & 24 chiffres, CV 0,57, courtes 35\,\% \\
+Préparation des données & 196 & 58 & \mixx{Mixte (IA)} & tells 5,1 ; tirets 10 \\
+Entraînement comparatif & 245 & 56 & \mixx{Mixte (IA)} & ouvreurs 0,64 ; tells 4 \\
+Résultats et évaluation & 494 & 46 & Mixte & rép. n-gr. 47 \emph{mais} 89 chiffres \\
+Mise en service & 251 & 53 & Mixte & tells 4 \\
+Robustesse \& limites & 190 & 54 & \mixx{Mixte (IA)} & CV 0,23 ; \enquote{d'une part\,\dots} \\
+Synthèse Bloc 4 & 52 & \iaa{79} & \iaa{IA prob.} & CV \iaa{0,04} ; rép. n-gr. \iaa{58} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\footnotesize Confiance : élevée pour les sections $>$ 250 mots ; faible $<$ 120 mots
+(synthèses, chapeaux). \enquote{Verdict} dérivé du score : \hum{$\leq$35 Humain},
+36--44 Mixte, \mixx{45--59 Mixte (IA)}, \iaa{$\geq$60 IA}.
+\normalsize
+
+\section{Classement actionnable}
+\textbf{À personnaliser en priorité (les plus \enquote{IA}) :}
+Synthèse Bloc 4 (79) ; Architecture / cycle ML (62) ; Synthèse Bloc 3 (61) ;
+Bloc 1 présentation (59) ; Préparation données (58) ; Bloc 2 présentation \& Entraînement (56).
+
+\smallskip
+\textbf{À conserver tel quel (les plus humains) :}
+Le poste (12) ; Lambda \& API (20) ; EDA (25) ; Geismar (28) ; DynamoDB (30).
+
+\section{Signaux les plus décisifs (mesurés)}
+\begin{center}
+\begin{tabularx}{\linewidth}{Y c c Y}
+\toprule
+Signal & Sections humaines & Sections IA & Pouvoir séparateur \\
+\midrule
+Diversité des ouvreurs & 0,80--1,00 & 0,25--0,50 & \textbf{fort} \\
+\% phrases courtes ($<$11 mots) & 25--40\,\% & 0--8\,\% & \textbf{fort} \\
+Burstiness (CV) & 0,40--0,63 & 0,04--0,23 & fort \\
+Densité concret (chiffres/code) & 85--200 & 12--40 & moyen \\
+Coquilles réelles & présentes & absentes & moyen (binaire) \\
+\enquote{Tells} & $\approx$ 0 & variable & faible (sauf liminaires) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\noindent Contrairement aux idées reçues, le \emph{lexique} (\enquote{tells}) discrimine
+mal ici : le signal fort est \textbf{structurel} (rythme des phrases, ouvreurs). C'est
+cohérent avec la littérature : la longueur moyenne des phrases et les bigrammes de
+mots-outils sont les marqueurs les plus discriminants, l'IA produisant des phrases plus
+uniformes (peu de phrases courtes) que l'humain.
+
+\section{Zones non rédigées (inchangé, bloquant)}
+Bloc 5 entier, Conclusion, Bloc 2 \enquote{Analyse attendue}, page de titre
+(\enquote{A completer}, \texttt{\textbackslash author\{Tonio\}}) : texte de gabarit, exclu
+du scoring. À traiter avant dépôt. Détails et trame dans \texttt{propositions\_reecriture.tex}.
+
+\section{Verdict}
+\textbf{Document Mixte}, fond authentique et personnel, forme rédactionnelle largement
+assistée par IA (signature structurelle nette sur $\approx$ 73\,\% de la prose). Noyau
+clairement humain de $\approx$ 16\,\% (alternance, EDA, accès DynamoDB/Lambda). Pour
+abaisser l'empreinte IA, agir sur le \textbf{rythme} (réintroduire des phrases courtes,
+diversifier les ouvreurs) plutôt que sur le vocabulaire, et personnaliser les synthèses
+de clôture. Estimation indicative, à valider par jugement humain.
+
+\section*{Sources (méthode)}
+\small
+\begin{itemize}
+  \item Pangram Labs --- \emph{Why Perplexity and Burstiness Fail to Detect AI}.
+  \url{https://www.pangram.com/blog/why-perplexity-and-burstiness-fail-to-detect-ai}
+  \item \emph{Feature-Based Detection of AI-Generated Text: Stylometric and Perplexity
+  Markers} (ResearchGate, 2025).
+  \item \emph{Stylometric comparisons of human versus AI-generated creative writing},
+  Humanities and Social Sciences Communications (Nature), 2025.
+  \url{https://www.nature.com/articles/s41599-025-05986-3}
+  \item \emph{A Lightweight Approach to Detection of AI-Generated Text}, arXiv 2511.21744.
+\end{itemize}
+\normalsize
+\end{document}

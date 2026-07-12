@@ -1,0 +1,217 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{csquotes}
+
+\definecolor{avant}{RGB}{150,40,40}
+\definecolor{apres}{RGB}{30,110,70}
+\definecolor{hdr}{RGB}{22,50,92}
+
+\newmdenv[linecolor=avant!40,backgroundcolor=avant!4,linewidth=0.8pt,
+  roundcorner=4pt,innertopmargin=6pt,innerbottommargin=6pt,
+  innerleftmargin=10pt,innerrightmargin=10pt,skipabove=6pt,skipbelow=4pt]{avantbox}
+\newmdenv[linecolor=apres!50,backgroundcolor=apres!5,linewidth=0.8pt,
+  roundcorner=4pt,innertopmargin=6pt,innerbottommargin=6pt,
+  innerleftmargin=10pt,innerrightmargin=10pt,skipabove=4pt,skipbelow=6pt]{apresbox}
+
+\newcommand{\av}{\textbf{\textcolor{avant}{AVANT}}\quad}
+\newcommand{\ap}{\textbf{\textcolor{apres}{APRÈS}}\quad}
+\newcommand{\pourquoi}[1]{\par\smallskip\noindent\textit{\textbf{Pourquoi :} #1}\par\smallskip}
+
+\title{Propositions de réécriture --- réduction de l'empreinte IA\\\large Fichier \texttt{main.tex}}
+\author{Auditeur automatique (Claude Code)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent Ce document propose, passage par passage, une version réécrite des extraits les
+plus marqués \enquote{IA} dans \texttt{main.tex}. Objectif : varier le rythme, supprimer
+les formules génériques, ajouter de la voix personnelle et des choix assumés --- \emph{sans
+toucher au fond technique}, qui est solide. Les réécritures sont des \textbf{points de
+départ} à adapter à votre voix réelle ; ne recopiez pas mot pour mot.
+
+\bigskip
+\section*{1. Introduction --- ouverture}
+\addcontentsline{toc}{section}{1. Introduction}
+\noindent\textit{Localisation :} \texttt{\textbackslash section\{Introduction\}}, 1\textsuperscript{er} paragraphe.
+
+\begin{avantbox}
+\av La donnée s'est imposée comme l'un des actifs stratégiques majeurs des organisations
+contemporaines. Derrière chaque tableau de bord, chaque modèle prédictif et chaque service
+numérique se trouve une chaîne d'ingénierie qui transforme des flux bruts, massifs et
+hétérogènes en information fiable, exploitable et créatrice de valeur.
+\end{avantbox}
+\begin{apresbox}
+\ap Pendant deux ans d'alternance chez Geismar, j'ai passé le plus clair de mon temps sur
+un problème simple à énoncer et difficile à résoudre : faire parler ensemble des données
+qui ne se parlent pas. ERP M3, Business Central, vieilles bases Access --- chaque filiale
+a son format, son rythme, ses trous. Le métier de data engineer, tel que je l'ai pratiqué,
+consiste justement à construire la chaîne qui transforme ce désordre en chiffres fiables.
+\end{apresbox}
+\pourquoi{\enquote{s'est imposée comme}, \enquote{actifs stratégiques}, \enquote{créatrice
+de valeur} sont des marqueurs d'ouverture génériques. La version réécrite ancre l'intro
+dans votre expérience réelle (déjà décrite plus loin dans le rapport) et donne une voix.}
+
+\section*{2. Remerciements}
+\noindent\textit{Localisation :} \texttt{\textbackslash section*\{Remerciements\}}.
+
+\begin{avantbox}
+\av Cet environnement a joué un rôle déterminant dans mon développement professionnel en me
+permettant d'acquérir de nouvelles compétences. Je tiens à souligner combien les
+opportunités d'expérimentation qui m'ont été offertes ont été d'une valeur inestimable.
+\end{avantbox}
+\begin{apresbox}
+\ap Chez Geismar, on m'a laissé tester des choses : migrer pour de vrai des données vers
+Snowflake, casser puis réparer des pipelines, défendre mes choix techniques. C'est cette
+liberté d'expérimenter, plus que tout le reste, qui m'a fait progresser.
+\end{apresbox}
+\pourquoi{\enquote{joué un rôle déterminant}, \enquote{valeur inestimable} sont des
+formules toutes faites. Un exemple concret (\enquote{migrer vers Snowflake},
+\enquote{casser puis réparer}) sonne sincère et humain. \textbf{À corriger aussi :}
+\enquote{au intervenants} $\rightarrow$ \enquote{aux intervenants} ;
+\enquote{La richesse\,\dots\ ont} $\rightarrow$ \enquote{a} ; \enquote{essentiels de ma
+progression} $\rightarrow$ \enquote{essentiels à ma progression}.}
+
+\section*{3. Bloc 1 --- paragraphe « Valeur du projet dans le rapport »}
+\noindent\textit{Localisation :} Bloc 1, \texttt{\textbackslash paragraph\{Valeur du projet dans le rapport.\}}
+
+\begin{avantbox}
+\av Ce projet est particulièrement intéressant pour ce rapport, car il constitue un cas
+concret d'architecture de données de bout en bout. [\dots] En d'autres termes, il ne s'agit
+pas d'un simple exercice d'import de données, mais bien d'une plateforme cohérente où chaque
+couche répond à un rôle précis [\dots]
+\end{avantbox}
+\begin{apresbox}
+\ap Si je retiens ce projet pour le Bloc 1, c'est qu'il m'a obligé à traiter toute la
+chaîne, pas juste un maillon : aller chercher six sources qui n'avaient ni le même format
+ni le même rythme, les fiabiliser, puis les exposer via une API utilisable. C'est là que
+j'ai vraiment compris ce que \enquote{Bronze / Silver / Gold} veut dire en pratique --- et
+pourquoi sauter une couche se paie plus tard.
+\end{apresbox}
+\pourquoi{Le paragraphe d'origine est un \enquote{méta-commentaire} qui justifie le choix
+sans rien apporter de neuf (\enquote{particulièrement intéressant}, \enquote{en d'autres
+termes}). La réécriture remplace la justification abstraite par un apprentissage concret.}
+
+\section*{4. Bloc 1 --- clôtures de justification répétées}
+\noindent\textit{Localisation :} sous-section \enquote{Justification des compétences du bloc 1}
+(plusieurs sous-parties se terminent par la même tournure).
+
+\begin{avantbox}
+\av Cette partie répond donc à la compétence attendue, car il ne s'agissait pas seulement
+de\,\dots\quad(\textit{puis, plus loin :}) Cette conception répond à la compétence visée,
+car\,\dots\quad(\textit{puis :}) Cette API justifie pleinement la compétence attendue\,\dots
+\end{avantbox}
+\begin{apresbox}
+\ap (Varier les clôtures, p.\,ex.)\\
+--- \enquote{Concrètement, ce sont la modélisation en étoile et l'\textit{upsert} MySQL qui
+matérialisent la compétence \enquote{base relationnelle}.}\\
+--- \enquote{Le choix DynamoDB se défend par les patrons d'accès, pas par la mode NoSQL :
+nous sommes partis des requêtes attendues.}\\
+--- \enquote{L'API n'est pas un ajout cosmétique : filtres, pagination et auth JWT en font
+un vrai service consommable.}
+\end{apresbox}
+\pourquoi{La répétition mécanique de \enquote{répond à la compétence attendue} est un
+signal de remplissage. Conclure chaque sous-partie par la \emph{preuve technique précise}
+est à la fois plus humain et plus convaincant pour un jury.}
+
+\section*{5. Bloc 2 --- phrase à rallonge et coquilles}
+\noindent\textit{Localisation :} Bloc 2, \enquote{Architecture distribuée avec Spark} et
+\enquote{Couche Bronze}.
+
+\begin{avantbox}
+\av L'ensemble du projet repose sur une architecture autour de Spark, nous avons installé
+spark en local sur une machine puissante, le point d'entrée le cluster se fait via
+\texttt{spark://localhost:7077}. [\dots] partitionnement des vols par Year, Month et Day
+\textbf{cat} il améliore les performances\,\dots
+\end{avantbox}
+\begin{apresbox}
+\ap Le projet tourne sur un cluster Spark installé en local sur une machine dédiée ; le
+point d'entrée est \texttt{spark://localhost:7077}. Tous les scripts (ingestion, streaming,
+nettoyage, agrégation, ML) partagent la même \texttt{SparkSession}, où nous fixons la
+mémoire et le nombre de cœurs. Nous partitionnons les vols par année, mois et jour :
+\textbf{car} cela limite les lectures à la période utile au lieu de relire tout le jeu de
+données.
+\end{apresbox}
+\pourquoi{Phrase d'origine en \enquote{run-on} (plusieurs idées sans ponctuation forte) et
+deux coquilles : \enquote{le point d'entrée le cluster} et \enquote{cat} $\rightarrow$
+\enquote{car}. La réécriture découpe le rythme \emph{tout en gardant} votre détail concret
+(\texttt{:7077}, mémoire/cœurs) qui est un excellent marqueur humain.}
+
+\section*{6. Bloc 4 --- Architecture / cycle de vie}
+\noindent\textit{Localisation :} Bloc 4, fin de \enquote{Architecture et cycle de vie du modèle}.
+
+\begin{avantbox}
+\av Ce découpage modulaire est un choix d'ingénierie [\dots] Il est impératif de séparer
+les responsabilités pour que le projet ML puisse être maintenu.
+\end{avantbox}
+\begin{apresbox}
+\ap Concrètement, ce découpage nous a déjà servi : nous avons réentraîné les modèles deux
+fois sans toucher à l'API, et fait évoluer le dashboard sans relancer un seul
+entraînement. C'est tout l'intérêt de garder préparation, entraînement, évaluation et
+serving étanches.
+\end{apresbox}
+\pourquoi{\enquote{Il est impératif de\,\dots} est une formule sentencieuse générique
+(burstiness de la section : 0,12, très uniforme). Donner un \emph{effet vécu}
+(\enquote{réentraîné deux fois sans toucher à l'API}) casse le rythme et prouve le bénéfice.}
+
+\section*{7. Synthèses de bloc (Blocs 3 et 4)}
+\noindent\textit{Localisation :} débuts de \enquote{Synthèse --- compétences démontrées}.
+
+\begin{avantbox}
+\av Le \texttt{projet cloud} couvre l'intégralité du périmètre du Bloc 3 [\dots]
+(\textit{et} :) Le \texttt{projet data science} couvre l'intégralité du périmètre du Bloc 4\,\dots
+\end{avantbox}
+\begin{apresbox}
+\ap (Bloc 3) Au final, ce projet m'a fait toucher les quatre faces du Bloc 3 sur un même
+cas : stocker (S3/DynamoDB), traiter (ingestion + agrégats), sécuriser (IAM, chiffrement)
+et optimiser (GSI O(1), serverless). Le tableau ci-dessous relie chaque compétence à sa
+preuve.
+\end{apresbox}
+\pourquoi{\enquote{couvre l'intégralité du périmètre} ouvre les deux synthèses à
+l'identique : tournure de clôture stéréotypée. Rappeler les 4 axes concrets en une phrase
+est plus informatif et personnel.}
+
+\section*{8. Zones à rédiger (pas une réécriture : un squelette)}
+Ces parties sont \textbf{vides} (texte de consigne). Voici une trame à remplir avec vos
+éléments réels --- ne pas laisser de texte générique.
+
+\subsection*{Bloc 5 --- Gouvernance des données}
+\begin{itemize}[leftmargin=1.3em]
+  \item \textbf{Contexte réel Geismar} : multiplicité ERP (M3, Business Central, Access),
+  besoin d'harmonisation groupe, migration Snowflake --- un terrain de gouvernance concret.
+  \item \textbf{Gouvernance} : qui possède la donnée financière / stocks ? rôles, data owners,
+  catalogue, conventions de nommage Bronze/Silver/Gold.
+  \item \textbf{Conformité} : RGPD sur les données RH / clients, rétention, anonymisation.
+  \item \textbf{Qualité} : votre \texttt{data\_quality\_score} (Bloc 1) est une vraie preuve
+  d'audit qualité --- réutilisez-le ici.
+  \item \textbf{Sécurité \& accès} : IAM (Bloc 3), rôles Snowflake, moindre privilège.
+  \item \textbf{Stratégie / communication} : Power BI comme vecteur de diffusion de la culture data.
+\end{itemize}
+
+\subsection*{Conclusion}
+\begin{itemize}[leftmargin=1.3em]
+  \item Fil conducteur : des cinq projets, du stockage (B1) à la gouvernance (B5).
+  \item Progression sur deux ans : ce que vous saviez faire avant / après.
+  \item Recul critique : un choix que vous referiez autrement (p.\,ex. validation k-fold,
+  SMOTE non implémenté, ingestion EventBridge restée théorique).
+  \item Ouverture vers la soutenance et l'e-portfolio.
+\end{itemize}
+
+\subsection*{Corrections de gabarit (rapides)}
+\begin{itemize}[leftmargin=1.3em]
+  \item \texttt{\textbackslash author\{Tonio\}} $\rightarrow$ vos deux noms.
+  \item Page de titre : \enquote{Encadrant : A completer}, \enquote{Entreprise : A completer}.
+  \item Supprimer le paragraphe \enquote{Analyse attendue} du Bloc 2.
+  \item Accents des titres : \enquote{developper}, \enquote{strategie}, \enquote{methodes},
+  \enquote{creatrices}, \enquote{deployer}.
+  \item \enquote{projet datas cience project} (intro) $\rightarrow$ \enquote{data science project}.
+  \item \enquote{decapteurs} (Bloc 4 EDA) $\rightarrow$ \enquote{des capteurs}.
+\end{itemize}
+
+\end{document}
