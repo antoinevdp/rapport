@@ -1,0 +1,758 @@
+\documentclass[11pt]{article}
+
+% ===================== POLICES & LANGUE =====================
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[french]{babel}
+
+% ===================== MISE EN PAGE =========================
+\usepackage[includeheadfoot,a4paper,top=0.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, shadows.blur, fit}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\tolerance=2000
+\emergencystretch=3em
+\hbadness=2500
+
+% ===================== COULEURS =============================
+\definecolor{titleNavy}{RGB}{22,50,92}
+\definecolor{accentBlue}{RGB}{30,110,180}
+\definecolor{tableHeader}{RGB}{22,50,92}
+\definecolor{tableRowAlt}{RGB}{238,242,248}
+\definecolor{ruleGray}{RGB}{200,205,212}
+\definecolor{validGreen}{RGB}{36,130,70}
+\definecolor{bronzeColor}{RGB}{180,110,60}
+\definecolor{bronzeBg}{RGB}{255,240,220}
+\definecolor{silverColor}{RGB}{90,100,115}
+\definecolor{silverBg}{RGB}{230,235,242}
+\definecolor{goldColor}{RGB}{160,130,0}
+\definecolor{goldBg}{RGB}{255,252,210}
+\definecolor{cloudColor}{RGB}{30,110,180}
+\definecolor{cloudBg}{RGB}{220,238,255}
+\definecolor{mlColor}{RGB}{80,140,60}
+\definecolor{mlBg}{RGB}{225,245,220}
+
+% ===================== STYLES TIKZ ==========================
+\tikzset{
+  flowbox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=9cm, minimum height=1.2cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  minibox/.style={
+    rectangle, rounded corners=4pt, thick,
+    text width=5.2cm, minimum height=1.3cm, align=center,
+    font=\small, inner sep=6pt
+  },
+  arrowM/.style={-{Stealth[scale=1.3]}, line width=1.4pt, draw=black!50},
+}
+\newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
+
+% ===================== TITRES ===============================
+\titleformat{\section}
+  {\Large\bfseries\color{titleNavy}}{\thesection}{0.8em}{}[{\vspace{1pt}\color{titleNavy}\titlerule[1.2pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\color{titleNavy}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accentBlue}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% ===================== TABLEAUX =============================
+\arrayrulecolor{ruleGray}
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.35}
+\newcommand{\thead}[1]{\textbf{\textcolor{white}{#1}}}
+\newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\acquis}{\textcolor{validGreen}{\textbf{\checkmark\ Acquise}}}
+
+% ---- Figures encadrées avec légende (captures du projet) ----
+\captionsetup{font={small,it}, labelfont={bf,color=titleNavy}, labelsep=endash, justification=centering}
+\newcommand{\figc}[3]{% #1 = fichier (dans figures/), #2 = largeur, #3 = légende
+  \begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}%
+    \fcolorbox{ruleGray}{white}{\includegraphics[width=#2]{figures/#1}}%
+    \caption{#3}
+  \end{figure}}
+
+% ===================== CAPTURE =============================
+\mdfdefinestyle{captureStyle}{
+  linecolor=black!30, linewidth=0.8pt, roundcorner=5pt,
+  backgroundcolor=black!4,
+  innertopmargin=7pt, innerbottommargin=7pt,
+  innerleftmargin=12pt, innerrightmargin=12pt,
+  skipabove=8pt, skipbelow=8pt, nobreak=true,
+}
+\newcommand{\capture}[1]{%
+  \begin{mdframed}[style=captureStyle]
+    \centering\small\textit{\textbf{\textcolor{black!60}{[Capture]}}\quad #1}
+  \end{mdframed}%
+}
+
+% ===================== CODE =================================
+\definecolor{codegreen}{rgb}{0,0.55,0.3}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codeblue}{rgb}{0.1,0.3,0.7}
+\definecolor{backcolour}{RGB}{248,249,251}
+\definecolor{codeframe}{RGB}{30,110,180}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false, breaklines=true, captionpos=b,
+    keepspaces=true, numbers=left, numbersep=8pt,
+    showspaces=false, showstringspaces=false, showtabs=false, tabsize=2,
+    frame=leftline, framerule=2.5pt, rulecolor=\color{codeframe},
+    framexleftmargin=6pt, xleftmargin=10pt,
+    aboveskip=10pt, belowskip=4pt, abovecaptionskip=2pt, belowcaptionskip=6pt,
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Extrait}
+
+\BeforeBeginEnvironment{lstlisting}{\par\needspace{6\baselineskip}\noindent\begin{minipage}{\linewidth}\vspace{2pt}}
+\AfterEndEnvironment{lstlisting}{\vspace{2pt}\end{minipage}\par\medskip}
+
+% ===================== EN-TÊTE / PIED =======================
+\renewcommand\headrulewidth{1.2pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand{\headrule}{\color{titleNavy}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{\color{ruleGray}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{titleNavy}{\textbf{RNCP36739 --- Bloc 5}}\\ \small\textcolor{black!60}{Management \& gouvernance des données}}
+\fancyhead[R]{\includegraphics[width=1.8cm]{assets/logo-efrei.png}}
+\fancyfoot[L]{\small\textcolor{black!55}{EFREI Paris}}
+\fancyfoot[C]{\small\textcolor{black!55}{Gouvernance \& qualité des données}}
+\fancyfoot[R]{\small\textcolor{black!55}{\thepage\,/\,\pageref{LastPage}}}
+\setlength{\headheight}{2cm}
+
+\begin{document}
+
+% ===================== TITRE ===============================
+\thispagestyle{fancy}
+\begin{center}
+  \vspace*{0.3cm}
+  {\small\textcolor{black!55}{RNCP36739 --- Expert en Ingénierie de Données}}\\[6pt]
+  {\Huge\bfseries\textcolor{titleNavy}{Bloc 5}}\\[6pt]
+  {\large\bfseries Concevoir une stratégie de management et de gouvernance de données}\\[2pt]
+  {\large pour transformer les données en informations créatrices de valeur}\\[10pt]
+  {\normalsize Projets support : \textbf{projet cloud} (plan de gouvernance) \quad\textbullet\quad \textbf{projet CarePlus} (audit qualité)}\\[4pt]
+  {\small Julien TREMONT-RAIMI \quad\textbullet\quad Antoine VANDEPLANQUE \quad\textbullet\quad Promotion 2024--2026}
+\end{center}
+
+\vspace{4pt}
+{\color{titleNavy}\hrule height 1.5pt}
+\vspace{10pt}
+
+Cette partie démontre l'acquisition des cinq compétences du Bloc 5 du référentiel
+RNCP36739~\cite{rncp} à travers deux travaux complémentaires : un \textbf{plan de
+gouvernance} de la plateforme du \textit{projet cloud} et un \textbf{audit de
+la qualité} d'un fichier métier (\textit{CarePlus}). Le tableau de preuves
+d'acquisition présenté en fin de dossier récapitule, pour chaque sous-compétence, la
+réalisation concrète qui la démontre.
+
+\section{Compétences visées}
+
+Le référentiel RNCP36739 définit cinq sous-compétences pour le Bloc 5, que ce dossier
+couvre à travers deux travaux complémentaires : le plan de gouvernance de
+\texttt{projet cloud} et l'audit qualité \texttt{CarePlus}. Ce bloc porte sur le
+pilotage de la donnée en tant qu'actif : gouvernance et rôles, conformité et vie
+privée, qualité, stratégie et sécurité.
+
+\begin{itemize}
+    \item Définir une gouvernance de données en mettant en place les politiques et
+          les standards afin d'établir les rôles, les responsabilités et la propriété des
+          données.
+    \item Mettre en place les bonnes pratiques de gestion de données en appliquant
+          les régulations en vigueur pour protéger les données et respecter la vie privée
+          dans une logique de transparence.
+    \item S'assurer que la qualité de la donnée permet d'atteindre les objectifs
+          business en faisant un audit de qualité et en proposant des plans de prévention
+          et de remédiation en cas de non-qualité.
+    \item Identifier l'approche stratégique pour faire de la donnée un actif central
+          ancré dans la culture de l'entreprise et intégrer cette approche dans un plan de
+          communication diffusé aux personnes concernées.
+    \item Élaborer une stratégie de sécurité afin de protéger les données en
+          utilisant les technologies adéquates et en mettant en place une politique
+          d'accès aux données.
+\end{itemize}
+
+\section{Contexte et enjeux}
+
+Le Bloc 5 quitte le terrain de la construction technique pour celui du
+\textbf{pilotage de la donnée}. Concevoir un pipeline performant ne suffit pas :
+encore faut-il garantir que les données produites soient fiables, protégées,
+tracées, documentées et exploitées dans un cadre de responsabilités clair. C'est
+la distinction fondamentale entre la \textbf{gouvernance}. L'ensemble des
+règles, rôles et politiques qui définissent \og qui fait quoi, comment et selon
+quelles règles \fg{}. La \textbf{gestion} (\textit{data management}), qui en
+est la mise en œuvre opérationnelle au quotidien. Nous avons structuré notre
+démarche sur le référentiel \textbf{DAMA-DMBOK}~\cite{dama} et, pour le volet
+conformité, sur le RGPD~\cite{rgpd} et les recommandations de la CNIL~\cite{cnil}.
+
+Deux travaux complémentaires portent ce bloc. Le premier, mené sur
+\textit{projet cloud}, part d'une plateforme cloud réelle et déjà fonctionnelle
+pour en \textbf{auditer l'existant} puis produire un \textbf{plan de gouvernance}
+complet : rôles, classification, sécurité, qualité, traçabilité et cycle de vie.
+Le second, l'audit \textit{CarePlus}, se concentre sur une seule dimension mais la
+traite en profondeur : la \textbf{qualité des données}, mesurée sur un fichier
+volontairement dégradé de 650 assurés selon six dimensions pondérées, avec un score
+chiffré et un plan de remédiation. Le premier démontre la vision d'ensemble
+(politiques, sécurité, stratégie) ; le second, la rigueur méthodologique de l'audit
+qualité. Ensemble, ils couvrent les cinq sous-compétences du bloc.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Sous-compétence Bloc 5} & \thead{projet cloud (gouvernance)} & \thead{CarePlus (qualité)} \\
+\midrule
+Gouvernance : politiques, rôles, propriété &
+  Rôles nommés, matrice RACI, comité de gouvernance, séparation des tâches &
+  Rôles Owner / Steward / IT sur les arbitrages qualité \\
+Conformité et vie privée &
+  Positionnement RGPD, classification 4 niveaux, licences open data, clause d'évolution &
+  Rétention RGPD (inactifs > 3 ans), consentement, minimisation \\
+Qualité : audit, prévention, remédiation &
+  Politique qualité, KPIs, quarantaine, rapports automatisés &
+  Audit chiffré 6 dimensions, scoring pondéré, plan de remédiation \\
+Stratégie : donnée comme actif, communication &
+  Data lakehouse comme actif, plan de mise en œuvre phasé, conduite du changement &
+  Objectif métier chiffré (85\,\%) avant usage sensible \\
+Sécurité et politique d'accès &
+  Moindre privilège IAM, Secrets Manager, chiffrement, actions correctives &
+  Cloisonnement des accès aux données identifiantes \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\newpage
+\section{projet cloud --- gouvernance d'une plateforme cloud de données ouvertes}
+
+\subsection{Contexte et périmètre}
+
+La plateforme du \textit{projet cloud} ingère en temps quasi réel des données
+ouvertes de mobilité urbaine (stationnement et trafic du Grand Lyon via l'API WFS
+\textit{data.grandlyon.com}, départs de transports via l'API SNCF/Navitia), les
+traite selon une architecture médaillon sur AWS (S3, DynamoDB, Lambda, API Gateway)
+puis les expose via une API REST et des tableaux de bord Streamlit. Cette même
+plateforme sert de support au Bloc 3 sous l'angle cloud ; ici, nous l'abordons sous
+l'angle \textbf{gouvernance}. Le constat de départ est clair : l'architecture est
+cohérente et la logique de couches existe déjà, mais la gouvernance restait
+\textbf{implicite}. Notre travail a consisté à la rendre explicite, documentée et
+mesurable, sur un périmètre couvrant les données brutes S3, les tables DynamoDB, les
+agrégations de reporting, les logs et métadonnées, ainsi que les secrets et accès.
+
+\subsection{Analyse de l'existant : cartographie et faiblesses}
+
+La première étape a été un audit structuré des six axes de gouvernance. Chaque flux
+a été cartographié (source, mode d'accès, fichier, type de données), puis évalué. Le
+tableau ci-dessous synthétise les faiblesses identifiées et leur risque associé ;
+c'est ce diagnostic qui a dicté les priorités du plan.
+
+\needspace{14\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Axe} & \thead{Faiblesses principales constatées} & \thead{Risque} \\
+\midrule
+Qualité &
+  Absence de contrat de données, peu de validations, aucun rapport qualité, pas de zone de quarantaine &
+  Données incomplètes ou incohérentes dans les dashboards \\
+Sécurité &
+  Accès IAM non documentés, endpoint API possiblement ouvert, fichier \code{secrets.toml} versionné dans Git &
+  Fuite de données ou d'identifiants, accès non maîtrisé \\
+Traçabilité &
+  Logs non structurés (simples \texttt{print}), pas de journal d'audit central, \textit{lineage} incomplet &
+  Difficulté à auditer ou expliquer un résultat \\
+Documentation &
+  Pas de dictionnaire de données, incohérence README (Paris annoncé, Lyon réel), règles non formalisées &
+  Mauvaise compréhension, faible maintenabilité \\
+Cycle de vie &
+  Pas de politique de rétention, d'archivage ni de suppression &
+  Accumulation de données, coûts inutiles \\
+Organisation &
+  Rôles data non définis &
+  Responsabilités floues en cas d'incident \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Le risque le plus critique était \textbf{avéré} : le fichier
+\code{dashboards/.streamlit/secrets.toml} contenait une clé d'API Mapbox
+\textbf{en clair}, versionnée dans l'historique Git. Une clé exposée est
+immédiatement exploitable (coût, quota, usurpation). Ce point a conditionné la
+première action du plan.
+
+\subsection{Rôles, responsabilités et matrice RACI}
+
+La gouvernance commence par nommer les responsables. Chaque rôle a été attribué
+nommément, en appliquant un principe directeur : \emph{celui qui attribue les accès
+ne peut pas être celui qui les audite}. La matrice RACI (Réalise, Approuve, Consulté,
+Informé) formalise qui décide et qui exécute pour chaque activité.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X cccc@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Activité} & \thead{Owner} & \thead{Custodian} & \thead{Steward} & \thead{Sécurité} \\
+\midrule
+Définition des politiques de gouvernance & A & I & C & C \\
+Validation des sources \& licences & A & I & C & C \\
+Règles de qualité \& validation & C & I & A/R & I \\
+Documentation (dictionnaire de données) & C & C & A/R & I \\
+Gestion des accès (IAM / RBAC) & A & R & I & C \\
+Chiffrement \& sauvegarde & I & A/R & I & C \\
+Suivi des KPIs qualité & A & I & R & I \\
+Audit des secrets \& droits IAM & I & C & I & A/R \\
+\bottomrule
+\end{tabularx}
+
+{\small\textit{Owner : Antoine Vandeplanque --- Custodian : Elliot Fesquet ---
+Steward \& Sécurité : Julien Tremont-Raimi.}}
+\end{center}
+
+L'équipe comptant trois personnes, certains rôles sont cumulés : c'est un choix
+assumé, cohérent avec la taille du projet. La \textbf{séparation critique} reste
+toutefois respectée --- le Custodian attribue les accès, le Responsable sécurité les
+audite, et ce sont deux personnes distinctes. En production, ces fonctions seraient
+entièrement séparées, avec un DPO indépendant.
+
+\subsection{Classification des données et positionnement RGPD}
+
+Nous avons retenu une classification en quatre niveaux, chacun associé à une règle
+d'accès. Elle sépare nettement les données métier (publiques) des secrets techniques
+(le véritable point sensible du projet).
+
+\needspace{10\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.4cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Niveau} & \thead{Exemples dans le projet} & \thead{Règle associée} \\
+\midrule
+Public & Données agrégées de disponibilité ou de trafic & Lecture via API publique si validée \\
+Interne & Données brutes S3, tables DynamoDB détaillées & Accès réservé aux rôles projet \\
+Confidentiel & Logs détaillés, noms de ressources AWS, endpoints & Accès limité et journalisé \\
+Secret & Clés API, credentials AWS, fichiers de secrets & Secrets Manager, rotation tous les 90\,jours \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Le \textbf{positionnement RGPD} a fait l'objet d'une analyse explicite plutôt que
+d'un contournement. Les données métier traitées (stationnement, trafic, horaires)
+sont des \textbf{données ouvertes d'infrastructure} : aucune donnée à caractère
+personnel n'est collectée. En conséquence, le RGPD n'est \emph{pas applicable en
+l'état} (art.~2 et~4). Nous appliquons néanmoins ses principes par bonne pratique et documentons ce raisonnement. Surtout, nous
+avons formalisé une \textbf{clause d'évolution} : si le dashboard ajoutait demain des
+comptes utilisateurs, ou si des données de traces de déplacement individualisables
+entraient dans le périmètre, le RGPD deviendrait applicable et déclencherait base
+légale, information des personnes, durée de conservation dédiée, exercice des droits
+et désignation d'un référent. Les enjeux de conformité dominants \emph{aujourd'hui}
+sont donc les \textbf{licences des données ouvertes} (Licence Ouverte Etalab ou ODbL
+selon la source) et la \textbf{protection des secrets techniques}.
+
+\subsection{Politique de sécurité et gestion des accès}
+
+La gouvernance des accès applique le principe du \textbf{moindre privilège} : chaque
+composant du pipeline s'exécute sous un rôle technique n'accordant que les
+permissions strictement nécessaires à sa fonction.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Rôle technique} & \thead{Accès autorisés} \\
+\midrule
+Rôle ingestion EC2 & Écriture S3 sur les préfixes \code{parking/}, \code{traffic/}, \code{departures/} \\
+Rôle transformation & Lecture S3 des données brutes, écriture DynamoDB sur les tables concernées \\
+Rôle agrégation & Lecture DynamoDB (sources), écriture des tables d'agrégation et du reporting S3 \\
+Rôle Lambda API & Lecture seule DynamoDB sur les tables exposées \\
+Rôle dashboard & Accès uniquement via l'API, aucun accès direct à S3 ou DynamoDB \\
+Rôle administrateur & Accès complet réservé à l'administration, hors traitements quotidiens \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Au-delà des règles, l'audit a débouché sur des \textbf{actions correctives
+immédiates}, effectivement réalisées et non pas seulement recommandées :
+
+\begin{itemize}
+    \item Le fichier \code{secrets.toml} a été retiré de l'historique Git via
+          \code{git filter-repo}, remplacé par un \code{secrets.example.toml} sans
+          valeur réelle, et le chemin ajouté au \texttt{.gitignore}.
+    \item Les clés exposées (Grand Lyon, Navitia/SNCF, Mapbox) ont été
+          \textbf{révoquées, régénérées}, puis déplacées dans \textbf{AWS Secrets
+          Manager}.
+    \item L'API Gateway, jusque-là ouverte, a été \textbf{fermée} : clé d'API
+          obligatoire, plan d'usage avec quota, appels HTTPS uniquement.
+    \item Le README a été corrigé : sources réelles Grand Lyon et SNCF/Navitia, et
+          suppression de la mention erronée \og Paris \fg{}.
+\end{itemize}
+
+Le reste de la politique retient le chiffrement SSE-KMS sur S3 (clé gérée et traçable
+via CloudTrail) et le chiffrement DynamoDB au repos, la rotation des secrets tous les
+90\,jours, la journalisation CloudTrail (actions AWS) et CloudWatch (Lambda et scripts
+critiques), et une revue mensuelle des droits IAM par le Responsable sécurité ---
+distinct du Custodian qui les attribue.
+
+\subsection{Traçabilité, data lineage et zones de données}
+
+Pour rendre chaque résultat explicable, chaque traitement génère désormais un
+\textbf{journal d'exécution structuré} : identifiant unique d'exécution
+(\code{run\_id}), nom du pipeline, dates de début et de fin, chemin S3 lu ou écrit,
+table DynamoDB cible, nombre d'enregistrements \emph{lus / valides / rejetés}, statut
+final et hash Git de la version du code. Les traces sont réparties par finalité, et
+une organisation cible des zones de données formalise le parcours de la donnée de la
+source à l'indicateur.
+
+\needspace{10\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.2cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Zone} & \thead{Contenu} & \thead{Règle} \\
+\midrule
+Bronze & Données brutes des APIs (\code{raw/<source>/YYYY/MM/DD/run\_id/}) & Lecture seule après ingestion, horodatée \\
+Silver & Données nettoyées et validées (DynamoDB) & Contrôles qualité obligatoires \\
+Gold & Agrégations prêtes à l'analyse (\code{aggregation\_*}, reporting S3) & Calculs documentés et reproductibles \\
+Quarantine & Enregistrements rejetés & Accès restreint, revue sous 48\,h \\
+Audit & Logs structurés des traitements & Conservation longue pour audit \\
+Quality & Rapports de qualité (\code{quality\_reports/}) & Suivi des KPIs \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+La politique de \textbf{cycle de vie} fixe une durée et une action de fin uniques par
+type de donnée : brut S3 conservé 90\,jours puis transition Glacier et suppression à
+1~an ; données nettoyées DynamoDB purgées par TTL à 60\,jours ; agrégations Gold
+conservées 1~an ; logs CloudWatch 30\,jours ; journaux d'audit archivés 1~an ;
+quarantaine corrigée ou supprimée sous 30\,jours. Cette politique limite les coûts
+cloud et évite l'accumulation non maîtrisée de données.
+
+\subsection{Suivi : indicateurs de performance et amélioration continue}
+
+La gouvernance n'a de valeur que si elle est mesurée. Un module qualité en Python
+valide chaque lot dans le pipeline et dépose à chaque exécution un rapport JSON dans
+\code{quality\_reports/YYYY/MM/DD/}. Les cibles ci-dessous s'appliquent après une
+\textit{baseline} mesurée à la première exécution complète --- \emph{on pose le
+thermomètre avant de fixer la cible}. Une alerte se déclenche dès qu'un KPI franchit
+son seuil.
+
+\needspace{10\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{KPI} & \thead{Cible} & \thead{Mesure} \\
+\midrule
+Taux de complétude & $\geq 98\,\%$ & Module de profiling \\
+Taux d'erreur (rejets) & $\leq 2\,\%$ & Logs de validation \\
+Taux de doublons & $< 1\,\%$ & Clé métier + horodatage \\
+Conformité de format & $\geq 99\,\%$ & Module qualité \\
+Secrets exposés dans le dépôt & \textbf{0} & Scan (gitleaks) à chaque commit \\
+Taux de réussite pipeline & $\geq 95\,\%$ & CloudWatch (invocations / erreurs) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+La gouvernance s'inscrit ensuite dans une boucle \emph{mesurer $\rightarrow$ analyser
+$\rightarrow$ corriger}, avec des contrôles récurrents nommément affectés (revue IAM
+mensuelle, vérification des secrets à chaque commit, revue de la quarantaine à chaque
+exécution, revue de la rétention trimestrielle). Le plan de mise en œuvre est phasé,
+chaque phase portant un responsable, une échéance et une estimation d'effort ; les
+actions critiques de sécurité y figurent comme déjà réalisées.
+
+\subsection{Vue d'ensemble de l'organisation de gouvernance}
+
+\begin{center}
+\begin{tikzpicture}[
+        font=\small, >=Latex,
+        gov/.style={draw, rounded corners, align=center, minimum width=8.5cm, minimum height=0.9cm, fill=cloudBg},
+        role/.style={draw, rounded corners, align=center, minimum width=3.4cm, minimum height=1.1cm},
+        users/.style={draw, rounded corners, align=center, minimum width=8.5cm, minimum height=0.8cm, fill=tableRowAlt},
+        flow/.style={<->, thick, draw=black!55}
+    ]
+    \node[gov] (comite) {\textbf{Comité de gouvernance des données} (jalons projet)};
+    \node[role, fill=bronzeBg, below left=1.1cm and 0.1cm of comite] (owner) {\textbf{Data Owner}\\\small Antoine\\\scriptsize usages, licences, KPIs};
+    \node[role, fill=silverBg, below=1.1cm of comite] (steward) {\textbf{Data Steward}\\\small Julien\\\scriptsize qualité, dictionnaire};
+    \node[role, fill=goldBg, below right=1.1cm and 0.1cm of comite] (custo) {\textbf{Data Custodian}\\\small Elliot\\\scriptsize S3, IAM, chiffrement};
+    \node[users, below=3.3cm of comite] (users) {\textbf{Data Users} --- consommateurs API \& dashboards};
+
+    \draw[flow] (comite) -- (owner);
+    \draw[flow] (comite) -- (steward);
+    \draw[flow] (comite) -- (custo);
+    \draw[->, thick, draw=black!55] (owner) -- (users);
+    \draw[->, thick, draw=black!55] (steward) -- (users);
+    \draw[->, thick, draw=black!55] (custo) -- (users);
+\end{tikzpicture}
+
+{\small \textit{Figure : Organisation de gouvernance et flux de responsabilité de
+\textit{projet cloud}.}}
+\end{center}
+
+\newpage
+\section{CarePlus --- audit de la qualité des données}
+
+\subsection{Contexte et méthodologie}
+
+Le TP \textit{CarePlus} porte sur un fichier d'assurés volontairement dégradé ---
+\textbf{650 lignes, 15 colonnes} --- représentatif d'un export métier non nettoyé :
+dates lues comme texte, montants transformés en dates Excel, catégories écrites de
+plusieurs façons pour une même valeur. L'objectif était de produire un
+\textbf{audit qualité chiffré}, reproductible, puis d'en tirer un plan de
+remédiation. Nous avons mesuré la qualité sur \textbf{six dimensions} pondérées
+selon leur criticité métier (la validité et la cohérence pèsent le plus lourd, car
+elles conditionnent la facturation et le scoring), et fixé une date d'audit stable
+(\code{REF\_DATE = 2026-07-09}) pour rendre les calculs d'âge et de fraîcheur
+déterministes.
+
+\subsection{Profiling et détection des anomalies}
+
+Le profiling initial a révélé l'ampleur du problème : 8 variantes d'écriture pour la
+civilité, 9 pour le statut, 9 pour le consentement RGPD ; des e-mails du type
+\code{jean.dupont(at)example.com} ou \code{@example.com} ; des téléphones
+\code{tel inconnu} ou \code{12345} ; des dates de naissance
+\code{aujourdhui}, \code{1990/13/01} ou \code{2050-05-05}. Nous avons codé une
+batterie de fonctions de contrôle réutilisables : validation par expression
+régulière, normalisation, et récupération des cas récupérables.
+
+\begin{lstlisting}[language=Python,caption={Extrait de projet CarePlus : fonctions de contrôle et de normalisation (validité).}]
+EMAIL_RE = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+
+def is_valid_email(value, remove_accents=False):
+    return bool(EMAIL_RE.match(clean_email(value, remove_accents=remove_accents)))
+
+def normalize_phone(value):
+    # Recolle un numero francais : +33 / 0033 -> 0, suppression des separateurs
+    if pd.isna(value):
+        return ""
+    digits = re.sub(r"\D+", "", str(value))
+    if digits.startswith("0033") and len(digits) == 13:
+        digits = "0" + digits[4:]
+    elif digits.startswith("33") and len(digits) == 11:
+        digits = "0" + digits[2:]
+    return digits
+
+def is_valid_phone(value):
+    return bool(re.fullmatch(r"0[1-9]\d{8}", normalize_phone(value)))
+
+def to_number(value):
+    # Recupere un montant transforme par erreur en date Excel (2371-07-01 -> 2371.07)
+    if isinstance(value, (pd.Timestamp, datetime)):
+        return float(value.year) + float(value.month) / 100
+    s = str(value).strip().replace(" ", "").replace(",", ".")
+    m = re.match(r"^(\d{4})-(\d{2})-01(?:\s+00:00:00)?$", s)
+    if m:
+        return float(m.group(1)) + float(m.group(2)) / 100
+    return pd.to_numeric(s, errors="coerce")
+\end{lstlisting}
+
+La cohérence a été contrôlée par des règles métier : normalisation des catégories
+vers un vocabulaire fermé, cohérence ville/code postal (référentiel construit par
+la ville majoritaire par code postal), et ordre logique des dates. L'unicité combine
+trois contrôles : lignes strictement dupliquées, doublon d'\code{id\_assure}, et
+\textbf{doublon flou} sur une clé de rapprochement \code{nom+prenom+date\_naissance}
+normalisée (insensible aux accents et à la casse, ce qui rattrape des cas comme
+\og MOREL / Marie \fg{} et \og Morel / marie \fg{}). L'exactitude repère les valeurs
+aberrantes par la méthode de l'écart interquartile (IQR).
+
+\subsection{Les cinq anomalies les plus graves}
+
+\begin{enumerate}
+    \item \textbf{Fraîcheur / RGPD} : \textbf{222 assurés} inactifs sans consultation
+          depuis plus de 3~ans (34,2\,\%) --- enjeu direct de limitation de la
+          conservation.
+    \item \textbf{Complétude} : \textbf{197 lignes} comportent au moins une valeur
+          manquante (30,3\,\%), notamment e-mail, RGPD, téléphone et ville.
+    \item \textbf{Validité e-mail} : \textbf{190 adresses} non conformes ou absentes
+          (29,2\,\%).
+    \item \textbf{Cohérence temporelle} : \textbf{105 consultations} antérieures à la
+          date d'inscription (16,2\,\%).
+    \item \textbf{Unicité} : \textbf{73 lignes} avec \code{id\_assure} en double et
+          \textbf{60 doublons flous} potentiels.
+\end{enumerate}
+
+\subsection{Scoring pondéré et effet des corrections automatiques}
+
+Chaque dimension produit un taux de conformité, agrégé en un score global pondéré.
+Nous avons ensuite calculé le score \emph{après corrections automatiques réalistes}
+(normalisation des accents dans les e-mails, zéro initial évident des codes postaux,
+mapping des catégories, récupération des montants transformés en dates) pour
+distinguer ce qui est corrigeable par la machine de ce qui exige un arbitrage métier.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X ccc>{\raggedright\arraybackslash}p{4.6cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Dimension} & \thead{Score brut} & \thead{Après auto} & \thead{Poids} & \thead{Lecture} \\
+\midrule
+Complétude & 69,7\,\% & 69,7\,\% & 20\,\% & Champs critiques parfois absents \\
+Validité & 51,5\,\% & \textbf{65,4\,\%} & 25\,\% & Formats e-mail, CP, montants \\
+Cohérence & 71,8\,\% & 71,8\,\% & 20\,\% & Dates, ville/CP \\
+Unicité & 88,6\,\% & 88,6\,\% & 15\,\% & ID et doublons flous \\
+Exactitude & 92,3\,\% & 92,3\,\% & 10\,\% & Âges / valeurs aberrantes \\
+Fraîcheur & 65,8\,\% & 65,8\,\% & 10\,\% & Rétention RGPD \\
+\midrule
+\rowcolor{tableRowAlt}
+\textbf{Score global} & \textbf{70,3\,\%} & \textbf{73,8\,\%} & 100\,\% & Objectif métier : $\geq 85\,\%$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Le score progresse de 70,3\,\% à 73,8\,\%, tiré par la seule validité (51,5 $\to$
+65,4\,\%). Nous avons délibérément refusé de le gonfler davantage : les doublons, les
+dates incohérentes et la rétention RGPD demandent une décision humaine, pas une
+règle automatique. C'est un choix de gouvernance --- \emph{ne pas maquiller la
+qualité}.
+
+\begin{lstlisting}[language=Python,caption={Extrait de projet CarePlus : agrégation du score global pondéré par dimension.}]
+scores_bruts = pd.DataFrame({
+    "dimension": ["Completude", "Validite", "Coherence", "Unicite", "Exactitude", "Fraicheur"],
+    "taux_conformite_brut_%": [
+        comp_clean.mean() * 100,   valid_clean.mean() * 100,
+        coh_clean.mean() * 100,    unique_clean.mean() * 100,
+        accurate_clean.mean() * 100, fresh_clean.mean() * 100,
+    ],
+    "poids_%": [20, 25, 20, 15, 10, 10],
+})
+score_global = (scores_bruts["taux_conformite_brut_%"] * scores_bruts["poids_%"] / 100).sum()
+\end{lstlisting}
+
+\subsection{Règles de qualité et plan de remédiation}
+
+L'audit débouche sur des règles formulées comme des contrôles automatisables, avec
+une répartition claire entre ce que la machine corrige et ce que le métier doit
+arbitrer. C'est le cœur de la remédiation.
+
+\needspace{12\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.4cm}@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Domaine} & \thead{Règle automatisable} & \thead{Traitement} \\
+\midrule
+E-mail / téléphone / CP & Regex e-mail, téléphone FR \code{0[1-9]+8 chiffres}, CP à 5 chiffres & Auto pour normalisation ; validation métier si valeur absente ou incomplète \\
+Catégories & Statut, civilité, consentement dans des listes fermées & Auto (mapping des variantes) ; validation des cas ambigus \\
+Cohérence des dates & \code{date\_derniere\_consultation >= date\_inscription} & Alerte / rejet automatique ; correction métier de la vraie date \\
+Unicité & \code{id\_assure} unique + dédoublonnage flou & Détection auto ; fusion ou arbitrage par le Data Steward \\
+Rétention RGPD & Inactif > 3~ans : revue obligatoire & Alerte auto ; décision Data Owner + juridique \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Les enregistrements invalides sont isolés en \textbf{zone de quarantaine} plutôt que
+supprimés, ce qui permet leur correction ultérieure. La gouvernance est explicite :
+le \textbf{Data Owner} métier porte les règles et les priorités, le \textbf{Data
+Steward} suit les anomalies, traite les doublons et documente les cas, et l'équipe
+\textbf{Data/IT} automatise les contrôles dans le pipeline et publie un suivi qualité
+régulier. \textbf{Conclusion de l'audit} : les corrections automatiques améliorent le
+score, mais l'objectif réaliste avant tout usage sensible --- alimentation d'un modèle
+ou d'un processus de facturation --- est d'atteindre \textbf{au moins 85\,\%} après
+arbitrage métier sur les doublons, les dates et la rétention RGPD.
+
+% ===================== SYNTHÈSE ============================
+\section{Synthèse --- compétences démontrées}
+
+Les deux travaux se complètent :le \textit{projet cloud} démontre la capacité à
+concevoir une stratégie de gouvernance d'ensemble (rôles, sécurité, conformité,
+cycle de vie, stratégie), tandis que \textit{CarePlus} démontre la rigueur de
+l'audit qualité, du profiling au scoring pondéré et au plan de remédiation. Ensemble,
+ils couvrent l'intégralité du périmètre du Bloc 5 : de la donnée brute non fiable à
+un actif gouverné, mesuré et créateur de valeur.
+
+\subsection{Preuves d'acquisition des compétences}
+
+\needspace{14\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve} \\
+\midrule
+Définir une gouvernance (politiques, rôles, propriété) &
+  Rôles nommés (Owner, Custodian, Steward, Sécurité), matrice RACI, comité de
+  gouvernance et séparation des tâches (attribution vs. audit des accès) sur le 
+  \textit{projet cloud}. \\
+Bonnes pratiques de gestion et conformité (RGPD, vie privée) &
+  Classification en 4 niveaux, positionnement RGPD argumenté (non applicable +
+  clause d'évolution), respect des licences open data, référentiel DAMA-DMBOK ;
+  contrôle de rétention RGPD sur le projet CarePlus (222 inactifs > 3~ans). \\
+Audit qualité et plans de prévention / remédiation &
+  Audit  du projet CarePlus sur 6 dimensions pondérées, score global chiffré (\textbf{70,3\,\%}
+  brut, \textbf{73,8\,\%} après corrections auto), règles automatisables, zone de
+  quarantaine et cible métier de 85\,\% ; politique qualité et KPIs sur le
+  \textit{projet cloud}. \\
+Faire de la donnée un actif (stratégie, communication) &
+  Transformation d'un data lakehouse à gouvernance implicite en plateforme fiable,
+  tracée et documentée, avec plan de mise en œuvre phasé, responsables et échéances,
+  et conduite du changement. \\
+Stratégie de sécurité et politique d'accès &
+  Moindre privilège IAM par composant, migration des secrets vers AWS Secrets
+  Manager, chiffrement SSE-KMS, rotation 90~jours, et actions correctives réelles
+  (purge Git de \code{secrets.toml}, révocation des clés, fermeture de l'API Gateway). \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% ===================== BIBLIOGRAPHIE =======================
+\begin{thebibliography}{9}
+
+\bibitem{rncp}
+France Compétences.
+\textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
+Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}.
+
+\bibitem{dama}
+DAMA International.
+\textit{DAMA-DMBOK : Data Management Body of Knowledge}, 2\textsuperscript{e} édition.
+Technics Publications, 2017.
+
+\bibitem{rgpd}
+Parlement européen et Conseil de l'Union européenne.
+\textit{Règlement (UE) 2016/679 relatif à la protection des personnes physiques à
+l'égard du traitement des données à caractère personnel (RGPD)}, 27 avril 2016.
+
+\bibitem{cnil}
+Commission Nationale de l'Informatique et des Libertés (CNIL).
+\textit{Guide de la sécurité des données personnelles}.
+Disponible sur : \url{https://www.cnil.fr/}.
+
+\end{thebibliography}
+
+\end{document}
