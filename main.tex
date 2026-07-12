@@ -27,7 +27,9 @@
 \usepackage{makecell}
 \usepackage{seqsplit}
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{colortbl}
+\usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{needspace}
 \usepackage{float}
@@ -60,9 +62,10 @@
 % ===================== COULEURS =============================
 \definecolor{titleNavy}{RGB}{22,50,92}
 \definecolor{accentBlue}{RGB}{30,110,180}
-\definecolor{tableHeader}{RGB}{22,50,92}
-\definecolor{tableRowAlt}{RGB}{238,242,248}
-\definecolor{ruleGray}{RGB}{200,205,212}
+\definecolor{tableHeader}{RGB}{227,236,247}
+\definecolor{tableHeaderText}{RGB}{22,50,92}
+\definecolor{tableRowAlt}{RGB}{245,248,252}
+\definecolor{ruleGray}{RGB}{210,216,224}
 \definecolor{validGreen}{RGB}{36,130,70}
 \definecolor{bronzeColor}{RGB}{180,110,60}
 \definecolor{bronzeBg}{RGB}{255,240,220}
@@ -74,6 +77,13 @@
 \definecolor{cloudBg}{RGB}{220,238,255}
 \definecolor{mlColor}{RGB}{80,140,60}
 \definecolor{mlBg}{RGB}{225,245,220}
+
+\renewcommand{\theadfont}{\bfseries\color{tableHeaderText}}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\extrarowheight}{2pt}
+\setlength{\arrayrulewidth}{0.45pt}
+\setlength{\tabcolsep}{6pt}
+\arrayrulecolor{ruleGray}
 
 % ---- Figures encadrées avec légende (captures du projet) ----
 \captionsetup{font={small,it}, labelfont={bf,color=titleNavy}, labelsep=endash, justification=centering}
@@ -184,6 +194,8 @@
 \section*{Remerciements}
 \addcontentsline{toc}{section}{Remerciements}
 
+\noindent\textbf{Julien Tremont-Raimi}
+
 Je tiens à exprimer mes remerciements les plus sincères au intervenants et professeurs.
 La richesse de leurs enseignements ont grandement enrichi mes connaissances
 et affûté mes compétences ; leur encadrement, leur conseils, prodigués tout au long de
@@ -193,6 +205,19 @@ Enfin, je voudrais exprimer ma profonde gratitude envers toutes les personnes de
 cadre d'apprentissage qu'elles m'ont offert. Cet environnement a joué un rôle déterminant dans mon
 développement professionnel en me permettant d'acquérir de nouvelles compétences. Je tiens à souligner
 combien les opportunités d'expérimentation qui m'ont été offertes ont été d'une valeur inestimable.
+
+\medskip
+\noindent\textbf{Antoine Vandeplanque}
+
+Je tiens également à remercier les intervenants de la formation pour la qualité de leurs enseignements
+et pour les échanges qui ont nourri ma réflexion tout au long de ce parcours.
+
+J'adresse une gratitude particulière à ma tutrice, Leticia Pitthan, pour son accompagnement, sa
+disponibilité et ses conseils, qui m'ont permis de progresser et de prendre du recul sur mes missions.
+
+Je remercie enfin mes collègues de Renault Digital pour leur accueil, leur confiance et l'environnement
+de travail stimulant dans lequel j'ai pu évoluer. Leur partage d'expérience et leur soutien au
+quotidien ont largement contribué à mon développement professionnel.
 
 \medskip
 \noindent À tous, merci pour votre contribution essentielle à la concrétisation de ce
@@ -226,21 +251,17 @@ blocs du référentiel.
 
 \needspace{12\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|l|}
-\hline
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}Xl@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
-\hline
+\midrule
 Jobtech & Agrégation de données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
-\hline
 project\_cloud & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
-\hline
 projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
-\hline
 fizzbuzz-Efrei & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
-\hline
 data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -306,38 +327,34 @@ artificielle (Bloc 4) et l'élaboration de stratégies de gouvernance des donné
 
 \needspace{10\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|p{2.6cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}p{2.6cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Bloc} & \thead{Intitulé} & \thead{Compétences clés} \\
-\hline
+\midrule
 RNCP36739\newline Bloc 1 &
   Concevoir et développer une architecture de stockage de données &
   Bases de données relationnelles et non-relationnelles, construction de Datalake,
   création d'API d'accès aux données. \\
-\hline
 RNCP36739\newline Bloc 2 &
   Concevoir, développer et déployer une solution de traitement des données massives &
   Architectures distribuées, systèmes de streaming, optimisation des pipelines,
   automatisation CI/CD (conteneurisation, ordonnancement). \\
-\hline
 RNCP36739\newline Bloc 3 &
   Implémenter et optimiser des solutions de stockage et de traitement de données sur
   le cloud &
   Solutions cloud (stockage, pipelines), sécurisation (chiffrement, IAM, conformité),
   optimisation des performances et des coûts. \\
-\hline
 RNCP36739\newline Bloc 4 &
   Implémenter des méthodes d'intelligence artificielle pour modéliser et prédire de
   nouveaux comportements &
   Extraction et préparation des données, tableaux de bord interactifs, modèles
   prédictifs supervisés, évaluation des performances. \\
-\hline
 RNCP36739\newline Bloc 5 &
   Concevoir une stratégie de management et de gouvernance de données &
   Gouvernance (politiques, rôles), conformité (régulations, vie privée), audit
   qualité, stratégie de sécurité et d'accès aux données. \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -367,22 +384,22 @@ RNCP36739\newline Bloc 5 &
 
 \begin{itemize}
     \item Challenge Datalake 1 Data Integration
-    \item Project Cloud
+    \item Project Cloud (No SQL)
 \end{itemize}
 
 \subsection{Présentation des projets mobilisés}
 \subsubsection{Challenge Datalake}
 
-Pour ce bloc, nous nous appuyons principalement sur le projet \textit{Challenge Datalake}
-réalisé en équipe. L'objectif était de construire une plateforme capable de produire une
-vision consolidée du marché technologique européen en croisant plusieurs signaux :
-popularité des technologies, demande des recruteurs, salaires, expérience
-attendue et évolution temporelle. Le projet ne consistait donc pas seulement à
-stocker des données, mais à mettre en place une chaîne complète capable de capter
-des informations hétérogènes, de les fiabiliser puis de les restituer sous une
-forme exploitable.
+Pour le bloc 1, nous nous appuyons principalement sur le projet \textit{Challenge
+Datalake}, réalisé en équipe. L'objectif était de construire une plateforme capable
+de produire une vision consolidée du marché technologique européen en croisant
+plusieurs signaux : popularité des technologies, demande des recruteurs, salaires,
+expérience attendue et évolution temporelle. Le projet ne consistait donc pas
+seulement à stocker des données, mais à mettre en place une chaîne complète capable
+de capter des informations hétérogènes, de les fiabiliser puis de les restituer sous
+une forme exploitable.
 
-\paragraph{Problématique métier.}
+\paragraph{Contexte et objectif fonctionnel.}
 L'idée directrice était de répondre à des questions simples en apparence, mais
 complexes d'un point de vue data : quelles technologies montent ou reculent,
 quelles compétences sont les plus demandées, dans quels pays les opportunités sont
@@ -535,7 +552,7 @@ on fiabilise les tables source par source. En Gold, on change de niveau de
 raisonnement : on construit des objets orientés décision, pensés pour l'analyse
 et non plus seulement pour le nettoyage ou la conservation.
 
-\paragraph{Choix de stockage.}
+\paragraph{Choix de stockage relationnel et hybride.}
 L'architecture s'appuyait sur une stratégie de stockage mixte. Les données
 collectées et les jeux intermédiaires étaient conservés sous forme de fichiers
 dans les répertoires du datalake, en particulier dans une logique de stockage brut
@@ -545,8 +562,14 @@ et les traitements. En parallèle, les couches structurées \textit{Silver} et
 est important : le stockage fichier servait la traçabilité, l'archivage et la
 souplesse des pipelines, tandis que MySQL apportait une structure relationnelle
 fiable pour la consultation, les filtres, les recherches et l'exposition des
-données. Nous avons donc combiné deux logiques complémentaires plutôt que de
-choisir un seul mode de stockage.
+données.
+
+Ce volet relationnel justifie directement l'une des compétences du bloc. Dans ce
+projet, MySQL n'est pas une simple base technique en arrière-plan : il sert de
+socle relationnel pour les tables nettoyées et consolidées, avec une modélisation
+adaptée aux requêtes métier et aux analyses croisées. Les schémas SQL, les tables
+de dimensions, les tables de faits et la logique d'\textit{upsert} montrent que le
+modèle a été pensé pour des usages concrets de consultation et d'exposition.
 
 La structure technique globale du projet peut être résumée par le schéma suivant.
 
@@ -573,7 +596,7 @@ La structure technique globale du projet peut être résumée par le schéma sui
     {\small \textit{Figure 1 : Synthèse de l'architecture technique du projet Challenge Datalake.}}
 \end{center}
 
-\paragraph{Traitements et outils techniques.}
+\paragraph{Traitements, orchestration et robustesse.}
 Sur la partie traitement, nous avons mobilisé principalement Python, PySpark et
 Pandas. Python servait de langage commun pour l'ingestion, l'orchestration et les
 scripts métiers. PySpark intervenait pour traiter des jeux de données plus lourds
@@ -583,28 +606,71 @@ raisonnable et qu'un traitement tabulaire classique suffisait. Cette combinaison
 nous a permis d'adapter l'outil au type de source et au volume traité, tout en
 gardant une cohérence d'ensemble dans le projet.
 
-\paragraph{Organisation de l'API.}
+Le script principal d'exécution du pipeline centralise en outre plusieurs aspects
+opérationnels importants pour un projet de data engineering : sélection des étapes
+à exécuter, journalisation des traitements, mesure du temps d'exécution et gestion
+des erreurs par blocs \texttt{try/except}. Ce point est utile dans le cadre du bloc
+1, car il montre que l'architecture de stockage n'a pas été pensée comme une suite
+de scripts isolés, mais comme une chaîne exploitable, relançable et observable.
+
+\paragraph{Organisation de l'API REST.}
 Le dernier volet du projet concernait l'exposition de la donnée. Nous avons
 développé une API REST avec Django et Django REST Framework afin de rendre les
-résultats accessibles à d'autres applications ou à des utilisateurs métiers.
-L'API était organisée en modules métiers par source, par exemple
-\texttt{github\_jobs}, \texttt{stackoverflow\_survey}, \texttt{eurotechjobs},
-\texttt{jobicy\_jobs}, \texttt{trends} et \texttt{adzuna\_jobs}, ainsi qu'un
-module \texttt{analysis} pour les restitutions transverses. Cette structuration
-reprenait la logique du pipeline : chaque source avait sa propre porte d'entrée,
-mais l'API proposait aussi une lecture consolidée du marché.
+résultats accessibles à d'autres applications ou à des utilisateurs métiers. L'API
+était organisée en modules par source, par exemple \texttt{trends},
+\texttt{stackoverflow\_survey}, \texttt{adzuna\_jobs}, \texttt{github\_repos},
+\texttt{eurotechjobs} et \texttt{jobicy\_jobs}, ainsi qu'un module
+\texttt{analysis} pour les restitutions transverses de la couche Gold. Cette
+structuration reprenait la logique du pipeline : chaque source avait sa propre
+porte d'entrée, mais l'API proposait aussi une lecture consolidée du marché.
 
-\paragraph{Fonctionnalités d'exposition.}
+Les endpoints suivaient une logique REST homogène. Le projet prévoyait des routes
+de consultation pour chaque source, des vues de synthèse statistiques, des séries
+temporelles et des points d'accès analytiques. La documentation du rendu mentionne
+notamment plusieurs familles de routes :
+\begin{itemize}
+    \item \texttt{/api/trends/}
+    \item \texttt{/api/stackoverflow-survey/}
+    \item \texttt{/api/adzuna-jobs/}
+    \item \texttt{/api/github-repos/}
+    \item \texttt{/api/eurotechjobs/}
+    \item \texttt{/api/jobicy/}
+    \item \texttt{/api/analysis/}
+\end{itemize}
+Cette granularité montre que l'API ne se limitait pas à exposer une seule table,
+mais couvrait l'ensemble des domaines de données du projet.
+
+\paragraph{Fonctionnalités d'exposition et documentation.}
 Au-delà de la simple mise à disposition des tables, l'API proposait des fonctions
 de filtre, de tri, de pagination et de documentation automatique via Swagger /
-OpenAPI. Le projet comportait également des éléments d'authentification et de
-gestion des permissions, ce qui montre que l'enjeu n'était pas seulement de sortir
-des données, mais de construire une couche de service exploitable, documentée et
-réutilisable. Dans une logique de démonstration, la collection Postman fournie
-dans le dépôt permettait de tester rapidement les endpoints et de valider les cas
-d'usage principaux.
+OpenAPI. Le rendu du projet détaille l'usage de \texttt{drf-spectacular} pour
+générer une documentation interactive sous \texttt{/api/docs/}, une version ReDoc
+et un schéma OpenAPI exploitable par d'autres outils. Cette documentation est un
+élément important dans le cadre du bloc 1, car elle transforme la base de données
+et le datalake en service réellement consommable, compréhensible et testable.
 
-\paragraph{Valeur du projet dans le rapport.}
+\begin{center}
+    \fbox{\parbox{0.92\textwidth}{
+        \centering
+        \vspace{2.4cm}
+        \textit{Emplacement réservé pour une capture de l'interface Swagger UI du projet Challenge Datalake.}
+        \vspace{2.4cm}
+    }}
+
+    {\small \textit{Capture à ajouter : documentation Swagger UI de l'API Challenge Datalake.}}
+\end{center}
+
+\paragraph{Authentification et contrôle d'accès.}
+Le projet comportait également des éléments d'authentification et de gestion des
+permissions. Le rendu mentionne une authentification par session ainsi qu'une
+authentification JWT, avec des endpoints dédiés et des réglages pensés pour des
+tests réalistes. Il décrit aussi une politique de permissions différenciant les
+administrateurs, les utilisateurs authentifiés en lecture seule et les utilisateurs
+anonymes. Ces éléments sont importants, car ils montrent que l'enjeu n'était pas
+seulement de sortir des données, mais de construire une couche de service robuste,
+documentée et réutilisable.
+
+\paragraph{Valeur du projet pour le bloc 1.}
 Ce projet est particulièrement intéressant pour ce rapport, car il constitue un
 cas concret d'architecture de données de bout en bout. Il relie des problématiques
 de collecte, de structuration, de stockage, de transformation et de diffusion dans
@@ -613,160 +679,95 @@ exercice d'import de données, mais bien d'une plateforme cohérente où chaque
 couche répond à un rôle précis, depuis la source brute jusqu'au service exposé aux
 consommateurs.
 
-Pour la sous-compétence NoSQL, nous mobilisons en complément un autre projet,
-\textit{project\_cloud}, mais uniquement sur son volet NoSQL. Dans ce cadre, nous
-avons utilisé Amazon DynamoDB pour concevoir une base non relationnelle orientée
+\newpage
+\subsubsection{Projet Cloud : volet NoSQL}
+
+Pour la sous-compétence NoSQL, nous mobilisons en complément le projet
+\textit{project\_cloud}, mais uniquement sur son volet base non relationnelle.
+Dans ce cadre, nous avons utilisé Amazon DynamoDB pour concevoir une base orientée
 cas d'usage, destinée à stocker rapidement des données semi-structurées issues de
 plusieurs flux urbains sans imposer un schéma relationnel rigide.
 
-\newpage
-\subsection{Justification des compétences du bloc 1}
+\paragraph{Modèle de données dénormalisé.}
+Le modèle adopté est typiquement orienté document. Chaque enregistrement est
+stocké sous forme d'item JSON dénormalisé contenant directement les informations
+utiles au cas d'usage. Par exemple, les données de parkings incluent dans un même
+item l'identifiant, le nom, l'adresse, les capacités, les tarifs, l'état courant,
+les coordonnées et l'horodatage d'ingestion ; les données de trafic embarquent les
+propriétés métiers et les coordonnées du segment ; les données de départs
+regroupent l'identifiant du trajet, la gare de départ, la destination, le réseau,
+les horaires et la géolocalisation. Cette organisation est adaptée à DynamoDB,
+car elle évite les jointures et privilégie un accès direct à des objets déjà prêts
+à être consommés.
 
-\subsubsection{Concevoir et développer une base de données relationnelle}
+\paragraph{Tables par flux métier.}
+La modélisation repose sur des tables distinctes par grand flux métier, par
+exemple \texttt{parkings}, \texttt{traffic} et \texttt{departures}. Ce découpage
+répond à une logique d'usage : chaque table correspond à un type de données
+interrogé par des traitements et des endpoints spécifiques. Les items partagent
+néanmoins certaines métadonnées communes, notamment un champ \texttt{type}, un
+champ \texttt{ingestion\_timestamp} et, selon les cas, des informations de
+localisation. Ce choix permet d'unifier les traitements techniques tout en
+conservant la souplesse propre à chaque domaine.
 
-Le \textit{Challenge Datalake} démontre clairement cette compétence, car la couche
-\textit{Silver} puis la couche \textit{Gold} reposent sur MySQL pour structurer et
-exposer les données nettoyées. Dans ce projet, la base relationnelle ne sert pas
-uniquement de zone de stockage ; elle joue le rôle de \textit{data warehouse}
-centralisé, destiné à accueillir des données normalisées provenant de plusieurs
-sources externes.
-
-Le rapport du projet explique que la couche Bronze collecte les données brutes,
-que la couche Silver les nettoie et les homogénéise, puis que la couche Gold les
-unifie pour les rendre exploitables par l'API. Cette logique est confirmée dans
-le dépôt \texttt{julientremont/Jobtech}, où la configuration Django et les
-utilitaires SQL montrent l'usage explicite de MySQL. On y retrouve notamment des
-schémas SQL dédiés, une gestion de connexions centralisée, ainsi qu'une
-modélisation orientée analyse, avec des tables relationnelles adaptées aux
-requêtes métier.
-
-Cette partie répond donc à la compétence attendue, car il ne s'agissait pas
-seulement d'installer une base SQL, mais bien de concevoir une structure
-relationnelle cohérente avec le besoin client : centraliser des données sur le
-marché de l'emploi tech, les rendre interrogeables, les relier entre elles et
-permettre leur exploitation à travers une application. Le choix de MySQL est
-également pertinent au regard de la nature des données structurées finales,
-notamment pour les analyses croisées, les filtres, la pagination et les accès via
-API.
-
-\subsubsection{Concevoir et développer une base de données non relationnelle}
-
-Cette sous-compétence est justifiée par un autre projet que nous avons réalisé,
-\textit{project\_cloud}. Dans ce dépôt, la partie qui nous intéresse pour le bloc 1
-est la conception de la couche NoSQL avec Amazon DynamoDB. L'objectif n'était pas
-de reproduire un modèle relationnel, mais de stocker efficacement des données
-hétérogènes liées à plusieurs domaines métier de la ville de Paris, notamment les
-parkings, le trafic et les départs de transport.
-
-Le modèle de données adopté est typiquement orienté document. Chaque enregistrement
-est stocké sous forme d'item JSON dénormalisé, contenant directement les
-informations utiles au cas d'usage. Par exemple, les données de parkings incluent
-dans un même item l'identifiant, le nom, l'adresse, les capacités, les tarifs,
-l'état courant, les coordonnées et l'horodatage d'ingestion ; les données de
-trafic embarquent les propriétés métiers et les coordonnées du segment ; les
-données de départs regroupent l'identifiant du trajet, la gare de départ, la
-destination, le réseau, les horaires et la géolocalisation. Cette organisation est
-adaptée à DynamoDB, car elle évite les jointures et privilégie un accès direct à
-des objets déjà prêts à être consommés.
-
-La modélisation repose sur des tables distinctes par grand flux métier, par exemple
-\texttt{parkings}, \texttt{traffic} et \texttt{departures}. Ce découpage répond à une
-logique d'usage : chaque table correspond à un type de données interrogé par des
-traitements et des endpoints spécifiques. Les items partagent néanmoins certaines
-métadonnées communes, notamment un champ \texttt{type}, un champ
-\texttt{ingestion\_timestamp} et, selon les cas, des informations de localisation.
-Ce choix permet d'unifier les traitements techniques tout en conservant la
-souplesse propre à chaque domaine. Le code montre également l'usage d'écritures en
-lot avec \texttt{batch\_writer()}, ce qui est cohérent avec une logique d'ingestion
-fréquente et de chargement par lots.
-
+\paragraph{Patrons d'accès et indexation.}
 Un point important de cette conception est la prise en compte des patrons d'accès.
 Nous n'avons pas modélisé la base autour de relations théoriques entre entités,
 mais autour des requêtes réellement attendues. Les scripts et l'API exploitent un
 index secondaire global de type \textit{GSI} sur les attributs \texttt{type} et
 \texttt{ingestion\_timestamp} afin de retrouver rapidement le dernier lot ingéré
-ou les enregistrements correspondant à une fenêtre d'ingestion précise. Cette
-stratégie est représentative d'une bonne pratique NoSQL : on part des besoins de
-lecture, puis on construit la structure de stockage et les index en conséquence.
+ou les enregistrements correspondant à une fenêtre d'ingestion précise. Le code
+montre également l'usage d'écritures en lot avec \texttt{batch\_writer()}, ce qui
+est cohérent avec une logique d'ingestion fréquente et de chargement par lots.
 
-Cette conception répond à la compétence visée, car elle montre que nous avons su
-adapter le modèle de stockage à des données semi-structurées et à des besoins
-d'accès rapides, dans une logique orientée exploitation. Le volet NoSQL de
-\textit{project\_cloud} montre concrètement notre capacité à choisir une
-technologie non relationnelle lorsque la flexibilité du schéma, la dénormalisation,
-la montée en charge et la rapidité de lecture priment sur les contraintes d'un
-modèle SQL classique. C'est précisément ce qui était attendu ici : non pas
-simplement utiliser DynamoDB, mais concevoir une base cohérente avec la nature des
-données et les usages applicatifs visés.
+Ce volet NoSQL complète donc efficacement le \textit{Challenge Datalake}. Il montre
+notre capacité à choisir une technologie non relationnelle lorsque la flexibilité
+du schéma, la dénormalisation, la montée en charge et la rapidité de lecture
+priment sur les contraintes d'un modèle SQL classique.
 
-\subsubsection{Concevoir et construire un datalake}
+\newpage
+\subsection{Analyse attendue}
 
-Le \textit{Challenge Datalake} est la partie la plus représentative de cette
-compétence. L'architecture mise en place repose sur une logique \textit{Bronze /
-    Silver / Gold}, explicitement décrite dans le rapport du projet. La couche Bronze
-sert à collecter les données brutes depuis différentes sources externes et à les
-stocker localement au format Parquet. La couche Silver applique les traitements de
-nettoyage, de normalisation et d'enrichissement. Enfin, la couche Gold consolide
-les données dans un entrepôt exploitable par l'API et par les analyses.
+Mettez en avant la logique d'architecture de stockage retenue, la manière dont les
+sources hétérogènes sont intégrées dans une chaîne cohérente, l'adéquation entre
+les modèles de données choisis et les usages visés, ainsi que la capacité du projet
+à rendre les données accessibles via une API documentée et exploitable.
 
-Le choix de cette architecture est pertinent car il permet de séparer clairement
-les responsabilités : ingestion brute, préparation de la donnée et exposition des
-données consolidées. Cette organisation facilite la maintenance, la traçabilité
-et la reprise des traitements. Elle répond aussi à la diversité des systèmes
-sources : API publiques, fichiers CSV, enquêtes annuelles, scraping web et données
-issues de plateformes open source.
+\subsubsection{Preuves d'acquisition des compétences}
 
-Le rapport de rendu détaille plusieurs flux : Google Trends avec collecte
-historique et quotidienne, StackOverflow Survey avec import de fichiers annuels,
-Adzuna avec appels API mensuels, EuroTech Jobs et Jobicy via scrapping, ainsi que
-GitHub Repositories via API publique. Cette variété de formats et de rythmes
-d'ingestion illustre bien la capacité à intégrer des données structurées,
-semi-structurées et non structurées dans une architecture unique. Le stockage en
-Parquet et le traitement avec PySpark montrent en outre une démarche orientée
-performance et scalabilité, notamment grâce au partitionnement temporel et à la
-standardisation progressive des colonnes.
+Le tableau suivant récapitule, pour chacune des quatre sous-compétences du Bloc 1,
+la réalisation concrète qui la démontre dans les projets mobilisés.
 
-Nous pouvons donc justifier cette compétence en montrant que le projet ne se limite pas
-à une simple agrégation de fichiers : il s'agit bien d'un datalake conçu pour
-absorber plusieurs sources, conserver la donnée brute, produire une donnée fiabilisée
-et la rendre exploitable dans une couche analytique. C'est précisément l'objectif
-attendu dans ce bloc.
-
-\subsubsection{Créer une API pour rendre les données accessibles}
-
-La dernière sous-compétence du bloc est également couverte par le
-\textit{Challenge Datalake} grâce à l'API REST développée avec Django et Django
-REST Framework. Le rapport du projet consacre une partie complète à cette API et
-à son rôle de vitrine de données. L'objectif n'était pas seulement d'entreposer
-les données, mais de les rendre accessibles de manière claire, documentée et
-sécurisée.
-
-L'API est organisée par source de données, avec des routes dédiées pour Google
-Trends, StackOverflow Survey, Adzuna, GitHub, EuroTech Jobs et Jobicy, ainsi que
-des endpoints d'analyse transverses pour la couche Gold. Le dépôt montre
-également la présence d'une documentation Swagger / OpenAPI, d'une authentification
-par session et JWT, d'un système de permissions, ainsi que de fonctionnalités de
-filtrage, tri et pagination. Ces éléments sont importants, car ils traduisent une
-conception orientée usage et non une simple exposition brute des tables.
-
-Cette API justifie pleinement la compétence attendue : elle permet à des clients
-ou à d'autres services d'interroger les données selon leurs besoins, de récupérer
-des résumés, des séries temporelles ou des analyses métier, tout en conservant un
-cadre technique robuste. Elle améliore donc concrètement l'accessibilité et la
-praticité des données, ce qui correspond exactement à l'objectif de la sous-partie
-\textit{API et Web Services}.
-
-\subsection{Bilan du bloc 1}
-
-Au travers de ces deux projets, nous pouvons justifier l'ensemble des sous-compétences
-du bloc 1. Le \textit{Challenge Datalake} démontre notre capacité à concevoir une
-architecture de stockage complète, à centraliser plusieurs flux de données, à
-structurer une base relationnelle et à exposer les données via une API robuste.
-Le projet \textit{project\_cloud} complète cette démonstration sur la partie NoSQL,
-avec un cas concret d'usage de DynamoDB pour des données semi-structurées. Dans
-l'ensemble, ces réalisations montrent notre capacité à choisir les bons modèles de
-stockage selon les usages, à organiser les flux de données de bout en bout et à
-mettre les données à disposition de manière exploitable.
+\needspace{14\baselineskip}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
+\midrule
+Concevoir et développer une base de données relationnelle &
+  Le \textit{Challenge Datalake} s'appuie sur MySQL pour structurer les couches
+  \textit{Silver} et \textit{Gold}, avec tables nettoyées, logique d'\textit{upsert},
+  tables de dimensions, tables de faits et exposition relationnelle adaptée aux
+  filtres, recherches et requêtes analytiques. \\
+Concevoir et développer une base de données non relationnelle &
+  Le volet NoSQL de \textit{project\_cloud} repose sur DynamoDB avec items JSON
+  dénormalisés, tables séparées par flux métier, écritures par lots et index
+  secondaire global sur \texttt{type} et \texttt{ingestion\_timestamp}, conçu à
+  partir des besoins de lecture réels. \\
+Concevoir et construire un datalake &
+  Le \textit{Challenge Datalake} met en place une architecture \textit{Bronze /
+  Silver / Gold} capable d'ingérer des API, des fichiers tabulaires, des données
+  semi-structurées et du scraping, de conserver le brut, de normaliser les jeux de
+  données puis de produire une couche analytique consolidée. \\
+Créer une API pour rendre les données accessibles &
+  L'API REST développée avec Django REST Framework expose les données par source et
+  par vues analytiques, avec filtres, tri, pagination, documentation Swagger /
+  OpenAPI, authentification par session et JWT, et gestion des permissions pour des
+  usages applicatifs ou métiers. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
 \newpage
 \section{Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}
@@ -1106,36 +1107,32 @@ réalisation concrète qui la démontre dans le projet.
 
 \needspace{14\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
-\hline
+\midrule
 Architecture distribuée pour le traitement de données massives &
   Architecture Spark distribuée structurée en couches Bronze / Silver / Gold,
   pilotée par une \texttt{SparkSession} commune et un point d'entrée cluster
   \texttt{spark://localhost:7077}. \\
-\hline
 Système distribué de streaming &
   Ingestion incrémentale des vols via \texttt{readStream}, écriture en mode
   \texttt{append}, partitionnement des sorties et \textit{checkpointing} pour la
   reprise fiable des micro-batches. \\
-\hline
 Transformation de données variées pour l'analytique à l'échelle &
   Croisement de deux sources hétérogènes (vols CSV et météo API), normalisation
   temporelle en UTC en Silver, puis jointures analytiques en Gold avec Spark SQL. \\
-\hline
 Optimisation des performances des pipelines &
   Utilisation du format Parquet, partitionnement par \texttt{Year}/\texttt{Month}/\texttt{Day},
   séparation Bronze / Silver / Gold et exécution distribuée Spark SQL pour limiter
   les lectures inutiles et accélérer les agrégations. \\
-\hline
 Automatisation, tests, intégration et déploiement des pipelines &
   Workflow GitHub Actions exécuté sur plusieurs branches et versions Python,
   combinant linting \texttt{flake8}, tests \texttt{unittest}, couverture
   \texttt{coverage}, puis conteneurisation avec Docker et exécution reproductible via
   \texttt{docker compose} pour préparer la livraison de l'application. \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -1199,23 +1196,18 @@ AWS propose plusieurs alternatives pour chaque composant de l'architecture. Les
 choix retenus sont justifiés par rapport à ces alternatives.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}lll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Besoin} & \thead{Choix retenu} & \thead{Alternative} & \thead{Justification} \\
-\hline
+\midrule
 Lac de données & S3 & EFS, EBS & Coût minimal, accès objet universel \\
-\hline
 Base NoSQL & DynamoDB & MongoDB Atlas, ElasticSearch & Managé, serverless, GSI natif \\
-\hline
 Compute API & Lambda & EC2, ECS/Fargate & Pas d'infra à gérer, facturation à l'usage \\
-\hline
 Routage API & API Gateway & ALB, CloudFront & Intégration Lambda native, gestion CORS \\
-\hline
 Dashboard & Streamlit (EC2) & QuickSight, PowerBI & Open source, Python natif \\
-\hline
 Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeable \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \subsection{Architecture cloud}
@@ -1357,19 +1349,16 @@ la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serai
 l'enregistrement le plus récent en O(1).
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
-\hline
+\midrule
 Items lus & Toute la table (N) & Exactement 1 \\
-\hline
 Unités de lecture (RCU) & N & 1 \\
-\hline
 Complexité & O(n) & O(1) \\
-\hline
 Tri & Côté application & Natif (sort key) \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
@@ -1440,31 +1429,22 @@ fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
 3\_600\_000\_000}), puis calcul des indicateurs métier.
 
 \needspace{12\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
-\hline
+\midrule
 \texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
-\hline
 \texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
-\hline
 \texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
-\hline
 \texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
-\hline
 \texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
-\hline
 \texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
-\hline
 \texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
-\hline
 \texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
-\hline
 \texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
-\hline
 \texttt{aggregation\_departures\_total} & Total des départs sur la période \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
@@ -1524,15 +1504,14 @@ et l'exécution. Le cold start n'a lieu qu'à la première invocation après une
 d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
-\hline
+\midrule
 Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
-\hline
 Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
@@ -1551,23 +1530,21 @@ Chaque composant s'exécute sous un rôle IAM dédié n'accordant que les permis
 strictement nécessaires à sa fonction.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Rôle IAM} & \thead{Permissions} & \thead{Justification} \\
-\hline
+\midrule
 \texttt{lambda-api-role} &
   \code{dynamodb:GetItem}\newline \code{dynamodb:Query}\newline \code{dynamodb:Scan} &
   L'API ne fait que lire --- aucune permission d'écriture accordée. \\
-\hline
 \texttt{ingestion-role} &
   \code{s3:PutObject}\newline \code{dynamodb:PutItem}\newline \code{dynamodb:BatchWriteItem} &
   L'ingestion écrit S3 et DynamoDB, sans relecture. \\
-\hline
 \texttt{aggregation-role} &
   \code{dynamodb:Query} (Silver)\newline \code{dynamodb:PutItem} (Gold) &
   Isolation stricte : lecture Silver, écriture Gold. \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Cette séparation garantit qu'une compromission d'un Lambda d'agrégation ne peut ni
@@ -1581,17 +1558,15 @@ Le chiffrement en transit est assuré par défaut en HTTPS (TLS 1.2+) sur tous l
 appels boto3. Le chiffrement au repos est natif sur chaque service managé.
 
 \needspace{7\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Service} & \thead{Mode de chiffrement} & \thead{Implémentation projet} \\
-\hline
+\midrule
 AWS S3 & SSE-S3 (clé gérée AWS) & Chiffrement côté serveur automatique \\
-\hline
 AWS DynamoDB & AES-256 (clé AWS) & Activé par défaut sur toutes les tables \\
-\hline
 API Gateway & TLS 1.2+ obligatoire & Aucun trafic HTTP non chiffré \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour des données sensibles (positions GPS, données personnelles de transport), le
@@ -1626,19 +1601,16 @@ L'architecture Lambda + API Gateway est coût-efficace pour un flux intermittent
 comparaison avec une instance EC2 permanente illustre le gain.
 
 \needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Critère} & \thead{Lambda + API Gateway} & \thead{EC2 t3.small} \\
-\hline
+\midrule
 Facturation & À la requête (0,20 \$/M appels) & À l'heure ($\approx$18 \$/mois) \\
-\hline
 Scaling & Automatique, instantané & Manuel ou auto-scaling (délai) \\
-\hline
 Coût en veille & 0 \$ & 18 \$/mois (actif 24/7) \\
-\hline
 Maintenance OS & Aucune (managé) & Patches, mises à jour, supervision \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 Pour le profil du projet (appels toutes les 5 minutes), la facturation Lambda est
@@ -1652,17 +1624,15 @@ le coût de stockage croît indéfiniment. Une politique de cycle de vie S3 auto
 l'archivage puis la suppression.
 
 \needspace{7\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|l|l|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xll@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Règle} & \thead{Délai} & \thead{Effet} \\
-\hline
+\midrule
 Transition vers S3 Infrequent Access & 30 jours & $-40\,\%$ de coût \\
-\hline
 Transition vers S3 Glacier & 90 jours & $-70\,\%$ (récupération lente) \\
-\hline
 Suppression automatique & 365 jours & Coût nul \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \subsubsection{Supervision CloudWatch}
@@ -1672,21 +1642,17 @@ CloudWatch collecte automatiquement les métriques de chaque service. Une alarme
 avant que le throttling n'affecte les utilisateurs.
 
 \needspace{9\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Service} & \thead{Métrique} & \thead{Seuil d'alerte} \\
-\hline
+\midrule
 Lambda ingestion & \texttt{Errors} & $>$ 0 erreur en 5 min \\
-\hline
 Lambda API & \texttt{Duration} & $>$ 3 secondes \\
-\hline
 DynamoDB & \texttt{ThrottledRequests} & $>$ 0 (critique) \\
-\hline
 API Gateway & \texttt{5XXError} & $>$ 1\,\% du trafic \\
-\hline
 S3 & \texttt{NumberOfObjects} & Croissance anormale \\
-\hline
+\bottomrule
 \end{tabularx}\end{center}
 
 \capture{Tableau de bord Streamlit -- page Parkings : taux d'occupation global en temps réel et carte des parkings disponibles.}
@@ -1705,27 +1671,24 @@ réalisation concrète qui la démontre dans le projet.
 
 \needspace{12\baselineskip}
 \begin{center}
-\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}X|}
-\hline
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
 \rowcolor{tableHeader}
 \thead{Compétence visée} & \thead{Réalisation et preuve dans le projet} \\
-\hline
+\midrule
 Stockage de données dans le cloud &
   Lac de données S3 horodaté (Bronze) et base DynamoDB managée (Silver/Gold),
   avec choix de services justifié face aux alternatives AWS. \\
-\hline
 Pipelines de traitement cloud &
   Ingestion incrémentale idempotente S3 $\rightarrow$ DynamoDB et pipeline
   d'agrégation produisant 10 tables analytiques pré-calculées. \\
-\hline
 Sécurité (chiffrement \& IAM) &
   Rôles IAM au moindre privilège, chiffrement au repos (SSE-S3, AES-256) et en
   transit (TLS 1.2+), automatisation sécurisée via EventBridge. \\
-\hline
 Optimisation (performance, disponibilité, coûts) &
   GSI pour un accès O(1), compute serverless facturé à l'usage, cycle de vie S3 et
   supervision CloudWatch (métriques + alarmes SNS). \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{center}
 
@@ -1859,17 +1822,15 @@ deux tâches de prédiction du projet.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Stratégie}    & \thead{Pré-requis} & \thead{Coût d'une panne} & \thead{Coût de maintenance}      \\
-        \hline
+        \midrule
         Corrective           & Aucun              & Élevé (arrêt non prévu)  & Faible (minimal)                 \\
-        \hline
         Préventive planifiée & Calendrier         & Faible                   & Élevé (pièces saines remplacées) \\
-        \hline
         \textbf{Prédictive}  & Capteurs + ML      & Quasi-nul                & Optimisé (juste à temps)         \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -1891,7 +1852,7 @@ observations qui orientent les choix méthodologiques.
     \texttt{none} (85\,\%). Ce déséquilibre impose le F1-score et la PR-AUC comme
     métriques, ainsi qu'un split stratifié.}
 
-Les boîtes à moustaches confirment que les variables dominantes séparent nettement
+Les box plots confirment que les variables dominantes séparent nettement
 les machines saines des machines à risque : sur les machines en panne, la température
 moyenne passe de 49 à 63\,°C et la durée de vie résiduelle chute de 30,6 à 11,8\,h.
 
@@ -1913,27 +1874,22 @@ et deux cibles alternatives, une par tâche de prédiction.
 
 \needspace{10\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|l|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Variable}              & \thead{Type}      & \thead{Description}                      \\
-        \hline
+        \midrule
         \texttt{rul\_hours}           & Numérique         & Heures de vie résiduelle estimée         \\
-        \hline
         \texttt{temperature\_motor}   & Numérique         & Température moteur (°C)                  \\
-        \hline
         \texttt{rpm}                  & Numérique         & Vitesse de rotation (tours/min)          \\
-        \hline
         \texttt{vibration\_rms}       & Numérique         & Amplitude vibratoire RMS                 \\
-        \hline
         \texttt{pressure\_level}      & Numérique         & Niveau de pression                       \\
-        \hline
+        \addlinespace[2pt]
         \texttt{operating\_mode}      & Catégoriel        & Mode de fonctionnement                   \\
-        \hline\hline
+        \midrule
         \texttt{failure\_within\_24h} & Cible binaire     & Une panne surviendra-t-elle sous 24\,h ? \\
-        \hline
         \texttt{failure\_type}        & Cible multiclasse & Type de panne (5 classes)                \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2117,21 +2073,17 @@ distingue par deux optimisations déterminantes :
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Caractéristique}    & \thead{HistGradientBoosting}           & \thead{RandomForest}               \\
-        \hline
+        \midrule
         Valeurs manquantes         & Nativement gérées                      & Imputation requise                 \\
-        \hline
         Complexité d'entraînement  & $O(256 \times d \times \text{arbres})$ & $O(n \log n \times \text{arbres})$ \\
-        \hline
         Risque de surapprentissage & Modéré (régularisation $\ell_2$)       & Faible (bagging)                   \\
-        \hline
         Interprétabilité           & Faible (boîte noire)                   & Moyenne (importance native)        \\
-        \hline
         Gestion du déséquilibre    & Bonne (\texttt{class\_weight})         & Très bonne (\texttt{balanced})     \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2147,19 +2099,16 @@ indispensable pour choisir le bon modèle par cas d'usage.
 
 \needspace{10\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|c|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xccccc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Modèle}             & \thead{F1}      & \thead{Précision} & \thead{Rappel} & \thead{ROC-AUC} & \thead{PR-AUC}  \\
-        \hline
+        \midrule
         \textbf{gradient boosting} & \textbf{0,9775} & 0,9789            & 0,9761         & \textbf{0,9991} & \textbf{0,9956} \\
-        \hline
         random forest              & 0,9752          & 0,9857            & 0,9649         & 0,9995          & 0,9976          \\
-        \hline
         mlp classifier             & 0,9337          & 0,9697            & 0,9003         & 0,9974          & 0,9877          \\
-        \hline
         logistic regression        & 0,7224          & 0,8456            & 0,6306         & 0,9485          & 0,8273          \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2180,15 +2129,14 @@ inutilisable pour ce cas d'usage critique.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xccc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Modèle}           & \thead{weighted\_F1} & \thead{macro\_F1} & \thead{Classes} \\
-        \hline
+        \midrule
         \textbf{random\_forest}  & \textbf{0,9782}      & 0,8955            & 5               \\
-        \hline
         hist\_gradient\_boosting & 0,9753               & 0,8829            & 5               \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2208,23 +2156,18 @@ mélangées aléatoirement. Plus la chute est forte, plus la variable est prédi
 
 \needspace{9\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xc@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Variable}            & \thead{Importance (permutation)} \\
-        \hline
+        \midrule
         \texttt{rul\_hours}         & \textbf{0,4954}                  \\
-        \hline
         \texttt{temperature\_motor} & 0,2899                           \\
-        \hline
         \texttt{rpm}                & 0,2772                           \\
-        \hline
         \texttt{vibration\_rms}     & 0,1165                           \\
-        \hline
         \texttt{pressure\_level}    & 0,0471                           \\
-        \hline
         \texttt{operating\_mode}    & 0,0174                           \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2262,15 +2205,14 @@ Au-delà des scores agrégés, l'analyse de la matrice de confusion
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabular}{|l|>{\centering\arraybackslash}p{3.9cm}|>{\centering\arraybackslash}p{3.9cm}|}
-        \hline
+    \begin{tabular}{@{}l>{\centering\arraybackslash}p{3.9cm}>{\centering\arraybackslash}p{3.9cm}@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{}                     & \thead{Prédit : panne}                   & \thead{Prédit : pas de panne}        \\
-        \hline
+        \midrule
         \textbf{Réel : panne}        & VP (vrais positifs)                      & FN (faux négatifs --- risque métier) \\
-        \hline
         \textbf{Réel : pas de panne} & FP (faux positifs --- coût mobilisation) & VN (vrais négatifs)                  \\
-        \hline
+        \bottomrule
     \end{tabular}
 \end{center}
 
@@ -2343,7 +2285,7 @@ Il s'organise en trois pages complémentaires :
 
 \begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=3pt]
     \item \textbf{Page exploration (EDA)} : distributions des variables capteurs
-          (histogrammes, boîtes à moustaches), corrélations entre variables (carte de
+          (histogrammes, box plots), corrélations entre variables (carte de
           chaleur), répartition des classes cibles. Elle permet à un expert métier de
           comprendre les données sans écrire de code.
     \item \textbf{Page benchmark} : tableau comparatif des modèles (F1, précision,
@@ -2371,25 +2313,19 @@ est la condition de la reproductibilité des résultats annoncés.
 
 \needspace{9\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Module testé}                   & \thead{Périmètre de validation}                        \\
-        \hline
+        \midrule
         \texttt{test\_data.py}                 & Chargement du dataset, séparation features/cible       \\
-        \hline
         \texttt{test\_preprocessing.py}        & Pipeline ColumnTransformer, split stratifié            \\
-        \hline
         \texttt{test\_prediction\_pipeline.py} & Pipeline complet entraînement $\rightarrow$ prédiction \\
-        \hline
         \texttt{test\_evaluate.py}             & Métriques binaires et multiclasses                     \\
-        \hline
         \texttt{test\_explainability.py}       & Permutation importance                                 \\
-        \hline
         \texttt{test\_api.py}                  & Endpoints FastAPI (health, predict)                    \\
-        \hline
         \texttt{test\_dashboard\_helpers.py}   & Fonctions de visualisation Streamlit                   \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2412,17 +2348,15 @@ cinq.
 
 \needspace{8\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Méthode}       & \thead{Avantage}                        & \thead{Inconvénient}               \\
-        \hline
+        \midrule
         Split 80/20 stratifié & Rapide, simple à implémenter            & Variance selon la graine aléatoire \\
-        \hline
         k-fold (k=5)          & Estimation robuste (k résultats)        & 5$\times$ le temps de calcul       \\
-        \hline
         Stratified k-fold     & Robustesse + représentation des classes & Même coût que k-fold               \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
@@ -2461,40 +2395,33 @@ réalisation concrète qui la démontre dans le projet et le résultat mesurable
 
 \needspace{14\baselineskip}
 \begin{center}
-    \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|}
-        \hline
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}X@{}}
+        \toprule
         \rowcolor{tableHeader}
         \thead{Compétence visée}                                   & \thead{Réalisation et preuve dans le projet} \\
-        \hline
+        \midrule
         Extraire des données de systèmes variés                    &
         Chargement et exploration d'un jeu de données de capteurs industriels
         (\texttt{data.py}, 6 variables, 2 cibles) avec séparation features/cible contrôlée.                       \\
-        \hline
         Préparer et nettoyer les données                           &
         Pipeline \texttt{ColumnTransformer} : imputation médiane + standardisation
         (numériques), imputation modale + encodage one-hot (catégoriel), split
         stratifié 80/20.                                                                                          \\
-        \hline
         Communication infographique (tableaux de bord interactifs) &
         Tableau de bord \textbf{Streamlit} à trois pages : exploration (EDA),
         comparaison des modèles, prédiction en temps réel via l'API.                                              \\
-        \hline
         Développer un modèle prédictif supervisé                   &
         Deux tâches (classification binaire et multiclasse à 5 classes), quatre
         modèles candidats par tâche, sélection automatisée du meilleur.                                           \\
-        \hline
         Évaluer et comparer les performances                       &
         Benchmark sur F1, précision, rappel, ROC-AUC, PR-AUC ; meilleur F1
         = \textbf{0,9775} (binaire) et weighted\_F1 = \textbf{0,9782} (multiclasse).                              \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{center}
 
 \newpage
 \section{Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}
-
-Cette partie doit montrer votre capacite a relier les enjeux techniques aux
-enjeux organisationnels, reglementaires, qualitatifs et strategiques de la data.
 
 \subsection{Competences visees}
 
