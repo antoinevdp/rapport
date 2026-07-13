@@ -173,10 +173,8 @@
     {\Huge \bfseries Rapport de validations des blocs de compétences\\[0.8cm]}
 
     \begin{tabular}{rl}
-        Auteur :     & Tremont-Raimi Julien \& Vandeplanque Antoine \\
+        Auteurs :     & Tremont-Raimi Julien \& Vandeplanque Antoine \\
         Promotion :  & 2024--2026                                   \\
-        Encadrant :  & A completer                                  \\
-        Entreprise : & A completer                                  \\
     \end{tabular}
 
     \vfill
@@ -271,9 +269,9 @@ reliée au référentiel --- de sorte que chaque partie soit autonome et directe
 évaluable. Le rapport est précédé d'une présentation de l'entreprise d'alternance,
 puis d'une synthèse de la couverture des cinq blocs de compétences.
 
+\newpage
 \section{Présentation d'entreprise}
-
-\subsection{L'entreprise : Geismar}
+\subsection{L'entreprise : Geismar - Julien Tremont-Raimi}
 
 Fondée en 1924 à Colmar par Lucien Geismar, la société conçoit, fabrique et vend
 dans le monde entier des outils et des machines destinés à la pose et à l'entretien
@@ -315,6 +313,24 @@ stockées sur SQL Server et Snowflake. L'infrastructure cloud repose sur Microso
 Azure, notamment Blob Storage pour le stockage et Azure DevOps pour le versionning et
 les pipelines. Côté restitution, les données alimentent des rapports Power BI.
 
+\newpage
+\subsection{L'entreprise : Renault Digital - Antoine Vandeplanque}
+Renault Digital est la filiale de Renault Group fondée en 2017 dédiée à la transformation
+numérique du constructeur. Créée pour accélérer la livraison de produits digitaux,
+elle regroupe des profils spécialisés en développement logiciel, data,
+intelligence artificielle, cloud, UX, DevOps et cybersécurité. Ses équipes
+travaillent pour les différents métiers du groupe, notamment l'industrie, les
+véhicules connectés, le marketing, l'après-vente et la qualité, afin de concevoir
+des applications internes, des plateformes de données, des tableaux de bord et des
+solutions d'IA utilisées à l'échelle du groupe.
+\subsection{Le poste}
+\subsubsection{Contexte}
+L'équipe Data Engineer de Renault Digital à mis en place un datalake pour centraliser toutes les données du groupe Renault. Ce datalake est utilisé pour alimenter des applications internes, des tableaux de bord et des modèles d'intelligence artificielle. Ce datalake est construit sur la plateforme cloud GCP et utilise des technologies telles que BigQuery, et Dataproc pour le traitement et le stockage et l'analyse des données.
+\subsubsection{Missions}
+Au sein des data engineers, j'ai rejoins l'équipe Data Experience, mon rôle a été assez varié pendant toute la durée de mon alternance. J'ai participé à la mise en place de pipelines de données pour alimenter le datalake, à l'optimisation des requêtes SQL sur BigQuery, à la création de tableaux de bord interactifs avec Looker Studio. J'ai également pu participé à la mise en place d'un POC de data quality visant à créer un service de monitoring de la qualité des données pour les utilisateurs du datalake.
+
+
+\newpage
 \section{Synthèse des blocs de compétences RNCP36739}
 
 La certification \og{}Expert en Ingénierie de Données\fg{} s'articule autour de cinq
@@ -1185,7 +1201,7 @@ des accès, optimisation de la performance et de la disponibilité
 
 Le \texttt{projet cloud} est une plateforme de données temps réel lyonnaise. Elle
 agrège en continu trois flux de données ouvertes : les départs ferroviaires et de
-métro en gare de Lyon (SNCF/RATP), l'état des parkings parisiens (disponibilité,
+métro en gare de Lyon (SNCF/RATP), l'état des parkings lyonnais (disponibilité,
 places, tarifs) et l'état du trafic routier (indice de congestion, segments
 critiques, fluidité par zone). L'objectif est de permettre un suivi opérationnel de
 la mobilité lyonnaise via un tableau de bord Streamlit alimenté par une API
@@ -1220,10 +1236,10 @@ Scheduling & EventBridge & Step Functions, MWAA & Cron simple, coût négligeabl
 \subsection{Architecture cloud}
 
 L'architecture suit le motif Medallion (Bronze/Silver/Gold) transposé sur des
-services managés AWS : S3 comme data lake brutes, DynamoDB comme couche
+services managés AWS : S3 comme datalake, DynamoDB comme couche
 nettoyée puis agrégée, et une exposition serverless via Lambda et API Gateway.
 
-\needspace{20\baselineskip}
+\needspace{10\baselineskip}
 \begin{center}\fitwidth{%
 \begin{tikzpicture}[node distance=0.85cm]
 
@@ -1269,15 +1285,18 @@ nettoyée puis agrégée, et une exposition serverless via Lambda et API Gateway
 \end{tikzpicture}}\end{center}
 
 Le schéma technique du projet ci-dessous détaille le flux complet, du calcul
-ordonnancé sur EC2 jusqu'à la visualisation Streamlit.
+ordonnancé par \texttt{crontab} sur une instance EC2 jusqu'à la visualisation
+Streamlit.
 
 \figc{fig_architecture_cloud.png}{\linewidth}{Architecture technique du
 \texttt{projet cloud}. Les trois sources open data sont collectées par un pipeline
-ordonnancé sur EC2, stockées en JSON dans S3, nettoyées et indexées dans DynamoDB,
+ordonnancé par \texttt{crontab} sur EC2, stockées en JSON dans S3, nettoyées et indexées dans DynamoDB,
 agrégées dans un rapport quotidien, puis exposées via une fonction Lambda et une API
 Gateway consommée par le dashboard Streamlit.}
 
-\subsection{Stockage S3 --- data lake brutes horodaté}
+\subsection{Stockage de données}
+
+\subsubsection{Stockage S3 --- data lake brutes horodaté}
 
 AWS S3~\cite{s3} constitue la couche Bronze de l'architecture. Chaque ingestion
 produit un objet JSON horodaté dans le préfixe correspondant à la source
@@ -1311,13 +1330,15 @@ Le \texttt{DecimalEncoder} sérialise les \texttt{Decimal} Python en \texttt{int
 \texttt{float} selon la présence d'une partie décimale --- une nécessité, car
 DynamoDB stocke tous les nombres au format \texttt{Decimal}.
 
-\capture{Console AWS S3 -- bucket \texttt{efrei-cloud-project}, dossier \texttt{departures} : liste des objets JSON horodatés.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/S3-departures.png}
+    \caption{Console AWS S3 -- bucket \texttt{efrei-cloud-project}, dossier \texttt{departures} : liste des objets JSON horodatés.}
+\end{figure}
 
-\subsection{DynamoDB --- modèle d'accès et index secondaire global}
+\subsubsection{DynamoDB --- modèle de données Silver}
 
-\subsubsection{Modèle de données}
-
-Chaque item DynamoDB~\cite{dynamodb} dans les trois tables temps réel porte un
+Chaque item DynamoDB dans les trois tables temps réel porte un
 attribut \texttt{type} (valeur constante par table : \texttt{"parkings"},
 \texttt{"traffic"}, \texttt{"departures"}) et un \texttt{ingestion\_timestamp} en
 microsecondes Unix. Ce couple constitue la clé du GSI. L'horodatage est exprimé en
@@ -1346,55 +1367,39 @@ def create_stations_departures_dict(json_data, ingestion_timestamp_str):
     return results
 \end{lstlisting}
 
-\subsubsection{Global Secondary Index --- requête O(1) sur le dernier snapshot}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/dynamodb_parking_preview.png}
+    \caption{Console AWS DynamoDB -- table \texttt{parkings} : aperçu des items.}
+\end{figure}
 
-L'enjeu de performance est d'accéder au dernier snapshot \textit{sans} scanner toute
-la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serait un
-\texttt{scan} en O(n) sur l'ensemble de l'historique. Avec le GSI
-\texttt{gsi-type-ingestion\_timestamp} (PK : type, SK : ingestion\_timestamp), une
-\texttt{query} avec \texttt{ScanIndexForward=False, Limit=1} retourne
-l'enregistrement le plus récent en O(1).
+\subsubsection{Tables Gold DynamoDB}
 
-\needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+Un pipeline d'agrégation lit les tables temps réel (Silver) et produit dix tables
+analytiques pré-agrégées dans DynamoDB (Gold). Pour les parkings, l'agrégation se
+fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
+3\_600\_000\_000}), puis calcul des indicateurs métier.
+
+\needspace{12\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
 \toprule
 \rowcolor{tableHeader}
-\thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
+\thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
 \midrule
-Items lus & Toute la table (N) & Exactement 1 \\
-Unités de lecture (RCU) & N & 1 \\
-Complexité & O(n) & O(1) \\
-Tri & Côté application & Natif (sort key) \\
+\texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
+\texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
+\texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
+\texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
+\texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
+\texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
+\texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
+\texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
+\texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
+\texttt{aggregation\_departures\_total} & Total des départs sur la période \\
 \bottomrule
 \end{tabularx}\end{center}
 
-\begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
-def get_last_processed_timestamp(dynamodb, table_name, type_table):
-    table = dynamodb.Table(table_name)
-    try:
-        response = table.query(
-            IndexName='gsi-type-ingestion_timestamp',
-            KeyConditionExpression=Key('type').eq(type_table),
-            ScanIndexForward=False,   # tri SK descendant : le plus grand en tete
-            Limit=1,
-            ProjectionExpression="ingestion_timestamp"
-        )
-        items = response.get('Items', [])
-        return items[0]['ingestion_timestamp'] if items else None
-    except Exception:
-        # Fallback : scan si GSI non disponible (degraded mode)
-        response = table.scan(
-            ProjectionExpression="ingestion_timestamp", Limit=1000)
-        timestamps = [item['ingestion_timestamp'] for item in response['Items']]
-        return max(timestamps) if timestamps else None
-\end{lstlisting}
-
-Le fallback sur \texttt{scan} garantit la disponibilité du service même si le GSI est
-en cours de construction ou temporairement indisponible (mode dégradé). Ce même
-pattern --- query GSI en priorité, scan en secours --- est réutilisé dans le Lambda
-de l'API.
-
-\capture{Console AWS DynamoDB -- table \texttt{parkings}, onglet \textit{Indexes} : configuration du GSI \texttt{gsi-type-ingestion\_timestamp}.}
+\subsection{Pipelines et traitements de données}
 
 \subsubsection{Ingestion incrémentale depuis S3}
 
@@ -1428,39 +1433,30 @@ for key in new_keys:
 L'idempotence est garantie : à chaque relance, seuls les objets S3 postérieurs au
 dernier horodatage connu sont réingérés, sans duplication des données déjà présentes.
 
-\subsection{Traitement cloud --- agrégation analytique}
+\subsubsection{Ordonnancement sur EC2 avec crontab}
 
-Un pipeline d'agrégation lit les tables temps réel (Silver) et produit dix tables
-analytiques pré-agrégées dans DynamoDB (Gold). Pour les parkings, l'agrégation se
-fait par tranche horaire (groupement sur \texttt{ingestion\_timestamp //
-3\_600\_000\_000}), puis calcul des indicateurs métier.
+L'exécution périodique des traitements est assurée depuis une instance EC2. Les
+scripts shell du projet ne sont donc pas lancés manuellement : ils sont appelés par
+\texttt{crontab}, qui déclenche les commandes d'ingestion, de transformation et de
+reporting à intervalle régulier. Cette organisation reste simple à maintenir pour le
+volume du projet : l'instance EC2 porte le planificateur, tandis que S3, DynamoDB,
+Lambda et API Gateway restent des services managés.
 
-\needspace{12\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
-\toprule
-\rowcolor{tableHeader}
-\thead{Table DynamoDB (Gold)} & \thead{Indicateur} \\
-\midrule
-\texttt{aggregation\_overall\_occupancy\_rate} & Taux d'occupation global (\%) \\
-\texttt{aggregation\_average\_availability\_parking} & Disponibilité moyenne par parking \\
-\texttt{aggregation\_reference\_pricing} & Tarification moyenne (1h/2h/4h/24h) \\
-\texttt{aggregation\_number\_of\_parkings\_in\_operation} & Nombre de parkings ouverts \\
-\texttt{aggregation\_traffic\_congestion\_index} & Indice de congestion du trafic \\
-\texttt{aggregation\_traffic\_critical\_segments} & Segments routiers critiques \\
-\texttt{aggregation\_traffic\_fluidity\_by\_zone} & Fluidité par zone géographique \\
-\texttt{aggregation\_departures\_by\_network} & Départs par réseau (SNCF/RATP) \\
-\texttt{aggregation\_departures\_top\_destinations} & Top destinations \\
-\texttt{aggregation\_departures\_total} & Total des départs sur la période \\
-\bottomrule
-\end{tabularx}\end{center}
+Trois scripts structurent cet ordonnancement : \code{pipeline.sh} pour les flux
+parking et trafic, \code{pipeline\_departures.sh} pour les départs, et
+\code{pipeline\_reporting.sh} pour l'export quotidien des agrégats. La preuve
+d'exécution attendue est la capture du \texttt{crontab} de l'instance EC2, avec les
+commandes planifiées et les journaux associés.
+
+\subsubsection{Agrégation analytique}
 
 Ce pré-calcul transfère la charge CPU du moment de la requête vers le moment de
 l'ingestion : l'API lit ensuite ces tables d'agrégats (petites et statiques) sans
 recalculer quoi que ce soit à chaque appel.
 
-\subsection{Mise à disposition --- Lambda et API Gateway}
+\subsubsection{Mise à disposition --- Lambda et API Gateway}
 
-\subsubsection{Routage des 13 endpoints serverless}
+\paragraph{Routage des 13 endpoints serverless.}
 
 L'API expose treize endpoints via un Lambda~\cite{lambda} unique routé par chemin :
 trois endpoints temps réel (requête GSI vers le dernier snapshot) et dix endpoints
@@ -1504,32 +1500,36 @@ gestion d'infrastructure : pas de serveur à provisionner, pas de scaling manuel
 une facturation à la requête --- optimale pour un flux temps  réel à appels
 intermittents.
 
-\subsubsection{Cold start et stratégies de mitigation}
+L'API est déployée sur le stage \texttt{prod} d'API Gateway avec l'URL d'invocation
+suivante : \url{https://3v0le46mii.execute-api.us-east-1.amazonaws.com/prod}. Les
+routes configurées reprennent directement les chemins gérés par le Lambda :
+\code{/parkings}, \code{/traffic}, \code{/departures}, ainsi que les dix routes
+d'agrégation pré-calculées comme \code{/aggregation\_overall\_occupancy\_rate},
+\code{/aggregation\_traffic\_congestion\_index} ou
+\code{/aggregation\_departures\_total}. Une capture de la console API Gateway est
+ajoutée comme preuve de déploiement des routes.
 
-Une invocation Lambda comprend deux phases : l'initialisation (\textit{cold start})
-et l'exécution. Le cold start n'a lieu qu'à la première invocation après une période
-d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/api_gateway_console.png}
+    \caption{Console AWS API Gateway -- liste des 13 routes configurées.}
+\end{figure}
 
-\needspace{8\baselineskip}
-\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
-\toprule
-\rowcolor{tableHeader}
-\thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
-\midrule
-Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
-Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
-\bottomrule
-\end{tabularx}\end{center}
+Le tableau de bord Streamlit consomme ces routes API pour rendre les données
+exploitables sans passer par la console AWS. Il regroupe les trois domaines du projet
+(parkings, trafic et départs) dans des pages séparées. La page Parkings affiche le
+dernier état disponible, les indicateurs agrégés comme le taux d'occupation et une
+carte des parkings disponibles. Ce dashboard sert donc de couche de restitution : les
+données sont collectées dans S3, transformées dans DynamoDB, exposées par l'API, puis
+visualisées dans Streamlit.
 
-Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
-Pour une API à très faible latence, trois leviers existent : la \textbf{Provisioned
-Concurrency} (instances maintenues chaudes en permanence), un \textbf{warm-up ping}
-EventBridge, ou un package minimal (boto3 étant fourni par le runtime AWS, le ZIP ne
-contient que le code applicatif ce qui réduit le temps de chargement).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/streamlit_aws.png}
+    \caption{Tableau de bord Streamlit -- carte des parkings disponibles.}
+\end{figure}
 
-\capture{Console AWS API Gateway -- liste des 13 routes configurées (méthode GET + intégration Lambda).}
-
-\subsection{Sécurité et gestion des identités}
+\subsection{Sécurité des données}
 
 \subsubsection{Principe du moindre privilège (IAM)}
 
@@ -1580,10 +1580,12 @@ Pour des données sensibles (positions GPS, données personnelles de transport),
 SSE-KMS avec rotation annuelle de clé serait retenu : il permet de révoquer l'accès
 en révoquant la clé, sans supprimer les objets.
 
-\subsubsection{Automatisation de l'ingestion par EventBridge}
+\subsubsection{Évolution possible vers EventBridge}
 
-L'ingestion manuelle actuelle serait industrialisée par AWS EventBridge Scheduler :
-un schedule cron déclenche chaque Lambda d'ingestion toutes les 5 minutes.
+L'ordonnancement actuel repose sur \texttt{crontab} dans EC2. Une évolution possible
+serait de déplacer cette planification vers AWS EventBridge Scheduler : un schedule
+cron déclencherait chaque Lambda d'ingestion toutes les 5 minutes, sans dépendre de
+l'instance EC2.
 
 \begin{lstlisting}[language=bash, caption=EventBridge Scheduler -- déclenchement périodique (AWS CLI)]
 aws scheduler create-schedule \
@@ -1600,7 +1602,84 @@ Le rôle \texttt{scheduler-invoke-role} ne dispose que de la permission
 \texttt{lambda:InvokeFunction} sur la fonction ciblée --- nouvelle application du
 moindre privilège.
 
-\subsection{Optimisation des performances et des coûts}
+\subsection{Optimisation, supervision et coûts des solutions cloud}
+
+\subsubsection{Global Secondary Index --- requête O(1) sur le dernier snapshot}
+
+L'enjeu de performance est d'accéder au dernier snapshot \textit{sans} scanner toute
+la table. Sans index, chaque requête \og{}dernier état des parkings\fg{} serait un
+\texttt{scan} en O(n) sur l'ensemble de l'historique. Avec le GSI
+\texttt{gsi-type-ingestion\_timestamp} (PK : type, SK : ingestion\_timestamp), une
+\texttt{query} avec \texttt{ScanIndexForward=False, Limit=1} retourne
+l'enregistrement le plus récent en O(1).
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Approche} & \thead{Sans GSI (scan)} & \thead{Avec GSI (query)} \\
+\midrule
+Items lus & Toute la table (N) & Exactement 1 \\
+Unités de lecture (RCU) & N & 1 \\
+Complexité & O(n) & O(1) \\
+Tri & Côté application & Natif (sort key) \\
+\bottomrule
+\end{tabularx}\end{center}
+
+\begin{lstlisting}[language=Python, caption=Requête GSI -- dernier timestamp O(1) avec fallback scan (utils\_dynamodb.py)]
+def get_last_processed_timestamp(dynamodb, table_name, type_table):
+    table = dynamodb.Table(table_name)
+    try:
+        response = table.query(
+            IndexName='gsi-type-ingestion_timestamp',
+            KeyConditionExpression=Key('type').eq(type_table),
+            ScanIndexForward=False,   # tri SK descendant : le plus grand en tete
+            Limit=1,
+            ProjectionExpression="ingestion_timestamp"
+        )
+        items = response.get('Items', [])
+        return items[0]['ingestion_timestamp'] if items else None
+    except Exception:
+        # Fallback : scan si GSI non disponible (degraded mode)
+        response = table.scan(
+            ProjectionExpression="ingestion_timestamp", Limit=1000)
+        timestamps = [item['ingestion_timestamp'] for item in response['Items']]
+        return max(timestamps) if timestamps else None
+\end{lstlisting}
+
+Le fallback sur \texttt{scan} garantit la disponibilité du service même si le GSI est
+en cours de construction ou temporairement indisponible (mode dégradé). Ce même
+pattern --- query GSI en priorité, scan en secours --- est réutilisé dans le Lambda
+de l'API.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\linewidth]{assets/dynamodb_parking_index.png}
+    \caption{Console AWS DynamoDB -- table \texttt{parkings}, onglet \textit{Indexes} : configuration du GSI \texttt{gsi-type-ingestion\_timestamp}.}
+\end{figure}
+
+\subsubsection{Cold start et stratégies de mitigation}
+
+Une invocation Lambda comprend deux phases : l'initialisation (\textit{cold start})
+et l'exécution. Le cold start n'a lieu qu'à la première invocation après une période
+d'inactivité ; pour un Lambda Python avec boto3, il est typiquement de 200 à 500\,ms.
+
+\needspace{8\baselineskip}
+\begin{center}\begin{tabularx}{\linewidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{tableHeader}
+\thead{Phase} & \thead{Durée typique} & \thead{Fréquence} \\
+\midrule
+Cold start (init) & 200--500 ms & Première invocation, après inactivité \\
+Warm execution & 10--100 ms & Invocations suivantes (même conteneur) \\
+\bottomrule
+\end{tabularx}\end{center}
+
+Pour un tableau de bord rafraîchi toutes les 5 minutes, le cold start est acceptable.
+Pour une API à très faible latence, trois leviers existent : la \textbf{Provisioned
+Concurrency} (instances maintenues chaudes en permanence), un \textbf{warm-up ping}
+EventBridge, ou un package minimal (boto3 étant fourni par le runtime AWS, le ZIP ne
+contient que le code applicatif ce qui réduit le temps de chargement).
 
 \subsubsection{Serverless contre serveur permanent}
 
@@ -1661,8 +1740,6 @@ API Gateway & \texttt{5XXError} & $>$ 1\,\% du trafic \\
 S3 & \texttt{NumberOfObjects} & Croissance anormale \\
 \bottomrule
 \end{tabularx}\end{center}
-
-\capture{Tableau de bord Streamlit -- page Parkings : taux d'occupation global en temps réel et carte des parkings disponibles.}
 
 \subsection{Synthèse --- compétences démontrées}
 
@@ -2458,28 +2535,105 @@ réalisation concrète qui la démontre dans le projet et le résultat mesurable
 
 \subsection{Analyse attendue}
 
-Mettez en avant les enjeux de gouvernance, de qualite, de securite, de
-conformite et de communication autour de la donnee, en montrant comment vos
-travaux transforment la data en valeur pour l'organisation.
+En attente des cours de data management et de gouvernance pour pouvoir realiser l'analyse attendue.
 
 \newpage
 \section{Conclusion}
 
-Concluez en rappelant le fil conducteur du rapport, la progression observee sur
-les deux annees de formation, les competences acquises et votre capacite a
-argumenter, justifier vos choix et prendre du recul sur vos realisations.
+\subsection{Fil conducteur --- du stockage à la valeur métier}
 
-Vous pouvez terminer cette conclusion par une ouverture vers la soutenance,
-qui devra s'appuyer sur un support synthetique et pertinent et mettre en valeur
-votre e-portfolio de competences.
+Ce rapport a présenté cinq projets. Ensemble, ils couvrent tout le cycle de vie de
+la donnée, du stockage brut jusqu'à la décision~\cite{rncp}. Chaque couche --- Bronze,
+Silver, Gold --- transforme un peu plus la donnée. Chaque outil --- Spark, DynamoDB,
+Lambda, scikit-learn --- répond à un besoin précis.
 
-\begin{thebibliography}{9}
+Ces choix ne sont pas arbitraires. Avant chaque décision technique, nous nous sommes
+posé les bonnes questions : quel volume ? quelle latence ? quel coût ? Puis nous avons
+comparé les options. Savoir justifier un choix, et pas seulement le citer, est au
+centre du métier.
+
+\subsection{Progression observée sur deux années}
+
+Notre niveau a nettement évolué en deux ans. Au début, nos pipelines étaient simples
+et séquentiels. Aujourd'hui, nous concevons des architectures distribuées en
+plusieurs couches. Côté cloud, nous sommes passés de simples appels boto3 à une vraie
+architecture serverless, pensée pour le coût et la sécurité. En machine learning,
+nous ne testons plus un seul modèle mais un benchmark complet, avec interprétabilité
+et mise en service. Enfin, la chaîne CI/CD montre une vraie maturité côté DevOps.
+
+\subsection{Prise de recul --- limites et axes d'amélioration}
+
+Nos projets ont aussi des limites, et nous les assumons. Le monitoring reste
+incomplet : pas encore de suivi temps réel de la latence ni des erreurs, même si
+CloudWatch et la Spark UI posent les bases. Nous n'avons pas non plus testé nos
+pipelines sur des volumes beaucoup plus grands. Enfin, en production réelle, il
+faudrait détecter la dérive des données et réentraîner les modèles automatiquement.
+Ce sont nos prochaines pistes.
+
+\subsection{Ouverture}
+
+Ce rapport est la base de notre dossier de certification. La soutenance sera
+l'occasion d'approfondir les choix clés : le GSI DynamoDB, l'AQE dans Spark, le
+benchmark des modèles. Le code, les modèles, les tableaux de bord et les pipelines
+CI/CD réalisés pendant ces deux ans sont la preuve concrète de notre travail. Ils
+montrent que les cinq blocs sont acquis.
+
+\begin{thebibliography}{99}
 
 \bibitem{rncp}
 France Compétences.
 \textit{Fiche RNCP36739 --- Expert en ingénierie de données}.
 Disponible sur : \url{https://www.francecompetences.fr/recherche/rncp/36739/}
-[consulté le 15 juin 2026].
+
+\bibitem{jobtechrepo}
+Julien Tremont.
+\textit{Jobtech --- dépôt GitHub du projet}.
+Disponible sur : \url{https://github.com/julientremont/Jobtech}
+
+\bibitem{projectcloudrepo}
+Antoine Vandeplanque.
+\textit{project\_cloud --- dépôt GitHub du projet}.
+Disponible sur : \url{https://github.com/antoinevdp/project_cloud}
+
+\bibitem{fizzbuzzrepo}
+Antoine Vandeplanque.
+\textit{fizzbuzz-Efrei --- dépôt GitHub du projet DevOps}.
+Disponible sur : \url{https://github.com/antoinevdp/fizzbuzz-Efrei}
+
+\bibitem{datasciencerepo}
+Antoine Vandeplanque.
+\textit{data\_science\_project --- dépôt GitHub du projet}.
+Disponible sur : \url{https://github.com/antoinevdp/data_science_project}
+
+\bibitem{s3}
+Amazon Web Services.
+\textit{Amazon S3 --- Cloud Object Storage}.
+Disponible sur : \url{https://aws.amazon.com/s3/}
+
+\bibitem{lambda}
+Amazon Web Services.
+\textit{AWS Lambda --- Serverless Compute}.
+Disponible sur : \url{https://aws.amazon.com/lambda/}
+
+\bibitem{apigateway}
+Amazon Web Services.
+\textit{Amazon API Gateway}.
+Disponible sur : \url{https://aws.amazon.com/api-gateway/}
+
+\bibitem{sklearn}
+scikit-learn developers.
+\textit{scikit-learn: Machine Learning in Python}.
+Disponible sur : \url{https://scikit-learn.org/}
+
+\bibitem{fastapi}
+FastAPI.
+\textit{FastAPI framework}.
+Disponible sur : \url{https://fastapi.tiangolo.com/}
+
+\bibitem{streamlit}
+Streamlit.
+\textit{Streamlit documentation}.
+Disponible sur : \url{https://streamlit.io/}
 
 \end{thebibliography}
 
