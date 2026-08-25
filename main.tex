@@ -243,7 +243,7 @@ données d'emploi tech à partir de six sources hétérogènes ; Le \textbf{proj
 plateforme serverless AWS de mobilité urbaine en temps réel ; Le \textbf{projet spark},
 pipeline Big Data distribué sur données aéronautiques ; \textbf{fizzbuzz Efrei},
 chaîne d'intégration et de déploiement continus conteneurisée ; et le
-\textbf{projet datas cience project}, système de maintenance prédictive industrielle par
+\textbf{projet data science project}, système de maintenance prédictive industrielle par
 apprentissage automatique. Le tableau ci-dessous récapitule leur rattachement aux
 blocs du référentiel.
 
@@ -254,11 +254,12 @@ blocs du référentiel.
 \rowcolor{tableHeader}
 \thead{Projet} & \thead{Domaine} & \thead{Blocs couverts} \\
 \midrule
-Jobtech & Agrégation de données d'emploi tech européen & Bloc 1 (principal), Bloc 5 \\
-project\_cloud & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
-projet\_spark & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
-fizzbuzz-Efrei & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
-data\_science\_project & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
+Jobtech~\cite{jobtechrepo} & Agrégation de données d'emploi tech européen & Bloc 1\\
+project\_cloud~\cite{projectcloudrepo} & Plateforme temps réel de mobilité (AWS) & Bloc 1 (NoSQL), Bloc 3, Bloc 5 \\
+projet\_spark~\cite{projet_spark} & Pipeline Big Data aéronautique US & Bloc 2 (principal) \\
+fizzbuzz-Efrei~\cite{fizzbuzzrepo} & Chaîne CI/CD et conteneurisation & Bloc 2 (DevOps) \\
+data\_science\_project~\cite{datasciencerepo} & Maintenance prédictive industrielle (ML) & Bloc 4 (principal) \\
+TP CarePlus~\cite{tp_careplus} & Gouvernance des données & Bloc 5\\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -399,8 +400,8 @@ RNCP36739\newline Bloc 5 &
 \subsection{Projets / TP associés}
 
 \begin{itemize}
-    \item Challenge Datalake 1 Data Integration
-    \item Project Cloud (No SQL)
+    \item Challenge Datalake 1 Data Integration~\cite{jobtechrepo}
+    \item Project Cloud (No SQL)~\cite{projectcloudrepo}
 \end{itemize}
 
 \subsection{Présentation des projets mobilisés}
@@ -749,12 +750,7 @@ du schéma, la dénormalisation, la montée en charge et la rapidité de lecture
 priment sur les contraintes d'un modèle SQL classique.
 
 \newpage
-\subsection{Analyse attendue}
-
-Mettez en avant la logique d'architecture de stockage retenue, la manière dont les
-sources hétérogènes sont intégrées dans une chaîne cohérente, l'adéquation entre
-les modèles de données choisis et les usages visés, ainsi que la capacité du projet
-à rendre les données accessibles via une API documentée et exploitable.
+\subsection{Synthèse — compétences démontrées}
 
 \subsubsection{Preuves d'acquisition des compétences}
 
@@ -863,11 +859,7 @@ Le schéma ci-dessous résume l'architecture technique du projet, depuis les deu
 sources d'entrée jusqu'à l'analyse des données et la prédiction grâce à un modèle
 de machine learning.
 
-\begin{center}
-    \includegraphics[width=0.98\textwidth]{assets/architecture.drawio.png}
-
-    {\small \textit{Figure 2 : Vue d'ensemble technique du projet Spark.}}
-\end{center}
+\figc{../assets/architecture.drawio.png}{0.98\textwidth}{Vue d'ensemble technique du projet Spark.}
 
 \paragraph{Couche Bronze : ingestion batch et streaming.}
 La première étape, la couche \textit{Bronze}, centralise les données brutes et correspond au point d'entrée technique du pipeline distribué. Elle reçoit des flux de natures différentes sans
@@ -911,11 +903,7 @@ query = flights_year_month_day.writeStream \
 
 Sur la capture d'écran ci-dessous, on voit l'interface Spark Streaming qui permet de suivre l'état des traitements en cours : 
 
-\begin{center}
-    \includegraphics[width=0.98\textwidth]{assets/spark_streaming_ui.png}
-
-    {\small \textit{Figure 3 : Capture d'écran de l'interface Spark Streaming.}}
-\end{center}
+\figc{../assets/spark_streaming_ui.png}{0.98\textwidth}{Capture d'écran de l'interface Spark Streaming.}
 
 \paragraph{Couche Silver : nettoyage, normalisation et mise en coherence.}
 La couche \textit{Silver} est portée principalement par \texttt{cleaning.py}. C'est
@@ -1033,11 +1021,7 @@ notre cas, cette base MariaDB était hébergée sur un Raspberry Pi, ce qui
 permettait d'exposer les tables Gold sur le réseau et de les rendre accessibles en
 ligne depuis d'autres postes.
 
-\begin{center}
-    \includegraphics[width=0.75\textwidth]{assets/spark-mysql-table.png}
-
-    {\small \textit{Figure 4 : Exemple de table dans MariaDB}}
-\end{center}
+\figc{../assets/spark-mysql-table.png}{0.75\textwidth}{Exemple de table dans MariaDB.}
 
 Ce choix a ensuite facilité l'intégration avec Power BI. Plutôt que de connecter
 l'outil de visualisation directement aux scripts Spark ou aux fichiers
@@ -1050,17 +1034,9 @@ dit, la couche Gold ne produit pas uniquement des résultats analytiques ; elle
 alimente aussi une interface de diffusion exploitable pour la visualisation, le
 reporting et la consultation en ligne.
 
-\begin{center}
-    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-1.png}
+\figc{../assets/powerbi-spark-1.png}{0.98\textwidth}{Dashboard Power BI.}
 
-    {\small \textit{Figure 5 : Dashboard Power BI}}
-\end{center}
-
-\begin{center}
-    \includegraphics[width=0.98\textwidth]{assets/powerbi-spark-2.png}
-
-    {\small \textit{Figure 6 : Dashboard Power BI}}
-\end{center}
+\figc{../assets/powerbi-spark-2.png}{0.98\textwidth}{Dashboard Power BI.}
 
 \paragraph{Dimension machine learning.}
 Le projet inclut également un script \texttt{ML.py}, qui prolonge la chaîne de
@@ -1071,6 +1047,7 @@ validation croisée. Cette partie n'est pas le coeur de la démonstration du blo
 mais elle montre que la chaîne Spark construite est suffisamment robuste pour
 servir ensuite à des traitements avancés sur données préparées.
 
+\newpage
 \subsubsection{Projet DevOps : fizzbuzz-Efrei}
 
 En complément du projet Spark, nous mobilisons également le dépôt
@@ -1117,11 +1094,7 @@ l'exécution de l'application et à préparer une chaîne de déploiement outill
 complémentaire des enjeux de traitement massif couverts par Spark.
 
 \newpage
-\subsection{Analyse attendue}
-
-Mettez en avant la conception des pipelines, le traitement distribue, les choix
-de performance, l'automatisation et la maniere dont vous avez deploie ou
-industrialise les traitements.
+\subsection{Synthèse — compétences démontrées}
 
 \subsubsection{Preuves d'acquisition des compétences}
 
@@ -3072,7 +3045,7 @@ Stratégie de sécurité et politique d'accès &
 \subsection{Fil conducteur --- du stockage à la valeur métier}
 
 Ce rapport a présenté cinq projets. Ensemble, ils couvrent tout le cycle de vie de
-la donnée, du stockage brut jusqu'à la décision~\cite{rncp}. Chaque couche --- Bronze,
+la donnée, du stockage brut jusqu'à la décision. Chaque couche --- Bronze,
 Silver, Gold --- transforme un peu plus la donnée. Chaque outil --- Spark, DynamoDB,
 Lambda, scikit-learn --- répond à un besoin précis.
 
@@ -3131,24 +3104,28 @@ Commission Nationale de l'Informatique et des Libertés (CNIL).
 Disponible sur : \url{https://www.cnil.fr/}.
 
 \bibitem{jobtechrepo}
-Julien Tremont.
 \textit{Jobtech --- dépôt GitHub du projet}.
 Disponible sur : \url{https://github.com/julientremont/Jobtech}
 
 \bibitem{projectcloudrepo}
-Antoine Vandeplanque.
 \textit{project\_cloud --- dépôt GitHub du projet}.
 Disponible sur : \url{https://github.com/antoinevdp/project_cloud}
 
+\bibitem{projet_spark}
+\textit{projet\_spark --- dépôt GitHub du projet}.
+Disponible sur : \url{https://github.com/antoinevdp/projet_spark}
+
 \bibitem{fizzbuzzrepo}
-Antoine Vandeplanque.
 \textit{fizzbuzz-Efrei --- dépôt GitHub du projet DevOps}.
 Disponible sur : \url{https://github.com/antoinevdp/fizzbuzz-Efrei}
 
 \bibitem{datasciencerepo}
-Antoine Vandeplanque.
 \textit{data\_science\_project --- dépôt GitHub du projet}.
 Disponible sur : \url{https://github.com/antoinevdp/data_science_project}
+
+\bibitem{tp_careplus}
+\textit{TP CarePlus --- dépôt Google Drive du projet}.
+Disponible sur : \url{https://drive.google.com/drive/folders/1wDChAo5atJhfB5BIuFBZmxS5UGn304Ry?usp=sharing}
 
 \bibitem{s3}
 Amazon Web Services.

@@ -33,7 +33,7 @@
 \contentsline {paragraph}{Modèle de données dénormalisé.}{13}{paragraph*.16}%
 \contentsline {paragraph}{Tables par flux métier.}{13}{paragraph*.17}%
 \contentsline {paragraph}{Patrons d'accès et indexation.}{13}{paragraph*.18}%
-\contentsline {subsection}{\numberline {4.4}Analyse attendue}{14}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.4}Synthèse — compétences démontrées}{14}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Preuves d'acquisition des compétences}{14}{subsubsection.4.4.1}%
 \contentsline {section}{\numberline {5}Bloc 2 -- Concevoir, developper et deployer une solution de traitement des données massives}{15}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Compétences visées}{15}{subsection.5.1}%
@@ -43,91 +43,91 @@
 \contentsline {paragraph}{Contexte et objectif fonctionnel.}{15}{paragraph*.19}%
 \contentsline {paragraph}{Sources de données et variété des flux.}{15}{paragraph*.20}%
 \contentsline {paragraph}{Architecture distribuée avec Spark.}{15}{paragraph*.21}%
-\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{16}{paragraph*.22}%
-\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{17}{paragraph*.23}%
-\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{18}{paragraph*.24}%
-\contentsline {paragraph}{Dimension machine learning.}{19}{paragraph*.25}%
-\contentsline {subsubsection}{\numberline {5.3.2}Projet DevOps : fizzbuzz-Efrei}{20}{subsubsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.4}Analyse attendue}{21}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}Preuves d'acquisition des compétences}{21}{subsubsection.5.4.1}%
-\contentsline {section}{\numberline {6}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{22}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Compétences visées}{22}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{22}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Contexte et enjeux}{22}{subsection.6.3}%
-\contentsline {subsubsection}{\numberline {6.3.1}Positionnement dans l'écosystème AWS}{22}{subsubsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.4}Architecture cloud}{23}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Stockage de données}{24}{subsection.6.5}%
-\contentsline {subsubsection}{\numberline {6.5.1}Stockage S3 --- data lake brutes horodaté}{24}{subsubsection.6.5.1}%
-\contentsline {subsubsection}{\numberline {6.5.2}DynamoDB --- modèle de données Silver}{25}{subsubsection.6.5.2}%
-\contentsline {subsubsection}{\numberline {6.5.3}Tables Gold DynamoDB}{26}{subsubsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.6}Pipelines et traitements de données}{26}{subsection.6.6}%
-\contentsline {subsubsection}{\numberline {6.6.1}Ingestion incrémentale depuis S3}{26}{subsubsection.6.6.1}%
-\contentsline {subsubsection}{\numberline {6.6.2}Ordonnancement sur EC2 avec crontab}{27}{subsubsection.6.6.2}%
-\contentsline {subsubsection}{\numberline {6.6.3}Agrégation analytique}{27}{subsubsection.6.6.3}%
-\contentsline {subsubsection}{\numberline {6.6.4}Mise à disposition --- Lambda et API Gateway}{27}{subsubsection.6.6.4}%
-\contentsline {paragraph}{Routage des 13 endpoints serverless.}{27}{paragraph*.30}%
-\contentsline {subsection}{\numberline {6.7}Sécurité des données}{29}{subsection.6.7}%
-\contentsline {subsubsection}{\numberline {6.7.1}Principe du moindre privilège (IAM)}{29}{subsubsection.6.7.1}%
-\contentsline {subsubsection}{\numberline {6.7.2}Chiffrement des données}{29}{subsubsection.6.7.2}%
-\contentsline {subsubsection}{\numberline {6.7.3}Évolution possible vers EventBridge}{30}{subsubsection.6.7.3}%
-\contentsline {subsection}{\numberline {6.8}Optimisation, supervision et coûts des solutions cloud}{30}{subsection.6.8}%
-\contentsline {subsubsection}{\numberline {6.8.1}Global Secondary Index --- requête O(1) sur le dernier snapshot}{30}{subsubsection.6.8.1}%
-\contentsline {subsubsection}{\numberline {6.8.2}Cold start et stratégies de mitigation}{31}{subsubsection.6.8.2}%
-\contentsline {subsubsection}{\numberline {6.8.3}Serverless contre serveur permanent}{31}{subsubsection.6.8.3}%
-\contentsline {subsubsection}{\numberline {6.8.4}Cycle de vie du stockage S3}{31}{subsubsection.6.8.4}%
-\contentsline {subsubsection}{\numberline {6.8.5}Supervision CloudWatch}{32}{subsubsection.6.8.5}%
-\contentsline {subsection}{\numberline {6.9}Synthèse --- compétences démontrées}{32}{subsection.6.9}%
-\contentsline {subsubsection}{\numberline {6.9.1}Preuves d'acquisition des compétences}{32}{subsubsection.6.9.1}%
-\contentsline {section}{\numberline {7}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{33}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Compétences visées}{33}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Contexte et enjeux}{33}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Architecture et cycle de vie du modèle}{33}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Analyse exploratoire et compréhension métier}{34}{subsection.7.4}%
-\contentsline {subsubsection}{\numberline {7.4.1}Exploration des données}{35}{subsubsection.7.4.1}%
-\contentsline {subsection}{\numberline {7.5}Préparation des données et pipeline de transformation}{36}{subsection.7.5}%
-\contentsline {subsubsection}{\numberline {7.5.1}Variables explicatives et cibles}{36}{subsubsection.7.5.1}%
-\contentsline {subsubsection}{\numberline {7.5.2}Le pipeline de transformation : ColumnTransformer}{36}{subsubsection.7.5.2}%
-\contentsline {subsection}{\numberline {7.6}Entraînement comparatif et sélection du modèle}{38}{subsection.7.6}%
-\contentsline {subsubsection}{\numberline {7.6.1}Architecture du benchmark}{38}{subsubsection.7.6.1}%
-\contentsline {subsubsection}{\numberline {7.6.2}Modèles candidats}{38}{subsubsection.7.6.2}%
-\contentsline {subsubsection}{\numberline {7.6.3}Le modèle vainqueur : HistGradientBoostingClassifier}{38}{subsubsection.7.6.3}%
-\contentsline {subsection}{\numberline {7.7}Résultats et évaluation}{39}{subsection.7.7}%
-\contentsline {subsubsection}{\numberline {7.7.1}Tâche 1 --- Classification binaire \texttt {failure\_within\_24h}}{39}{subsubsection.7.7.1}%
-\contentsline {subsubsection}{\numberline {7.7.2}Tâche 2 --- Classification multiclasse \texttt {failure\_type} (5 classes)}{40}{subsubsection.7.7.2}%
-\contentsline {subsubsection}{\numberline {7.7.3}Interprétabilité --- importance des variables}{40}{subsubsection.7.7.3}%
-\contentsline {subsubsection}{\numberline {7.7.4}Analyse des erreurs --- matrice de confusion}{41}{subsubsection.7.7.4}%
-\contentsline {subsection}{\numberline {7.8}Mise en service et communication des résultats}{43}{subsection.7.8}%
-\contentsline {subsubsection}{\numberline {7.8.1}API de prédiction --- FastAPI}{43}{subsubsection.7.8.1}%
-\contentsline {subsubsection}{\numberline {7.8.2}Tableau de bord interactif --- Streamlit}{43}{subsubsection.7.8.2}%
-\contentsline {subsubsection}{\numberline {7.8.3}Qualité logicielle et reproductibilité}{44}{subsubsection.7.8.3}%
-\contentsline {subsection}{\numberline {7.9}Robustesse, limites et axes d'amélioration}{45}{subsection.7.9}%
-\contentsline {subsubsection}{\numberline {7.9.1}Validation : split stratifié et perspective k-fold}{45}{subsubsection.7.9.1}%
-\contentsline {subsubsection}{\numberline {7.9.2}Limites de l'interprétabilité par permutation}{45}{subsubsection.7.9.2}%
-\contentsline {subsubsection}{\numberline {7.9.3}Axes d'amélioration}{45}{subsubsection.7.9.3}%
-\contentsline {subsection}{\numberline {7.10}Synthèse --- compétences démontrées}{45}{subsection.7.10}%
-\contentsline {subsubsection}{\numberline {7.10.1}Preuves d'acquisition des compétences}{45}{subsubsection.7.10.1}%
-\contentsline {section}{\numberline {8}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{46}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Compétences visées}{46}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Contexte et enjeux}{46}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}projet cloud --- gouvernance d'une plateforme cloud de données ouvertes}{48}{subsection.8.3}%
-\contentsline {subsubsection}{\numberline {8.3.1}Contexte et périmètre}{48}{subsubsection.8.3.1}%
-\contentsline {subsubsection}{\numberline {8.3.2}Analyse de l'existant : cartographie et faiblesses}{48}{subsubsection.8.3.2}%
-\contentsline {subsubsection}{\numberline {8.3.3}Rôles, responsabilités et matrice RACI}{48}{subsubsection.8.3.3}%
-\contentsline {subsubsection}{\numberline {8.3.4}Classification des données et positionnement RGPD}{49}{subsubsection.8.3.4}%
-\contentsline {subsubsection}{\numberline {8.3.5}Politique de sécurité et gestion des accès}{49}{subsubsection.8.3.5}%
-\contentsline {subsubsection}{\numberline {8.3.6}Traçabilité, data lineage et zones de données}{50}{subsubsection.8.3.6}%
-\contentsline {subsubsection}{\numberline {8.3.7}Suivi : indicateurs de performance et amélioration continue}{51}{subsubsection.8.3.7}%
-\contentsline {subsubsection}{\numberline {8.3.8}Vue d'ensemble de l'organisation de gouvernance}{51}{subsubsection.8.3.8}%
-\contentsline {subsection}{\numberline {8.4}CarePlus --- audit de la qualité des données}{52}{subsection.8.4}%
-\contentsline {subsubsection}{\numberline {8.4.1}Contexte et méthodologie}{52}{subsubsection.8.4.1}%
-\contentsline {subsubsection}{\numberline {8.4.2}Profiling et détection des anomalies}{52}{subsubsection.8.4.2}%
-\contentsline {subsubsection}{\numberline {8.4.3}Les cinq anomalies les plus graves}{52}{subsubsection.8.4.3}%
-\contentsline {subsubsection}{\numberline {8.4.4}Scoring pondéré et effet des corrections automatiques}{53}{subsubsection.8.4.4}%
-\contentsline {subsubsection}{\numberline {8.4.5}Règles de qualité et plan de remédiation}{53}{subsubsection.8.4.5}%
-\contentsline {subsection}{\numberline {8.5}Synthèse --- compétences démontrées}{54}{subsection.8.5}%
-\contentsline {subsubsection}{\numberline {8.5.1}Preuves d'acquisition des compétences}{54}{subsubsection.8.5.1}%
-\contentsline {section}{\numberline {9}Conclusion}{55}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Fil conducteur --- du stockage à la valeur métier}{55}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Progression observée sur deux années}{55}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Prise de recul --- limites et axes d'amélioration}{55}{subsection.9.3}%
-\contentsline {subsection}{\numberline {9.4}Ouverture}{55}{subsection.9.4}%
+\contentsline {paragraph}{Couche Bronze : ingestion batch et streaming.}{16}{paragraph*.23}%
+\contentsline {paragraph}{Couche Silver : nettoyage, normalisation et mise en coherence.}{17}{paragraph*.25}%
+\contentsline {paragraph}{Couche Gold : jointures analytiques et restitution.}{18}{paragraph*.26}%
+\contentsline {paragraph}{Dimension machine learning.}{20}{paragraph*.30}%
+\contentsline {subsubsection}{\numberline {5.3.2}Projet DevOps : fizzbuzz-Efrei}{21}{subsubsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.4}Synthèse — compétences démontrées}{22}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Preuves d'acquisition des compétences}{22}{subsubsection.5.4.1}%
+\contentsline {section}{\numberline {6}Bloc 3 -- Implementer et optimiser des solutions de stockage et de traitement de données sur le cloud}{23}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Compétences visées}{23}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Projets / TP associes}{23}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Contexte et enjeux}{23}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Positionnement dans l'écosystème AWS}{23}{subsubsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.4}Architecture cloud}{24}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Stockage de données}{25}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Stockage S3 --- data lake brutes horodaté}{25}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}DynamoDB --- modèle de données Silver}{26}{subsubsection.6.5.2}%
+\contentsline {subsubsection}{\numberline {6.5.3}Tables Gold DynamoDB}{27}{subsubsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.6}Pipelines et traitements de données}{27}{subsection.6.6}%
+\contentsline {subsubsection}{\numberline {6.6.1}Ingestion incrémentale depuis S3}{27}{subsubsection.6.6.1}%
+\contentsline {subsubsection}{\numberline {6.6.2}Ordonnancement sur EC2 avec crontab}{28}{subsubsection.6.6.2}%
+\contentsline {subsubsection}{\numberline {6.6.3}Agrégation analytique}{28}{subsubsection.6.6.3}%
+\contentsline {subsubsection}{\numberline {6.6.4}Mise à disposition --- Lambda et API Gateway}{28}{subsubsection.6.6.4}%
+\contentsline {paragraph}{Routage des 13 endpoints serverless.}{28}{paragraph*.35}%
+\contentsline {subsection}{\numberline {6.7}Sécurité des données}{30}{subsection.6.7}%
+\contentsline {subsubsection}{\numberline {6.7.1}Principe du moindre privilège (IAM)}{30}{subsubsection.6.7.1}%
+\contentsline {subsubsection}{\numberline {6.7.2}Chiffrement des données}{30}{subsubsection.6.7.2}%
+\contentsline {subsubsection}{\numberline {6.7.3}Évolution possible vers EventBridge}{31}{subsubsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.8}Optimisation, supervision et coûts des solutions cloud}{31}{subsection.6.8}%
+\contentsline {subsubsection}{\numberline {6.8.1}Global Secondary Index --- requête O(1) sur le dernier snapshot}{31}{subsubsection.6.8.1}%
+\contentsline {subsubsection}{\numberline {6.8.2}Cold start et stratégies de mitigation}{32}{subsubsection.6.8.2}%
+\contentsline {subsubsection}{\numberline {6.8.3}Serverless contre serveur permanent}{32}{subsubsection.6.8.3}%
+\contentsline {subsubsection}{\numberline {6.8.4}Cycle de vie du stockage S3}{32}{subsubsection.6.8.4}%
+\contentsline {subsubsection}{\numberline {6.8.5}Supervision CloudWatch}{33}{subsubsection.6.8.5}%
+\contentsline {subsection}{\numberline {6.9}Synthèse --- compétences démontrées}{33}{subsection.6.9}%
+\contentsline {subsubsection}{\numberline {6.9.1}Preuves d'acquisition des compétences}{33}{subsubsection.6.9.1}%
+\contentsline {section}{\numberline {7}Bloc 4 -- Implementer des methodes d'intelligence artificielle}{34}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Compétences visées}{34}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Contexte et enjeux}{34}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Architecture et cycle de vie du modèle}{34}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Analyse exploratoire et compréhension métier}{35}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}Exploration des données}{36}{subsubsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.5}Préparation des données et pipeline de transformation}{37}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.5.1}Variables explicatives et cibles}{37}{subsubsection.7.5.1}%
+\contentsline {subsubsection}{\numberline {7.5.2}Le pipeline de transformation : ColumnTransformer}{37}{subsubsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.6}Entraînement comparatif et sélection du modèle}{39}{subsection.7.6}%
+\contentsline {subsubsection}{\numberline {7.6.1}Architecture du benchmark}{39}{subsubsection.7.6.1}%
+\contentsline {subsubsection}{\numberline {7.6.2}Modèles candidats}{39}{subsubsection.7.6.2}%
+\contentsline {subsubsection}{\numberline {7.6.3}Le modèle vainqueur : HistGradientBoostingClassifier}{39}{subsubsection.7.6.3}%
+\contentsline {subsection}{\numberline {7.7}Résultats et évaluation}{40}{subsection.7.7}%
+\contentsline {subsubsection}{\numberline {7.7.1}Tâche 1 --- Classification binaire \texttt {failure\_within\_24h}}{40}{subsubsection.7.7.1}%
+\contentsline {subsubsection}{\numberline {7.7.2}Tâche 2 --- Classification multiclasse \texttt {failure\_type} (5 classes)}{41}{subsubsection.7.7.2}%
+\contentsline {subsubsection}{\numberline {7.7.3}Interprétabilité --- importance des variables}{41}{subsubsection.7.7.3}%
+\contentsline {subsubsection}{\numberline {7.7.4}Analyse des erreurs --- matrice de confusion}{42}{subsubsection.7.7.4}%
+\contentsline {subsection}{\numberline {7.8}Mise en service et communication des résultats}{44}{subsection.7.8}%
+\contentsline {subsubsection}{\numberline {7.8.1}API de prédiction --- FastAPI}{44}{subsubsection.7.8.1}%
+\contentsline {subsubsection}{\numberline {7.8.2}Tableau de bord interactif --- Streamlit}{44}{subsubsection.7.8.2}%
+\contentsline {subsubsection}{\numberline {7.8.3}Qualité logicielle et reproductibilité}{45}{subsubsection.7.8.3}%
+\contentsline {subsection}{\numberline {7.9}Robustesse, limites et axes d'amélioration}{46}{subsection.7.9}%
+\contentsline {subsubsection}{\numberline {7.9.1}Validation : split stratifié et perspective k-fold}{46}{subsubsection.7.9.1}%
+\contentsline {subsubsection}{\numberline {7.9.2}Limites de l'interprétabilité par permutation}{46}{subsubsection.7.9.2}%
+\contentsline {subsubsection}{\numberline {7.9.3}Axes d'amélioration}{46}{subsubsection.7.9.3}%
+\contentsline {subsection}{\numberline {7.10}Synthèse --- compétences démontrées}{46}{subsection.7.10}%
+\contentsline {subsubsection}{\numberline {7.10.1}Preuves d'acquisition des compétences}{46}{subsubsection.7.10.1}%
+\contentsline {section}{\numberline {8}Bloc 5 -- Concevoir une strategie de management et de gouvernance de données pour transformer les données en informations creatrices de valeur}{47}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Compétences visées}{47}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Contexte et enjeux}{47}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}projet cloud --- gouvernance d'une plateforme cloud de données ouvertes}{49}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Contexte et périmètre}{49}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}Analyse de l'existant : cartographie et faiblesses}{49}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Rôles, responsabilités et matrice RACI}{49}{subsubsection.8.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.4}Classification des données et positionnement RGPD}{50}{subsubsection.8.3.4}%
+\contentsline {subsubsection}{\numberline {8.3.5}Politique de sécurité et gestion des accès}{50}{subsubsection.8.3.5}%
+\contentsline {subsubsection}{\numberline {8.3.6}Traçabilité, data lineage et zones de données}{51}{subsubsection.8.3.6}%
+\contentsline {subsubsection}{\numberline {8.3.7}Suivi : indicateurs de performance et amélioration continue}{52}{subsubsection.8.3.7}%
+\contentsline {subsubsection}{\numberline {8.3.8}Vue d'ensemble de l'organisation de gouvernance}{52}{subsubsection.8.3.8}%
+\contentsline {subsection}{\numberline {8.4}CarePlus --- audit de la qualité des données}{53}{subsection.8.4}%
+\contentsline {subsubsection}{\numberline {8.4.1}Contexte et méthodologie}{53}{subsubsection.8.4.1}%
+\contentsline {subsubsection}{\numberline {8.4.2}Profiling et détection des anomalies}{53}{subsubsection.8.4.2}%
+\contentsline {subsubsection}{\numberline {8.4.3}Les cinq anomalies les plus graves}{53}{subsubsection.8.4.3}%
+\contentsline {subsubsection}{\numberline {8.4.4}Scoring pondéré et effet des corrections automatiques}{54}{subsubsection.8.4.4}%
+\contentsline {subsubsection}{\numberline {8.4.5}Règles de qualité et plan de remédiation}{54}{subsubsection.8.4.5}%
+\contentsline {subsection}{\numberline {8.5}Synthèse --- compétences démontrées}{55}{subsection.8.5}%
+\contentsline {subsubsection}{\numberline {8.5.1}Preuves d'acquisition des compétences}{55}{subsubsection.8.5.1}%
+\contentsline {section}{\numberline {9}Conclusion}{56}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Fil conducteur --- du stockage à la valeur métier}{56}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Progression observée sur deux années}{56}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Prise de recul --- limites et axes d'amélioration}{56}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Ouverture}{56}{subsection.9.4}%
